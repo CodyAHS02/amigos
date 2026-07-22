@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigos Immo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LOADER -->
+    <div class="loader">
+
+        <div class="loader-door loader-door-left"></div>
+        <div class="loader-door loader-door-right"></div>
+
+        <div class="loader-counter">
+            <span id="loaderCount">0</span><span class="loader-percent">%</span>
+        </div>
+
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <div class="hero-media">
+            <video id="heroVideo" muted playsinline preload="auto">
+                <source src="hero_scrub2.mp4" type="video/mp4">
+            </video>
+
+            <canvas id="paintCanvas"></canvas>
+            <div class="paint-icons">
+                <div class="paint-focus"></div>
+
+                <!-- LEFT -->
+                <div class="paint-point left" data-wall="left-wall">
+                    <button class="paint-trigger">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M3 7h13v3H3zm12 0h5v3h-5zm-2 3v5l2 2v2h-2l-2-2v-7z" fill="currentColor" />
+                        </svg>
+                    </button>
+
+                    <div class="palette">
+                        <span data-color="#F5F3ED" style="--c:#F5F3ED"></span>
+                        <span data-color="#D8CCB4" style="--c:#D8CCB4"></span>
+                        <span data-color="#A6B09A" style="--c:#A6B09A"></span>
+                        <span data-color="#8D98A4" style="--c:#8D98A4"></span>
+                        <span data-color="#5C6771" style="--c:#5C6771"></span>
+                    </div>
+                </div>
+
+
+                <!-- FRONT -->
+
+                <div class="paint-point front" data-wall="front-wall">
+
+                    <button class="paint-trigger">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M3 7h13v3H3zm12 0h5v3h-5zm-2 3v5l2 2v2h-2l-2-2v-7z" fill="currentColor" />
+
+                        </svg>
+
+                    </button>
+
+                    <div class="palette">
+
+                        <span data-color="#F5F3ED" style="--c:#F5F3ED"></span>
+                        <span data-color="#D8CCB4" style="--c:#D8CCB4"></span>
+                        <span data-color="#A6B09A" style="--c:#A6B09A"></span>
+                        <span data-color="#8D98A4" style="--c:#8D98A4"></span>
+                        <span data-color="#5C6771" style="--c:#5C6771"></span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT -->
+
+                <div class="paint-point right" data-wall="right-wall">
+
+                    <button class="paint-trigger">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M3 7h13v3H3zm12 0h5v3h-5zm-2 3v5l2 2v2h-2l-2-2v-7z" fill="currentColor" />
+
+                        </svg>
+
+                    </button>
+
+                    <div class="palette">
+
+                        <span data-color="#F5F3ED" style="--c:#F5F3ED"></span>
+                        <span data-color="#D8CCB4" style="--c:#D8CCB4"></span>
+                        <span data-color="#A6B09A" style="--c:#A6B09A"></span>
+                        <span data-color="#8D98A4" style="--c:#8D98A4"></span>
+                        <span data-color="#5C6771" style="--c:#5C6771"></span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CEILING -->
+
+                <div class="paint-point ceiling" data-wall="ceiling">
+
+                    <button class="paint-trigger">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M3 7h13v3H3zm12 0h5v3h-5zm-2 3v5l2 2v2h-2l-2-2v-7z" fill="currentColor" />
+
+                        </svg>
+
+                    </button>
+
+                    <div class="palette">
+
+                        <span data-color="#F5F3ED" style="--c:#F5F3ED"></span>
+                        <span data-color="#D8CCB4" style="--c:#D8CCB4"></span>
+                        <span data-color="#A6B09A" style="--c:#A6B09A"></span>
+                        <span data-color="#8D98A4" style="--c:#8D98A4"></span>
+                        <span data-color="#5C6771" style="--c:#5C6771"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="hero-overlay">
+
+            <!-- INTRO TITLE -->
+
+            <h1 class="intro-title">
+                AMIGO IMMOS
+                <br>
+                <span>Transforming properties with expert painting, professional renovations, <br /> and real estate
+                    solutions
+                    designed to enhance value, beauty, and lasting impressions.</span>
+            </h1>
+
+
+            <!-- HEADER -->
+
+            <header class="hero-header">
+
+                <a class="logo" href="#">
+                    <img src="assets/logo.png">
+                </a>
+
+                <nav class="hero-nav">
+
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Painting</a>
+                    <a href="#">Renovations</a>
+                    <a href="#">Property Value Preservation</a>
+                    <a href="#">Projects</a>
+
+                </nav>
+
+                <a class="header-btn">
+                    Contact Now
+                </a>
+
+                <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+            </header>
+
+
+            <!-- HERO CONTENT -->
+
+            <div class="hero-content">
+                <div class="content-glow"></div>
+
+                <h1>
+
+                    Your Partner For <br /> Property Value Preservation
+
+                </h1>
+                <div class="hero-buttons">
+
+                    <a class="btn-primary">
+
+                        Free Consultation
+
+                    </a>
+
+                    <a class="btn-secondary">
+
+                        View Projects
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- AUDIENCE BAR -->
+    <section class="audience-wrap">
+        <div class="audience-bar">
+
+            <div class="audience-left">
+                <h3>Built for every kind of owner</h3>
+                <p>Whichever role you're in, we tailor property care to how you actually use the space.</p>
+            </div>
+
+            <div class="audience-right">
+                <span class="item">For Homeowners</span>
+                <span class="divider">|</span>
+                <span class="item">For Property Managers</span>
+                <span class="divider">|</span>
+                <span class="item">For Investors</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WHY AMIGOS SECTION -->
+    <section class="why-amigos">
+
+        <div class="why-container">
+
+            <!-- LEFT -->
+
+            <div class="why-content reveal">
+
+                <span class="section-tag">Why Amigos?</span>
+
+                <h2>
+                    Renovations built on
+                    <span>experience, trust,</span>
+                    and craftsmanship.
+                </h2>
+
+                <p>
+                    From residential renovations to commercial transformations,
+                    we focus on delivering exceptional quality, transparent
+                    communication, and results that stand the test of time.
+                </p>
+
+                <a href="#" class="why-btn">
+                    Discover More
+                </a>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="stats-column">
+
+                <div class="stat reveal">
+                    <h3 class="counter" data-target="500">0</h3>
+                    <span>Completed Projects</span>
+                </div>
+
+                <div class="stat reveal">
+                    <h3 class="counter" data-target="100">0</h3>
+                    <span>Satisfied Clients</span>
+                </div>
+
+                <div class="stat reveal">
+                    <h3 class="counter" data-target="10">0</h3>
+                    <span>Years Experience</span>
+                </div>
+
+                <div class="stat reveal">
+                    <h3 class="counter" data-target="6000">0</h3>
+                    <span>m² Renovated</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services-section">
+
+        <div class="services-container">
+
+            <!-- LEFT CONTENT -->
+
+            <div class="services-top">
+
+                <div class="services-heading">
+
+                    <span class="section-tag">
+                        Our Services
+                    </span>
+
+                    <h2>
+                        Complete property
+                        solutions,
+                        <span>crafted with precision.</span>
+                    </h2>
+
+                </div>
+
+                <div class="services-side">
+
+                    <p>
+                        Whether it's a complete renovation, luxury painting,
+                        drywall installation or long-term property maintenance,
+                        Amigos delivers craftsmanship that protects and elevates
+                        your investment.
+                    </p>
+
+                    <a href="#" class="services-btn">
+                        Explore Services
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- SERVICES PANELS -->
+
+            <div class="services-panels">
+
+                <!-- 01 -->
+
+                <a href="#" class="service-panel active">
+
+                    <img src="assets/services/pexels-kseniachernaya-5691592.jpg" alt="Painting">
+
+                    <div class="panel-overlay"></div>
+
+                    <div class="panel-content">
+
+                        <div class="panel-header">
+
+                            <span class="service-number">
+                                01
+                            </span>
+
+                            <h3>
+                                Painting
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <p>
+                                Interior & exterior painting with premium finishes.
+                            </p>
+
+                            <div class="panel-btn">
+                                Explore Service
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- 02 -->
+
+                <a href="#" class="service-panel">
+
+                    <img src="assets/services/pexels-ai25studioai-5493673.jpg" alt="Drywall">
+
+                    <div class="panel-overlay"></div>
+
+                    <div class="panel-content">
+
+                        <div class="panel-header">
+
+                            <span class="service-number">
+                                02
+                            </span>
+
+                            <h3>
+                                Drywall
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <p>
+                                Professional drywall installation and repair.
+                            </p>
+
+                            <div class="panel-btn">
+                                Explore Service
+                            </div>
+
+                        </div>
+
+                    </div>
+                </a>
+
+
+                <!-- 03 -->
+
+                <a href="#" class="service-panel">
+
+                    <img src="assets/services/beeki-cancellation-22471_1920.jpg" alt="Renovations">
+
+                    <div class="panel-overlay"></div>
+
+                    <div class="panel-content">
+
+                        <div class="panel-header">
+
+                            <span class="service-number">
+                                03
+                            </span>
+
+                            <h3>
+                                Renovations
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <p>
+                                Modern renovation solutions for every property.
+                            </p>
+
+                            <div class="panel-btn">
+                                Explore Service
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- 04 -->
+
+                <a href="#" class="service-panel">
+
+                    <img src="assets/services/pexels-dmitry93-32114413.jpg" alt="Facade Restoration">
+
+                    <div class="panel-overlay"></div>
+
+                    <div class="panel-content">
+
+                        <div class="panel-header">
+
+                            <span class="service-number">
+                                04
+                            </span>
+
+                            <h3>
+                                Facade Restoration
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <p>
+                                Restore beauty while preserving architectural value.
+                            </p>
+
+                            <div class="panel-btn">
+                                Explore Service
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- 05 -->
+
+                <a href="#" class="service-panel">
+
+                    <img src="assets/services/pexels-tr-n-chinh-587690133-20666871.jpg" alt="Apartment Preparation">
+
+                    <div class="panel-overlay"></div>
+
+                    <div class="panel-content">
+
+                        <div class="panel-header">
+
+                            <span class="service-number">
+                                05
+                            </span>
+
+                            <h3>
+                                Appartment Preparation
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <p>
+                                Get properties ready for sale or new tenants.
+                            </p>
+
+                            <div class="panel-btn">
+                                Explore Service
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- 06 -->
+
+                <a href="#" class="service-panel">
+
+                    <img src="assets/services/pexels-kseniachernaya-5691513.jpg" alt="Property Maintenance">
+
+                    <div class="panel-overlay"></div>
+
+                    <div class="panel-content">
+
+                        <div class="panel-header">
+
+                            <span class="service-number">
+                                06
+                            </span>
+
+                            <h3>
+                                Property Maintenance
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <p>
+                                Reliable scheduled maintenance for every property.
+                            </p>
+
+                            <div class="panel-btn">
+                                Explore Service
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- 07 -->
+
+                <a href="#" class="service-panel">
+
+                    <img src="assets/services/pexels-amine-kubranur-cakiroglu-689611212-37919681.jpg"
+                        alt="Property Value Preservation">
+
+                    <div class="panel-overlay"></div>
+
+                    <div class="panel-content">
+
+                        <div class="panel-header">
+
+                            <span class="service-number">
+                                07
+                            </span>
+
+                            <h3>
+                                Property Value Preservation
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <p>
+                                Protect and increase long-term property value.
+                            </p>
+
+                            <div class="panel-btn">
+                                Explore Service
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+                <!-- 08 -->
+
+                <a href="#" class="service-panel">
+
+                    <img src="assets/services/pexels-kindelmedia-7579138.jpg" alt="Investment Property Support">
+
+                    <div class="panel-overlay"></div>
+
+                    <div class="panel-content">
+
+                        <div class="panel-header">
+
+                            <span class="service-number">
+                                08
+                            </span>
+
+                            <h3>
+                                Investment Property Support
+                            </h3>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <p>
+                                Dedicated renovation and maintenance for investors.
+                            </p>
+
+                            <div class="panel-btn">
+                                Explore Service
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- AI SECTION -->
+    <section class="ai-section">
+
+        <div class="ai-container">
+
+            <!--==========================
+                TOP
+        ===========================-->
+
+            <div class="ai-top">
+
+                <div class="ai-heading">
+
+                    <span class="section-tag">
+                        AI PROPERTY VISUALIZER
+                    </span>
+
+                    <h2>
+                        Visualize Your Property
+                        <span>Before You Paint.</span>
+                    </h2>
+
+                </div>
+
+                <div class="ai-side">
+
+                    <p>
+                        Upload a photo of your facade, living room,
+                        bedroom, office or kitchen and instantly explore
+                        different paint colors, materials and finishes
+                        before making a decision.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!--==========================
+                WORKSPACE
+        ===========================-->
+
+            <div class="ai-workspace">
+
+                <!--==========================
+                    LEFT PANEL
+            ===========================-->
+
+                <div class="upload-panel">
+
+                    <input type="file" id="roomUpload" accept="image/*" hidden>
+
+                    <div class="upload-area">
+
+                        <div class="upload-icon">
+
+                            ⬆
+
+                        </div>
+
+                        <h3>
+
+                            Upload Your Photo
+
+                        </h3>
+
+                        <p>
+
+                            Drag & Drop or choose an image
+
+                        </p>
+
+                        <button class="upload-btn" type="button">
+
+                            Choose Image
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!--==========================
+                    RIGHT PANEL
+            ===========================-->
+
+                <div class="preview-panel">
+
+                    <!-- Header -->
+
+                    <div class="preview-header">
+
+                        <div class="preview-toggle">
+
+                            <button class="toggle-btn active" data-view="before">
+
+                                Before
+
+                            </button>
+
+                            <button class="toggle-btn" data-view="after">
+
+                                After
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Preview -->
+
+                    <div class="preview-stage">
+
+                        <div class="preview-empty">
+
+                            <div class="preview-empty-icon">
+
+                                🏠
+
+                            </div>
+
+                            <h3>
+
+                                AI Preview Ready
+
+                            </h3>
+
+                            <p>
+
+                                Upload an image to begin.
+
+                            </p>
+
+                        </div>
+
+
+
+                        <div class="preview-images">
+
+                            <img class="preview-before" src="" alt="Before">
+
+                            <img class="preview-after" src="" alt="After">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!--==========================
+                        COLOR PALETTES
+                ===========================-->
+
+                    <div class="palette-wrapper">
+
+                        <h4>
+
+                            Paint Colors
+
+                        </h4>
+
+                        <div class="palette-grid">
+
+                            <button class="paletteAI" data-color="#F5F3EE">
+
+                                <span style="background:#F5F3EE;"></span>
+
+                                Warm White
+
+                            </button>
+
+                            <button class="paletteAI" data-color="#D8C7AE">
+
+                                <span style="background:#D8C7AE;"></span>
+
+                                Sand Beige
+
+                            </button>
+
+                            <button class="paletteAI" data-color="#CFCFD0">
+
+                                <span style="background:#CFCFD0;"></span>
+
+                                Soft Grey
+
+                            </button>
+
+                            <button class="paletteAI" data-color="#404040">
+
+                                <span style="background:#404040;"></span>
+
+                                Graphite
+
+                            </button>
+
+                            <button class="paletteAI" data-color="#3D4E44">
+
+                                <span style="background:#3D4E44;"></span>
+
+                                Olive
+
+                            </button>
+
+                            <button class="paletteAI" data-color="#3E5067">
+
+                                <span style="background:#3E5067;"></span>
+
+                                Navy
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!--==========================
+                        ACTIONS
+                ===========================-->
+
+                    <div class="ai-actions">
+
+                        <button class="generate-btn" disabled>
+
+                            Generate AI Visualization
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- QUOTE CALCULATOR -->
+    <section class="quote-section">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="assets/bg-video.mp4" type="video/mp4">
+        </video>
+
+        <div class="quote-container">
+
+            <!--==========================
+                TOP
+        ==========================-->
+
+            <div class="quote-top">
+
+                <div class="quote-heading">
+
+                    <span class="section-tag">
+                        AI QUOTATION CALCULATOR
+                    </span>
+
+                    <h2>
+                        Instant Price
+                        <span>Calculator</span>
+                    </h2>
+
+                </div>
+
+                <div class="quote-side">
+
+                    <p>
+                        Customize your project, choose materials and finishes,
+                        and receive an instant estimated price, duration and
+                        recommended package before booking an inspection.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!--==========================
+                MAIN
+        ==========================-->
+
+            <div class="quote-workspace">
+
+                <!--==========================
+                    LEFT
+            ==========================-->
+
+                <div class="quote-form">
+
+                    <!-- Property -->
+
+                    <div class="field">
+
+                        <label>Property Type</label>
+
+                        <select id="propertyType">
+
+                            <option value="">Select Property</option>
+
+                            <option>Apartment</option>
+
+                            <option>House</option>
+
+                            <option>Villa</option>
+
+                            <option>Office</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Rooms -->
+
+                    <div class="field">
+
+                        <label>Rooms</label>
+
+                        <div class="counter">
+
+                            <button class="counter-btn minus">
+
+                                −
+
+                            </button>
+
+                            <span id="roomCount">
+
+                                1
+
+                            </span>
+
+                            <button class="counter-btn plus">
+
+                                +
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Square Meter -->
+
+                    <div class="field">
+
+                        <label>
+
+                            Square Meters
+
+                        </label>
+
+                        <input type="range" id="sqmRange" min="20" max="500" value="80">
+
+                        <div class="range-value">
+
+                            <span id="sqmValue">
+
+                                80
+
+                            </span>
+
+                            m²
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Paint -->
+
+                    <div class="field">
+
+                        <label>Paint Quality</label>
+
+                        <select id="paintQuality">
+
+                            <option>Standard</option>
+
+                            <option>Premium</option>
+
+                            <option>Luxury</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Options -->
+
+                    <!-- Additional Services -->
+
+                    <div class="field">
+
+                        <label>
+
+                            Additional Services
+
+                        </label>
+
+                        <div class="option-grid">
+
+                            <label class="option">
+
+                                <input type="checkbox" value="walls">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Walls</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="ceiling">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Ceiling</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="wallpaper">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Wallpaper</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="facade">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Facade</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="repairs">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Repairs</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="drywall">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Drywall</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="finish">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Premium Finish</span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!--==========================
+                    RIGHT
+            ==========================-->
+
+                <div class="estimate-card">
+
+                    <span class="estimate-tag">
+
+                        LIVE ESTIMATE
+
+                    </span>
+
+                    <div class="estimate-item">
+
+                        <small>
+
+                            Estimated Price
+
+                        </small>
+
+                        <h3>
+
+                            €
+
+                            <span id="estimatedPrice">
+
+                                3,250
+
+                            </span>
+
+                        </h3>
+
+                    </div>
+
+
+
+                    <div class="estimate-item">
+
+                        <small>
+
+                            Estimated Duration
+
+                        </small>
+
+                        <h4>
+
+                            <span id="estimatedDays">
+
+                                4
+
+                            </span>
+
+                            Days
+
+                        </h4>
+
+                    </div>
+
+
+
+                    <div class="estimate-item">
+
+                        <small>
+
+                            Recommended Package
+
+                        </small>
+
+                        <div class="package-badge" id="recommendedPackage">
+
+                            BASIC
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!--==========================
+                        SUMMARY
+                ==========================-->
+
+                    <div class="quote-summary">
+
+                        <h5>
+
+                            Project Summary
+
+                        </h5>
+
+                        <ul id="summaryList">
+
+                            <li>Apartment</li>
+
+                            <li>1 Room</li>
+
+                            <li>80 m²</li>
+
+                            <li>Standard Paint</li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <!--==========================
+                        CTA
+                ==========================-->
+
+                    <a href="#" class="quote-btn">
+
+                        Book Free Inspection
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+SELECTED PROJECTS
+================================================== -->
+
+    <section class="projects">
+
+        <div class="projects-heading">
+
+            <span class="eyebrow">
+                SELECTED PROJECTS
+            </span>
+
+            <h2>
+
+                Crafted spaces
+                that redefine
+                modern living.
+
+            </h2>
+
+            <p>
+
+                Every project is designed around the people who live there —
+                combining Swiss precision, timeless materials and timeless architecture.
+
+            </p>
+
+        </div>
+
+
+        <div class="projects-gallery">
+
+            <!-- =================== 01 =================== -->
+
+            <article class="project-card">
+
+                <div class="project-image">
+
+                    <img src="assets/projects/project-01.jpg" alt="Luxury Villa">
+
+                </div>
+
+                <div class="project-info">
+
+                    <span>Zurich</span>
+
+                    <h3>Modern Family Villa</h3>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================== 02 =================== -->
+
+            <article class="project-card">
+
+                <div class="project-image">
+
+                    <img src="assets/projects/project-02.jpg" alt="Luxury Residence">
+
+                </div>
+
+                <div class="project-info">
+
+                    <span>Geneva</span>
+
+                    <h3>Lake View Residence</h3>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================== 03 =================== -->
+
+            <article class="project-card">
+
+                <div class="project-image">
+
+                    <img src="assets/projects/project-03.jpg" alt="Swiss House">
+
+                </div>
+
+                <div class="project-info">
+
+                    <span>Lausanne</span>
+
+                    <h3>Contemporary Residence</h3>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================== 04 =================== -->
+
+            <article class="project-card">
+
+                <div class="project-image">
+
+                    <img src="assets/projects/project-04.jpg" alt="Luxury Chalet">
+
+                </div>
+
+                <div class="project-info">
+
+                    <span>Zermatt</span>
+
+                    <h3>Alpine Chalet</h3>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================== 05 =================== -->
+
+            <article class="project-card">
+
+                <div class="project-image">
+
+                    <img src="assets/projects/project-05.jpg" alt="Luxury Villa">
+
+                </div>
+
+                <div class="project-info">
+
+                    <span>Basel</span>
+
+                    <h3>Vision Mansion</h3>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================== 06 =================== -->
+
+            <article class="project-card">
+
+                <div class="project-image">
+
+                    <img src="assets/projects/project-06.jpg" alt="Modern Home">
+
+                </div>
+
+                <div class="project-info">
+
+                    <span>Bern</span>
+
+                    <h3>Eli House Corner Plot</h3>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- PLANS SECTION -->
+    <section class="plans-pin">
+        <div class="plans-head">
+            <span class="plans-eyebrow">Property Maintenance Plan</span>
+            <h2>Property Value Preservation on a New Level</h2>
+        </div>
+
+        <!-- SLIDE 1 — BASIC (static base of the stack) -->
+        <div class="plan-slide" data-slide="0">
+            <div class="plan-scrim"></div>
+            <div class="plan-content">
+                <div class="plan-counter">01 / 03</div>
+                <h3>Basic</h3>
+                <p class="plan-tagline">Essential upkeep, once a year.</p>
+                <ul class="plan-features">
+                    <li>Annual inspection</li>
+                    <li>Maintenance report</li>
+                    <li>Priority recommendations</li>
+                </ul>
+                <div class="plan-buttons">
+                    <a class="btn-plan-primary">Choose Basic</a>
+                    <a class="btn-plan-secondary">See Details</a>
+                </div>
+            </div>
+            <div class="plan-media ph-basic">
+                <div class="plan-media-img"></div>
+                <div class="plan-badge">
+                    <div class="num">3</div>
+                    <div class="label">services<br>included</div>
+                </div>
+                <div class="plan-pagination">
+                    <span class="plan-dot active"></span>
+                    <span class="plan-dot"></span>
+                    <span class="plan-dot"></span>
+                    <span class="plan-bar"><span class="plan-bar-fill"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2 — PLUS (slides up over slide 1) -->
+        <div class="plan-slide" data-slide="1">
+            <div class="plan-scrim"></div>
+            <div class="plan-content">
+                <div class="plan-counter">02 / 03</div>
+                <h3>Plus</h3>
+                <p class="plan-tagline">Proactive care, inside and out.</p>
+                <ul class="plan-features">
+                    <li>Interior &amp; exterior inspection</li>
+                    <li>Maintenance planning</li>
+                    <li>Discount on services</li>
+                    <li>Emergency support</li>
+                </ul>
+                <div class="plan-buttons">
+                    <a class="btn-plan-primary">Choose Plus</a>
+                    <a class="btn-plan-secondary">See Details</a>
+                </div>
+            </div>
+            <div class="plan-media ph-plus">
+                <div class="plan-media-img"></div>
+                <div class="plan-badge">
+                    <div class="num">4</div>
+                    <div class="label">services<br>included</div>
+                </div>
+                <div class="plan-pagination">
+                    <span class="plan-dot"></span>
+                    <span class="plan-dot active"></span>
+                    <span class="plan-dot"></span>
+                    <span class="plan-bar"><span class="plan-bar-fill"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3 — PREMIUM (slides up over slide 2) -->
+        <div class="plan-slide" data-slide="2">
+            <div class="plan-content">
+                <div class="plan-counter">03 / 03</div>
+                <h3>Premium</h3>
+                <p class="plan-tagline">Complete property management support.</p>
+                <ul class="plan-features">
+                    <li>Priority scheduling</li>
+                    <li>Personal advisor</li>
+                    <li>Long-term maintenance strategy</li>
+                    <li>Annual property review</li>
+                </ul>
+                <div class="plan-buttons">
+                    <a class="btn-plan-primary">Choose Premium</a>
+                    <a class="btn-plan-secondary">See Details</a>
+                </div>
+            </div>
+            <div class="plan-media ph-premium">
+                <div class="plan-media-img"></div>
+                <div class="plan-badge">
+                    <div class="num">4</div>
+                    <div class="label">services<br>included</div>
+                </div>
+                <div class="plan-pagination">
+                    <span class="plan-dot"></span>
+                    <span class="plan-dot"></span>
+                    <span class="plan-dot active"></span>
+                    <span class="plan-bar"><span class="plan-bar-fill"></span></span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- TESTIMONIALS -->
+
+    <section class="testimonials">
+
+        <div class="testimonial-orb"></div>
+
+        <div class="testimonial-center">
+
+            <span class="testimonial-kicker">
+                TESTIMONIALS
+            </span>
+
+            <h2>
+                Trusted by<br>
+                Swiss Homeowners.
+            </h2>
+
+            <div class="rating">
+
+                ★★★★★
+
+                <span>4.9 / 5 Average Rating</span>
+
+            </div>
+
+            <a href="#" class="review-btn">
+
+                Read All Reviews →
+
+            </a>
+
+        </div>
+
+
+
+        <!-- Floating Reviews -->
+
+        <div class="review-card card1">
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+
+                "Professional from inspection to completion.
+                Everything exceeded expectations."
+
+            </p>
+
+            <h4>Daniel Müller</h4>
+
+            <span>Zurich</span>
+
+        </div>
+
+
+
+        <div class="review-card card2">
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+
+                "Fast communication and flawless finishing.
+                Highly recommended."
+
+            </p>
+
+            <h4>Sarah Weber</h4>
+
+            <span>Bern</span>
+
+        </div>
+
+
+
+        <div class="review-card card3">
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+
+                "The AI inspection saved us thousands.
+                Amazing experience."
+
+            </p>
+
+            <h4>Lucas Frei</h4>
+
+            <span>Geneva</span>
+
+        </div>
+
+
+
+        <div class="review-card card4">
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+
+                "Everything felt transparent from day one."
+
+            </p>
+
+            <h4>Emma Keller</h4>
+
+            <span>Basel</span>
+
+        </div>
+
+
+
+        <div class="review-card card5">
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+
+                "Beautiful renovation.
+                Better than we imagined."
+
+            </p>
+
+            <h4>Sophia Baumann</h4>
+
+            <span>Lugano</span>
+
+        </div>
+
+
+
+        <div class="review-card card6">
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+
+                "Couldn't have chosen a better company."
+
+            </p>
+
+            <h4>Marco Steiner</h4>
+
+            <span>Lausanne</span>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="footer-wordmark">
+            <span class="eyebrow">Amigo</span>
+            <h2>IMMOS</h2>
+        </div>
+
+        <div class="footer-meta">
+
+            <div class="footer-meta-left">
+                <span>© 2026 Amigos Immo. All rights reserved.</span>
+            </div>
+
+            <div class="footer-meta-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <span>License No. CH-RE-2026-00000</span>
+            </div>
+
+            <div class="footer-meta-right">
+                <span>Amigos Maler</span>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

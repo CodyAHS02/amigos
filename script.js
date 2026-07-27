@@ -1107,480 +1107,408 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-// TESTIMONIALS JS
-gsap.registerPlugin(ScrollTrigger);
+/*==================================================
+    TESTIMONIALS — CONVEX ARC CAROUSEL
+==================================================== */
 
-/*=========================================================
-ELEMENTS
-=========================================================*/
+const TESTIMONIALS_DATA = [
+    { name: "Daniel Müller", city: "Zurich", quote: "Professional from inspection to completion. Everything exceeded expectations." },
+    { name: "Sarah Weber", city: "Bern", quote: "Fast communication and flawless finishing. Highly recommended." },
+    { name: "Lucas Frei", city: "Geneva", quote: "The AI inspection saved us thousands. Amazing experience." },
+    { name: "Emma Keller", city: "Basel", quote: "Everything felt transparent from day one." },
+    { name: "Sophia Baumann", city: "Lugano", quote: "Beautiful renovation. Better than we imagined." },
+    { name: "Marco Steiner", city: "Lausanne", quote: "Couldn't have chosen a better company." }
+];
 
-const section = document.querySelector(".testimonials");
-const cards = gsap.utils.toArray(".review-card");
-const orb = document.querySelector(".testimonial-orb");
-const btn = document.querySelector(".review-btn");
+document.addEventListener("DOMContentLoaded", () => {
 
+    const track = document.getElementById("carouselTrack");
+    const stage = document.getElementById("carouselStage");
+    const dotsEl = document.getElementById("carouselDots");
+    const prevBtn = document.getElementById("carouselPrev");
+    const nextBtn = document.getElementById("carouselNext");
 
-/*=========================================================
-MASTER REVEAL
-=========================================================*/
+    if (!track) return;
 
-const tl = gsap.timeline({
+    let activeIndex = 0;
+    const total = TESTIMONIALS_DATA.length;
 
-    scrollTrigger: {
+    /*==========================
+        BUILD CARDS + DOTS (once)
+    ==========================*/
 
-        trigger: section,
+    TESTIMONIALS_DATA.forEach((t, i) => {
 
-        start: "top 70%",
+        const card = document.createElement("div");
+        card.className = "testimonial-card";
+        card.dataset.index = i;
 
-        once: true
+        card.innerHTML = `
+            <div class="stars">★★★★★</div>
+            <p>"${t.quote}"</p>
+            <h4>${t.name}</h4>
+            <span class="city">${t.city}</span>
+        `;
+
+        card.addEventListener("click", () => {
+            // Only side cards (offset ±1) are meant to be clickable —
+            // the offset attribute is refreshed by updateCarousel().
+            const offset = parseInt(card.dataset.offset, 10);
+            if (Math.abs(offset) === 1) goTo(i);
+        });
+
+        track.appendChild(card);
+
+        const dot = document.createElement("button");
+        dot.className = "carousel-dot";
+        dot.addEventListener("click", () => goTo(i));
+        dotsEl.appendChild(dot);
+
+    });
+
+    const cardEls = track.querySelectorAll(".testimonial-card");
+    const dotEls = dotsEl.querySelectorAll(".carousel-dot");
+
+    /*==========================
+        POSITION CARDS ALONG THE CONVEX ARC
+        Offset is each card's distance from the active
+        index (circular, so it wraps both directions).
+        Only offsets -2..2 get a defined position; anything
+        further is parked off-screen and hidden.
+    ==========================*/
+
+    function shortestOffset(index) {
+
+        let diff = index - activeIndex;
+
+        if (diff > total / 2) diff -= total;
+        if (diff < -total / 2) diff += total;
+
+        return diff;
 
     }
 
-});
-
-tl
-
-    .from(".testimonial-kicker", {
-
-        y: 30,
-        opacity: 0,
-        duration: .6,
-        ease: "power3.out"
-
-    })
-
-    .from(".testimonial-center h2", {
-
-        y: 60,
-        opacity: 0,
-        duration: .9,
-        ease: "power4.out"
-
-    }, "-=.25")
-
-    .from(".rating", {
-
-        y: 30,
-        opacity: 0,
-        duration: .6
-
-    }, "-=.45")
-
-    .from(btn, {
-
-        y: 25,
-        opacity: 0,
-        duration: .55
-
-    }, "-=.45")
-
-    .from(cards, {
-
-        opacity: 0,
-        scale: .8,
-        y: 80,
-
-        stagger: {
-            each: .08,
-            from: "random"
-        },
-
-        duration: .9,
-
-        ease: "power4.out"
-
-    }, "-=.45")
-
-    .from(orb, {
-
-        opacity: 0,
-        scale: .4,
-        duration: 1.2,
-        ease: "power2.out"
-
-    }, "-=1");
-
-
-/*=========================================================
-FLOATING CARDS
-=========================================================*/
-
-cards.forEach((card, index) => {
-
-    gsap.to(card, {
-
-        y: gsap.utils.random(-18, 18),
-
-        x: gsap.utils.random(-12, 12),
-
-        rotation: `+=${gsap.utils.random(-2, 2)}`,
-
-        repeat: -1,
-
-        yoyo: true,
-
-        duration: gsap.utils.random(4, 7),
-
-        ease: "sine.inOut",
-
-        delay: index * .15
-
-    });
-
-});
-
-
-/*=========================================================
-ORB BREATH
-=========================================================*/
-
-gsap.to(orb, {
-
-    scale: 1.18,
-
-    opacity: .95,
-
-    duration: 5,
-
-    repeat: -1,
-
-    yoyo: true,
-
-    ease: "sine.inOut"
-
-});
-
-
-/*=========================================================
-PARALLAX
-=========================================================*/
-
-gsap.to(orb, {
-
-    y: -120,
-
-    ease: "none",
-
-    scrollTrigger: {
-
-        trigger: section,
-
-        start: "top bottom",
-
-        end: "bottom top",
-
-        scrub: true
-
-    }
-
-});
-
-
-/*=========================================================
-BUTTON MAGNETIC
-=========================================================*/
-
-btn.addEventListener("mousemove", e => {
-
-    const r = btn.getBoundingClientRect();
-
-    gsap.to(btn, {
-
-        x: (e.clientX - r.left - r.width / 2) * .18,
-
-        y: (e.clientY - r.top - r.height / 2) * .18,
-
-        duration: .3
-
-    });
-
-});
-
-btn.addEventListener("mouseleave", () => {
-
-    gsap.to(btn, {
-
-        x: 0,
-        y: 0,
-
-        duration: .6,
-
-        ease: "elastic.out(1,.45)"
-
-    });
-
-});
-
-
-/*=========================================================
-CARD HOVER
-=========================================================*/
-
-cards.forEach(card => {
-
-    card.addEventListener("mouseenter", () => {
-
-        cards.forEach(c => {
-
-            if (c !== card) {
-
-                gsap.to(c, {
-
-                    opacity: .28,
-
-                    scale: .95,
-
-                    duration: .35
-
-                });
-
+    function updateCarousel() {
+
+        cardEls.forEach((card, i) => {
+
+            const offset = shortestOffset(i);
+            card.dataset.offset = offset;
+
+            let transform, opacity, zIndex, pointerEvents;
+
+            if (offset === 0) {
+                // ACTIVE — front and center, closest to viewer
+                transform = "translate3d(0, 0, 0) rotateY(0deg) rotateZ(0deg) scale(1)";
+                opacity = 1;
+                zIndex = 30;
+                pointerEvents = "none";
+            } else if (Math.abs(offset) === 1) {
+                // NEIGHBORS — curve back and down (convex/dome effect),
+                // rotated slightly to face inward toward center
+                const dir = offset > 0 ? 1 : -1;
+                transform = `translate3d(${dir * 340}px, 60px, -180px) rotateY(${-dir * 20}deg) rotateZ(${dir * 3}deg) scale(.82)`;
+                opacity = .78;
+                zIndex = 20;
+                pointerEvents = "auto";
+            } else if (Math.abs(offset) === 2) {
+                // FAR CARDS — parked further out/back, invisible but
+                // positioned so the transition into view is smooth
+                const dir = offset > 0 ? 1 : -1;
+                transform = `translate3d(${dir * 600}px, 110px, -360px) rotateY(${-dir * 30}deg) scale(.62)`;
+                opacity = 0;
+                zIndex = 10;
+                pointerEvents = "none";
+            } else {
+                // Anything beyond ±2 just sits with the far-card values,
+                // fully hidden — only matters during fast repeated clicks
+                transform = "translate3d(0, 110px, -420px) scale(.5)";
+                opacity = 0;
+                zIndex = 5;
+                pointerEvents = "none";
             }
 
-        });
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        gsap.to(cards, {
-
-            opacity: 1,
-
-            scale: 1,
-
-            duration: .35
+            card.style.transform = transform;
+            card.style.opacity = opacity;
+            card.style.zIndex = zIndex;
+            card.style.pointerEvents = pointerEvents;
 
         });
 
-    });
-
-});
-
-
-/*=========================================================
-3D TILT
-=========================================================*/
-
-cards.forEach(card => {
-
-    card.addEventListener("mousemove", e => {
-
-        const r = card.getBoundingClientRect();
-
-        const px = (e.clientX - r.left) / r.width;
-
-        const py = (e.clientY - r.top) / r.height;
-
-        gsap.to(card, {
-
-            rotateY: (px - .5) * 12,
-
-            rotateX: (.5 - py) * 12,
-
-            duration: .35,
-
-            ease: "power2.out"
-
-        });
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        gsap.to(card, {
-
-            rotateX: 0,
-
-            rotateY: 0,
-
-            duration: .8,
-
-            ease: "elastic.out(1,.45)"
-
-        });
-
-    });
-
-});
-
-
-/*=========================================================
-ORB FOLLOW MOUSE
-=========================================================*/
-
-section.addEventListener("mousemove", e => {
-
-    const r = section.getBoundingClientRect();
-
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
-
-    gsap.to(orb, {
-
-        x: (x - r.width / 2) * .08,
-
-        y: (y - r.height / 2) * .08,
-
-        duration: 2,
-
-        ease: "power3.out"
-
-    });
-
-});
-
-// PROJECTS
-const projectCards = gsap.utils.toArray(".project-card");
-
-
-/*==========================================
-HEADING
-==========================================*/
-
-gsap.timeline({
-
-    scrollTrigger: {
-
-        trigger: ".projects-heading",
-
-        start: "top 80%"
+        dotEls.forEach((dot, i) => dot.classList.toggle("active", i === activeIndex));
 
     }
 
-})
+    function goTo(index) {
+        activeIndex = ((index % total) + total) % total; // wrap both directions
+        updateCarousel();
+    }
 
-    .from(".projects .eyebrow", {
+    prevBtn.addEventListener("click", () => goTo(activeIndex - 1));
+    nextBtn.addEventListener("click", () => goTo(activeIndex + 1));
 
-        y: 30,
-        opacity: 0,
-        duration: .5,
-        ease: "power3.out"
+    /*==========================
+        DRAG / SWIPE (touch + mouse)
+    ==========================*/
 
-    })
+    let dragStartX = 0;
+    let isDragging = false;
 
-    .from(".projects-heading h2", {
-
-        y: 60,
-        opacity: 0,
-        duration: .8,
-        ease: "power4.out"
-
-    }, "-=.2")
-
-    .from(".projects-heading p", {
-
-        y: 35,
-        opacity: 0,
-        duration: .7,
-        ease: "power3.out"
-
-    }, "-=.45");
-
-
-/*==========================================
-CARDS REVEAL
-==========================================*/
-
-projectCards.forEach(card => {
-
-    const img = card.querySelector(".project-image");
-    const info = card.querySelector(".project-info");
-
-    gsap.from(img, {
-        scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-        },
-        opacity: 0,
-        filter: "blur(25px)",
-        y: 80,
-        duration: 1,
-        ease: "power3.out",
-        clearProps: "all"
+    stage.addEventListener("pointerdown", (e) => {
+        isDragging = true;
+        dragStartX = e.clientX;
     });
 
-    gsap.from(info, {
-        scrollTrigger: {
-            trigger: card,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-        },
-        opacity: 0,
-        y: 25,
-        duration: .7,
-        delay: .2,
-        ease: "power2.out",
-        clearProps: "all"
+    stage.addEventListener("pointerup", (e) => {
+
+        if (!isDragging) return;
+        isDragging = false;
+
+        const delta = e.clientX - dragStartX;
+        const threshold = 60; // minimum px drag distance to count as a swipe
+
+        if (delta > threshold) goTo(activeIndex - 1);
+        else if (delta < -threshold) goTo(activeIndex + 1);
+
     });
+
+    stage.addEventListener("pointerleave", () => { isDragging = false; });
+
+    /*==========================
+        INITIAL RENDER
+    ==========================*/
+
+    updateCarousel();
 
 });
 
-/*==========================================
-IMAGE PARALLAX
-==========================================*/
+/*==================================================
+    PROJECTS SECTION — DATA-DRIVEN, NORMAL SCROLL
+==================================================== */
 
-projectCards.forEach(card => {
+const PROJECTS_DATA = [
 
-    const img = card.querySelector("img");
+    // ===== Properties for Sale =====
+    { category: "sale", image: "assets/projects/project-01.jpg", location: "Zurich", title: "Modern Family Villa" },
+    { category: "sale", image: "assets/projects/project-02.jpg", location: "Geneva", title: "Lake View Residence" },
+    { category: "sale", image: "assets/projects/project-03.jpg", location: "Lausanne", title: "Contemporary Residence" },
+    { category: "sale", image: "assets/projects/project-04.jpg", location: "Zermatt", title: "Alpine Chalet" },
+    { category: "sale", image: "assets/projects/project-05.jpg", location: "Basel", title: "Vision Mansion" },
+    { category: "sale", image: "assets/projects/project-06.jpg", location: "Bern", title: "Eli House Corner Plot" },
 
-    gsap.to(img, {
+    // ===== Properties for Purchase =====
+    { category: "purchase", image: "assets/projects/project-01.jpg", location: "Zurich", title: "Modern Family Villa" },
+    { category: "purchase", image: "assets/projects/project-02.jpg", location: "Geneva", title: "Lake View Residence" },
+    { category: "purchase", image: "assets/projects/project-03.jpg", location: "Lausanne", title: "Contemporary Residence" },
+    { category: "purchase", image: "assets/projects/project-04.jpg", location: "Zermatt", title: "Alpine Chalet" },
+    { category: "purchase", image: "assets/projects/project-05.jpg", location: "Basel", title: "Vision Mansion" },
+    { category: "purchase", image: "assets/projects/project-06.jpg", location: "Bern", title: "Eli House Corner Plot" },
 
-        yPercent: 10,
+    // ===== International Properties =====
+    { category: "international", image: "assets/projects/project-01.jpg", location: "Zurich", title: "Modern Family Villa" },
+    { category: "international", image: "assets/projects/project-02.jpg", location: "Geneva", title: "Lake View Residence" },
+    { category: "international", image: "assets/projects/project-03.jpg", location: "Lausanne", title: "Contemporary Residence" },
+    { category: "international", image: "assets/projects/project-04.jpg", location: "Zermatt", title: "Alpine Chalet" },
+    { category: "international", image: "assets/projects/project-05.jpg", location: "Basel", title: "Vision Mansion" },
+    { category: "international", image: "assets/projects/project-06.jpg", location: "Bern", title: "Eli House Corner Plot" }
 
-        ease: "none",
+];
 
-        scrollTrigger: {
+document.addEventListener("DOMContentLoaded", () => {
 
-            trigger: card,
+    const section = document.getElementById("projectsSection");
+    const gallery = document.getElementById("projectsGallery");
+    const dock = document.getElementById("projectsDock");
+    const indicator = document.getElementById("dockIndicator");
+    const tabs = document.querySelectorAll(".dock-tab");
 
-            start: "top bottom",
+    if (!section || !gallery) return;
 
-            end: "bottom top",
+    let currentCategory = "sale";
 
-            scrub: true
+    /*==========================
+        HERO-SCROLLED GATE
+        The dock must never appear until the user has
+        scrolled past the hero section — this flag is
+        checked before the dock is allowed to show.
+    ==========================*/
 
-        }
+    let heroScrolledPast = false;
 
+    ScrollTrigger.create({
+        trigger: ".hero",
+        start: "bottom top",
+        onEnter: () => heroScrolledPast = true,
+        onLeaveBack: () => heroScrolledPast = false
     });
 
-});
+    /*==========================
+        CARD RENDERING
+    ==========================*/
 
+    function buildCardHTML(project) {
+        return `
+            <article class="project-card" data-category="${project.category}">
+                <div class="project-image">
+                    <img src="${project.image}" alt="${project.title}">
+                </div>
+                <div class="project-info">
+                    <span>${project.location}</span>
+                    <h3>${project.title}</h3>
+                </div>
+            </article>
+        `;
+    }
 
-/*==========================================
-HOVER
-==========================================*/
+    function renderCategory(category) {
+        const matching = PROJECTS_DATA.filter(p => p.category === category);
+        gallery.innerHTML = matching.map(buildCardHTML).join("");
+    }
 
-projectCards.forEach(card => {
+    /*==========================
+        PER-CARD SCROLL REVEAL
+        Restored to the original, proven behavior: each
+        card's image + info fade/blur/slide in as it enters
+        the viewport (and reverse if scrolled back above),
+        plus the original subtle image parallax.
+    ==========================*/
 
-    const img = card.querySelector("img");
+    function applyCardAnimations() {
 
-    card.addEventListener("mouseenter", () => {
+        gallery.querySelectorAll(".project-card").forEach(card => {
 
-        gsap.to(img, {
+            const img = card.querySelector(".project-image");
+            const info = card.querySelector(".project-info");
+            const image = card.querySelector("img");
 
-            scale: 1.05,
+            gsap.from(img, {
+                scrollTrigger: { trigger: card, start: "top 85%", toggleActions: "play none none reverse" },
+                opacity: 0, filter: "blur(25px)", y: 80, duration: 1, ease: "power3.out", clearProps: "all"
+            });
 
-            duration: .6,
+            gsap.from(info, {
+                scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" },
+                opacity: 0, y: 25, duration: .7, delay: .2, ease: "power2.out", clearProps: "all"
+            });
 
-            ease: "power2.out"
+            gsap.to(image, {
+                yPercent: 10,
+                ease: "none",
+                scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: true }
+            });
+
+        });
+
+    }
+
+    /*==========================
+        SLIDING INDICATOR
+    ==========================*/
+
+    function moveIndicatorTo(tab) {
+
+        const dockRect = dock.getBoundingClientRect();
+        const tabRect = tab.getBoundingClientRect();
+
+        gsap.to(indicator, {
+            x: tabRect.left - dockRect.left - 8,
+            width: tabRect.width,
+            duration: .5,
+            ease: "power3.out"
+        });
+
+    }
+
+    /*==========================
+        CATEGORY SWITCHING
+    ==========================*/
+
+    function switchCategory(category) {
+
+        if (category === currentCategory) return;
+
+        const outgoing = gallery.querySelectorAll(".project-card");
+
+        gsap.to(outgoing, {
+            opacity: 0,
+            y: 20,
+            duration: .3,
+            ease: "power2.in",
+            onComplete: () => {
+
+                currentCategory = category;
+                renderCategory(category);
+                applyCardAnimations();
+
+                // New cards are usually already in/near view when
+                // switching tabs, so give them an immediate settle-in
+                // rather than waiting on their scroll triggers.
+                const incoming = gallery.querySelectorAll(".project-card");
+                gsap.set(incoming, { opacity: 0, y: 30 });
+                gsap.to(incoming, { opacity: 1, y: 0, duration: .5, stagger: .05, ease: "power3.out" });
+
+                ScrollTrigger.refresh();
+
+            }
+        });
+
+    }
+
+    tabs.forEach(tab => {
+
+        tab.addEventListener("click", () => {
+
+            tabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+
+            moveIndicatorTo(tab);
+            switchCategory(tab.dataset.filter);
 
         });
 
     });
 
-    card.addEventListener("mouseleave", () => {
+    /*==========================
+        INITIAL RENDER
+    ==========================*/
 
-        gsap.to(img, {
+    renderCategory(currentCategory);
+    applyCardAnimations();
+    requestAnimationFrame(() => moveIndicatorTo(document.querySelector(".dock-tab.active")));
 
-            scale: 1,
+    /*==========================
+        DOCK VISIBILITY — tied to the section's position
+        in the viewport, not to pinning. Fades/blurs in as
+        the section is approached, shrinks/fades out once
+        the section is scrolled past (either direction).
+    ==========================*/
 
-            duration: .6,
+    gsap.set(dock, { opacity: 0, y: 30, scale: .85, filter: "blur(14px)" });
 
-            ease: "power2.out"
-
+    function showDock() {
+        gsap.to(dock, {
+            opacity: 1, y: 0, scale: 1, filter: "blur(0px)",
+            duration: .6, ease: "power3.out",
+            onStart: () => dock.style.pointerEvents = "auto"
         });
+    }
 
+    function hideDock() {
+        gsap.to(dock, {
+            opacity: 0, y: 24, scale: .85, filter: "blur(14px)",
+            duration: .5, ease: "power2.in",
+            onStart: () => dock.style.pointerEvents = "none"
+        });
+    }
+
+    ScrollTrigger.create({
+        trigger: section,
+        start: "top 75%",
+        end: "bottom 20%",
+        onEnter: showDock,
+        onEnterBack: showDock,
+        onLeave: hideDock,
+        onLeaveBack: hideDock
     });
 
 });
@@ -1720,3 +1648,142 @@ ScrollTrigger.create({
         }, "-=.35");
 
 })();
+
+
+/*==================================================
+    CHATBOT WIDGET — UI SCAFFOLDING ONLY
+    Handles open/close + message rendering.
+    No AI/backend logic wired in yet — see the
+    "HOOK YOUR CHATBOT LOGIC HERE" comment below.
+==================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const widget = document.getElementById("chatbotWidget");
+    const toggleBtn = document.getElementById("chatbotToggle");
+    const closeBtn = document.getElementById("chatbotClose");
+    const body = document.getElementById("chatbotBody");
+    const form = document.getElementById("chatbotForm");
+    const input = document.getElementById("chatbotInput");
+
+    if (!widget) return;
+
+    let isOpen = false;
+
+    /*==========================
+        OPEN / CLOSE
+    ==========================*/
+
+    function openChat() {
+        isOpen = true;
+        widget.classList.add("open");
+        toggleBtn.setAttribute("aria-expanded", "true");
+        setTimeout(() => input?.focus(), 400);
+    }
+
+    function closeChat() {
+        isOpen = false;
+        widget.classList.remove("open");
+        toggleBtn.setAttribute("aria-expanded", "false");
+    }
+
+    function toggleChat() {
+        isOpen ? closeChat() : openChat();
+    }
+
+    toggleBtn.addEventListener("click", toggleChat);
+    closeBtn.addEventListener("click", closeChat);
+
+    // Close when clicking outside the widget
+    document.addEventListener("click", (e) => {
+        if (isOpen && !widget.contains(e.target)) closeChat();
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isOpen) closeChat();
+    });
+
+    /*==========================
+        MESSAGE RENDERING
+        Reusable helper — call this whenever a new
+        bot or user message needs to appear on screen.
+    ==========================*/
+
+    function addMessage(text, sender = "bot") {
+
+        const msg = document.createElement("div");
+        msg.className = `chatbot-message ${sender}`;
+
+        msg.innerHTML = sender === "bot"
+            ? `<img src="assets/chatbot-avatar.jpg" alt="" class="chatbot-msg-avatar"><div class="chatbot-bubble"></div>`
+            : `<div class="chatbot-bubble"></div>`;
+
+        msg.querySelector(".chatbot-bubble").textContent = text;
+
+        body.appendChild(msg);
+        body.scrollTop = body.scrollHeight;
+
+    }
+
+    /*==========================
+        FORM SUBMIT (placeholder)
+    ==========================*/
+
+    form.addEventListener("submit", (e) => {
+
+        e.preventDefault();
+
+        const text = input.value.trim();
+        if (!text) return;
+
+        addMessage(text, "user");
+        input.value = "";
+
+        // ------------------------------------------------
+        // HOOK YOUR CHATBOT LOGIC HERE.
+        // Replace this placeholder with a real call, e.g.:
+        //
+        //   sendToChatbotAPI(text).then(reply => {
+        //       addMessage(reply, "bot");
+        //   });
+        //
+        // For now it just echoes a static reply so the
+        // open/close + send flow is visibly working end-to-end.
+        // ------------------------------------------------
+
+        setTimeout(() => {
+            addMessage("Thanks for your message! (placeholder reply — connect real logic here)", "bot");
+        }, 600);
+
+    });
+
+});
+
+/*==================================================
+    SCROLL TO TOP BUTTON
+==================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    if (!scrollTopBtn) return;
+
+    ScrollTrigger.create({
+        trigger: ".hero",
+        start: "bottom top", // fires once the hero's bottom edge passes the top of the viewport
+        onEnter: () => scrollTopBtn.classList.add("visible"),
+        onLeaveBack: () => scrollTopBtn.classList.remove("visible")
+    });
+
+    scrollTopBtn.addEventListener("click", () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+        });
+
+    });
+
+});

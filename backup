@@ -1,0 +1,1030 @@
+    <!-- QUOTE CALCULATOR -->
+    <section class="quote-section">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="assets/bg-video.mp4" type="video/mp4">
+        </video>
+
+        <div class="quote-container">
+
+            <!--==========================
+                TOP
+        ==========================-->
+
+            <div class="quote-top">
+
+                <div class="quote-heading">
+
+                    <span class="section-tag">
+                        AI QUOTATION CALCULATOR
+                    </span>
+
+                    <h2>
+                        Instant Price
+                        <span>Calculator</span>
+                    </h2>
+
+                </div>
+
+                <div class="quote-side">
+
+                    <p>
+                        Customize your project, choose materials and finishes,
+                        and receive an instant estimated price, duration and
+                        recommended package before booking an inspection.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!--==========================
+                MAIN
+        ==========================-->
+
+            <div class="quote-workspace">
+
+                <!--==========================
+                    LEFT
+            ==========================-->
+
+                <div class="quote-form">
+
+                    <!-- Property -->
+
+                    <div class="field">
+
+                        <label>Property Type</label>
+
+                        <select id="propertyType">
+
+                            <option value="">Select Property</option>
+
+                            <option>Apartment</option>
+
+                            <option>House</option>
+
+                            <option>Villa</option>
+
+                            <option>Office</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Rooms -->
+
+                    <div class="field">
+
+                        <label>Rooms</label>
+
+                        <div class="counter">
+
+                            <button class="counter-btn minus">
+
+                                −
+
+                            </button>
+
+                            <span id="roomCount">
+
+                                1
+
+                            </span>
+
+                            <button class="counter-btn plus">
+
+                                +
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Square Meter -->
+
+                    <div class="field">
+
+                        <label>
+
+                            Square Meters
+
+                        </label>
+
+                        <input type="range" id="sqmRange" min="20" max="500" value="80">
+
+                        <div class="range-value">
+
+                            <span id="sqmValue">
+
+                                80
+
+                            </span>
+
+                            m²
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Paint -->
+
+                    <div class="field">
+
+                        <label>Paint Quality</label>
+
+                        <select id="paintQuality">
+
+                            <option>Standard</option>
+
+                            <option>Premium</option>
+
+                            <option>Luxury</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Options -->
+
+                    <!-- Additional Services -->
+
+                    <div class="field">
+
+                        <label>
+
+                            Additional Services
+
+                        </label>
+
+                        <div class="option-grid">
+
+                            <label class="option">
+
+                                <input type="checkbox" value="walls">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Walls</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="ceiling">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Ceiling</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="wallpaper">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Wallpaper</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="facade">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Facade</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="repairs">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Repairs</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="drywall">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Drywall</span>
+
+                            </label>
+
+                            <label class="option">
+
+                                <input type="checkbox" value="finish">
+
+                                <div class="option-check">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+
+                                    </svg>
+
+                                </div>
+
+                                <span>Premium Finish</span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!--==========================
+                    RIGHT
+            ==========================-->
+
+                <div class="estimate-card">
+
+                    <span class="estimate-tag">
+
+                        LIVE ESTIMATE
+
+                    </span>
+
+                    <div class="estimate-item">
+
+                        <small>
+
+                            Estimated Price
+
+                        </small>
+
+                        <h3>
+
+                            €
+
+                            <span id="estimatedPrice">
+
+                                3,250
+
+                            </span>
+
+                        </h3>
+
+                    </div>
+
+
+
+                    <div class="estimate-item">
+
+                        <small>
+
+                            Estimated Duration
+
+                        </small>
+
+                        <h4>
+
+                            <span id="estimatedDays">
+
+                                4
+
+                            </span>
+
+                            Days
+
+                        </h4>
+
+                    </div>
+
+
+
+                    <div class="estimate-item">
+
+                        <small>
+
+                            Recommended Package
+
+                        </small>
+
+                        <div class="package-badge" id="recommendedPackage">
+
+                            BASIC
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!--==========================
+                        SUMMARY
+                ==========================-->
+
+                    <div class="quote-summary">
+
+                        <h5>
+
+                            Project Summary
+
+                        </h5>
+
+                        <ul id="summaryList">
+
+                            <li>Apartment</li>
+
+                            <li>1 Room</li>
+
+                            <li>80 m²</li>
+
+                            <li>Standard Paint</li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <!--==========================
+                        CTA
+                ==========================-->
+
+                    <a href="#" class="quote-btn">
+
+                        Book Free Inspection
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+
+        <!-- AI SECTION -->
+    <section class="ai-section">
+
+        <div class="ai-container">
+
+            <!--==========================
+                TOP
+        ===========================-->
+
+            <div class="ai-top">
+
+                <div class="ai-heading">
+
+                    <span class="section-tag">
+                        AI PROPERTY VISUALIZER
+                    </span>
+
+                    <h2>
+                        Visualize Your Property
+                        <span>Before You Paint.</span>
+                    </h2>
+
+                </div>
+
+                <div class="ai-side">
+
+                    <p>
+                        Upload a photo of your facade, living room,
+                        bedroom, office or kitchen and instantly explore
+                        different paint colors, materials and finishes
+                        before making a decision.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!--==========================
+                WORKSPACE
+        ===========================-->
+
+            <div class="ai-workspace">
+
+                <!--==========================
+                    LEFT PANEL
+            ===========================-->
+
+                <div class="upload-panel">
+
+                    <input type="file" id="roomUpload" accept="image/*" hidden>
+
+                    <div class="upload-area">
+
+                        <div class="upload-icon">
+
+                            ⬆
+
+                        </div>
+
+                        <h3>
+
+                            Upload Your Photo
+
+                        </h3>
+
+                        <p>
+
+                            Drag & Drop or choose an image
+
+                        </p>
+
+                        <button class="upload-btn" type="button">
+
+                            Choose Image
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!--==========================
+                    RIGHT PANEL
+            ===========================-->
+
+                <div class="preview-panel">
+
+                    <!-- Header -->
+
+                    <div class="preview-header">
+
+                        <div class="preview-toggle">
+
+                            <button class="toggle-btn active" data-view="before">
+
+                                Before
+
+                            </button>
+
+                            <button class="toggle-btn" data-view="after">
+
+                                After
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Preview -->
+
+                    <div class="preview-stage">
+
+                        <div class="preview-empty">
+
+                            <div class="preview-empty-icon">
+
+                                🏠
+
+                            </div>
+
+                            <h3>
+
+                                AI Preview Ready
+
+                            </h3>
+
+                            <p>
+
+                                Upload an image to begin.
+
+                            </p>
+
+                        </div>
+
+
+
+                        <div class="preview-images">
+
+                            <img class="preview-before" src="" alt="Before">
+
+                            <img class="preview-after" src="" alt="After">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!--==========================
+                        COLOR PALETTES
+                ===========================-->
+
+                    <div class="palette-wrapper">
+
+                        <div class="option-tabs">
+                            <button class="option-tab active" data-mode="color" type="button">Paint Color</button>
+                            <button class="option-tab" data-mode="wallpaper" type="button">Wallpaper</button>
+                        </div>
+
+                        <!-- COLOR MODE -->
+                        <div class="option-panel color-panel active" data-panel="color">
+
+                            <div class="color-slider-wrap">
+                                <div class="color-slider" id="colorSlider">
+                                    <div class="color-slider-cursor" id="colorSliderCursor">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M17.5 3.5a2.6 2.6 0 0 1 3.68 3.68L9.5 18.86l-4.86 1.18 1.18-4.86L17.5 3.5Z"
+                                                stroke="#111" stroke-width="1.6" stroke-linejoin="round" fill="#fff" />
+                                            <path d="M14.5 6.5l3 3" stroke="#111" stroke-width="1.6" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="color-selected-row" id="colorSelectedRow">
+                                <span class="color-selected-swatch" id="colorSelectedSwatch"></span>
+                                <span class="color-selected-label">Your selected color <b
+                                        id="colorSelectedHex"></b></span>
+                            </div>
+
+                        </div>
+
+                        <!-- WALLPAPER MODE -->
+                        <div class="option-panel wallpaper-panel" data-panel="wallpaper">
+
+                            <div class="wallpaper-grid">
+
+                                <button class="wallpaperAI" data-wallpaper="assets/wallpapers/wallpaper-1.jpg"
+                                    type="button">
+                                    <img src="assets/wallpapers/wallpaper-1-thumb.jpg" alt="Textured Linen">
+                                    <span>Textured Linen</span>
+                                </button>
+
+                                <button class="wallpaperAI" data-wallpaper="assets/wallpapers/wallpaper-2.jpg"
+                                    type="button">
+                                    <img src="assets/wallpapers/wallpaper-2-thumb.jpg" alt="Botanical Leaf">
+                                    <span>Botanical Leaf</span>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ai-note">
+                            <p>Colors may vary slightly depending on lighting conditions in your photo.</p>
+                            <p>For the most accurate preview, upload a clear, high-quality image with good resolution.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+
+                    <!--==========================
+                        ACTIONS
+                ===========================-->
+
+                    <div class="ai-actions">
+
+                        <button class="generate-btn" disabled>
+
+                            Generate AI Visualization
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>F
+
+
+
+
+
+    /*==================================================
+            AI PROPERTY VISUALIZER
+==================================================*/
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const section = document.querySelector(".ai-section");
+
+    if (!section) return;
+
+    /*==================================================
+                ELEMENTS
+    ==================================================*/
+
+    const input = document.getElementById("roomUpload");
+
+    const uploadArea = document.querySelector(".upload-area");
+
+    const uploadBtn = document.querySelector(".upload-btn");
+
+    const previewEmpty = document.querySelector(".preview-empty");
+
+    const previewImages = document.querySelector(".preview-images");
+
+    const beforeImg = document.querySelector(".preview-before");
+
+    const afterImg = document.querySelector(".preview-after");
+
+    const palettes = document.querySelector(".palette-wrapper");
+
+    const paletteButtons = document.querySelectorAll(".palette");
+
+    const generateBtn = document.querySelector(".generate-btn");
+
+    const toggleButtons = document.querySelectorAll(".toggle-btn");
+
+
+
+    /*==================================================
+                SECTION REVEAL
+    ==================================================*/
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                section.classList.add("show");
+
+                observer.unobserve(section);
+
+            }
+
+        });
+
+    }, {
+
+        threshold: .2
+
+    });
+
+    observer.observe(section);
+
+
+
+    /*==================================================
+                OPEN FILE
+    ==================================================*/
+
+    uploadBtn.addEventListener("click", () => {
+
+        input.click();
+
+    });
+
+    uploadArea.addEventListener("click", () => {
+
+        input.click();
+
+    });
+
+
+
+    /*==================================================
+                IMAGE UPLOAD
+    ==================================================*/
+
+    input.addEventListener("change", (e) => {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        showImage(file);
+
+    });
+
+
+
+    /*==================================================
+                DRAG & DROP
+    ==================================================*/
+
+    uploadArea.addEventListener("dragover", (e) => {
+
+        e.preventDefault();
+
+        uploadArea.classList.add("dragover");
+
+    });
+
+    uploadArea.addEventListener("dragleave", () => {
+
+        uploadArea.classList.remove("dragover");
+
+    });
+
+    uploadArea.addEventListener("drop", (e) => {
+
+        e.preventDefault();
+
+        uploadArea.classList.remove("dragover");
+
+        const file = e.dataTransfer.files[0];
+
+        if (file) {
+
+            input.files = e.dataTransfer.files;
+
+            showImage(file);
+
+        }
+
+    });
+
+
+
+    /*==================================================
+                SHOW IMAGE
+    ==================================================*/
+
+    function showImage(file) {
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            beforeImg.src = event.target.result;
+
+            afterImg.src = event.target.result;
+
+            previewEmpty.style.display = "none";
+
+            previewImages.classList.add("show");
+
+            beforeImg.classList.add("active");
+
+            afterImg.classList.remove("active");
+
+            palettes.classList.add("show");
+
+            generateBtn.disabled = false;
+
+        }
+
+        reader.readAsDataURL(file);
+
+    }
+
+
+
+    /*==================================================
+            BEFORE / AFTER
+    ==================================================*/
+
+    toggleButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            toggleButtons.forEach(btn => btn.classList.remove("active"));
+
+            button.classList.add("active");
+
+            if (button.dataset.view === "before") {
+
+                beforeImg.classList.add("active");
+
+                afterImg.classList.remove("active");
+
+            } else {
+
+                beforeImg.classList.remove("active");
+
+                afterImg.classList.add("active");
+
+            }
+
+        });
+
+    });
+
+
+
+    /*==================================================
+            COLOR PALETTE
+    ==================================================*/
+
+    /*==================================================
+        TABS: color vs wallpaper (mutually exclusive)
+==================================================*/
+
+    const optionTabs = document.querySelectorAll(".option-tab");
+    const optionPanels = document.querySelectorAll(".option-panel");
+
+    optionTabs.forEach(tab => {
+
+        tab.addEventListener("click", () => {
+
+            optionTabs.forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+
+            optionPanels.forEach(p => {
+                p.classList.toggle("active", p.dataset.panel === tab.dataset.mode);
+            });
+
+        });
+
+    });
+
+    /*==================================================
+            COLOR SLIDER (hue bar + eyedropper pick)
+    ==================================================*/
+
+    const colorSlider = document.getElementById("colorSlider");
+    const colorCursor = document.getElementById("colorSliderCursor");
+    const colorSelectedRow = document.getElementById("colorSelectedRow");
+    const colorSelectedSwatch = document.getElementById("colorSelectedSwatch");
+    const colorSelectedHex = document.getElementById("colorSelectedHex");
+    const wallpaperButtons = document.querySelectorAll(".wallpaperAI");
+
+    function hslToHex(h, s, l) {
+
+        s /= 100; l /= 100;
+
+        const k = n => (n + h / 30) % 12;
+        const a = s * Math.min(l, 1 - l);
+
+        const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+
+        const toHex = x => Math.round(x * 255).toString(16).padStart(2, "0");
+
+        return `#${toHex(f(0))}${toHex(f(8))}${toHex(f(4))}`;
+
+    }
+
+    function pickColorAt(clientX) {
+
+        const rect = colorSlider.getBoundingClientRect();
+        const pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+        const hue = pct * 360;
+        const hex = hslToHex(hue, 100, 50);
+
+        colorCursor.style.left = `${pct * 100}%`;
+        colorCursor.classList.add("show");
+
+        colorSelectedSwatch.style.background = hex;
+        colorSelectedHex.textContent = hex.toUpperCase();
+        colorSelectedRow.classList.add("show");
+
+        // Clear any wallpaper selection — color and wallpaper are exclusive
+        wallpaperButtons.forEach(btn => btn.classList.remove("active"));
+
+        // Apply to preview, same approach as before
+        afterImg.style.backgroundImage = "none";
+        afterImg.style.background = hex;
+        afterImg.style.mixBlendMode = "multiply";
+        afterImg.style.opacity = ".88";
+        afterImg.style.transition = ".45s ease";
+
+    }
+
+    let sliderDragging = false;
+
+    colorSlider.addEventListener("mousedown", (e) => {
+        sliderDragging = true;
+        pickColorAt(e.clientX);
+    });
+
+    window.addEventListener("mousemove", (e) => {
+        if (sliderDragging) pickColorAt(e.clientX);
+    });
+
+    window.addEventListener("mouseup", () => { sliderDragging = false; });
+
+    colorSlider.addEventListener("touchstart", (e) => pickColorAt(e.touches[0].clientX));
+    colorSlider.addEventListener("touchmove", (e) => pickColorAt(e.touches[0].clientX));
+
+    /*==================================================
+            WALLPAPER SELECTION
+    ==================================================*/
+
+    wallpaperButtons.forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            wallpaperButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Clear any color selection — exclusive with wallpaper
+            colorCursor.classList.remove("show");
+            colorSelectedRow.classList.remove("show");
+
+            afterImg.style.background = "none";
+            afterImg.style.backgroundImage = `url(${btn.dataset.wallpaper})`;
+            afterImg.style.backgroundSize = "cover";
+            afterImg.style.mixBlendMode = "multiply";
+            afterImg.style.opacity = ".85";
+            afterImg.style.transition = ".45s ease";
+
+        });
+
+    });
+
+
+
+    /*==================================================
+            GENERATE BUTTON
+    ==================================================*/
+
+    generateBtn.addEventListener("click", () => {
+
+        generateBtn.innerHTML = "Generating...";
+
+        generateBtn.disabled = true;
+
+        setTimeout(() => {
+
+            generateBtn.innerHTML = "AI Preview Ready";
+
+        }, 1500);
+
+    });
+
+});

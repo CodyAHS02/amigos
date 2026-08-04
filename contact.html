@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMIGOS MALER | CONTACT</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
+
+    <header class="site-header">
+
+        <a class="logo" href="index.html">
+            <img src="assets/logo.png" alt="Amigos Maler">
+        </a>
+
+        <nav class="site-nav" id="siteNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html#services">Services</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+
+        <a href="tel:+41440000000" class="header-btn">Call Now</a>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
+
+    <!-- ==================================================
+         CONTACT HERO
+    ================================================== -->
+
+    <section class="contact-hero">
+
+        <div class="contact-hero-glow" id="cursorGlow"></div>
+
+        <div class="contact-hero-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="contact-hero-bg-text">CONTACT</div>
+
+        <div class="contact-hero-inner">
+
+            <span class="contact-eyebrow">GET IN TOUCH</span>
+
+            <h1>
+                Let's Talk About
+                <br>
+                <span>Your Next Project.</span>
+            </h1>
+
+            <p>
+                Whether it's a single room refresh or a full property transformation —
+                tell us what you're picturing and we'll take it from there.
+            </p>
+
+            <div class="contact-hero-buttons">
+
+                <a href="tel:+41440000000" class="magnetic-btn btn-glass-primary">
+                    <span>Call +41 44 000 00 00</span>
+                </a>
+
+                <a href="mailto:hello@amigosmaler.ch" class="magnetic-btn btn-glass-secondary">
+                    <span>Email Us</span>
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="contact-scroll-indicator">
+            <span></span>
+            <p>SCROLL</p>
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+         MARQUEE STRIP
+    ================================================== -->
+
+    <div class="marquee-strip">
+        <div class="marquee-track" id="marqueeTrack">
+            <span>FREE CONSULTATION</span><span class="dot">•</span>
+            <span>FAST RESPONSE</span><span class="dot">•</span>
+            <span>SWISS QUALITY</span><span class="dot">•</span>
+            <span>PROPERTY VALUE PRESERVATION</span><span class="dot">•</span>
+            <span>FREE CONSULTATION</span><span class="dot">•</span>
+            <span>FAST RESPONSE</span><span class="dot">•</span>
+            <span>SWISS QUALITY</span><span class="dot">•</span>
+            <span>PROPERTY VALUE PRESERVATION</span><span class="dot">•</span>
+        </div>
+    </div>
+
+    <!-- ==================================================
+         FORM + INFO
+    ================================================== -->
+
+    <section class="contact-main">
+
+        <div class="contact-main-wrapper">
+
+            <!-- FORM PANEL -->
+
+            <div class="contact-form-panel reveal">
+
+                <span class="section-tag">Send a message</span>
+                <h2>Tell us about your project</h2>
+
+                <form class="glass-form" id="contactForm">
+
+                    <div class="form-row">
+
+                        <div class="form-field">
+                            <input type="text" id="fieldName" placeholder=" " required>
+                            <label for="fieldName">Full name</label>
+                            <span class="field-underline"></span>
+                        </div>
+
+                        <div class="form-field">
+                            <input type="email" id="fieldEmail" placeholder=" " required>
+                            <label for="fieldEmail">Email address</label>
+                            <span class="field-underline"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-field">
+                            <input type="tel" id="fieldPhone" placeholder=" ">
+                            <label for="fieldPhone">Phone number</label>
+                            <span class="field-underline"></span>
+                        </div>
+
+                        <div class="form-field select-field">
+                            <select id="fieldService" required>
+                                <option value="" disabled selected></option>
+                                <option>Painting &amp; Renovations</option>
+                                <option>Facade Restoration</option>
+                                <option>Property Maintenance</option>
+                                <option>Something else</option>
+                            </select>
+                            <label for="fieldService">Service interested in</label>
+                            <span class="field-underline"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-field">
+                        <textarea id="fieldMessage" rows="4" placeholder=" " required></textarea>
+                        <label for="fieldMessage">Tell us a bit more</label>
+                        <span class="field-underline"></span>
+                    </div>
+
+                    <button type="submit" class="magnetic-btn form-submit-btn" id="formSubmitBtn">
+                        <span class="submit-label">Send Message</span>
+                        <span class="submit-check">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Sent!
+                        </span>
+                        <span class="submit-particles" id="submitParticles"></span>
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- INFO PANEL -->
+
+            <div class="contact-info-panel">
+
+                <div class="info-card tilt-card reveal">
+                    <div class="info-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h4>Call Us</h4>
+                    <p>Mon – Fri, 8am – 6pm</p>
+                    <button class="info-copy-btn" data-copy="+41 44 000 00 00">
+                        <span class="copy-value">+41 44 000 00 00</span>
+                        <span class="copy-feedback">Copied!</span>
+                    </button>
+                </div>
+
+                <div class="info-card tilt-card reveal">
+                    <div class="info-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
+                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="m22 6-10 7L2 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h4>Email Us</h4>
+                    <p>We reply within 24 hours</p>
+                    <button class="info-copy-btn" data-copy="hello@amigosmaler.ch">
+                        <span class="copy-value">hello@amigosmaler.ch</span>
+                        <span class="copy-feedback">Copied!</span>
+                    </button>
+                </div>
+
+                <div class="info-card tilt-card reveal">
+                    <div class="info-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor"
+                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.6" />
+                        </svg>
+                    </div>
+                    <h4>Visit Us</h4>
+                    <p>Bahnhofstrasse 12, 8001 Zürich, Switzerland</p>
+                </div>
+
+                <div class="info-card time-card reveal">
+                    <h4>Local Time in Zürich</h4>
+                    <div class="live-clock" id="liveClock">--:--:--</div>
+                    <span class="clock-status" id="clockStatus">
+                        <i class="clock-dot"></i> Checking availability…
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+         FAQ
+    ================================================== -->
+
+    <section class="contact-faq">
+
+        <div class="faq-wrapper">
+
+            <div class="faq-heading reveal">
+                <span class="section-tag">FAQ</span>
+                <h2>Common Questions</h2>
+            </div>
+
+            <div class="faq-list">
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span>How fast can you start a project?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most projects can begin within 1–2 weeks of your free inspection, depending on scope
+                            and current bookings. Urgent requests are handled case by case.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span>Do you provide free quotes?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes — every project starts with a free, no-obligation inspection and a transparent
+                            written estimate before any work begins.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span>What areas do you service?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We currently operate across the greater Zürich region and select surrounding
+                            cantons. Get in touch and we'll confirm coverage for your location.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span>Are your teams insured?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Every project is covered by full liability insurance, and our teams follow strict
+                            on-site safety and cleanliness standards throughout.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        <span>Can I book a maintenance plan instead of a one-off job?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely — our Basic, Plus and Premium property maintenance plans cover ongoing
+                            inspections and priority scheduling. Ask us which fits your property.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+         CLOSING CTA
+    ================================================== -->
+
+    <section class="contact-cta">
+        <div class="contact-cta-inner reveal">
+            <h2>Ready to see it painted?</h2>
+            <a href="index.html#quote" class="magnetic-btn btn-glass-dark">Get Your Free Quote</a>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-wordmark">
+            <span class="eyebrow">Gmbh</span>
+            <h2>AMIGOS MALER</h2>
+        </div>
+
+        <div class="footer-meta">
+
+            <div class="footer-meta-left">
+                <span>© 2026 Amigos Maler. All rights reserved.</span>
+            </div>
+
+            <div class="footer-meta-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <span>License No. CH-RE-2026-00000</span>
+            </div>
+
+            <div class="footer-meta-right">
+                <span>Amigos Maler</span>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="contact.js"></script>
+
+</body>
+
+</html>

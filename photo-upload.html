@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Upload | Amigos Maler</title>
+    <link rel="stylesheet" href="service.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+
+<body>
+
+    <section class="service-hero">
+        <!-- Background Image -->
+
+        <div class="about-hero-bg">
+
+            <img src="assets/services-imags/photo-upload.jpg" alt="Luxury Property">
+
+        </div>
+
+        <!-- Overlay -->
+
+        <div class="about-hero-overlay"></div>
+        <div class="service-hero-lines"><span></span><span></span><span></span></div>
+
+        <div class="serviceWrapper">
+            <div class="service-hero-content">
+                <span class="service-hero-eyebrow">TOOL — PHOTO UPLOAD</span>
+                <h1>Show Us The Space. We'll Take It From There.</h1>
+                <p>
+                    Upload a few photos of the room or facade you're working
+                    on, and skip straight to a scoped, photo-based estimate —
+                    often without needing a site visit first.
+                </p>
+                <div class="service-hero-buttons">
+                    <a href="#upload" class="btn-primary">Upload Photos Now</a>
+                    <a href="photo-analysis.html" class="btn-secondary">How Analysis Works</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-hero-bg-text">UPLOAD</div>
+        <div class="service-scroll-indicator"><span></span>
+            <p>SCROLL</p>
+        </div>
+    </section>
+
+    <section class="service-section">
+        <div class="service-section-wrapper">
+            <div class="service-section-heading">
+                <span>WHY IT MATTERS</span>
+                <h2>Fewer Site Visits, Faster First Estimates.</h2>
+                <p>Clear photos often tell us most of what we need to know before we ever step through the door.</p>
+            </div>
+            <div class="service-benefits-grid">
+                <div class="glass-card benefit-card">
+                    <h3>Instant</h3>
+                    <p>Photo-Based Scope Assessment</p>
+                </div>
+                <div class="glass-card benefit-card">
+                    <h3>Multiple</h3>
+                    <p>Photos Per Room Supported</p>
+                </div>
+                <div class="glass-card benefit-card">
+                    <h3>Secure</h3>
+                    <p>Upload, Reviewed By Our Team Only</p>
+                </div>
+                <div class="glass-card benefit-card">
+                    <h3>Faster</h3>
+                    <p>Quotes With Fewer Site Visits Needed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+            FUNCTIONAL UPLOAD WIDGET
+    ========================================= -->
+
+    <section class="service-section service-section-alt" id="upload">
+        <div class="service-section-wrapper">
+
+            <div class="service-section-heading">
+                <span>UPLOAD YOUR PHOTOS</span>
+                <h2>Drop Your Photos Here.</h2>
+                <p>JPG or PNG, up to 10 photos. Nothing is sent until you press submit.</p>
+            </div>
+
+            <div class="upload-box glass-card" id="uploadBox" style="opacity:1; transform:none; filter:none;">
+                <input type="file" id="photoInput" accept="image/*" multiple hidden>
+                <p class="upload-title">Drag & drop photos, or click to browse</p>
+                <p class="upload-sub">JPG or PNG, up to 10 photos</p>
+            </div>
+
+            <div class="upload-previews" id="uploadPreviews"></div>
+
+            <button type="button" class="btn-primary upload-submit" id="uploadSubmit" disabled>Submit Photos For
+                Review</button>
+
+        </div>
+    </section>
+
+    <section class="service-section">
+        <div class="service-section-wrapper">
+            <div class="service-section-heading">
+                <span>HOW IT WORKS</span>
+                <h2>Upload, Review, Quote.</h2>
+                <p>From photos to a scoped estimate, usually within a day.</p>
+            </div>
+            <div class="service-steps-grid">
+                <div class="glass-card step-card"><small>STEP 01</small>
+                    <h3>Take Or Choose Your Photos</h3>
+                    <p>A few clear, well-lit shots of the space are usually enough.</p>
+                </div>
+                <div class="glass-card step-card"><small>STEP 02</small>
+                    <h3>Upload Directly From This Page</h3>
+                    <p>Drag and drop or browse — no account or app required.</p>
+                </div>
+                <div class="glass-card step-card"><small>STEP 03</small>
+                    <h3>We Review And Follow Up</h3>
+                    <p>Our team reviews the photos and comes back with a scoped quote.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-cta">
+        <div class="service-cta-wrapper">
+            <h2>Skip The Wait — Upload Photos Now.</h2>
+            <p>A few photos is often all it takes to get your estimate moving.</p>
+            <a href="#upload" class="btn-primary">Upload Photos Now</a>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="service.js"></script>
+    <script src="photo-upload.js"></script>
+
+</body>
+
+</html>

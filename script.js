@@ -46,7 +46,7 @@ MOBILE NAV — ANIMATED REVEAL
 
 const hamburger = document.querySelector(".hamburger");
 const heroNav = document.querySelector(".hero-nav");
-const navLinks = gsap.utils.toArray(".hero-nav a");
+const navLinks = gsap.utils.toArray(".hero-nav > a, .hero-nav > .nav-dropdown > .dropdown-trigger");
 
 let navOpen = false;
 
@@ -82,18 +82,32 @@ hamburger?.addEventListener("click", () => {
 
 });
 
-navLinks.forEach(link => {
+// Dropdown toggle for mobile / touch devices
+const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
+dropdownTriggers.forEach(trigger => {
+    trigger.addEventListener("click", (e) => {
+        const parent = trigger.closest(".nav-dropdown");
+        if (window.innerWidth <= 991) {
+            e.preventDefault();
+            e.stopPropagation();
+            parent?.classList.toggle("open");
+        }
+    });
+});
+
+// Close mobile navigation drawer when clicking a final link
+document.querySelectorAll(".hero-nav a, .site-nav a").forEach(link => {
+    if (link.classList.contains("dropdown-trigger")) return;
 
     link.addEventListener("click", () => {
-
-        navOpen = false;
-        hamburger.classList.remove("active");
-        heroNav.classList.remove("open");
-        hamburger.setAttribute("aria-expanded", false);
-        navTl.reverse();
-
+        if (navOpen) {
+            navOpen = false;
+            hamburger?.classList.remove("active");
+            heroNav?.classList.remove("open");
+            hamburger?.setAttribute("aria-expanded", false);
+            navTl.reverse();
+        }
     });
-
 });
 
 // Prime the video (needed for iOS to render the first frame) —
@@ -384,108 +398,72 @@ function animateCounter(counter) {
 
 }
 
-// SERVICES JS
-/*=========================================
-        SERVICES PANEL INTERACTION
-=========================================*/
-
+// SERVICES JS (5x2 Viewport Expanding Grid)
 document.addEventListener("DOMContentLoaded", () => {
-
+    const panelsContainer = document.querySelector(".services-panels");
     const panels = document.querySelectorAll(".service-panel");
 
-    if (!panels.length) return;
+    if (!panelsContainer || !panels.length) return;
 
-    let activePanel = panels[0];
-    let isMobile = window.innerWidth <= 991;
+    let activeIndex = 0;
 
-    // First panel active
-    activePanel.classList.add("active");
+    function updateGrid(index) {
+        if (index < 0 || index >= panels.length) return;
+        activeIndex = index;
 
-    /*=========================
-        Activate Panel
-    =========================*/
+        const isDesktop = window.innerWidth > 991;
 
-    function activatePanel(panel) {
+        if (isDesktop) {
+            const activeCol = index % 5;
+            const activeRow = Math.floor(index / 5);
 
-        if (panel === activePanel) return;
+            for (let c = 0; c < 5; c++) {
+                panelsContainer.style.setProperty(`--c${c}`, c === activeCol ? "2.5fr" : "0.63fr");
+            }
+            for (let r = 0; r < 2; r++) {
+                panelsContainer.style.setProperty(`--r${r}`, r === activeRow ? "2.5fr" : "0.63fr");
+            }
+        }
 
-        activePanel.classList.remove("active");
-
-        panel.classList.add("active");
-
-        activePanel = panel;
-
-    }
-
-    /*=========================
-        Desktop Hover
-    =========================*/
-
-    function bindDesktop() {
-
-        panels.forEach(panel => {
-
-            panel.addEventListener("mouseenter", () => {
-
-                if (isMobile) return;
-
-                activatePanel(panel);
-
-            });
-
+        panels.forEach((panel, i) => {
+            if (i === index) {
+                panel.classList.add("active");
+            } else {
+                panel.classList.remove("active");
+            }
         });
-
     }
 
-    /*=========================
-        Mobile Click
-    =========================*/
+    panels.forEach((panel, index) => {
+        // Primary interaction: CLICK to activate and expand
+        panel.addEventListener("click", (e) => {
+            // Allow direct navigation if clicking the Explore Service button inside active panel
+            if (e.target.closest(".panel-btn")) {
+                return;
+            }
 
-    function bindMobile() {
-
-        panels.forEach(panel => {
-
-            panel.addEventListener("click", (e) => {
-
-                if (!isMobile) return;
-
+            // Expand panel on click if not already active
+            if (!panel.classList.contains("active")) {
                 e.preventDefault();
-
-                activatePanel(panel);
-
-            });
-
+                updateGrid(index);
+            }
         });
 
-    }
-
-    bindDesktop();
-    bindMobile();
-
-    /*=========================
-        Reset on Mouse Leave
-    =========================*/
-
-    const wrapper = document.querySelector(".services-panels");
-
-    wrapper.addEventListener("mouseleave", () => {
-
-        if (isMobile) return;
-
-        activatePanel(panels[0]);
-
+        // Subtle hover preview on desktop
+        panel.addEventListener("mouseenter", () => {
+            if (window.innerWidth > 991) {
+                updateGrid(index);
+            }
+        });
     });
 
-    /*=========================
-        Resize
-    =========================*/
-
+    // Handle window resize
     window.addEventListener("resize", () => {
-
-        isMobile = window.innerWidth <= 991;
-
+        updateGrid(activeIndex);
     });
 
+    // Initialize Card 01 active
+    updateGrid(0);
 });
 
 /*=========================================
@@ -829,8 +807,23 @@ document.addEventListener("DOMContentLoaded", () => {
         doorFrameEach: 60,
         windowSashEach: 90,
         curtainBoardEach: 40,
-        radiatorEach: 80
+        radiatorEach: 80,
+
+        // Material class multiplies the whole room total (warranty tier).
+        materialMultiplier: {
+            standard: 1,
+            premium: 1.35
+        },
+
+        // Add-ons are surcharges as a % of the pre-multiplier room total.
+        addonExpressPercent: 0.20,
+        addonCleaningPercent: 0.08
     };
+
+    const MATERIAL_CLASSES = [
+        { value: "standard", label: "Standard · 5-yr warranty" },
+        { value: "premium", label: "Premium +35% · 12-yr warranty" }
+    ];
 
     const ROOM_TYPES = ["Living room", "Bedroom", "Nursery", "Corridor", "Kitchen", "Wet room"];
 
@@ -847,7 +840,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 windows: false,
                 windowSashCount: 1,
                 curtainBoardCount: 1,
-                radiators: false
+                radiators: false,
+                materialClass: "standard",
+                addonExpress: false,
+                addonCleaning: false
             }
         };
     }
@@ -873,6 +869,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (it.radiators) total += PRICING.radiatorEach;
 
+        const rawTotal = total;
+
+        // Material class scales the whole room total.
+        const multiplier = PRICING.materialMultiplier[it.materialClass] || 1;
+        total = rawTotal * multiplier;
+
+        // Add-ons are surcharges off the pre-multiplier base.
+        if (it.addonExpress) total += rawTotal * PRICING.addonExpressPercent;
+        if (it.addonCleaning) total += rawTotal * PRICING.addonCleaningPercent;
+
         return total;
 
     }
@@ -896,6 +902,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (it.radiators) parts.push("Radiator");
+
+        if (it.materialClass === "premium") parts.push("Premium materials");
+        if (it.addonExpress) parts.push("Express 24h");
+        if (it.addonCleaning) parts.push("Final cleaning");
 
         return parts.length ? parts.join(", ") : "No work selected yet";
 
@@ -1273,6 +1283,24 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
+    function materialPill(cls, checked) {
+        return `
+            <label class="quote-pill">
+                <input type="radio" name="materialClass" value="${cls.value}" ${checked ? "checked" : ""}>
+                <span>${cls.label}</span>
+            </label>
+        `;
+    }
+
+    function addonPill(key, label, checked) {
+        return `
+            <label class="quote-pill">
+                <input type="checkbox" data-key="${key}" ${checked ? "checked" : ""}>
+                <span>${label}</span>
+            </label>
+        `;
+    }
+
     function step2HTML() {
 
         const it = draft.items;
@@ -1321,6 +1349,21 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </div>
 
+                    <div class="quote-check-group">
+                        <div class="quote-group-label">Material Class</div>
+                        <div class="quote-pill-group">
+                            ${MATERIAL_CLASSES.map(cls => materialPill(cls, it.materialClass === cls.value)).join("")}
+                        </div>
+                    </div>
+
+                    <div class="quote-check-group">
+                        <div class="quote-group-label">Add-Ons</div>
+                        <div class="quote-pill-group">
+                            ${addonPill("addonExpress", "Express 24h +20%", it.addonExpress)}
+                            ${addonPill("addonCleaning", "Final cleaning +8%", it.addonCleaning)}
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="quote-illustration-col">
@@ -1340,6 +1383,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         modalBodyEl.querySelectorAll(".quote-checklist input[type='checkbox']").forEach(input => {
             input.addEventListener("change", () => updateItem(input.dataset.key, input.checked));
+        });
+
+        modalBodyEl.querySelectorAll('input[name="materialClass"]').forEach(input => {
+            input.addEventListener("change", () => updateItem("materialClass", input.value));
         });
 
         modalBodyEl.querySelectorAll(".quote-number-input").forEach(input => {
@@ -1672,7 +1719,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /*==================================================
-    PROJECTS SECTION — DATA-DRIVEN, NORMAL SCROLL
+    PROJECTS SECTION — COVERFLOW CAROUSEL
+==================================================== *
+    A large centered card with softly peeking neighbors
+    on either side. Each project renders exactly ONCE in
+    the DOM (no cloned/tripled cards). Every card's position
+    is driven individually by GSAP: for the current active
+    index, each card computes its own "offset" (its shortest
+    circular distance from the active index), then is
+    translated to centerX + offset * step and scaled/faded
+    based on |offset|. Because the offset math wraps around
+    the array length, going past the last project loops
+    straight back to the first (and vice-versa) with no
+    duplicated markup and no snap/seam to hide.
 ==================================================== */
 
 const PROJECTS_DATA = [
@@ -1705,137 +1764,263 @@ const PROJECTS_DATA = [
 document.addEventListener("DOMContentLoaded", () => {
 
     const section = document.getElementById("projectsSection");
+    const viewport = document.getElementById("projViewport");
     const gallery = document.getElementById("projectsGallery");
     const dock = document.getElementById("projectsDock");
     const indicator = document.getElementById("dockIndicator");
     const tabs = document.querySelectorAll(".dock-tab");
+    const prevBtn = document.getElementById("projPrevBtn");
+    const nextBtn = document.getElementById("projNextBtn");
+    const dotsWrap = document.getElementById("projectsDots");
 
-    if (!section || !gallery) return;
+    if (!section || !gallery || !viewport) return;
 
     let currentCategory = "sale";
+    let activeIdx = 0;   // real index (0..setSize-1) of the centered project — never leaves this range
+    let setSize = 0;   // number of projects in the current category
+    let categoryProjects = [];
+    let isSwitching = false;
+    const CARD_GAP = 18; // px spacing between cards, matches the old track gap
+    const VISIBLE_RANGE = 1; // how many cards peek on each side of the active one
 
-    /*==========================
-        HERO-SCROLLED GATE
-        The dock must never appear until the user has
-        scrolled past the hero section — this flag is
-        checked before the dock is allowed to show.
-    ==========================*/
+    // Persistent per-card position, keyed by real index. Unlike recomputing
+    // "shortest path from active index" fresh on every click, this only
+    // ever moves in the same direction the user navigated — so a card
+    // never has to jump across the frame to reach a newly-computed spot.
+    let cardOffsets = {};
+    // Cards that just wrapped around the back this step (see stepOffsets) —
+    // rendered instantly instead of tweened, since they're always fully
+    // hidden at the moment they wrap.
+    let wrappedThisStep = {};
 
-    let heroScrolledPast = false;
+    /*============================================
+        BUILD CARD MARKUP — rendered exactly once
+        per project, no duplicated copies.
+    =============================================*/
 
-    ScrollTrigger.create({
-        trigger: ".hero",
-        start: "bottom top",
-        onEnter: () => heroScrolledPast = true,
-        onLeaveBack: () => heroScrolledPast = false
-    });
-
-    /*==========================
-        CARD RENDERING
-    ==========================*/
-
-    function buildCardHTML(project) {
+    function buildCardHTML(project, realIndex) {
         return `
-            <article class="project-card" data-category="${project.category}">
-                <div class="project-image">
-                    <img src="${project.image}" alt="${project.title}">
+            <article class="proj-card" data-real-index="${realIndex}">
+                <div class="proj-card-image">
+                    <img src="${project.image}" alt="${project.title}" loading="lazy">
                 </div>
-                <div class="project-info">
-                    <span>${project.location}</span>
+                <div class="proj-card-info">
+                    <span class="proj-card-count">${String(realIndex + 1).padStart(2, "0")} / ${String(setSize).padStart(2, "0")}</span>
+                    <span class="proj-card-loc">${project.location}</span>
                     <h3>${project.title}</h3>
                 </div>
             </article>
         `;
     }
 
+    /*============================================
+        OFFSETS
+
+        computeInitialOffsets() — used only right after a
+        fresh render, when there's no prior position to
+        continue from, so a plain shortest-path calc is safe.
+
+        stepOffsets(delta) — shifts every card's offset by
+        `delta` steps at once, then wraps any card that has
+        drifted past the halfway point around to the
+        opposite side of the circle. A card can only ever
+        cross that halfway point while it's already out in
+        the fully-hidden periphery (dist > VISIBLE_RANGE),
+        so the wrap is flagged in wrappedThisStep and
+        layout() renders it instantly — no visible card
+        ever slides across the frame to get there.
+    =============================================*/
+
+    function computeInitialOffsets() {
+        cardOffsets = {};
+        for (let real = 0; real < setSize; real++) {
+            let offset = real - activeIdx;
+            if (offset > setSize / 2) offset -= setSize;
+            if (offset < -setSize / 2) offset += setSize;
+            cardOffsets[real] = offset;
+        }
+    }
+
+    function stepOffsets(delta) {
+        wrappedThisStep = {};
+        for (let real = 0; real < setSize; real++) {
+            let o = cardOffsets[real] - delta;
+            if (o > setSize / 2) { o -= setSize; wrappedThisStep[real] = true; }
+            else if (o < -setSize / 2) { o += setSize; wrappedThisStep[real] = true; }
+            cardOffsets[real] = o;
+        }
+    }
+
+    /*============================================
+        LAYOUT — coverflow positioning.
+        Every card is anchored at the exact center of
+        the track (top:50%; left:50%; xPercent/yPercent:-50
+        in CSS/GSAP), then nudged sideways by its persistent
+        offset from cardOffsets.
+    =============================================*/
+
+    function layout(animate = true) {
+
+        const cards = Array.from(gallery.querySelectorAll(".proj-card"));
+        if (!cards.length || !setSize) return;
+
+        const firstCard = cards[0];
+        const cardW = firstCard.getBoundingClientRect().width;
+        const cardH = firstCard.getBoundingClientRect().height;
+        const step = cardW + CARD_GAP;
+
+        // Track has no in-flow children anymore (cards are absolute),
+        // so its height must be set explicitly or the section collapses.
+        gallery.style.height = cardH + "px";
+
+        cards.forEach((card) => {
+
+            const real = parseInt(card.dataset.realIndex, 10);
+            const offset = cardOffsets[real] ?? 0;
+
+            const isActive = offset === 0;
+            const dist = Math.abs(offset);
+            const isVisible = dist <= VISIBLE_RANGE;
+            const justWrapped = !!wrappedThisStep[real];
+
+            gsap.to(card, {
+                xPercent: -50,
+                yPercent: -50,
+                x: offset * step,
+                scale: isActive ? 1 : 0.88,
+                opacity: isVisible ? (isActive ? 1 : 0.45) : 0,
+                filter: isActive ? "blur(0px)" : "blur(1px)",
+                zIndex: 100 - dist,
+                duration: (animate && !justWrapped) ? 0.65 : 0,
+                ease: "power3.out",
+                overwrite: "auto"
+            });
+
+            card.style.pointerEvents = isVisible ? "auto" : "none";
+            card.classList.toggle("is-active", isActive);
+
+        });
+
+        updateDots();
+
+    }
+
+    /*============================================
+        DOTS
+    =============================================*/
+
+    function buildDots(total) {
+
+        dotsWrap.innerHTML = "";
+
+        for (let i = 0; i < total; i++) {
+            const dot = document.createElement("button");
+            dot.className = "proj-dot";
+            dot.setAttribute("aria-label", `Go to project ${i + 1}`);
+            dot.addEventListener("click", () => goToReal(i));
+            dotsWrap.appendChild(dot);
+        }
+
+    }
+
+    function updateDots() {
+        dotsWrap.querySelectorAll(".proj-dot").forEach((d, i) => {
+            d.classList.toggle("active", i === activeIdx);
+        });
+    }
+
+    /*============================================
+        NAVIGATION — activeIdx always stays a real,
+        wrapped index (0..setSize-1), used for dots/counters.
+        The actual visual position of every card comes from
+        cardOffsets, incrementally shifted by stepOffsets()
+        so movement is always continuous.
+    =============================================*/
+
+    function goTo(delta) {
+        activeIdx = ((activeIdx + delta) % setSize + setSize) % setSize;
+        stepOffsets(delta);
+        layout(true);
+    }
+
+    // Jump straight to a specific project (dot click, or clicking a
+    // peeking neighbor), via the shortest arc — same idea as goTo,
+    // just with a bigger (still single, still smooth) delta.
+    function goToReal(realIndex) {
+        const target = ((realIndex % setSize) + setSize) % setSize;
+        let delta = target - activeIdx;
+        if (delta > setSize / 2) delta -= setSize;
+        if (delta < -setSize / 2) delta += setSize;
+        activeIdx = target;
+        stepOffsets(delta);
+        layout(true);
+    }
+
+    prevBtn?.addEventListener("click", () => goTo(-1));
+    nextBtn?.addEventListener("click", () => goTo(1));
+
+    /*============================================
+        CARD CLICK — clicking a peeking neighbor
+        brings it to the center
+    =============================================*/
+
+    gallery.addEventListener("click", (e) => {
+        const card = e.target.closest(".proj-card");
+        if (!card) return;
+        const real = parseInt(card.dataset.realIndex, 10);
+        if (real !== activeIdx) goToReal(real);
+    });
+
+    /*============================================
+        RENDER CATEGORY — each project renders exactly
+        once; no cloned copies anymore.
+    =============================================*/
+
     function renderCategory(category) {
-        const matching = PROJECTS_DATA.filter(p => p.category === category);
-        gallery.innerHTML = matching.map(buildCardHTML).join("");
-    }
 
-    /*==========================
-        PER-CARD SCROLL REVEAL
-        Restored to the original, proven behavior: each
-        card's image + info fade/blur/slide in as it enters
-        the viewport (and reverse if scrolled back above),
-        plus the original subtle image parallax.
-    ==========================*/
+        categoryProjects = PROJECTS_DATA.filter(p => p.category === category);
+        setSize = categoryProjects.length;
 
-    function applyCardAnimations() {
+        gallery.innerHTML = categoryProjects
+            .map((p, i) => buildCardHTML(p, i))
+            .join("");
 
-        gallery.querySelectorAll(".project-card").forEach(card => {
-
-            const img = card.querySelector(".project-image");
-            const info = card.querySelector(".project-info");
-            const image = card.querySelector("img");
-
-            gsap.from(img, {
-                scrollTrigger: { trigger: card, start: "top 85%", toggleActions: "play none none reverse" },
-                opacity: 0, filter: "blur(25px)", y: 80, duration: 1, ease: "power3.out", clearProps: "all"
-            });
-
-            gsap.from(info, {
-                scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" },
-                opacity: 0, y: 25, duration: .7, delay: .2, ease: "power2.out", clearProps: "all"
-            });
-
-            gsap.to(image, {
-                yPercent: 10,
-                ease: "none",
-                scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: true }
-            });
-
-        });
+        activeIdx = 0;
+        computeInitialOffsets();
+        wrappedThisStep = {};
+        buildDots(setSize);
+        layout(false);
 
     }
 
-    /*==========================
-        SLIDING INDICATOR
-    ==========================*/
-
-    function moveIndicatorTo(tab) {
-
-        const dockRect = dock.getBoundingClientRect();
-        const tabRect = tab.getBoundingClientRect();
-
-        gsap.to(indicator, {
-            x: tabRect.left - dockRect.left - 8,
-            width: tabRect.width,
-            duration: .5,
-            ease: "power3.out"
-        });
-
-    }
-
-    /*==========================
-        CATEGORY SWITCHING
-    ==========================*/
+    /*============================================
+        CATEGORY SWITCHING — soft blur-fade crossfade
+    =============================================*/
 
     function switchCategory(category) {
 
-        if (category === currentCategory) return;
+        if (category === currentCategory || isSwitching) return;
+        isSwitching = true;
 
-        const outgoing = gallery.querySelectorAll(".project-card");
-
-        gsap.to(outgoing, {
+        gsap.to(gallery, {
             opacity: 0,
-            y: 20,
-            duration: .3,
+            y: 18,
+            filter: "blur(10px)",
+            duration: 0.32,
             ease: "power2.in",
             onComplete: () => {
 
                 currentCategory = category;
                 renderCategory(category);
-                applyCardAnimations();
 
-                // New cards are usually already in/near view when
-                // switching tabs, so give them an immediate settle-in
-                // rather than waiting on their scroll triggers.
-                const incoming = gallery.querySelectorAll(".project-card");
-                gsap.set(incoming, { opacity: 0, y: 30 });
-                gsap.to(incoming, { opacity: 1, y: 0, duration: .5, stagger: .05, ease: "power3.out" });
-
-                ScrollTrigger.refresh();
+                gsap.fromTo(gallery,
+                    { opacity: 0, y: 18, filter: "blur(10px)" },
+                    {
+                        opacity: 1, y: 0, filter: "blur(0px)",
+                        duration: 0.5, ease: "power3.out",
+                        onComplete: () => { isSwitching = false; }
+                    }
+                );
 
             }
         });
@@ -1843,33 +2028,133 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     tabs.forEach(tab => {
-
         tab.addEventListener("click", () => {
-
             tabs.forEach(t => t.classList.remove("active"));
             tab.classList.add("active");
-
             moveIndicatorTo(tab);
             switchCategory(tab.dataset.filter);
-
         });
-
     });
 
-    /*==========================
+    /*============================================
+        KEYBOARD NAV — only while the section is
+        actually in view, so arrow keys don't get
+        hijacked elsewhere on the page
+    =============================================*/
+
+    let sectionInView = false;
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { sectionInView = entry.isIntersecting; });
+    }, { threshold: 0.4 });
+
+    sectionObserver.observe(section);
+
+    document.addEventListener("keydown", (e) => {
+        if (!sectionInView) return;
+        if (e.key === "ArrowLeft") goTo(-1);
+        if (e.key === "ArrowRight") goTo(1);
+    });
+
+    /*============================================
+        WHEEL — only intercepts genuinely horizontal
+        gestures (trackpad swipes, shift+wheel). A
+        normal vertical scroll over the carousel now
+        falls through and scrolls the page like anywhere
+        else — this was previously calling preventDefault()
+        unconditionally on every wheel event, which blocked
+        page scrolling entirely while the cursor sat over
+        the carousel.
+    =============================================*/
+
+    let wheelCooldown = false;
+
+    viewport.addEventListener("wheel", (e) => {
+
+        const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        if (!isHorizontal) return; // let vertical scroll pass through untouched
+
+        e.preventDefault();
+        if (wheelCooldown) return;
+        wheelCooldown = true;
+
+        if (e.deltaX > 30) goTo(1);
+        if (e.deltaX < -30) goTo(-1);
+
+        setTimeout(() => wheelCooldown = false, 550);
+
+    }, { passive: false });
+
+    /*============================================
+        DRAG / SWIPE
+    =============================================*/
+
+    let dragStartX = null;
+    let dragging = false;
+
+    viewport.addEventListener("pointerdown", (e) => {
+        dragStartX = e.clientX;
+        dragging = false;
+    });
+
+    viewport.addEventListener("pointermove", (e) => {
+        if (dragStartX === null) return;
+        if (Math.abs(e.clientX - dragStartX) > 8) dragging = true;
+    });
+
+    viewport.addEventListener("pointerup", (e) => {
+        if (dragStartX === null) return;
+        const diff = e.clientX - dragStartX;
+        if (dragging && Math.abs(diff) > 50) {
+            if (diff < 0) goTo(1);
+            else goTo(-1);
+        }
+        dragStartX = null;
+        dragging = false;
+    });
+
+    viewport.addEventListener("pointercancel", () => {
+        dragStartX = null;
+        dragging = false;
+    });
+
+    /*============================================
+        RESIZE — re-measure and re-center
+    =============================================*/
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => layout(false), 150);
+    });
+
+    /*============================================
+        SLIDING INDICATOR (dock pill)
+    =============================================*/
+
+    function moveIndicatorTo(tab) {
+        const dockRect = dock.getBoundingClientRect();
+        const tabRect = tab.getBoundingClientRect();
+        gsap.to(indicator, {
+            x: tabRect.left - dockRect.left - 8,
+            width: tabRect.width,
+            duration: .5,
+            ease: "power3.out"
+        });
+    }
+
+    /*============================================
         INITIAL RENDER
-    ==========================*/
+    =============================================*/
 
     renderCategory(currentCategory);
-    applyCardAnimations();
     requestAnimationFrame(() => moveIndicatorTo(document.querySelector(".dock-tab.active")));
 
-    /*==========================
-        DOCK VISIBILITY — tied to the section's position
-        in the viewport, not to pinning. Fades/blurs in as
-        the section is approached, shrinks/fades out once
-        the section is scrolled past (either direction).
-    ==========================*/
+    /*============================================
+        DOCK VISIBILITY — tied to section position.
+        Fades in as section approaches, fades out
+        when section is scrolled past either direction.
+    =============================================*/
 
     gsap.set(dock, { opacity: 0, y: 30, scale: .85, filter: "blur(14px)" });
 
@@ -1901,68 +2186,380 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
+
 // PLANS JS
+/* =====================================================
+   PLANS SECTION
+   Premium Reveal + Billing Toggle
+===================================================== */
 
-const pin = document.querySelector(".plans-pin");
-const slides = gsap.utils.toArray(".plan-slide");
-const scrims = slides.map(s => s.querySelector(".plan-scrim"));
-const fills = gsap.utils.toArray(".plan-bar-fill");
+(() => {
 
-const enterWindows = [
-    null,
-    [0.10, 0.42],
-    [0.58, 0.90]
-];
+    const section = document.querySelector(".plans-section");
 
-function localProgress(p, win) {
-    if (!win) return 1;
-    return gsap.utils.clamp(0, 1, (p - win[0]) / (win[1] - win[0]));
-}
+    if (!section) return;
 
-ScrollTrigger.create({
 
-    trigger: pin,
-    start: "top top",
-    end: "+=3200",
-    scrub: 1,
-    pin: true,
-    anticipatePin: 1,
+    const headerItems = section.querySelectorAll(
+        ".plans-header > *"
+    );
 
-    onUpdate(self) {
+    const cards = section.querySelectorAll(
+        ".plan-card"
+    );
 
-        const p = self.progress;
-        const enterAmount = slides.map((_, i) => localProgress(p, enterWindows[i]));
+    const buttons = section.querySelectorAll(
+        ".billing-toggle button"
+    );
 
-        slides.forEach((slide, i) => {
+    const prices = section.querySelectorAll(
+        ".price strong"
+    );
 
-            const amt = enterAmount[i];
+    const periods = section.querySelectorAll(
+        ".price-period"
+    );
 
-            gsap.set(slide, {
-                yPercent: 100 * (1 - amt),
-                zIndex: i + 1
+
+
+    /* =========================================
+       SET INITIAL STATES
+    ========================================= */
+
+
+    gsap.set(headerItems, {
+
+        y: 40,
+
+        opacity: 0,
+
+        filter: "blur(12px)"
+
+    });
+
+
+    gsap.set(cards, {
+
+        y: 70,
+
+        opacity: 0,
+
+        scale: .96
+
+    });
+
+
+
+    /* =========================================
+       SCROLL REVEAL
+    ========================================= */
+
+
+    ScrollTrigger.create({
+
+        trigger: section,
+
+        start: "top 75%",
+
+        once: true,
+
+
+        onEnter: () => {
+
+
+            gsap.to(headerItems, {
+
+                y: 0,
+
+                opacity: 1,
+
+                filter: "blur(0px)",
+
+                duration: .8,
+
+                stagger: .12,
+
+                ease: "power3.out"
+
             });
 
-            if (fills[i]) fills[i].style.width = (amt * 100) + "%";
 
-            const nextAmt = i + 1 < slides.length ? enterAmount[i + 1] : 0;
 
-            if (scrims[i]) {
-                scrims[i].style.opacity = nextAmt * 0.32;
-            }
+            gsap.to(cards, {
 
-            gsap.set(slide, {
-                scale: 1 - nextAmt * 0.025
+                y: 0,
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 1,
+
+                stagger: .15,
+
+                ease: "power3.out",
+
+                delay: .15
+
             });
 
-            const isCovered = nextAmt > 0.5;
-            const isSliding = amt < 0.98;
-            slide.style.pointerEvents = (!isCovered && !isSliding) ? "auto" : "none";
+
+        }
+
+
+    });
+
+
+
+
+
+    /* =========================================
+       BILLING TOGGLE
+    ========================================= */
+
+
+    buttons.forEach(button => {
+
+
+        button.addEventListener("click", () => {
+
+
+            buttons.forEach(btn => {
+
+                btn.classList.remove("active");
+
+            });
+
+
+            button.classList.add("active");
+
+
+
+            const yearly =
+                button.dataset.period === "yearly";
+
+
+
+            prices.forEach(price => {
+
+
+                const newValue =
+                    yearly
+                        ? price.dataset.year
+                        : price.dataset.month;
+
+
+
+                gsap.to(price, {
+
+                    opacity: 0,
+
+                    y: -10,
+
+                    duration: .2,
+
+
+                    onComplete: () => {
+
+
+                        price.textContent = newValue;
+
+
+                        gsap.to(price, {
+
+                            opacity: 1,
+
+                            y: 0,
+
+                            duration: .35,
+
+                            ease: "power3.out"
+
+                        });
+
+
+                    }
+
+
+                });
+
+
+
+            });
+
+
+
+            periods.forEach(period => {
+
+
+                period.textContent =
+                    yearly ? "/yr" : "/mo";
+
+
+            });
+
+
 
         });
 
-    }
 
-});
+    });
+
+
+
+
+
+
+    /* =========================================
+       CARD HOVER TILT
+    ========================================= */
+
+
+    cards.forEach(card => {
+
+
+        card.addEventListener("mousemove", (e) => {
+
+
+            const rect =
+                card.getBoundingClientRect();
+
+
+
+            const x =
+                e.clientX - rect.left;
+
+
+            const y =
+                e.clientY - rect.top;
+
+
+
+            const rotateY =
+                ((x / rect.width) - 0.5) * 6;
+
+
+            const rotateX =
+                ((y / rect.height) - 0.5) * -6;
+
+
+
+            gsap.to(card, {
+
+                rotateY,
+
+                rotateX,
+
+                transformPerspective: 1000,
+
+                duration: .3,
+
+                ease: "power2.out"
+
+
+            });
+
+
+        });
+
+
+
+        card.addEventListener("mouseleave", () => {
+
+
+            gsap.to(card, {
+
+                rotateX: 0,
+
+                rotateY: 0,
+
+                duration: .5,
+
+                ease: "power3.out"
+
+            });
+
+
+        });
+
+
+
+    });
+
+
+
+
+
+
+    /* =========================================
+       BUTTON MAGNET EFFECT
+    ========================================= */
+
+
+    section.querySelectorAll(".plan-card button")
+        .forEach(btn => {
+
+
+            btn.addEventListener("mousemove", (e) => {
+
+
+                const r =
+                    btn.getBoundingClientRect();
+
+
+
+                gsap.to(btn, {
+
+                    x: (e.clientX - r.left - r.width / 2) * 0.12,
+
+                    y: (e.clientY - r.top - r.height / 2) * 0.12,
+
+                    duration: .3
+
+                });
+
+
+
+            });
+
+
+
+            btn.addEventListener("mouseleave", () => {
+
+
+                gsap.to(btn, {
+
+                    x: 0,
+
+                    y: 0,
+
+                    duration: .5,
+
+                    ease: "elastic.out(1,.4)"
+
+                });
+
+
+            });
+
+
+        });
+
+
+
+
+    /* Refresh after all sections load */
+
+    window.addEventListener("load", () => {
+
+        ScrollTrigger.refresh();
+
+    });
+
+
+
+})();
 
 // FOOTER JS
 (() => {

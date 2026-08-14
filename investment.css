@@ -1,0 +1,836 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "themeFont";
+    src: url("/fonts/n.woff2");
+}
+
+html,
+body {
+    overflow-x: hidden;
+    font-family: themeFont, sans-serif;
+    background: #000;
+}
+
+
+.ip-wrapper {
+    width: min(1180px, 90%);
+    margin: 0 auto;
+}
+
+/*==================================================
+    HERO
+==================================================*/
+
+.ip-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #0d0d0e;
+}
+
+.ip-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.ip-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ip-hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(9deg, rgb(8 10 8 / 63%) 30%, rgb(8 10 8 / 16%) 65%, rgba(8, 10, 8, .3) 100%);
+}
+
+.ip-hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 60px;
+    align-items: center;
+    padding: 140px 0 80px;
+}
+
+.ip-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #A6B09A;
+    margin-bottom: 24px;
+}
+
+.ip-hero-text h1 {
+    font-size: clamp(36px, 4.4vw, 56px);
+    line-height: 1.15;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 24px;
+}
+
+.ip-hero-text p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, .65);
+    max-width: 460px;
+    margin-bottom: 36px;
+}
+
+.ip-hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.ip-btn-primary,
+.ip-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: transform .35s cubic-bezier(.22, 1, .36, 1), background .3s ease, color .3s ease;
+}
+
+.ip-btn-primary {
+    background: #fff;
+    color: #111;
+}
+
+.ip-btn-primary:hover {
+    transform: translateY(-3px);
+}
+
+.ip-btn-secondary {
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.ip-btn-secondary:hover {
+    background: rgba(255, 255, 255, .16);
+}
+
+/*----- Dashboard card -----*/
+
+.ip-dash-card {
+    position: relative;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .14);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, .4);
+}
+
+.ip-dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .7);
+    margin-bottom: 24px;
+}
+
+.ip-dash-live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #A6B09A;
+}
+
+.ip-dash-live i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #A6B09A;
+    animation: ipPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes ipPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .3;
+    }
+}
+
+.ip-dash-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.ip-dash-stat small {
+    display: block;
+    font-size: 11px;
+    color: rgba(255, 255, 255, .5);
+    margin-bottom: 6px;
+}
+
+.ip-dash-stat strong {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.ip-dash-chart {
+    margin-bottom: 24px;
+}
+
+.ip-mini-chart {
+    width: 100%;
+    height: 70px;
+}
+
+.ip-dash-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ip-ring-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.ip-ring-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, .1);
+    stroke-width: 8;
+}
+
+.ip-ring-fill {
+    fill: none;
+    stroke: #A6B09A;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 264;
+    stroke-dashoffset: 264;
+    transition: stroke-dashoffset 1.4s cubic-bezier(.22, 1, .36, 1);
+}
+
+.ip-ring-label {
+    position: absolute;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.ip-ring-label small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, .55);
+    margin-top: 2px;
+}
+
+@media (max-width: 900px) {
+    .ip-hero-inner {
+        grid-template-columns: 1fr;
+        padding-top: 120px;
+    }
+}
+
+/*==================================================
+    SECTION SHELL
+==================================================*/
+
+.ip-section {
+    padding: 130px 0;
+    background: #fff;
+}
+
+.ip-section-dark {
+    background: #0d0d0e;
+}
+
+.ip-section-alt {
+    background: #f7f7f4;
+}
+
+.ip-section-heading {
+    max-width: 640px;
+    margin: 0 auto 60px;
+    text-align: center;
+}
+
+.ip-section-heading span {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #8b8b8b;
+    margin-bottom: 16px;
+}
+
+.ip-section-heading h2 {
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 16px;
+}
+
+.ip-section-heading p {
+    font-size: 16px;
+    color: #666;
+}
+
+.ip-heading-light span {
+    color: #A6B09A;
+}
+
+.ip-heading-light h2 {
+    color: #fff;
+}
+
+.ip-heading-light p {
+    color: rgba(255, 255, 255, .6);
+}
+
+/*==================================================
+    SELF-DRAWING CHART
+==================================================*/
+
+.ip-chart-panel {
+    background: #fafaf8;
+    border: 1px solid #ececec;
+    border-radius: 26px;
+    padding: 40px;
+}
+
+.ip-line-chart {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.ip-grid-line {
+    stroke: #eaeaea;
+    stroke-width: 1;
+}
+
+.ip-chart-area {
+    fill: rgba(166, 176, 154, .12);
+}
+
+.ip-chart-line {
+    fill: none;
+    stroke: #111;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+}
+
+.ip-chart-line.drawn {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.8s cubic-bezier(.19, 1, .22, 1);
+}
+
+.ip-chart-dot {
+    fill: #fff;
+    stroke: #A6B09A;
+    stroke-width: 3;
+    opacity: 0;
+    transform-origin: center;
+    transition: opacity .5s ease, r .3s ease;
+}
+
+.ip-chart-dot.show {
+    opacity: 1;
+}
+
+.ip-chart-dot:hover {
+    r: 7;
+    cursor: pointer;
+}
+
+.ip-chart-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #999;
+    letter-spacing: .04em;
+}
+
+/*==================================================
+    ROI CALCULATOR
+==================================================*/
+
+.ip-calc-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 26px;
+    padding: 50px;
+}
+
+.ip-calc-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+}
+
+.ip-calc-field-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.ip-calc-field-head label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, .6);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.ip-calc-field-head span {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.ip-calc-slider {
+    width: 100%;
+    appearance: none;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .15);
+    outline: none;
+    cursor: pointer;
+}
+
+.ip-calc-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #A6B09A;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
+    transition: transform .25s ease;
+}
+
+.ip-calc-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.ip-calc-results {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.ip-calc-result {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 16px;
+    padding: 18px 22px;
+}
+
+.ip-calc-result small {
+    display: block;
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, .5);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.ip-calc-result strong {
+    font-size: 24px;
+    color: #fff;
+    font-weight: 700;
+    transition: color .3s ease;
+}
+
+.ip-calc-highlight {
+    border-color: rgba(166, 176, 154, .4);
+    background: rgba(166, 176, 154, .08);
+}
+
+.ip-calc-highlight strong {
+    color: #A6B09A;
+}
+
+.ip-calc-note {
+    font-size: 12px;
+    color: rgba(255, 255, 255, .4);
+    line-height: 1.6;
+    margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+    .ip-calc-panel {
+        grid-template-columns: 1fr;
+        padding: 34px;
+    }
+}
+
+/*==================================================
+    PORTFOLIO CARDS
+==================================================*/
+
+.ip-portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.ip-portfolio-card {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #ececec;
+    background: #fff;
+    transition: transform .5s cubic-bezier(.22, 1, .36, 1), box-shadow .5s ease;
+}
+
+.ip-portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, .1);
+}
+
+.ip-portfolio-img {
+    position: relative;
+    height: 170px;
+    overflow: hidden;
+}
+
+.ip-portfolio-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+
+.ip-portfolio-card:hover .ip-portfolio-img img {
+    transform: scale(1.1);
+}
+
+.ip-status {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: #fff;
+    backdrop-filter: blur(6px);
+}
+
+.ip-status-occupied {
+    background: rgba(111, 174, 124, .85);
+}
+
+.ip-status-review {
+    background: rgba(193, 155, 83, .85);
+}
+
+.ip-status-active {
+    background: rgba(80, 120, 200, .85);
+}
+
+.ip-portfolio-body {
+    padding: 20px;
+}
+
+.ip-portfolio-body h3 {
+    font-size: 16px;
+    color: #111;
+    margin-bottom: 8px;
+}
+
+.ip-portfolio-body p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #666;
+}
+
+@media (max-width: 900px) {
+    .ip-portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .ip-portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*==================================================
+    TIER CARDS
+==================================================*/
+
+.ip-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.ip-tier-card {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 24px;
+    padding: 36px 30px;
+    transition: transform .4s cubic-bezier(.22, 1, .36, 1), box-shadow .4s ease;
+}
+
+.ip-tier-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, .08);
+}
+
+.ip-tier-featured {
+    background: #111;
+    border-color: #111;
+    transform: scale(1.03);
+    position: relative;
+}
+
+.ip-tier-featured:hover {
+    transform: scale(1.03) translateY(-6px);
+}
+
+.ip-tier-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #A6B09A;
+    color: #111;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    letter-spacing: .04em;
+}
+
+.ip-tier-name {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.ip-tier-featured .ip-tier-name {
+    color: #fff;
+}
+
+.ip-tier-desc {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 24px;
+}
+
+.ip-tier-featured .ip-tier-desc {
+    color: rgba(255, 255, 255, .6);
+}
+
+.ip-tier-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.ip-tier-list li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+}
+
+.ip-tier-featured .ip-tier-list li {
+    color: rgba(255, 255, 255, .82);
+}
+
+.ip-tier-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #A6B09A;
+    font-weight: 700;
+}
+
+.ip-tier-btn {
+    display: block;
+    text-align: center;
+    padding: 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    color: #111;
+    transition: transform .3s cubic-bezier(.22, 1, .36, 1), background .3s ease, color .3s ease;
+}
+
+.ip-tier-btn:hover {
+    transform: translateY(-3px);
+    border-color: #111;
+}
+
+.ip-tier-btn-primary {
+    background: #fff;
+    color: #111;
+    border-color: #fff;
+}
+
+.ip-tier-btn-primary:hover {
+    background: #A6B09A;
+    border-color: #A6B09A;
+}
+
+@media (max-width: 900px) {
+    .ip-tier-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ip-tier-featured {
+        transform: none;
+    }
+
+    .ip-tier-featured:hover {
+        transform: translateY(-6px);
+    }
+}
+
+/*==================================================
+    CTA
+==================================================*/
+
+.ip-cta {
+    background: #f7f7f4;
+    padding: 140px 0;
+    text-align: center;
+}
+
+.ip-cta-wrapper {
+    width: min(680px, 90%);
+    margin: 0 auto;
+}
+
+.ip-cta-wrapper h2 {
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 16px;
+}
+
+.ip-cta-wrapper p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 32px;
+}
+
+/*==================================================
+    SCROLL REVEAL
+==================================================*/
+
+.ip-reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    filter: blur(6px);
+    transition: opacity .9s ease, transform 1s cubic-bezier(.19, 1, .22, 1), filter .9s ease;
+}
+
+.ip-reveal-right {
+    transform: translateX(50px) translateY(0);
+}
+
+.ip-reveal.in-view {
+    opacity: 1;
+    transform: translate(0, 0);
+    filter: blur(0);
+}
+
+.ip-portfolio-card,
+.ip-tier-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .8s cubic-bezier(.22, 1, .36, 1);
+}
+
+.ip-portfolio-grid.in-view .ip-portfolio-card,
+.ip-tier-grid.in-view .ip-tier-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ip-portfolio-grid.in-view .ip-portfolio-card:nth-child(1) {
+    transition-delay: .05s;
+}
+
+.ip-portfolio-grid.in-view .ip-portfolio-card:nth-child(2) {
+    transition-delay: .12s;
+}
+
+.ip-portfolio-grid.in-view .ip-portfolio-card:nth-child(3) {
+    transition-delay: .19s;
+}
+
+.ip-portfolio-grid.in-view .ip-portfolio-card:nth-child(4) {
+    transition-delay: .26s;
+}
+
+.ip-tier-grid.in-view .ip-tier-card:nth-child(2) {
+    transition-delay: .1s;
+}
+
+.ip-tier-grid.in-view .ip-tier-card:nth-child(3) {
+    transition-delay: .2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ip-reveal,
+    .ip-portfolio-card,
+    .ip-tier-card,
+    .ip-chart-line,
+    .ip-ring-fill {
+        transition: none !important;
+    }
+}

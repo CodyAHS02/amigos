@@ -37,6 +37,11 @@
             <div class="paint-icons">
                 <div class="paint-focus"></div>
 
+                <div class="paint-screen-banner">
+                    <h2>See how a new color transforms your space.</h2>
+                    <p>Tap the icons to paint the walls.</p>
+                </div>
+
                 <!-- LEFT -->
                 <div class="paint-point left" data-wall="left-wall">
                     <button class="paint-trigger">
@@ -123,7 +128,7 @@
             <!-- INTRO TITLE -->
 
             <h1 class="intro-title">
-                AMIGOS MALER Gmbh
+                AMIGOS MALER <sup>Gmbh</sup>
                 <br>
                 <span>Transforming properties with expert painting, professional renovations, <br /> and real estate
                     solutions
@@ -144,10 +149,90 @@
 
                     <a href="index.html">Home</a>
                     <a href="about.html">About</a>
-                    <a href="painting.html">Painting</a>
-                    <a href="renovation.html">Renovations</a>
-                    <a href="property-value.html">Property Value Preservation</a>
-                    <a href="#">Projects</a>
+
+                    <div class="nav-dropdown">
+                        <a href="#services" class="dropdown-trigger">
+                            Maler Services
+                            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="painting.html" class="dropdown-item">
+                                <span class="item-num">01</span>
+                                <div class="item-info">
+                                    <span class="item-title">Painting &amp; Renovations</span>
+                                    <span class="item-desc">Interior &amp; exterior premium finishes</span>
+                                </div>
+                            </a>
+                            <a href="drywall.html" class="dropdown-item">
+                                <span class="item-num">02</span>
+                                <div class="item-info">
+                                    <span class="item-title">Drywall</span>
+                                    <span class="item-desc">Professional installation &amp; repair</span>
+                                </div>
+                            </a>
+                            <a href="facade.html" class="dropdown-item">
+                                <span class="item-num">03</span>
+                                <div class="item-info">
+                                    <span class="item-title">Facade Restoration</span>
+                                    <span class="item-desc">Restore &amp; preserve architectural beauty</span>
+                                </div>
+                            </a>
+                            <a href="apartment.html" class="dropdown-item">
+                                <span class="item-num">04</span>
+                                <div class="item-info">
+                                    <span class="item-title">Apartment Preparation</span>
+                                    <span class="item-desc">Get properties ready for sale or tenants</span>
+                                </div>
+                            </a>
+                            <a href="maintenance.html" class="dropdown-item">
+                                <span class="item-num">05</span>
+                                <div class="item-info">
+                                    <span class="item-title">Property Maintenance</span>
+                                    <span class="item-desc">Reliable scheduled upkeep</span>
+                                </div>
+                            </a>
+                            <a href="property-value.html" class="dropdown-item">
+                                <span class="item-num">06</span>
+                                <div class="item-info">
+                                    <span class="item-title">Property Value Preservation</span>
+                                    <span class="item-desc">Long-term value protection strategy</span>
+                                </div>
+                            </a>
+                            <a href="investment.html" class="dropdown-item">
+                                <span class="item-num">07</span>
+                                <div class="item-info">
+                                    <span class="item-title">Investment Property Support</span>
+                                    <span class="item-desc">Dedicated services for investors</span>
+                                </div>
+                            </a>
+                            <a href="ai-quote-calculator.html" class="dropdown-item">
+                                <span class="item-num">08</span>
+                                <div class="item-info">
+                                    <span class="item-title">AI Quote Calculator</span>
+                                    <span class="item-desc">Instant transparent cost estimates</span>
+                                </div>
+                            </a>
+                            <a href="square-meter.html" class="dropdown-item">
+                                <span class="item-num">09</span>
+                                <div class="item-info">
+                                    <span class="item-title">Square Meter Calculator</span>
+                                    <span class="item-desc">Surface area calculation tool</span>
+                                </div>
+                            </a>
+                            <a href="photo-upload.html" class="dropdown-item">
+                                <span class="item-num">10</span>
+                                <div class="item-info">
+                                    <span class="item-title">Photo Upload Functionality</span>
+                                    <span class="item-desc">Upload photos for consultation</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="#projectsSection">Projects</a>
                     <a href="#">Partners</a>
 
                 </nav>
@@ -212,14 +297,14 @@
                 <span class="divider">|</span>
                 <span class="item">For Property Managers</span>
                 <span class="divider">|</span>
-                <span class="item">For Investors</span>
+                <span class="item">For Union</span>
             </div>
 
         </div>
     </section>
 
     <!-- SERVICES SECTION -->
-    <section class="services-section">
+    <section class="services-section" id="services">
 
         <div class="services-container">
 
@@ -259,438 +344,190 @@
             </div>
 
 
-            <!-- SERVICES PANELS -->
+            <!-- SERVICES PANELS (5 TOP + 5 BOTTOM GRID) -->
 
             <div class="services-panels">
 
                 <!-- 01 -->
-
-                <a href="painting.html" class="service-panel active">
-
+                <a href="painting.html" class="service-panel active" data-index="0">
                     <img src="assets/services/pexels-kseniachernaya-5691592.jpg" alt="Painting">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                01
-                            </span>
-
-                            <h3>
-                                Painting & Renovations
-                            </h3>
-
+                            <span class="service-number">01</span>
+                            <h3>Painting &amp; Renovations</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Interior & exterior painting with premium finishes.
-                            </p>
-
+                            <p>Interior &amp; exterior painting with premium finishes.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
                 </a>
-
 
                 <!-- 02 -->
-
-                <a href="drywall.html" class="service-panel">
-
+                <a href="drywall.html" class="service-panel" data-index="1">
                     <img src="assets/services/pexels-ai25studioai-5493673.jpg" alt="Drywall">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                02
-                            </span>
-
-                            <h3>
-                                Drywall
-                            </h3>
-
+                            <span class="service-number">02</span>
+                            <h3>Drywall</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Professional drywall installation and repair.
-                            </p>
-
+                            <p>Professional drywall installation and repair.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
                 </a>
-
 
                 <!-- 03 -->
-
-                <a href="ai-quote-calculator.html" class="service-panel">
-
+                <a href="ai-quote-calculator.html" class="service-panel" data-index="2">
                     <img src="assets/services/pexels-mikhail-nilov-8296991.jpg" alt="Quote Calculator">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                03
-                            </span>
-
-                            <h3>
-                                Quote Calculator
-                            </h3>
-
+                            <span class="service-number">03</span>
+                            <h3>Quote Calculator</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Receive a fast, transparent estimate tailored to your project's size, scope, and service
-                                requirements.
-                            </p>
-
+                            <p>Receive a fast, transparent estimate tailored to your project scope.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
                 </a>
-
 
                 <!-- 04 -->
-
-                <a href="facade.html" class="service-panel">
-
+                <a href="facade.html" class="service-panel" data-index="3">
                     <img src="assets/services/pexels-dmitry93-32114413.jpg" alt="Facade Restoration">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                04
-                            </span>
-
-                            <h3>
-                                Facade Restoration
-                            </h3>
-
+                            <span class="service-number">04</span>
+                            <h3>Facade Restoration</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Restore beauty while preserving architectural value.
-                            </p>
-
+                            <p>Restore beauty while preserving architectural value.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
                 </a>
-
 
                 <!-- 05 -->
-
-                <a href="apartment.html" class="service-panel">
-
+                <a href="apartment.html" class="service-panel" data-index="4">
                     <img src="assets/services/pexels-tr-n-chinh-587690133-20666871.jpg" alt="Apartment Preparation">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                05
-                            </span>
-
-                            <h3>
-                                Appartment Preparation
-                            </h3>
-
+                            <span class="service-number">05</span>
+                            <h3>Apartment Preparation</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Get properties ready for sale or new tenants.
-                            </p>
-
+                            <p>Get properties ready for sale or new tenants.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
                 </a>
-
 
                 <!-- 06 -->
-
-                <a href="maintenance.html" class="service-panel">
-
+                <a href="maintenance.html" class="service-panel" data-index="5">
                     <img src="assets/services/pexels-kseniachernaya-5691513.jpg" alt="Property Maintenance">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                06
-                            </span>
-
-                            <h3>
-                                Property Maintenance
-                            </h3>
-
+                            <span class="service-number">06</span>
+                            <h3>Property Maintenance</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Reliable scheduled maintenance for every property.
-                            </p>
-
+                            <p>Reliable scheduled maintenance for every property.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
                 </a>
-
 
                 <!-- 07 -->
-
-                <a href="property-value.html" class="service-panel">
-
+                <a href="property-value.html" class="service-panel" data-index="6">
                     <img src="assets/services/pexels-amine-kubranur-cakiroglu-689611212-37919681.jpg"
                         alt="Property Value Preservation">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                07
-                            </span>
-
-                            <h3>
-                                Property Value Preservation
-                            </h3>
-
+                            <span class="service-number">07</span>
+                            <h3>Property Value Preservation</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Protect and increase long-term property value.
-                            </p>
-
+                            <p>Protect and increase long-term property value.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
                 </a>
-
 
                 <!-- 08 -->
-
-                <a href="investment.html" class="service-panel">
-
+                <a href="investment.html" class="service-panel" data-index="7">
                     <img src="assets/services/pexels-kindelmedia-7579138.jpg" alt="Investment Property Support">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                08
-                            </span>
-
-                            <h3>
-                                Investment Property Support
-                            </h3>
-
+                            <span class="service-number">08</span>
+                            <h3>Investment Support</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Dedicated renovation and maintenance for investors.
-                            </p>
-
+                            <p>Dedicated renovation and maintenance for investors.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
                 </a>
 
-                <!-- 09-->
-
-                <a href="square-meter.html" class="service-panel">
-
+                <!-- 09 -->
+                <a href="square-meter.html" class="service-panel" data-index="8">
                     <img src="assets/services/pexels-mateusz-pielech-1032276948-33054909.jpg"
                         alt="Square Meter Calculator">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                09
-                            </span>
-
-                            <h3>
-                                Square Meter Calculator
-                            </h3>
-
+                            <span class="service-number">09</span>
+                            <h3>Square Meter Calculator</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Instantly calculate your property's surface area for accurate project planning and cost
-                                estimation.
-                            </p>
-
+                            <p>Instantly calculate surface area for project planning.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
                 </a>
 
-                <!-- 10-->
-
-                <a href="photo-upload.html" class="service-panel">
-
+                <!-- 10 -->
+                <a href="photo-upload.html" class="service-panel" data-index="9">
                     <img src="assets/services/pexels-jakubzerdzicki-28100043.jpg" alt="Photo Upload Functionality">
-
                     <div class="panel-overlay"></div>
-
                     <div class="panel-content">
-
                         <div class="panel-header">
-
-                            <span class="service-number">
-                                10
-                            </span>
-
-                            <h3>
-                                Photo Upload Functionality
-                            </h3>
-
+                            <span class="service-number">10</span>
+                            <h3>Photo Upload</h3>
                         </div>
-
                         <div class="panel-body">
-
-                            <p>
-                                Upload photos of your property to receive personalized recommendations and a seamless
-                                consultation experience.
-                            </p>
-
+                            <p>Upload photos for personalized consultation.</p>
                             <div class="panel-btn">
                                 Explore Service
                             </div>
-
                         </div>
-
                     </div>
-
-                </a>
-
-                <!-- 11-->
-
-                <a href="photo-analysis.html" class="service-panel">
-
-                    <img src="assets/services/engineers-brainstorming-ways-use-ai.jpg" alt="AI-Powered Photo Analysis">
-
-                    <div class="panel-overlay"></div>
-
-                    <div class="panel-content">
-
-                        <div class="panel-header">
-
-                            <span class="service-number">
-                                11
-                            </span>
-
-                            <h3>
-                                AI-Powered Photo Analysis
-                            </h3>
-
-                        </div>
-
-                        <div class="panel-body">
-
-                            <p>
-                                Advanced AI analyzes your uploaded images to identify project needs and deliver
-                                intelligent renovation and maintenance insights.
-                            </p>
-
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-
-                        </div>
-
-                    </div>
-
                 </a>
 
             </div>
@@ -1082,11 +919,35 @@
                 materials and timeless architecture.</p>
         </div>
 
-        <div class="projects-gallery" id="projectsGallery">
-            <!-- Cards for the active category are injected here by JS -->
+        <!-- Premium filmstrip carousel -->
+        <div class="proj-carousel" id="projCarousel">
+
+            <button class="proj-arrow proj-arrow--prev" id="projPrevBtn" aria-label="Previous project">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+
+            <div class="proj-viewport" id="projViewport">
+                <div class="proj-track" id="projectsGallery">
+                    <!-- Cards injected by JS -->
+                </div>
+            </div>
+
+            <button class="proj-arrow proj-arrow--next" id="projNextBtn" aria-label="Next project">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+
         </div>
 
+        <div class="proj-dots" id="projectsDots"></div>
+
     </section>
+
 
     <!-- Dock sits outside the section — fixed to the viewport,
      visibility controlled entirely by scroll position via JS. -->
@@ -1098,108 +959,223 @@
     </div>
 
     <!-- PLANS SECTION -->
-    <section class="plans-pin">
-        <div class="plans-head">
-            <span class="plans-eyebrow">Property Maintenance Plan</span>
-            <h2>Property Value Preservation on a New Level</h2>
+    <section class="plans-section">
+
+        <div class="plans-header">
+
+            <span class="plans-eyebrow">
+                PROPERTY MAINTENANCE PLAN
+            </span>
+
+            <h2>
+                Care that compounds.
+            </h2>
+
+            <p>
+                Continuous, AI-monitored property care —
+                designed to preserve, and quietly grow,
+                the value of your holdings.
+            </p>
+
+
+            <div class="billing-toggle">
+
+                <button class="active" data-period="monthly">
+                    Monthly
+                </button>
+
+                <button data-period="yearly">
+                    Yearly · save 15%
+                </button>
+
+            </div>
+
         </div>
 
-        <!-- SLIDE 1 — BASIC (static base of the stack) -->
-        <div class="plan-slide" data-slide="0">
-            <div class="plan-scrim"></div>
-            <div class="plan-content">
-                <div class="plan-counter">01 / 03</div>
-                <h3>Basic</h3>
-                <p class="plan-tagline">Essential upkeep, once a year.</p>
-                <ul class="plan-features">
+
+
+        <div class="plans-grid">
+
+
+            <!-- BASIC -->
+
+            <article class="plan-card">
+
+
+                <span class="plan-name">
+                    BASIC
+                </span>
+
+
+                <div class="price">
+
+                    <small>CHF</small>
+
+                    <strong data-month="290" data-year="2958">
+                        290
+                    </strong>
+
+                    <span class="price-period">
+                        /mo
+                    </span>
+
+                </div>
+
+
+
+                <p>
+                    Essential upkeep for classic homeowners.
+                </p>
+
+
+
+                <ul>
+
                     <li>Annual inspection</li>
                     <li>Maintenance report</li>
                     <li>Priority recommendations</li>
-                </ul>
-                <div class="plan-buttons">
-                    <a class="btn-plan-primary">Choose Basic</a>
-                    <a class="btn-plan-secondary">See Details</a>
-                </div>
-            </div>
-            <div class="plan-media ph-basic">
-                <div class="plan-media-img"></div>
-                <div class="plan-badge">
-                    <div class="num">3</div>
-                    <div class="label">services<br>included</div>
-                </div>
-                <div class="plan-pagination">
-                    <span class="plan-dot active"></span>
-                    <span class="plan-dot"></span>
-                    <span class="plan-dot"></span>
-                    <span class="plan-bar"><span class="plan-bar-fill"></span></span>
-                </div>
-            </div>
-        </div>
 
-        <!-- SLIDE 2 — PLUS (slides up over slide 1) -->
-        <div class="plan-slide" data-slide="1">
-            <div class="plan-scrim"></div>
-            <div class="plan-content">
-                <div class="plan-counter">02 / 03</div>
-                <h3>Plus</h3>
-                <p class="plan-tagline">Proactive care, inside and out.</p>
-                <ul class="plan-features">
-                    <li>Interior &amp; exterior inspection</li>
+                </ul>
+
+
+
+                <button>
+                    Select Basic
+                </button>
+
+
+            </article>
+
+
+
+
+
+            <!-- PLUS -->
+
+
+            <article class="plan-card featured">
+
+
+                <span class="popular">
+                    MOST POPULAR
+                </span>
+
+
+                <span class="plan-name">
+                    PLUS
+                </span>
+
+
+                <div class="price">
+
+                    <small>CHF</small>
+
+                    <strong data-month="590" data-year="6018">
+                        590
+                    </strong>
+
+                    <span class="price-period">
+                        /mo
+                    </span>
+
+                </div>
+
+
+
+                <p>
+                    The complete AI program for discerning owners.
+                </p>
+
+
+
+                <ul>
+
+                    <li>Interior & Exterior inspection</li>
                     <li>Maintenance planning</li>
                     <li>Discount on services</li>
                     <li>Emergency support</li>
-                </ul>
-                <div class="plan-buttons">
-                    <a class="btn-plan-primary">Choose Plus</a>
-                    <a class="btn-plan-secondary">See Details</a>
-                </div>
-            </div>
-            <div class="plan-media ph-plus">
-                <div class="plan-media-img"></div>
-                <div class="plan-badge">
-                    <div class="num">4</div>
-                    <div class="label">services<br>included</div>
-                </div>
-                <div class="plan-pagination">
-                    <span class="plan-dot"></span>
-                    <span class="plan-dot active"></span>
-                    <span class="plan-dot"></span>
-                    <span class="plan-bar"><span class="plan-bar-fill"></span></span>
-                </div>
-            </div>
-        </div>
 
-        <!-- SLIDE 3 — PREMIUM (slides up over slide 2) -->
-        <div class="plan-slide" data-slide="2">
-            <div class="plan-content">
-                <div class="plan-counter">03 / 03</div>
-                <h3>Premium</h3>
-                <p class="plan-tagline">Complete property management support.</p>
-                <ul class="plan-features">
+                </ul>
+
+
+
+                <button>
+                    Select Plus
+                </button>
+
+
+            </article>
+
+
+
+
+
+
+            <!-- PREMIUM -->
+
+
+            <article class="plan-card">
+
+
+                <span class="plan-name">
+                    PREMIUM
+                </span>
+
+
+
+                <div class="price">
+
+                    <small>CHF</small>
+
+
+                    <strong data-month="1290" data-year="13158">
+                        1290
+                    </strong>
+
+
+                    <span class="price-period">
+                        /mo
+                    </span>
+
+
+                </div>
+
+
+
+
+                <p>
+                    Signature care for luxury villas & institutions.
+                </p>
+
+
+
+
+                <ul>
+
+                    <li>Complete Property Management Support</li>
                     <li>Priority scheduling</li>
                     <li>Personal advisor</li>
-                    <li>Long-term maintenance strategy</li>
+                    <li>Long-term strategy</li>
                     <li>Annual property review</li>
+
+
                 </ul>
-                <div class="plan-buttons">
-                    <a class="btn-plan-primary">Choose Premium</a>
-                    <a class="btn-plan-secondary">See Details</a>
-                </div>
-            </div>
-            <div class="plan-media ph-premium">
-                <div class="plan-media-img"></div>
-                <div class="plan-badge">
-                    <div class="num">4</div>
-                    <div class="label">services<br>included</div>
-                </div>
-                <div class="plan-pagination">
-                    <span class="plan-dot"></span>
-                    <span class="plan-dot"></span>
-                    <span class="plan-dot active"></span>
-                    <span class="plan-bar"><span class="plan-bar-fill"></span></span>
-                </div>
-            </div>
+
+
+
+
+                <button>
+                    Select Premium
+                </button>
+
+
+
+            </article>
+
+
+
         </div>
+
 
     </section>
 
@@ -1295,7 +1271,7 @@
 
             <div class="chatbot-header">
                 <div class="chatbot-header-info">
-                    <img src="assets/chatbot-avatar.png" alt="Assistant" class="chatbot-header-avatar">
+                    <img src="assets/ChatBox-Girl.webp" alt="Assistant" class="chatbot-header-avatar">
                     <div>
                         <h4>Amigos Maler</h4>
                         <span class="chatbot-status"><i class="chatbot-dot"></i> Online</span>
@@ -1311,7 +1287,7 @@
             <div class="chatbot-body" id="chatbotBody">
                 <!-- MESSAGES INJECTION POINT: new bubbles get appended here by addMessage() -->
                 <div class="chatbot-message bot">
-                    <img src="assets/chatbot-avatar.png" alt="" class="chatbot-msg-avatar">
+                    <img src="assets/ChatBox-Girl.webp" alt="" class="chatbot-msg-avatar">
                     <div class="chatbot-bubble">Hi 👋 how can we help you today?</div>
                 </div>
             </div>
@@ -1333,7 +1309,7 @@
 
         <!-- Floating Toggle Button — image-based, circular -->
         <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open chat" aria-expanded="false">
-            <img src="assets/chatbot-avatar.png" alt="Chat with us" class="chatbot-toggle-img">
+            <img src="assets/ChatBox-Girl.webp" alt="Chat with us" class="chatbot-toggle-img">
             <span class="chatbot-toggle-close-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />

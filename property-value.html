@@ -4,150 +4,528 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Value | Amigos Maler</title>
-    <link rel="stylesheet" href="service.css">
-    <link rel="stylesheet" href="about.css">
+    <title>Property Value Preservation | Amigos Maler</title>
+    <link rel="stylesheet" href="property-value.css">
+    <link rel="stylesheet" href="contact.css">
 </head>
 
 <body>
 
-    <section class="service-hero">
-        <!-- Background Image -->
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
 
-        <div class="about-hero-bg">
+    <header class="site-header">
 
-            <img src="assets/services-imags/property-value-hero.jpg" alt="Luxury Property">
+        <a class="logo" href="index.html">
+            <img src="assets/logo.png" alt="Amigos Maler">
+        </a>
 
+        <nav class="site-nav" id="siteNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+
+            <div class="nav-dropdown">
+                <a href="index.html#services" class="dropdown-trigger">
+                    Maler Services
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="painting.html" class="dropdown-item">
+                        <span class="item-num">01</span>
+                        <div class="item-info">
+                            <span class="item-title">Painting &amp; Renovations</span>
+                            <span class="item-desc">Interior &amp; exterior premium finishes</span>
+                        </div>
+                    </a>
+                    <a href="drywall.html" class="dropdown-item">
+                        <span class="item-num">02</span>
+                        <div class="item-info">
+                            <span class="item-title">Drywall</span>
+                            <span class="item-desc">Professional installation &amp; repair</span>
+                        </div>
+                    </a>
+                    <a href="facade.html" class="dropdown-item">
+                        <span class="item-num">03</span>
+                        <div class="item-info">
+                            <span class="item-title">Facade Restoration</span>
+                            <span class="item-desc">Restore &amp; preserve architectural beauty</span>
+                        </div>
+                    </a>
+                    <a href="apartment.html" class="dropdown-item">
+                        <span class="item-num">04</span>
+                        <div class="item-info">
+                            <span class="item-title">Apartment Preparation</span>
+                            <span class="item-desc">Get properties ready for sale or tenants</span>
+                        </div>
+                    </a>
+                    <a href="maintenance.html" class="dropdown-item">
+                        <span class="item-num">05</span>
+                        <div class="item-info">
+                            <span class="item-title">Property Maintenance</span>
+                            <span class="item-desc">Reliable scheduled upkeep</span>
+                        </div>
+                    </a>
+                    <a href="property-value.html" class="dropdown-item">
+                        <span class="item-num">06</span>
+                        <div class="item-info">
+                            <span class="item-title">Property Value Preservation</span>
+                            <span class="item-desc">Long-term value protection strategy</span>
+                        </div>
+                    </a>
+                    <a href="investment.html" class="dropdown-item">
+                        <span class="item-num">07</span>
+                        <div class="item-info">
+                            <span class="item-title">Investment Property Support</span>
+                            <span class="item-desc">Dedicated services for investors</span>
+                        </div>
+                    </a>
+                    <a href="ai-quote-calculator.html" class="dropdown-item">
+                        <span class="item-num">08</span>
+                        <div class="item-info">
+                            <span class="item-title">AI Quote Calculator</span>
+                            <span class="item-desc">Instant transparent cost estimates</span>
+                        </div>
+                    </a>
+                    <a href="square-meter.html" class="dropdown-item">
+                        <span class="item-num">09</span>
+                        <div class="item-info">
+                            <span class="item-title">Square Meter Calculator</span>
+                            <span class="item-desc">Surface area calculation tool</span>
+                        </div>
+                    </a>
+                    <a href="photo-upload.html" class="dropdown-item">
+                        <span class="item-num">10</span>
+                        <div class="item-info">
+                            <span class="item-title">Photo Upload Functionality</span>
+                            <span class="item-desc">Upload photos for consultation</span>
+                        </div>
+                    </a>
+                    <a href="photo-analysis.html" class="dropdown-item">
+                        <span class="item-num">11</span>
+                        <div class="item-info">
+                            <span class="item-title">AI-Powered Photo Analysis</span>
+                            <span class="item-desc">Intelligent renovation insights</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+
+        <a href="tel:+41440000000" class="header-btn">Call Now</a>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
+
+    <!-- =========================================
+            HERO — self-drawing value divergence chart
+    ========================================= -->
+
+    <section class="pv-hero">
+
+        <div class="pv-hero-bg">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2000&q=80"
+                alt="Well-maintained residential property exterior">
         </div>
 
-        <!-- Overlay -->
+        <div class="pv-hero-overlay"></div>
 
-        <div class="about-hero-overlay"></div>
-        <div class="service-hero-lines"><span></span><span></span><span></span></div>
+        <div class="pv-wrapper pv-hero-inner">
 
-        <div class="serviceWrapper">
-            <div class="service-hero-content">
-                <span class="service-hero-eyebrow">PARTNER — PROPERTY VALUE</span>
-                <h1>Maintenance That Protects What Your Property Is Worth.</h1>
+            <div class="pv-hero-text pv-reveal">
+
+                <span class="pv-eyebrow">SERVICE — PROPERTY VALUE PRESERVATION</span>
+
+                <h1>Value Isn't Static. <br>It's Either Protected Or Lost.</h1>
+
                 <p>
-                    Condition and finish quality directly affect resale price
-                    and rental appeal. We help property owners and managers
-                    stay ahead of that, rather than reacting to it.
+                    Every property depreciates without attention — the only question is
+                    how fast. Our preservation program keeps yours on the rising line,
+                    not the falling one.
                 </p>
-                <div class="service-hero-buttons">
-                    <a href="quote.html" class="btn-primary">Talk To Our Team</a>
-                    <a href="about.html#process" class="btn-secondary">See How We Work</a>
+
+                <div class="pv-hero-buttons">
+                    <a href="quote.html" class="pv-btn-primary">Get a Free Valuation Check</a>
+                    <a href="about.html#process" class="pv-btn-secondary">Our Process</a>
                 </div>
+
+                <div class="pv-hero-stats">
+                    <div class="pv-hero-stat">
+                        <strong class="pv-counter" data-target="340" data-suffix="+">0</strong>
+                        <span>Properties Preserved</span>
+                    </div>
+                    <div class="pv-hero-stat">
+                        <strong class="pv-counter" data-target="94" data-suffix="%">0</strong>
+                        <span>Avg. Value Retained</span>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="pv-chart-card pv-reveal">
+
+                <span class="pv-chart-label">Property Value Over 10 Years</span>
+
+                <svg viewBox="0 0 400 220" class="pv-chart-svg" id="pvChartSvg">
+                    <line x1="10" y1="20" x2="10" y2="190" class="pv-chart-axis" />
+                    <line x1="10" y1="190" x2="390" y2="190" class="pv-chart-axis" />
+
+                    <path id="pvLineNeglected" class="pv-line pv-line-neglected"
+                        d="M10,70 C90,90 150,120 220,150 C280,172 330,182 390,186" />
+
+                    <path id="pvLinePreserved" class="pv-line pv-line-preserved"
+                        d="M10,70 C90,58 150,44 220,34 C280,26 330,20 390,16" />
+                </svg>
+
+                <div class="pv-chart-legend">
+                    <span><i class="pv-dot pv-dot-preserved"></i> With Preservation</span>
+                    <span><i class="pv-dot pv-dot-neglected"></i> Without Care</span>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="service-hero-bg-text">VALUE</div>
-        <div class="service-scroll-indicator"><span></span>
-            <p>SCROLL</p>
+    </section>
+
+    <!-- =========================================
+            WHAT ERODES VALUE — tilt card grid
+    ========================================= -->
+
+    <section class="pv-section">
+        <div class="pv-wrapper">
+
+            <div class="pv-section-heading pv-reveal">
+                <span>WHAT ERODES VALUE</span>
+                <h2>Small Neglect Compounds Into Big Losses.</h2>
+                <p>Hover a card — this is what appraisers and buyers notice first.</p>
+            </div>
+
+            <div class="pv-threat-grid">
+
+                <div class="pv-threat-card pv-reveal" data-tilt>
+                    <div class="pv-threat-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M14.7 6.3a4 4 0 1 1-5.66 5.66L3 18v3h3l6.04-6.04a4 4 0 1 1 2.66-8.66z"
+                                stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3>Deferred Maintenance</h3>
+                    <p>Small unresolved issues compound into costly structural problems.</p>
+                </div>
+
+                <div class="pv-threat-card pv-reveal" data-tilt>
+                    <div class="pv-threat-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6-1.5A4 4 0 0 0 6.5 16h11z"
+                                stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M8 20l-1 2M12 20l-1 2M16 20l-1 2" stroke="currentColor" stroke-width="1.7"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h3>Weather Exposure</h3>
+                    <p>Unprotected surfaces take on moisture, UV and freeze-thaw damage year after year.</p>
+                </div>
+
+                <div class="pv-threat-card pv-reveal" data-tilt>
+                    <div class="pv-threat-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.7" />
+                            <path d="M4 15l4-4 3 3 5-5 4 4" stroke="currentColor" stroke-width="1.7"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3>Dated Finishes</h3>
+                    <p>Tired colours and worn fixtures signal age long before anything is actually broken.</p>
+                </div>
+
+                <div class="pv-threat-card pv-reveal" data-tilt>
+                    <div class="pv-threat-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M3 20V10l9-6 9 6v10" stroke="currentColor" stroke-width="1.7"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3>Curb Appeal Decline</h3>
+                    <p>First impressions set price expectations before a buyer ever steps inside.</p>
+                </div>
+
+                <div class="pv-threat-card pv-reveal" data-tilt>
+                    <div class="pv-threat-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2l3 7 7 1-5.5 5 1.5 7-6-3.5L6 22l1.5-7L2 10l7-1 3-7z" stroke="currentColor"
+                                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3>Structural Neglect</h3>
+                    <p>Foundation, roof and facade issues left unaddressed become the most expensive line items.</p>
+                </div>
+
+                <div class="pv-threat-card pv-reveal" data-tilt>
+                    <div class="pv-threat-icon">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M14 7h7v7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3>Market Perception</h3>
+                    <p>Buyers and appraisers price in assumed hidden costs the moment upkeep looks inconsistent.</p>
+                </div>
+
+            </div>
+
         </div>
     </section>
 
-    <section class="service-section">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>WHY IT MATTERS</span>
-                <h2>Condition Is Part Of The Valuation.</h2>
-                <p>A well-maintained property consistently commands a stronger price and rents faster than one showing
-                    visible wear.</p>
+    <!-- =========================================
+            THE PRESERVATION ROADMAP — zigzag timeline
+    ========================================= -->
+
+    <section class="pv-section pv-section-alt">
+        <div class="pv-wrapper">
+
+            <div class="pv-section-heading pv-reveal">
+                <span>THE PRESERVATION ROADMAP</span>
+                <h2>A Long-Term Plan, Not A One-Time Fix.</h2>
+                <p>Here's what protecting a property's value actually looks like over time.</p>
             </div>
-            <div class="service-benefits-grid">
-                <div class="glass-card benefit-card">
-                    <h3>Higher</h3>
-                    <p>Perceived Value At Resale Or Re-Let</p>
+
+            <div class="pv-roadmap">
+
+                <div class="pv-roadmap-line"></div>
+
+                <div class="pv-roadmap-item pv-roadmap-left pv-reveal-left">
+                    <div class="pv-roadmap-media">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80"
+                            alt="Property baseline assessment">
+                    </div>
+                    <div class="pv-roadmap-content">
+                        <span class="pv-roadmap-year">Year 1</span>
+                        <h3>Baseline &amp; Quick Wins</h3>
+                        <p>Full condition assessment, photo documentation, and immediate fixes that stop small issues
+                            from spreading.</p>
+                    </div>
+                    <span class="pv-roadmap-dot"></span>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>Fewer</h3>
-                    <p>Costly Emergency Repairs Over Time</p>
+
+                <div class="pv-roadmap-item pv-roadmap-right pv-reveal-right">
+                    <div class="pv-roadmap-media">
+                        <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=700&q=80"
+                            alt="Property exterior refresh">
+                    </div>
+                    <div class="pv-roadmap-content">
+                        <span class="pv-roadmap-year">Year 5</span>
+                        <h3>Refresh &amp; Reinforce</h3>
+                        <p>Exterior repainting, sealant renewal and finishes updated before wear becomes visible to
+                            buyers.</p>
+                    </div>
+                    <span class="pv-roadmap-dot"></span>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>Consistent</h3>
-                    <p>Finish Standards Across Units</p>
+
+                <div class="pv-roadmap-item pv-roadmap-left pv-reveal-left">
+                    <div class="pv-roadmap-media">
+                        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=700&q=80"
+                            alt="Property major systems inspection">
+                    </div>
+                    <div class="pv-roadmap-content">
+                        <span class="pv-roadmap-year">Year 10</span>
+                        <h3>Major Systems Check</h3>
+                        <p>Roof, facade and structural elements fully inspected — the point where deferred issues get
+                            expensive.</p>
+                    </div>
+                    <span class="pv-roadmap-dot"></span>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>Documented</h3>
-                    <p>Maintenance History For Reporting</p>
+
+                <div class="pv-roadmap-item pv-roadmap-right pv-reveal-right">
+                    <div class="pv-roadmap-media">
+                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=700&q=80"
+                            alt="Property staged and ready for reinvestment">
+                    </div>
+                    <div class="pv-roadmap-content">
+                        <span class="pv-roadmap-year">Year 15+</span>
+                        <h3>Reinvestment Planning</h3>
+                        <p>A clear-eyed look at what upgrades actually return value now, versus what's just cosmetic.
+                        </p>
+                    </div>
+                    <span class="pv-roadmap-dot"></span>
                 </div>
+
             </div>
+
         </div>
     </section>
 
-    <section class="service-section service-section-alt">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>HOW WE PROTECT VALUE</span>
-                <h2>Upkeep As A Strategy, Not A Reaction.</h2>
-                <p>A structured approach that keeps a property's condition — and its value — moving in one direction.
-                </p>
+    <!-- =========================================
+            PRESERVED VS NEGLECTED — animated bars
+    ========================================= -->
+
+    <section class="pv-section pv-section-dark">
+        <div class="pv-wrapper">
+
+            <div class="pv-section-heading pv-heading-light pv-reveal">
+                <span>THE DIFFERENCE, IN NUMBERS</span>
+                <h2>Same Property Type. Ten Years Apart.</h2>
+                <p>Average value retained after a decade, based on our client portfolio.</p>
             </div>
-            <div class="service-included-grid">
-                <div class="glass-card included-card"><small>01</small>
-                    <h3>Condition Assessments</h3>
-                    <p>Before small issues grow into value-affecting damage.</p>
+
+            <div class="pv-bar-compare pv-reveal" id="pvBarCompare">
+
+                <div class="pv-bar-col">
+                    <div class="pv-bar-photo">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=300&q=80"
+                            alt="Well-preserved property">
+                    </div>
+                    <div class="pv-bar-track">
+                        <div class="pv-bar-fill pv-bar-preserved" id="pvBarPreserved" data-target="94"></div>
+                    </div>
+                    <strong class="pv-bar-num" id="pvBarNumPreserved">0%</strong>
+                    <span>With Preservation Program</span>
                 </div>
-                <div class="glass-card included-card"><small>02</small>
-                    <h3>Preventive Maintenance Scheduling</h3>
-                    <p>Planned upkeep instead of costly reactive repairs.</p>
+
+                <div class="pv-bar-col">
+                    <div class="pv-bar-photo">
+                        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=300&q=80"
+                            alt="Neglected property">
+                    </div>
+                    <div class="pv-bar-track">
+                        <div class="pv-bar-fill pv-bar-neglected" id="pvBarNeglected" data-target="61"></div>
+                    </div>
+                    <strong class="pv-bar-num" id="pvBarNumNeglected">0%</strong>
+                    <span>Without Regular Care</span>
                 </div>
-                <div class="glass-card included-card"><small>03</small>
-                    <h3>Consistent Finish Standards</h3>
-                    <p>The same quality bar across every unit or property.</p>
-                </div>
-                <div class="glass-card included-card"><small>04</small>
-                    <h3>Pre-Sale & Pre-Let Refresh Packages</h3>
-                    <p>Targeted touch-ups timed to a listing or viewing.</p>
-                </div>
-                <div class="glass-card included-card"><small>05</small>
-                    <h3>Maintenance History Reporting</h3>
-                    <p>A documented record you can share with buyers, tenants or partners.</p>
-                </div>
-                <div class="glass-card included-card"><small>06</small>
-                    <h3>Priority Scheduling</h3>
-                    <p>Faster turnaround for ongoing property partners.</p>
-                </div>
+
             </div>
+
         </div>
     </section>
 
-    <section class="service-section">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>HOW IT WORKS</span>
-                <h2>Assess, Plan, Maintain.</h2>
-                <p>A relationship built for the long term, not a one-off job.</p>
+    <!-- =========================================
+            VALUE CALCULATOR
+    ========================================= -->
+
+    <section class="pv-section">
+        <div class="pv-wrapper">
+
+            <div class="pv-section-heading pv-reveal">
+                <span>ESTIMATE YOUR IMPACT</span>
+                <h2>What Could Preservation Be Worth To You?</h2>
+                <p>A rough estimate based on average retained value across our portfolio — your free valuation check
+                    will be more precise.</p>
             </div>
-            <div class="service-steps-grid">
-                <div class="glass-card step-card"><small>STEP 01</small>
-                    <h3>Property Assessment</h3>
-                    <p>We review current condition against what protects long-term value.</p>
+
+            <div class="pv-calc pv-reveal" id="pvCalc">
+
+                <div class="pv-calc-inputs">
+
+                    <div class="pv-calc-field">
+                        <label>Estimated Property Value</label>
+                        <input type="range" min="200000" max="2000000" step="10000" value="800000" id="pvCalcValue">
+                        <span class="pv-calc-value" id="pvCalcValueDisplay">CHF 800,000</span>
+                    </div>
+
+                    <div class="pv-calc-field">
+                        <label>Years Of Ownership</label>
+                        <input type="range" min="1" max="20" step="1" value="10" id="pvCalcYears">
+                        <span class="pv-calc-value" id="pvCalcYearsDisplay">10 Years</span>
+                    </div>
+
                 </div>
-                <div class="glass-card step-card"><small>STEP 02</small>
-                    <h3>Value-Focused Maintenance Plan</h3>
-                    <p>A schedule built around what matters most for resale or rental appeal.</p>
+
+                <div class="pv-calc-result">
+                    <span>Estimated Value Protected</span>
+                    <strong id="pvCalcResult">CHF 0</strong>
+                    <p>Based on the average retained-value gap between preserved and neglected properties over this
+                        period.</p>
+                    <a href="quote.html" class="pv-btn-primary">Get My Free Valuation Check</a>
                 </div>
-                <div class="glass-card step-card"><small>STEP 03</small>
-                    <h3>Ongoing Reporting & Upkeep</h3>
-                    <p>Regular visits and a documented history you can rely on.</p>
-                </div>
+
             </div>
+
         </div>
     </section>
 
-    <section class="service-cta">
-        <div class="service-cta-wrapper">
-            <h2>Protect What Your Property Is Worth.</h2>
-            <p>Talk to us about a maintenance plan built around value, not just visits.</p>
-            <a href="quote.html" class="btn-primary">Talk To Our Property Team</a>
+    <!-- =========================================
+            CASE SNAPSHOT
+    ========================================= -->
+
+    <section class="pv-section pv-section-alt">
+        <div class="pv-wrapper pv-case pv-reveal">
+            <span class="pv-case-tag">CASE SNAPSHOT</span>
+            <p class="pv-case-text">
+                A Zürich apartment building was valued at <strong>CHF 2.1M</strong>. Comparable buildings
+                without regular upkeep lost an average of <strong>35%</strong> of their value over 8 years.
+                This one, on our preservation program, retained <strong>93%</strong>.
+            </p>
         </div>
     </section>
+
+    <!-- =========================================
+            CTA
+    ========================================= -->
+
+    <section class="pv-cta">
+        <svg class="pv-cta-bg-line" viewBox="0 0 800 200" preserveAspectRatio="none">
+            <path id="pvCtaLine" d="M0,150 C150,140 250,60 400,55 C550,50 650,20 800,15" />
+        </svg>
+        <div class="pv-cta-wrapper pv-reveal">
+            <h2>Ready To Protect What You've Built?</h2>
+            <p>Get a free valuation check — we'll show you exactly where your property stands, and what preserving it
+                looks like from here.</p>
+            <a href="quote.html" class="pv-btn-primary">Get a Free Valuation Check</a>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-wordmark">
+            <span class="eyebrow">Gmbh</span>
+            <h2>AMIGOS MALER</h2>
+        </div>
+
+        <div class="footer-meta">
+
+            <div class="footer-meta-left">
+                <span>© 2026 Amigos Maler. All rights reserved.</span>
+            </div>
+
+            <div class="footer-meta-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <span>License No. CH-RE-2026-00000</span>
+            </div>
+
+            <div class="footer-meta-right">
+                <span>Amigos Maler</span>
+            </div>
+
+        </div>
+
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-    <script src="service.js"></script>
+    <script src="contact.js"></script>
+    <script src="property-value.js"></script>
 
 </body>
 

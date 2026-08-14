@@ -135,3 +135,4 @@ document.querySelectorAll(".glass-card").forEach(card => {
         });
     });
 });
+

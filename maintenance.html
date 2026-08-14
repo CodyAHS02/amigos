@@ -4,149 +4,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maintenance Services | Amigos Maler</title>
-    <link rel="stylesheet" href="service.css">
-    <link rel="stylesheet" href="about.css">
+    <title>Property Maintenance | Amigos Maler</title>
+    <link rel="stylesheet" href="property-maintenance.css">
+    <link rel="stylesheet" href="contact.css">
 </head>
 
 <body>
 
-    <section class="service-hero">
-        <!-- Background Image -->
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
 
-        <div class="about-hero-bg">
+    <header class="site-header">
 
-            <img src="assets/services-imags/maintenance-hero.jpg" alt="Luxury Property">
+        <a class="logo" href="index.html">
+            <img src="assets/logo.png" alt="Amigos Maler">
+        </a>
 
+        <nav class="site-nav" id="siteNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+
+            <div class="nav-dropdown">
+                <a href="index.html#services" class="dropdown-trigger">
+                    Maler Services
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="painting.html" class="dropdown-item">
+                        <span class="item-num">01</span>
+                        <div class="item-info">
+                            <span class="item-title">Painting &amp; Renovations</span>
+                            <span class="item-desc">Interior &amp; exterior premium finishes</span>
+                        </div>
+                    </a>
+                    <a href="drywall.html" class="dropdown-item">
+                        <span class="item-num">02</span>
+                        <div class="item-info">
+                            <span class="item-title">Drywall</span>
+                            <span class="item-desc">Professional installation &amp; repair</span>
+                        </div>
+                    </a>
+                    <a href="facade.html" class="dropdown-item">
+                        <span class="item-num">03</span>
+                        <div class="item-info">
+                            <span class="item-title">Facade Restoration</span>
+                            <span class="item-desc">Restore &amp; preserve architectural beauty</span>
+                        </div>
+                    </a>
+                    <a href="apartment.html" class="dropdown-item">
+                        <span class="item-num">04</span>
+                        <div class="item-info">
+                            <span class="item-title">Apartment Preparation</span>
+                            <span class="item-desc">Get properties ready for sale or tenants</span>
+                        </div>
+                    </a>
+                    <a href="maintenance.html" class="dropdown-item">
+                        <span class="item-num">05</span>
+                        <div class="item-info">
+                            <span class="item-title">Property Maintenance</span>
+                            <span class="item-desc">Reliable scheduled upkeep</span>
+                        </div>
+                    </a>
+                    <a href="property-value.html" class="dropdown-item">
+                        <span class="item-num">06</span>
+                        <div class="item-info">
+                            <span class="item-title">Property Value Preservation</span>
+                            <span class="item-desc">Long-term value protection strategy</span>
+                        </div>
+                    </a>
+                    <a href="investment.html" class="dropdown-item">
+                        <span class="item-num">07</span>
+                        <div class="item-info">
+                            <span class="item-title">Investment Property Support</span>
+                            <span class="item-desc">Dedicated services for investors</span>
+                        </div>
+                    </a>
+                    <a href="ai-quote-calculator.html" class="dropdown-item">
+                        <span class="item-num">08</span>
+                        <div class="item-info">
+                            <span class="item-title">AI Quote Calculator</span>
+                            <span class="item-desc">Instant transparent cost estimates</span>
+                        </div>
+                    </a>
+                    <a href="square-meter.html" class="dropdown-item">
+                        <span class="item-num">09</span>
+                        <div class="item-info">
+                            <span class="item-title">Square Meter Calculator</span>
+                            <span class="item-desc">Surface area calculation tool</span>
+                        </div>
+                    </a>
+                    <a href="photo-upload.html" class="dropdown-item">
+                        <span class="item-num">10</span>
+                        <div class="item-info">
+                            <span class="item-title">Photo Upload Functionality</span>
+                            <span class="item-desc">Upload photos for consultation</span>
+                        </div>
+                    </a>
+                    <a href="photo-analysis.html" class="dropdown-item">
+                        <span class="item-num">11</span>
+                        <div class="item-info">
+                            <span class="item-title">AI-Powered Photo Analysis</span>
+                            <span class="item-desc">Intelligent renovation insights</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+
+        <a href="tel:+41440000000" class="header-btn">Call Now</a>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
+
+    <!-- =========================================
+            HERO — live property health dashboard
+    ========================================= -->
+
+    <section class="pm-hero">
+
+        <div class="pm-hero-bg">
+            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=2000&q=80"
+                alt="Modern maintained house exterior">
         </div>
 
-        <!-- Overlay -->
+        <div class="pm-hero-overlay"></div>
 
-        <div class="about-hero-overlay"></div>
-        <div class="service-hero-lines"><span></span><span></span><span></span></div>
+        <div class="pm-wrapper pm-hero-inner">
 
-        <div class="serviceWrapper">
-            <div class="service-hero-content">
-                <span class="service-hero-eyebrow">SERVICE — MAINTENANCE</span>
-                <h1>Property Care That Never Waits For A Problem.</h1>
+            <div class="pm-hero-text pm-reveal">
+
+                <span class="pm-eyebrow">SERVICE — PROPERTY MAINTENANCE</span>
+
+                <h1>Your Property, <br>Looked After Year-Round.</h1>
+
                 <p>
-                    Ongoing maintenance plans that catch small issues — a hairline
-                    crack, a worn seal, a flaking corner — before they become
-                    expensive repairs.
+                    Scheduled visits, seasonal upkeep and a team that notices small problems
+                    before they become expensive ones. Maintenance shouldn't be something you
+                    only think about when it's too late.
                 </p>
-                <div class="service-hero-buttons">
-                    <a href="quote.html" class="btn-primary">Get a Free Quote</a>
-                    <a href="about.html#process" class="btn-secondary">See How We Work</a>
+
+                <div class="pm-hero-buttons">
+                    <a href="quote.html" class="pm-btn-primary">Get a Free Plan</a>
+                    <a href="about.html#process" class="pm-btn-secondary">Our Process</a>
                 </div>
+
             </div>
+
+            <div class="pm-dashboard pm-reveal">
+
+                <div class="pm-dash-header">
+                    <span class="pm-dash-dot"></span> Live Property Status
+                </div>
+
+                <div class="pm-dash-score">
+
+                    <svg viewBox="0 0 120 120" class="pm-gauge">
+                        <circle class="pm-gauge-track" cx="60" cy="60" r="52" />
+                        <circle class="pm-gauge-fill" id="pmGaugeFill" cx="60" cy="60" r="52" />
+                    </svg>
+
+                    <div class="pm-gauge-label">
+                        <strong id="pmGaugeNum">0</strong>
+                        <span>Health Score</span>
+                    </div>
+
+                </div>
+
+                <div class="pm-dash-stats">
+                    <div class="pm-dash-stat">
+                        <strong>12</strong>
+                        <span>Days To Next Visit</span>
+                    </div>
+                    <div class="pm-dash-stat">
+                        <strong>4h</strong>
+                        <span>Avg. Response</span>
+                    </div>
+                    <div class="pm-dash-stat">
+                        <strong>36</strong>
+                        <span>Tasks Completed</span>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="service-hero-bg-text">CARE</div>
-        <div class="service-scroll-indicator"><span></span>
-            <p>SCROLL</p>
+    </section>
+
+    <!-- =========================================
+            SEASONAL CARE WHEEL
+    ========================================= -->
+
+    <section class="pm-section">
+        <div class="pm-wrapper">
+
+            <div class="pm-section-heading pm-reveal">
+                <span>YEAR-ROUND CARE</span>
+                <h2>Different Seasons Need Different Attention.</h2>
+                <p>Click a season — see what we're checking on your property at that time of year.</p>
+            </div>
+
+            <div class="pm-wheel-widget pm-reveal">
+
+                <div class="pm-wheel" id="pmWheel">
+
+                    <button class="pm-wheel-seg pm-seg-spring active" data-season="spring">
+                        <span>Spring</span>
+                    </button>
+                    <button class="pm-wheel-seg pm-seg-summer" data-season="summer">
+                        <span>Summer</span>
+                    </button>
+                    <button class="pm-wheel-seg pm-seg-winter" data-season="winter">
+                        <span>Winter</span>
+                    </button>
+                    <button class="pm-wheel-seg pm-seg-autumn" data-season="autumn">
+                        <span>Autumn</span>
+                    </button>
+
+                    <div class="pm-wheel-center">
+                        <span class="pm-wheel-icon" id="pmWheelIcon">🌱</span>
+                        <strong id="pmWheelLabel">Spring</strong>
+                    </div>
+
+                </div>
+
+                <div class="pm-wheel-panel">
+                    <h3 id="pmSeasonTitle">Spring Checklist</h3>
+                    <ul id="pmSeasonList">
+                        <li>Gutter clear-out after winter debris</li>
+                        <li>Exterior inspection for frost damage</li>
+                        <li>Irrigation &amp; drainage check</li>
+                        <li>Refresh exterior paint touch-ups</li>
+                    </ul>
+                </div>
+
+            </div>
+
         </div>
     </section>
 
-    <section class="service-section">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>WHY IT MATTERS</span>
-                <h2>Small Fixes Now, Not Big Bills Later.</h2>
-                <p>Regular upkeep is consistently cheaper than emergency repair — for owners and property managers
-                    alike.</p>
+    <!-- =========================================
+            PROPERTIES WE MAINTAIN — quick gallery
+    ========================================= -->
+
+    <section class="pm-section pm-section-alt">
+        <div class="pm-wrapper">
+
+            <div class="pm-gallery-heading pm-reveal">
+                <span>ON OUR ROUNDS</span>
+                <h2>A Few Properties On Our Regular Schedule.</h2>
             </div>
-            <div class="service-benefits-grid">
-                <div class="glass-card benefit-card">
-                    <h3>24/7</h3>
-                    <p>Emergency Call-Out Availability</p>
+
+            <div class="pm-gallery-row">
+
+                <div class="pm-gallery-card pm-reveal">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80"
+                        alt="Maintained modern house exterior">
+                    <span class="pm-gallery-tag">Monthly Plan</span>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>Seasonal</h3>
-                    <p>Inspection & Upkeep Plans</p>
+
+                <div class="pm-gallery-card pm-reveal">
+                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80"
+                        alt="Maintained apartment building exterior">
+                    <span class="pm-gallery-tag">Bi-Monthly Plan</span>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>Same-Week</h3>
-                    <p>Scheduling For Minor Repairs</p>
+
+                <div class="pm-gallery-card pm-reveal">
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80"
+                        alt="Maintained house facade">
+                    <span class="pm-gallery-tag">Quarterly Plan</span>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>Fixed-Fee</h3>
-                    <p>Maintenance Packages, No Surprises</p>
-                </div>
+
             </div>
+
         </div>
     </section>
 
-    <section class="service-section service-section-alt">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>WHAT'S INCLUDED</span>
-                <h2>One Plan, Every Season Covered.</h2>
-                <p>A single maintenance relationship instead of chasing different contractors for every small job.</p>
+    <!-- =========================================
+            COVERAGE BUILDER — morphing plan card
+    ========================================= -->
+
+    <section class="pm-section pm-section-dark">
+        <div class="pm-wrapper">
+
+            <div class="pm-section-heading pm-heading-light pm-reveal">
+                <span>BUILD YOUR COVERAGE</span>
+                <h2>How Often Should We Check In?</h2>
+                <p>Pick a visit frequency — the plan below updates to match.</p>
             </div>
-            <div class="service-included-grid">
-                <div class="glass-card included-card"><small>01</small>
-                    <h3>Touch-Up Painting & Patchwork</h3>
-                    <p>Scuffs, marks and worn spots refreshed to match the existing finish.</p>
+
+            <div class="pm-coverage pm-reveal">
+
+                <div class="pm-freq-toggle" id="pmFreqToggle">
+                    <button class="pm-freq-btn" data-freq="quarterly">Quarterly</button>
+                    <button class="pm-freq-btn active" data-freq="bimonthly">Bi-Monthly</button>
+                    <button class="pm-freq-btn" data-freq="monthly">Monthly</button>
+                    <span class="pm-freq-indicator" id="pmFreqIndicator"></span>
                 </div>
-                <div class="glass-card included-card"><small>02</small>
-                    <h3>Drywall & Plaster Repairs</h3>
-                    <p>Cracks, holes and dents patched cleanly and repainted.</p>
+
+                <div class="pm-coverage-card">
+
+                    <div class="pm-coverage-visits">
+                        <strong id="pmVisitsNum">6</strong>
+                        <span>Visits Per Year</span>
+                    </div>
+
+                    <ul class="pm-coverage-list" id="pmCoverageList">
+                        <li>Full exterior &amp; interior inspection</li>
+                        <li>Priority scheduling for repairs</li>
+                        <li>Seasonal task checklist included</li>
+                    </ul>
+
+                    <a href="quote.html" class="pm-btn-primary">Start This Plan</a>
+
                 </div>
-                <div class="glass-card included-card"><small>03</small>
-                    <h3>Caulking & Weatherproofing Checks</h3>
-                    <p>Seals inspected and refreshed before they let moisture in.</p>
-                </div>
-                <div class="glass-card included-card"><small>04</small>
-                    <h3>Minor Carpentry & Fixtures</h3>
-                    <p>Loose trim, sticking doors and small fixture repairs handled on the same visit.</p>
-                </div>
-                <div class="glass-card included-card"><small>05</small>
-                    <h3>Facade & Gutter Inspection</h3>
-                    <p>Seasonal checks to catch weather damage early.</p>
-                </div>
-                <div class="glass-card included-card"><small>06</small>
-                    <h3>Scheduled Preventive Visits</h3>
-                    <p>Planned check-ins instead of waiting for something to break.</p>
-                </div>
+
             </div>
+
         </div>
     </section>
 
-    <section class="service-section">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>HOW IT WORKS</span>
-                <h2>Set It Up Once, Stay Ahead All Year.</h2>
-                <p>A maintenance plan that runs quietly in the background.</p>
+    <!-- =========================================
+            ALWAYS ON — activity feed + response stat
+    ========================================= -->
+
+    <section class="pm-section">
+        <div class="pm-wrapper">
+
+            <div class="pm-feed-grid">
+
+                <div class="pm-feed-panel pm-reveal">
+
+                    <span class="pm-section-tag">ALWAYS ON</span>
+                    <h2>The Work Doesn't Stop Between Visits.</h2>
+                    <p>A live look at the kind of thing our maintenance teams handle, week to week.</p>
+
+                    <div class="pm-response-stat">
+                        <span class="pm-response-dot"></span>
+                        <div>
+                            <strong>4 Hours</strong>
+                            <span>Average Emergency Response Time</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="pm-feed-window pm-reveal">
+                    <div class="pm-feed-track" id="pmFeedTrack">
+
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Gutter cleared</strong><span>Zürich — 2 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>HVAC filter replaced</strong><span>Bern — 3 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Facade crack sealed</strong><span>Basel — 4 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Emergency leak fixed</strong><span>Zürich — 5 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Exterior touch-up paint</strong><span>Lausanne — 6 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Smoke detectors tested</strong><span>Geneva — 1 week ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Garden drainage cleared</strong><span>Zug — 1 week ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Door hardware serviced</strong><span>Bern — 2 weeks ago</span></div>
+                        </div>
+
+                        <!-- duplicate set for a seamless vertical loop -->
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Gutter cleared</strong><span>Zürich — 2 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>HVAC filter replaced</strong><span>Bern — 3 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Facade crack sealed</strong><span>Basel — 4 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Emergency leak fixed</strong><span>Zürich — 5 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Exterior touch-up paint</strong><span>Lausanne — 6 days ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Smoke detectors tested</strong><span>Geneva — 1 week ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Garden drainage cleared</strong><span>Zug — 1 week ago</span></div>
+                        </div>
+                        <div class="pm-feed-item"><span class="pm-feed-check">✓</span>
+                            <div><strong>Door hardware serviced</strong><span>Bern — 2 weeks ago</span></div>
+                        </div>
+
+                    </div>
+                    <div class="pm-feed-fade-top"></div>
+                    <div class="pm-feed-fade-bottom"></div>
+                </div>
+
             </div>
-            <div class="service-steps-grid">
-                <div class="glass-card step-card"><small>STEP 01</small>
-                    <h3>Choose A Maintenance Plan</h3>
-                    <p>Pick a visit frequency and scope that fits your property.</p>
-                </div>
-                <div class="glass-card step-card"><small>STEP 02</small>
-                    <h3>We Schedule Regular Visits</h3>
-                    <p>Inspections and touch-ups happen on a set, predictable cadence.</p>
-                </div>
-                <div class="glass-card step-card"><small>STEP 03</small>
-                    <h3>Issues Fixed Before They Grow</h3>
-                    <p>Small problems get resolved on the spot, before they turn costly.</p>
-                </div>
-            </div>
+
         </div>
     </section>
 
-    <section class="service-cta">
-        <div class="service-cta-wrapper">
-            <h2>Keep Your Property Ahead Of Problems.</h2>
-            <p>Set up a maintenance plan tailored to your property's size and needs.</p>
-            <a href="quote.html" class="btn-primary">Talk To Our Maintenance Team</a>
+    <!-- =========================================
+            PLAN RECOMMENDER QUIZ
+    ========================================= -->
+
+    <section class="pm-section pm-section-alt">
+        <div class="pm-wrapper">
+
+            <div class="pm-section-heading pm-reveal">
+                <span>NOT SURE WHICH PLAN?</span>
+                <h2>Answer Two Questions.</h2>
+                <p>We'll point you toward the right starting plan — you can always adjust it later.</p>
+            </div>
+
+            <div class="pm-quiz pm-reveal" id="pmQuiz">
+
+                <div class="pm-quiz-step active" data-step="1">
+                    <span class="pm-quiz-label">1. What type of property?</span>
+                    <div class="pm-quiz-options">
+                        <button class="pm-quiz-option" data-value="apartment">Apartment</button>
+                        <button class="pm-quiz-option" data-value="house">House</button>
+                        <button class="pm-quiz-option" data-value="multi">Multi-Unit / Investment</button>
+                    </div>
+                </div>
+
+                <div class="pm-quiz-step" data-step="2">
+                    <span class="pm-quiz-label">2. How hands-off do you want to be?</span>
+                    <div class="pm-quiz-options">
+                        <button class="pm-quiz-option" data-value="basic">Just the essentials</button>
+                        <button class="pm-quiz-option" data-value="plus">Regular peace of mind</button>
+                        <button class="pm-quiz-option" data-value="premium">Fully hands-off</button>
+                    </div>
+                </div>
+
+                <div class="pm-quiz-result" data-step="result">
+                    <span class="pm-quiz-result-tag">RECOMMENDED FOR YOU</span>
+                    <h3 id="pmQuizPlanName">Plus</h3>
+                    <p id="pmQuizPlanDesc">Regular inspections with priority scheduling — a solid middle ground for most
+                        homeowners.</p>
+                    <div class="pm-quiz-actions">
+                        <button class="pm-btn-secondary" id="pmQuizRestart" type="button">Start Over</button>
+                        <a href="quote.html" class="pm-btn-primary">Get This Plan</a>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </section>
+
+    <!-- =========================================
+            CTA — dual path
+    ========================================= -->
+
+    <section class="pm-cta">
+        <div class="pm-wrapper pm-cta-inner pm-reveal">
+
+            <div class="pm-cta-oncall">
+                <span class="pm-oncall-dot"></span> On-call now
+            </div>
+
+            <h2>Already A Client, Or Just Getting Started?</h2>
+
+            <div class="pm-cta-buttons">
+                <a href="quote.html" class="pm-btn-primary">Get a Maintenance Plan</a>
+                <a href="contact.html" class="pm-btn-secondary pm-btn-secondary-light">Report An Issue</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-wordmark">
+            <span class="eyebrow">Gmbh</span>
+            <h2>AMIGOS MALER</h2>
+        </div>
+
+        <div class="footer-meta">
+
+            <div class="footer-meta-left">
+                <span>© 2026 Amigos Maler. All rights reserved.</span>
+            </div>
+
+            <div class="footer-meta-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <span>License No. CH-RE-2026-00000</span>
+            </div>
+
+            <div class="footer-meta-right">
+                <span>Amigos Maler</span>
+            </div>
+
+        </div>
+
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-    <script src="service.js"></script>
+    <script src="property-maintenance.js"></script>
+    <script src="contact.js"></script>
 
 </body>
 

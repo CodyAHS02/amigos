@@ -4,148 +4,453 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote Calculator | Amigos Maler</title>
-    <link rel="stylesheet" href="service.css">
-    <link rel="stylesheet" href="about.css">
+    <title>Get a Quote | Amigos Maler</title>
+    <link rel="stylesheet" href="quote.css">
+    <link rel="stylesheet" href="contact.css">
 </head>
 
 <body>
 
-    <section class="service-hero">
-        <!-- Background Image -->
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
 
-        <div class="about-hero-bg">
+    <header class="site-header">
 
-            <img src="assets/services-imags/quote-calculator.jpg" alt="Luxury Property">
+        <a class="logo" href="index.html">
+            <img src="assets/logo.png" alt="Amigos Maler">
+        </a>
 
-        </div>
+        <nav class="site-nav" id="siteNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
 
-        <!-- Overlay -->
+            <div class="nav-dropdown">
+                <a href="index.html#services" class="dropdown-trigger">
+                    Maler Services
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="painting.html" class="dropdown-item">
+                        <span class="item-num">01</span>
+                        <div class="item-info">
+                            <span class="item-title">Painting &amp; Renovations</span>
+                            <span class="item-desc">Interior &amp; exterior premium finishes</span>
+                        </div>
+                    </a>
+                    <a href="drywall.html" class="dropdown-item">
+                        <span class="item-num">02</span>
+                        <div class="item-info">
+                            <span class="item-title">Drywall</span>
+                            <span class="item-desc">Professional installation &amp; repair</span>
+                        </div>
+                    </a>
+                    <a href="facade.html" class="dropdown-item">
+                        <span class="item-num">03</span>
+                        <div class="item-info">
+                            <span class="item-title">Facade Restoration</span>
+                            <span class="item-desc">Restore &amp; preserve architectural beauty</span>
+                        </div>
+                    </a>
+                    <a href="apartment.html" class="dropdown-item">
+                        <span class="item-num">04</span>
+                        <div class="item-info">
+                            <span class="item-title">Apartment Preparation</span>
+                            <span class="item-desc">Get properties ready for sale or tenants</span>
+                        </div>
+                    </a>
+                    <a href="maintenance.html" class="dropdown-item">
+                        <span class="item-num">05</span>
+                        <div class="item-info">
+                            <span class="item-title">Property Maintenance</span>
+                            <span class="item-desc">Reliable scheduled upkeep</span>
+                        </div>
+                    </a>
+                    <a href="property-value.html" class="dropdown-item">
+                        <span class="item-num">06</span>
+                        <div class="item-info">
+                            <span class="item-title">Property Value Preservation</span>
+                            <span class="item-desc">Long-term value protection strategy</span>
+                        </div>
+                    </a>
+                    <a href="investment.html" class="dropdown-item">
+                        <span class="item-num">07</span>
+                        <div class="item-info">
+                            <span class="item-title">Investment Property Support</span>
+                            <span class="item-desc">Dedicated services for investors</span>
+                        </div>
+                    </a>
+                    <a href="ai-quote-calculator.html" class="dropdown-item">
+                        <span class="item-num">08</span>
+                        <div class="item-info">
+                            <span class="item-title">AI Quote Calculator</span>
+                            <span class="item-desc">Instant transparent cost estimates</span>
+                        </div>
+                    </a>
+                    <a href="square-meter.html" class="dropdown-item">
+                        <span class="item-num">09</span>
+                        <div class="item-info">
+                            <span class="item-title">Square Meter Calculator</span>
+                            <span class="item-desc">Surface area calculation tool</span>
+                        </div>
+                    </a>
+                    <a href="photo-upload.html" class="dropdown-item">
+                        <span class="item-num">10</span>
+                        <div class="item-info">
+                            <span class="item-title">Photo Upload Functionality</span>
+                            <span class="item-desc">Upload photos for consultation</span>
+                        </div>
+                    </a>
+                    <a href="photo-analysis.html" class="dropdown-item">
+                        <span class="item-num">11</span>
+                        <div class="item-info">
+                            <span class="item-title">AI-Powered Photo Analysis</span>
+                            <span class="item-desc">Intelligent renovation insights</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
 
-        <div class="about-hero-overlay"></div>
-        <div class="service-hero-lines"><span></span><span></span><span></span></div>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
 
-        <div class="serviceWrapper">
-            <div class="service-hero-content">
-                <span class="service-hero-eyebrow">TOOL — QUOTE CALCULATOR</span>
-                <h1>An Instant Estimate, Built Around Your Space.</h1>
+        <a href="tel:+41440000000" class="header-btn">Call Now</a>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
+
+    <!-- =========================================
+            HERO — LIVE RECEIPT
+    ========================================= -->
+
+    <section class="qc-hero">
+
+        <div class="qc-wrapper">
+
+            <div class="qc-hero-text qc-reveal">
+                <span class="qc-eyebrow">GET A QUOTE</span>
+                <h1>Watch Your Estimate <br>Build Itself.</h1>
                 <p>
-                    Add your rooms, choose what needs doing, and watch the
-                    price build in real time — no waiting days for a callback
-                    just to find out roughly what something costs.
+                    Add rooms, pick materials and finishes, and see a real
+                    price take shape — no phone call, no waiting for a callback.
                 </p>
-                <div class="service-hero-buttons">
-                    <a href="quote.html" class="btn-primary">Open The Quote Calculator</a>
-                    <a href="square-meter.html" class="btn-secondary">How Measurements Work</a>
+                <a href="#qc-calculator" class="qc-btn-primary">Start My Quote</a>
+
+                <div class="qc-hero-chips">
+                    <div class="qc-chip"><strong>~2 min</strong><span>To First Estimate</span></div>
+                    <div class="qc-chip"><strong>0%</strong><span>Obligation</span></div>
+                    <div class="qc-chip"><strong>48h</strong><span>To Book Inspection</span></div>
                 </div>
             </div>
+
+            <div class="qc-receipt-wrap qc-reveal qc-reveal-right">
+
+                <div class="qc-receipt">
+
+                    <div class="qc-receipt-head">
+                        <span>AMIGOS MALER</span>
+                        <small>Estimate Preview</small>
+                    </div>
+
+                    <div class="qc-receipt-lines" id="qcReceiptLines"></div>
+
+                    <div class="qc-receipt-total">
+                        <span>Estimated Total</span>
+                        <strong id="qcReceiptTotal">CHF 0.00</strong>
+                    </div>
+
+                    <div class="qc-receipt-tear"></div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="service-hero-bg-text">QUOTE</div>
-        <div class="service-scroll-indicator"><span></span>
-            <p>SCROLL</p>
+    </section>
+
+    <!-- =========================================
+            THE CALCULATOR (cleaned, functional)
+    ========================================= -->
+
+    <section class="quote-section" id="qc-calculator">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="assets/bg-video.mp4" type="video/mp4">
+        </video>
+
+        <div class="quote-container">
+
+            <div class="quote-top">
+
+                <div class="quote-heading">
+                    <span class="section-tag">AI QUOTATION CALCULATOR</span>
+                    <h2>Instant Price <span>Calculator</span></h2>
+                </div>
+
+                <div class="quote-side">
+                    <p>
+                        Customize your project, choose materials and finishes,
+                        and receive an instant estimated price, duration and
+                        recommended package before booking an inspection.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="quote-workspace">
+
+                <div class="quote-form quote-rooms-panel">
+                    <div class="rooms-list" id="roomsList">
+                        <div class="rooms-empty">No rooms added yet — click "Add Space" to start your quote.</div>
+                    </div>
+                    <button class="add-space-btn" id="addSpaceBtn" type="button">
+                        Add Space
+                        <span class="add-space-icon">+</span>
+                    </button>
+                </div>
+
+                <div class="estimate-card">
+                    <span class="estimate-tag">LIVE ESTIMATE</span>
+
+                    <div class="estimate-item">
+                        <small>Estimated Price</small>
+                        <h3>CHF <span id="estimatedPrice">0.00</span></h3>
+                    </div>
+
+                    <div class="estimate-item">
+                        <small>Rooms Added</small>
+                        <h4><span id="estimatedRooms">0</span> Rooms</h4>
+                    </div>
+
+                    <div class="quote-summary">
+                        <h5>Included Work</h5>
+                        <ul id="summaryList">
+                            <li>No rooms added yet</li>
+                        </ul>
+                    </div>
+
+                    <a href="#" class="quote-btn" id="bookInspectionBtn">Book Free Inspection</a>
+                </div>
+
+            </div>
+
+            <div class="quote-modal" id="quoteModal">
+                <div class="quote-modal-inner">
+                    <button class="quote-modal-close" id="modalClose" aria-label="Close">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </button>
+                    <div class="quote-modal-body" id="modalBody"></div>
+                    <div class="quote-modal-stickybar">
+                        <span>Total (excl. VAT)</span>
+                        <strong>CHF <span id="modalTotalValue">0.00</span></strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-modal" id="successModal">
+                <div class="success-modal-inner">
+                    <button class="success-modal-close" id="successModalClose" aria-label="Close">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </button>
+
+                    <div class="success-badge">
+                        <span class="success-ring ring-1"></span>
+                        <span class="success-ring ring-2"></span>
+                        <span class="success-ring ring-3"></span>
+                        <svg class="success-check" viewBox="0 0 100 100">
+                            <circle class="success-check-circle" cx="50" cy="50" r="42" />
+                            <path class="success-check-mark" d="M30 52 L44 66 L72 36" />
+                        </svg>
+                        <span class="success-particles" id="successParticles"></span>
+                    </div>
+
+                    <h3 class="success-title">Request Received!</h3>
+                    <p class="success-text">
+                        Thanks — your free inspection request is in. Our team will reach out within 24 hours to
+                        confirm a time that works for you.
+                    </p>
+                    <button class="quote-btn-primary success-done-btn" id="successDoneBtn">Done</button>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section class="service-section">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>WHY IT MATTERS</span>
-                <h2>See The Number Before You Commit To Anything.</h2>
-                <p>You shouldn't need to book a site visit just to find out if a project fits your budget.</p>
+    <!-- =========================================
+            HOW PRICING WORKS
+    ========================================= -->
+
+    <section class="qc-section">
+        <div class="qc-wrapper">
+
+            <div class="qc-section-heading qc-reveal">
+                <span>HOW THE PRICE IS BUILT</span>
+                <h2>No Hidden Line Items.</h2>
+                <p>Every estimate is built from three transparent factors — nothing added after the fact.</p>
             </div>
-            <div class="service-benefits-grid">
-                <div class="glass-card benefit-card">
-                    <h3>Instant</h3>
-                    <p>Live Price As You Build Your Offer</p>
+
+            <div class="qc-factor-grid">
+
+                <div class="qc-factor-card qc-reveal">
+                    <div class="qc-factor-img">
+                        <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800&q=80"
+                            alt="Interior staircase in a multi-room home">
+                    </div>
+                    <span class="qc-factor-num">01</span>
+                    <h3>Room Size &amp; Scope</h3>
+                    <p>Ceiling, walls, doors, windows, radiators — priced per square metre or per item, only for what
+                        you select.</p>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>Room-By-Room</h3>
-                    <p>Editable, Removable Line Items</p>
+
+                <div class="qc-factor-card qc-reveal">
+                    <div class="qc-factor-img">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+                            alt="Planning a renovation project with notes and a laptop">
+                    </div>
+                    <span class="qc-factor-num">02</span>
+                    <h3>Material Class</h3>
+                    <p>Standard or premium — premium carries a longer warranty and a clearly shown percentage uplift.
+                    </p>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>No</h3>
-                    <p>Obligation To Book</p>
+
+                <div class="qc-factor-card qc-reveal">
+                    <div class="qc-factor-img">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
+                            alt="Modern residential building exterior">
+                    </div>
+                    <span class="qc-factor-num">03</span>
+                    <h3>Optional Add-Ons</h3>
+                    <p>Express 24h turnaround or final cleaning — opt in only if you need them, priced as a clear
+                        surcharge.</p>
                 </div>
-                <div class="glass-card benefit-card">
-                    <h3>Confirmed</h3>
-                    <p>On-Site Before Any Work Starts</p>
-                </div>
+
             </div>
+
         </div>
     </section>
 
-    <section class="service-section service-section-alt">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>WHAT YOU CAN CONFIGURE</span>
-                <h2>Every Room, Every Detail, One Running Total.</h2>
-                <p>Build your offer exactly the way the job actually breaks down — room by room, task by task.</p>
+    <!-- =========================================
+            FAQ
+    ========================================= -->
+
+    <section class="qc-section qc-section-alt">
+        <div class="qc-wrapper qc-faq-wrapper">
+
+            <div class="qc-section-heading qc-reveal">
+                <span>QUESTIONS</span>
+                <h2>Before You Start</h2>
             </div>
-            <div class="service-included-grid">
-                <div class="glass-card included-card"><small>01</small>
-                    <h3>Add Rooms By Type & Size</h3>
-                    <p>Set up each room with its dimensions and purpose.</p>
+
+            <div class="qc-faq" id="qcFaq">
+
+                <div class="qc-faq-item active">
+                    <button class="qc-faq-trigger">
+                        <span>How accurate is the online estimate?</span>
+                        <span class="qc-faq-icon">+</span>
+                    </button>
+                    <div class="qc-faq-panel">
+                        <p>Within roughly 10–15% of the final price for most standard jobs. The free on-site inspection
+                            confirms the exact figure before any work is booked.</p>
+                    </div>
                 </div>
-                <div class="glass-card included-card"><small>02</small>
-                    <h3>Choose Work Scope Per Room</h3>
-                    <p>Select exactly what needs doing — painting, drywall, or both.</p>
+
+                <div class="qc-faq-item">
+                    <button class="qc-faq-trigger">
+                        <span>Do I need to pay anything to get a quote?</span>
+                        <span class="qc-faq-icon">+</span>
+                    </button>
+                    <div class="qc-faq-panel">
+                        <p>No. The calculator, the inspection, and the final written quote are all free with zero
+                            obligation to book.</p>
+                    </div>
                 </div>
-                <div class="glass-card included-card"><small>03</small>
-                    <h3>Doors, Windows & Trim Quantities</h3>
-                    <p>Fine-tune the details that affect labour and material cost.</p>
+
+                <div class="qc-faq-item">
+                    <button class="qc-faq-trigger">
+                        <span>Can I edit or remove a room after adding it?</span>
+                        <span class="qc-faq-icon">+</span>
+                    </button>
+                    <div class="qc-faq-panel">
+                        <p>Yes — every room in your list has edit and remove controls, and the total updates instantly.
+                        </p>
+                    </div>
                 </div>
-                <div class="glass-card included-card"><small>04</small>
-                    <h3>Live Running Total</h3>
-                    <p>The price updates immediately as you build out your offer.</p>
+
+                <div class="qc-faq-item">
+                    <button class="qc-faq-trigger">
+                        <span>What happens after I book an inspection?</span>
+                        <span class="qc-faq-icon">+</span>
+                    </button>
+                    <div class="qc-faq-panel">
+                        <p>Our team reaches out within 24 hours to schedule a visit, confirm scope on-site, and issue a
+                            final fixed-price quote.</p>
+                    </div>
                 </div>
-                <div class="glass-card included-card"><small>05</small>
-                    <h3>Editable Offer Summary</h3>
-                    <p>Rooms are saved as editable cards — remove or adjust anything before sending.</p>
-                </div>
-                <div class="glass-card included-card"><small>06</small>
-                    <h3>Instant Copy Of Your Estimate</h3>
-                    <p>Send yourself a copy to review before deciding anything.</p>
-                </div>
+
             </div>
+
         </div>
     </section>
 
-    <section class="service-section">
-        <div class="service-section-wrapper">
-            <div class="service-section-heading">
-                <span>HOW IT WORKS</span>
-                <h2>Three Steps To A Real Number.</h2>
-                <p>No account required, no commitment — just an accurate starting point.</p>
-            </div>
-            <div class="service-steps-grid">
-                <div class="glass-card step-card"><small>STEP 01</small>
-                    <h3>Add Your Rooms</h3>
-                    <p>Enter each room's type and dimensions, or use our measurement guide.</p>
-                </div>
-                <div class="glass-card step-card"><small>STEP 02</small>
-                    <h3>Select What Needs Doing</h3>
-                    <p>Pick services per room from painting, drywall and more.</p>
-                </div>
-                <div class="glass-card step-card"><small>STEP 03</small>
-                    <h3>Review Your Instant Estimate</h3>
-                    <p>See your total, adjust anything, and decide when you're ready.</p>
-                </div>
-            </div>
+    <!-- =========================================
+            CTA
+    ========================================= -->
+
+    <section class="qc-cta">
+        <div class="qc-cta-wrapper qc-reveal">
+            <h2>Ready To See Your Number?</h2>
+            <p>It takes about two minutes — no account, no commitment.</p>
+            <a href="#qc-calculator" class="qc-btn-primary">Start My Quote</a>
         </div>
     </section>
 
-    <section class="service-cta">
-        <div class="service-cta-wrapper">
-            <h2>See Your Price Before You Commit To Anything.</h2>
-            <p>It takes a few minutes to build your offer — no site visit required to start.</p>
-            <a href="quote.html" class="btn-primary">Open The Quote Calculator</a>
-        </div>
-    </section>
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-    <script src="service.js"></script>
+    <footer class="site-footer">
+
+        <div class="footer-wordmark">
+            <span class="eyebrow">Gmbh</span>
+            <h2>AMIGOS MALER</h2>
+        </div>
+
+        <div class="footer-meta">
+
+            <div class="footer-meta-left">
+                <span>© 2026 Amigos Maler. All rights reserved.</span>
+            </div>
+
+            <div class="footer-meta-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <span>License No. CH-RE-2026-00000</span>
+            </div>
+
+            <div class="footer-meta-right">
+                <span>Amigos Maler</span>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="quote.js"></script>
+    <script src="contact.js"></script>
 
 </body>
 

@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amigos Maler</title>
     <link rel="stylesheet" href="style.css">
+    <script src="partials.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css"
         integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
+<body data-page="home">
+
+    <!-- GLOBAL HEADER — injected here by /partials.js from /partials/header.html.
+         Lives outside the hero on purpose: it's position:fixed and page-level,
+         so it doesn't depend on any given page's hero markup/height. -->
+    <div id="site-header-root"></div>
 
     <!-- LOADER -->
     <div class="loader">
@@ -26,8 +32,8 @@
     </div>
 
     <!-- HERO SECTION -->
-    <section class="hero">
 
+    <section class="hero" data-hero>
         <div class="hero-media">
             <video id="heroVideo" muted playsinline preload="auto">
                 <source src="hero_scrub2.mp4" type="video/mp4">
@@ -38,14 +44,14 @@
                 <div class="paint-focus"></div>
 
                 <div class="paint-screen-banner">
-                    <h2>See how a new color transforms your space.</h2>
-                    <p>Tap the icons to paint the walls.</p>
+                    <h2>Discover what color can change.</h2>
+                    <p>Choose a color and experience the room a new.</p>
                 </div>
 
                 <!-- LEFT -->
                 <div class="paint-point left" data-wall="left-wall">
                     <button class="paint-trigger">
-                        <img src="assets/paint-bucket.png" alt="">
+                        <i class="fa-solid fa-paint-roller"></i>
                     </button>
 
                     <div class="palette">
@@ -54,70 +60,56 @@
                         <span data-color="#A6B09A" style="--c:#A6B09A"></span>
                         <span data-color="#8D98A4" style="--c:#8D98A4"></span>
                         <span data-color="#5C6771" style="--c:#5C6771"></span>
+                        <input type="color" class="palette-custom" value="#ffffff" title="Custom color">
                     </div>
                 </div>
-
 
                 <!-- FRONT -->
-
                 <div class="paint-point front" data-wall="front-wall">
-
                     <button class="paint-trigger">
-                        <img src="assets/paint-bucket.png" alt="">
+                        <i class="fa-solid fa-paint-roller"></i>
                     </button>
 
                     <div class="palette">
-
                         <span data-color="#F5F3ED" style="--c:#F5F3ED"></span>
                         <span data-color="#D8CCB4" style="--c:#D8CCB4"></span>
                         <span data-color="#A6B09A" style="--c:#A6B09A"></span>
                         <span data-color="#8D98A4" style="--c:#8D98A4"></span>
                         <span data-color="#5C6771" style="--c:#5C6771"></span>
-
+                        <input type="color" class="palette-custom" value="#ffffff" title="Custom color">
                     </div>
-
                 </div>
-
 
                 <!-- RIGHT -->
-
                 <div class="paint-point right" data-wall="right-wall">
-
                     <button class="paint-trigger">
-                        <img src="assets/paint-bucket.png" alt="">
+                        <i class="fa-solid fa-paint-roller"></i>
                     </button>
 
                     <div class="palette">
-
                         <span data-color="#F5F3ED" style="--c:#F5F3ED"></span>
                         <span data-color="#D8CCB4" style="--c:#D8CCB4"></span>
                         <span data-color="#A6B09A" style="--c:#A6B09A"></span>
                         <span data-color="#8D98A4" style="--c:#8D98A4"></span>
                         <span data-color="#5C6771" style="--c:#5C6771"></span>
-
+                        <input type="color" class="palette-custom" value="#ffffff" title="Custom color">
                     </div>
-
                 </div>
 
-
                 <!-- CEILING -->
-
                 <div class="paint-point ceiling" data-wall="ceiling">
-
                     <button class="paint-trigger">
-                        <img src="assets/paint-bucket.png" alt="">
+                        <i class="fa-solid fa-paint-roller"></i>
                     </button>
 
                     <div class="palette">
-
                         <span data-color="#F5F3ED" style="--c:#F5F3ED"></span>
                         <span data-color="#D8CCB4" style="--c:#D8CCB4"></span>
                         <span data-color="#A6B09A" style="--c:#A6B09A"></span>
                         <span data-color="#8D98A4" style="--c:#8D98A4"></span>
                         <span data-color="#5C6771" style="--c:#5C6771"></span>
-
+                        <input type="color" class="palette-custom" value="#ffffff" title="Custom color">
                     </div>
-
                 </div>
 
             </div>
@@ -137,130 +129,21 @@
             </h1>
 
 
-            <!-- HEADER -->
-
-            <header class="hero-header">
-
-                <a class="logo" href="#">
-                    <img src="assets/logo.png">
-                </a>
-
-                <nav class="hero-nav">
-
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-
-                    <div class="nav-dropdown">
-                        <a href="#services" class="dropdown-trigger">
-                            Maler Services
-                            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
-                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="painting.html" class="dropdown-item">
-                                <span class="item-num">01</span>
-                                <div class="item-info">
-                                    <span class="item-title">Painting &amp; Renovations</span>
-                                    <span class="item-desc">Interior &amp; exterior premium finishes</span>
-                                </div>
-                            </a>
-                            <a href="drywall.html" class="dropdown-item">
-                                <span class="item-num">02</span>
-                                <div class="item-info">
-                                    <span class="item-title">Drywall</span>
-                                    <span class="item-desc">Professional installation &amp; repair</span>
-                                </div>
-                            </a>
-                            <a href="facade.html" class="dropdown-item">
-                                <span class="item-num">03</span>
-                                <div class="item-info">
-                                    <span class="item-title">Facade Restoration</span>
-                                    <span class="item-desc">Restore &amp; preserve architectural beauty</span>
-                                </div>
-                            </a>
-                            <a href="apartment.html" class="dropdown-item">
-                                <span class="item-num">04</span>
-                                <div class="item-info">
-                                    <span class="item-title">Apartment Preparation</span>
-                                    <span class="item-desc">Get properties ready for sale or tenants</span>
-                                </div>
-                            </a>
-                            <a href="maintenance.html" class="dropdown-item">
-                                <span class="item-num">05</span>
-                                <div class="item-info">
-                                    <span class="item-title">Property Maintenance</span>
-                                    <span class="item-desc">Reliable scheduled upkeep</span>
-                                </div>
-                            </a>
-                            <a href="property-value.html" class="dropdown-item">
-                                <span class="item-num">06</span>
-                                <div class="item-info">
-                                    <span class="item-title">Property Value Preservation</span>
-                                    <span class="item-desc">Long-term value protection strategy</span>
-                                </div>
-                            </a>
-                            <a href="investment.html" class="dropdown-item">
-                                <span class="item-num">07</span>
-                                <div class="item-info">
-                                    <span class="item-title">Investment Property Support</span>
-                                    <span class="item-desc">Dedicated services for investors</span>
-                                </div>
-                            </a>
-                            <a href="ai-quote-calculator.html" class="dropdown-item">
-                                <span class="item-num">08</span>
-                                <div class="item-info">
-                                    <span class="item-title">AI Quote Calculator</span>
-                                    <span class="item-desc">Instant transparent cost estimates</span>
-                                </div>
-                            </a>
-                            <a href="square-meter.html" class="dropdown-item">
-                                <span class="item-num">09</span>
-                                <div class="item-info">
-                                    <span class="item-title">Square Meter Calculator</span>
-                                    <span class="item-desc">Surface area calculation tool</span>
-                                </div>
-                            </a>
-                            <a href="photo-upload.html" class="dropdown-item">
-                                <span class="item-num">10</span>
-                                <div class="item-info">
-                                    <span class="item-title">Photo Upload Functionality</span>
-                                    <span class="item-desc">Upload photos for consultation</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <a href="#projectsSection">Projects</a>
-                    <a href="#">Partners</a>
-
-                </nav>
-
-                <a href="contact.html" class="header-btn">
-                    Contact Now
-                </a>
-
-                <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
-            </header>
-
-
             <!-- HERO CONTENT -->
 
             <div class="hero-content">
                 <div class="content-glow"></div>
 
                 <h1>
-
-                    Your Partner For <br /> Property Value Preservation
-
+                    YOUR PARTNER FOR
+                    <br>
+                    Property Value Preservation
+                    <br>
+                    with Heart and Craftsmanship.
+                    <br>
                 </h1>
-                <p>More than paint – a new sense of space</p>
+                <p>More than paint. We renovate, protect and preserve properties – with precision, trust and passion.
+                </p>
                 <div class="hero-buttons">
 
                     <a class="btn-primary">
@@ -271,7 +154,7 @@
 
                     <a class="btn-secondary">
 
-                        View Projects
+                        DISCOVER PROJECTS
 
                     </a>
 
@@ -303,231 +186,256 @@
         </div>
     </section>
 
-    <!-- SERVICES SECTION -->
-    <section class="services-section" id="services">
+    <!-- TARGET AUDIENCE -->
+    <section class="audience-cards-section" id="audienceCardsSection">
 
-        <div class="services-container">
+        <!-- <div class="audience-cards-glow" id="audienceGlow"></div> -->
 
-            <!-- LEFT CONTENT -->
+        <div class="audience-cards-wrapper">
 
-            <div class="services-top">
+            <div class="audience-cards-heading reveal">
 
-                <div class="services-heading">
+                <span class="section-tag">WHO WE WORK WITH</span>
 
-                    <span class="section-tag">
-                        Our Services
-                    </span>
+                <h2>
+                    Solutions for
+                    <br>
+                    every <span>property.</span>
+                </h2>
 
-                    <h2>
-                        Complete property
-                        solutions,
-                        <span>crafted with precision.</span>
-                    </h2>
+            </div>
+
+            <div class="audience-card-grid">
+
+                <div class="audience-card reveal" data-tilt>
+
+                    <span class="audience-card-num">01</span>
+
+                    <div class="audience-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 11l9-8 9 8" />
+                            <path d="M5 10v10h14V10" />
+                            <path d="M9 20v-6h6v6" />
+                        </svg>
+                    </div>
+
+                    <h3>Private Customers</h3>
+
+                    <p>Renovations, refreshes and property preservation for your home.</p>
 
                 </div>
 
-                <div class="services-side">
+                <div class="audience-card reveal" data-tilt>
 
-                    <p>
-                        Whether it's a complete renovation, luxury painting,
-                        drywall installation or long-term property maintenance,
-                        Amigos delivers craftsmanship that protects and elevates
-                        your investment.
-                    </p>
+                    <span class="audience-card-num">02</span>
 
-                    <a href="#" class="services-btn">
-                        Explore Services
-                    </a>
+                    <div class="audience-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 21V7l8-4 8 4v14" />
+                            <path d="M9 21v-6h6v6" />
+                            <path d="M9 10h.01M15 10h.01M9 14h.01M15 14h.01" />
+                        </svg>
+                    </div>
+
+                    <h3>Property Management</h3>
+
+                    <p>Maintenance, tenant changes, renovations and coordinated processes.</p>
+
+                </div>
+
+                <div class="audience-card reveal" data-tilt>
+
+                    <span class="audience-card-num">03</span>
+
+                    <div class="audience-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 17l6-6 4 4 8-8" />
+                            <path d="M14 7h7v7" />
+                        </svg>
+                    </div>
+
+                    <h3>Owners &amp; Investors</h3>
+
+                    <p>Property preservation, renovation projects and long-term support.</p>
 
                 </div>
 
             </div>
 
+        </div>
 
-            <!-- SERVICES PANELS (5 TOP + 5 BOTTOM GRID) -->
+    </section>
 
-            <div class="services-panels">
+    <!-- SERVICES SECTION -->
+    <section class="services-nav-section" id="servicesNavSection">
 
-                <!-- 01 -->
-                <a href="painting.html" class="service-panel active" data-index="0">
-                    <img src="assets/services/pexels-kseniachernaya-5691592.jpg" alt="Painting">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">01</span>
-                            <h3>Painting &amp; Renovations</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Interior &amp; exterior painting with premium finishes.</p>
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-                        </div>
-                    </div>
+        <!-- ATMOSPHERIC BACKGROUND LAYERS -->
+        <div class="services-bg" aria-hidden="true">
+            <div class="services-bg-grid"></div>
+            <div class="services-glow services-glow-1"></div>
+            <div class="services-glow services-glow-2"></div>
+            <div class="services-glow services-glow-3"></div>
+            <div class="services-bg-noise"></div>
+            <div class="services-bg-vignette"></div>
+        </div>
+
+        <div class="services-nav-wrapper">
+
+            <div class="services-nav-heading reveal">
+                <span class="section-tag">WHAT WE DO</span>
+                <h2>Our <span>Services.</span></h2>
+            </div>
+
+            <!-- EXPANDING PANEL GRID -->
+            <div class="services-expand-grid" id="servicesExpandGrid">
+                <!-- panels injected here by JS from SERVICES_DATA -->
+            </div>
+
+            <div class="services-nav-cta reveal">
+                <a href="#" class="services-view-all-btn">View All Services</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- WHY AMIGOS SECTION -->
+    <section class="why-amigos">
+
+        <div class="why-container">
+
+            <!-- LEFT -->
+
+            <div class="why-content reveal">
+
+                <span class="section-tag">Why Amigos?</span>
+
+                <h2>
+                    Craftsmanship. Trust. Property Preservation.
+                </h2>
+
+                <p>
+                    From individual painting work to complete renovations, we personally support owners and property
+                    managers with transparency and reliability
+                </p>
+
+                <a href="#" class="why-btn">
+                    GET TO KNOW AMIGOS
                 </a>
 
-                <!-- 02 -->
-                <a href="drywall.html" class="service-panel" data-index="1">
-                    <img src="assets/services/pexels-ai25studioai-5493673.jpg" alt="Drywall">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">02</span>
-                            <h3>Drywall</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Professional drywall installation and repair.</p>
-                            <div class="panel-btn">
-                                Explore Service
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="stats-column">
+
+                <div class="stat reveal">
+                    <h3 class="counter" data-target="500">0</h3>
+                    <span>Completed Projects</span>
+                </div>
+
+                <div class="stat reveal">
+                    <h3 class="counter" data-target="100">0</h3>
+                    <span>Satisfied Clients</span>
+                </div>
+
+                <div class="stat reveal">
+                    <h3 class="counter" data-target="10">0</h3>
+                    <span>Years Experience</span>
+                </div>
+
+                <div class="stat reveal">
+                    <h3 class="counter" data-target="6000">0</h3>
+                    <span>m² of Completed Surfaces</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- DIGITAL TOOLS -->
+    <section class="dtools-section">
+
+        <div class="dtools-container">
+
+            <div class="dtools-heading">
+                <span class="section-tag">Digital Tools</span>
+                <h2>Built for people who<br><span>want to see it first.</span></h2>
+            </div>
+
+            <div class="dtools-grid">
+
+                <!-- CARD 1 — AI VISUALIZER -->
+                <a href="#" class="dtools-card dtools-card-ai" id="dtoolsCardAI">
+
+                    <div class="dtools-card-glow"></div>
+
+                    <div class="dtools-card-top">
+                        <span class="dtools-eyebrow">AI VISUALIZER</span>
+
+                        <div class="dtools-demo dtools-demo-ai">
+                            <div class="dtools-demo-frame">
+                                <span class="dtools-demo-swatch" id="dtoolsSwatch"></span>
+                                <div class="dtools-demo-scan"></div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="dtools-card-body">
+                        <h3>See the result before we begin.</h3>
+                        <p>Upload a photo and discover different colors and materials in your room or on your facade.
+                        </p>
+
+                        <span class="dtools-btn">
+                            Upload Photo
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                    </div>
+
                 </a>
 
-                <!-- 03 -->
-                <a href="ai-quote-calculator.html" class="service-panel" data-index="2">
-                    <img src="assets/services/pexels-mikhail-nilov-8296991.jpg" alt="Quote Calculator">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">03</span>
-                            <h3>Quote Calculator</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Receive a fast, transparent estimate tailored to your project scope.</p>
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                <!-- CARD 2 — QUOTE CALCULATOR -->
+                <a href="#" class="dtools-card dtools-card-quote" id="dtoolsCardQuote">
 
-                <!-- 04 -->
-                <a href="facade.html" class="service-panel" data-index="3">
-                    <img src="assets/services/pexels-dmitry93-32114413.jpg" alt="Facade Restoration">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">04</span>
-                            <h3>Facade Restoration</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Restore beauty while preserving architectural value.</p>
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    <div class="dtools-card-glow"></div>
 
-                <!-- 05 -->
-                <a href="apartment.html" class="service-panel" data-index="4">
-                    <img src="assets/services/pexels-tr-n-chinh-587690133-20666871.jpg" alt="Apartment Preparation">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">05</span>
-                            <h3>Apartment Preparation</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Get properties ready for sale or new tenants.</p>
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    <div class="dtools-card-top">
+                        <span class="dtools-eyebrow">QUOTE CALCULATOR</span>
 
-                <!-- 06 -->
-                <a href="maintenance.html" class="service-panel" data-index="5">
-                    <img src="assets/services/pexels-kseniachernaya-5691513.jpg" alt="Property Maintenance">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">06</span>
-                            <h3>Property Maintenance</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Reliable scheduled maintenance for every property.</p>
-                            <div class="panel-btn">
-                                Explore Service
+                        <div class="dtools-demo dtools-demo-quote">
+                            <span class="dtools-ticker" id="dtoolsTicker">CHF 0</span>
+                            <div class="dtools-bars">
+                                <span class="dtools-bar" style="--h:40%"></span>
+                                <span class="dtools-bar" style="--h:65%"></span>
+                                <span class="dtools-bar" style="--h:52%"></span>
+                                <span class="dtools-bar" style="--h:80%"></span>
+                                <span class="dtools-bar" style="--h:100%"></span>
                             </div>
                         </div>
                     </div>
-                </a>
 
-                <!-- 07 -->
-                <a href="property-value.html" class="service-panel" data-index="6">
-                    <img src="assets/services/pexels-amine-kubranur-cakiroglu-689611212-37919681.jpg"
-                        alt="Property Value Preservation">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">07</span>
-                            <h3>Property Value Preservation</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Protect and increase long-term property value.</p>
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    <div class="dtools-card-body">
+                        <h3>Calculate your project online.</h3>
+                        <p>Receive an initial non-binding cost estimate in just a few steps.</p>
 
-                <!-- 08 -->
-                <a href="investment.html" class="service-panel" data-index="7">
-                    <img src="assets/services/pexels-kindelmedia-7579138.jpg" alt="Investment Property Support">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">08</span>
-                            <h3>Investment Support</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Dedicated renovation and maintenance for investors.</p>
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-                        </div>
+                        <span class="dtools-btn dtools-btn-gold">
+                            Calculate Now
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
                     </div>
-                </a>
 
-                <!-- 09 -->
-                <a href="square-meter.html" class="service-panel" data-index="8">
-                    <img src="assets/services/pexels-mateusz-pielech-1032276948-33054909.jpg"
-                        alt="Square Meter Calculator">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">09</span>
-                            <h3>Square Meter Calculator</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Instantly calculate surface area for project planning.</p>
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- 10 -->
-                <a href="photo-upload.html" class="service-panel" data-index="9">
-                    <img src="assets/services/pexels-jakubzerdzicki-28100043.jpg" alt="Photo Upload Functionality">
-                    <div class="panel-overlay"></div>
-                    <div class="panel-content">
-                        <div class="panel-header">
-                            <span class="service-number">10</span>
-                            <h3>Photo Upload</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p>Upload photos for personalized consultation.</p>
-                            <div class="panel-btn">
-                                Explore Service
-                            </div>
-                        </div>
-                    </div>
                 </a>
 
             </div>
@@ -695,267 +603,228 @@
 
     </section>
 
-    <!-- WHY AMIGOS SECTION -->
-    <section class="why-amigos">
-
-        <div class="why-container">
-
-            <!-- LEFT -->
-
-            <div class="why-content reveal">
-
-                <span class="section-tag">Why Amigos?</span>
-
-                <h2>
-                    Renovations built on
-                    <span>experience, trust,</span>
-                    and craftsmanship.
-                </h2>
-
-                <p>
-                    From residential renovations to commercial transformations,
-                    we focus on delivering exceptional quality, transparent
-                    communication, and results that stand the test of time.
-                </p>
-
-                <a href="#" class="why-btn">
-                    Discover More
-                </a>
-
-            </div>
-
-
-            <!-- RIGHT -->
-
-            <div class="stats-column">
-
-                <div class="stat reveal">
-                    <h3 class="counter" data-target="500">0</h3>
-                    <span>Completed Projects</span>
-                </div>
-
-                <div class="stat reveal">
-                    <h3 class="counter" data-target="100">0</h3>
-                    <span>Satisfied Clients</span>
-                </div>
-
-                <div class="stat reveal">
-                    <h3 class="counter" data-target="10">0</h3>
-                    <span>Years Experience</span>
-                </div>
-
-                <div class="stat reveal">
-                    <h3 class="counter" data-target="6000">0</h3>
-                    <span>m² Renovated</span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- QUOTE CALCULATOR -->
+    <!-- QUOTE WIZARD — ENTRY POINT -->
     <section class="quote-section">
-        <video autoplay muted loop playsinline class="bg-video">
-            <source src="assets/bg-video.mp4" type="video/mp4">
-        </video>
 
         <div class="quote-container">
 
-            <!--==========================
-                TOP
-            ==========================-->
-
-            <div class="quote-top">
-
-                <div class="quote-heading">
-
-                    <span class="section-tag">
-                        AI QUOTATION CALCULATOR
-                    </span>
-
-                    <h2>
-                        Instant Price
-                        <span>Calculator</span>
-                    </h2>
-
-                </div>
-
-                <div class="quote-side">
-
-                    <p>
-                        Customize your project, choose materials and finishes,
-                        and receive an instant estimated price, duration and
-                        recommended package before booking an inspection.
-                    </p>
-
-                </div>
-
+            <div class="quote-heading">
+                <span class="section-tag">GET 3 FREE QUOTES</span>
+                <h2>
+                    Let's Walk Through
+                    <span>Your Project Together.</span>
+                </h2>
             </div>
 
-
-
-            <!--==========================
-                MAIN
-            ==========================-->
-
-            <div class="quote-workspace">
-
-                <!-- LEFT: rooms you've added -->
-                <div class="quote-form quote-rooms-panel">
-
-                    <div class="rooms-list" id="roomsList">
-                        <div class="rooms-empty">No rooms added yet — click "Add Space" to start your quote.</div>
-                    </div>
-
-                    <button class="add-space-btn" id="addSpaceBtn" type="button">
-                        Add Space
-                        <span class="add-space-icon">+</span>
-                    </button>
-
-                </div>
-
-                <!-- RIGHT: live estimate -->
-                <div class="estimate-card">
-
-                    <span class="estimate-tag">LIVE ESTIMATE</span>
-
-                    <div class="estimate-item">
-                        <small>Estimated Price</small>
-                        <h3>CHF <span id="estimatedPrice">0.00</span></h3>
-                    </div>
-
-                    <div class="estimate-item">
-                        <small>Rooms Added</small>
-                        <h4><span id="estimatedRooms">0</span> Rooms</h4>
-                    </div>
-
-                    <div class="quote-summary">
-                        <h5>Included Work</h5>
-                        <ul id="summaryList">
-                            <li>No rooms added yet</li>
-                        </ul>
-                    </div>
-
-                    <a href="#" class="quote-btn" id="bookInspectionBtn">Book Free Inspection</a>
-
-                </div>
-
+            <div class="quote-side">
+                <p>
+                    A few quick questions about your space — no forms, no
+                    obligation. Answer as you go and we'll have everything
+                    we need to get you three free quotes.
+                </p>
             </div>
 
-            <div class="quote-modal" id="quoteModal">
-                <div class="quote-modal-inner">
+            <button type="button" class="quote-start-btn" id="wizardOpenBtn">
+                Start My Free Quote
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
 
-                    <button class="quote-modal-close" id="modalClose" aria-label="Close">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" />
-                        </svg>
-                    </button>
-
-                    <div class="quote-modal-body" id="modalBody">
-                        <!-- Step 1 / Step 2 injected here by JS -->
-                    </div>
-
-                    <div class="quote-modal-stickybar">
-                        <span>Total (excl. VAT)</span>
-                        <strong>CHF <span id="modalTotalValue">0.00</span></strong>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="success-modal" id="successModal">
-                <div class="success-modal-inner">
-
-                    <button class="success-modal-close" id="successModalClose" aria-label="Close">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" />
-                        </svg>
-                    </button>
-
-                    <div class="success-badge">
-
-                        <span class="success-ring ring-1"></span>
-                        <span class="success-ring ring-2"></span>
-                        <span class="success-ring ring-3"></span>
-
-                        <svg class="success-check" viewBox="0 0 100 100">
-                            <circle class="success-check-circle" cx="50" cy="50" r="42" />
-                            <path class="success-check-mark" d="M30 52 L44 66 L72 36" />
-                        </svg>
-
-                        <span class="success-particles" id="successParticles"></span>
-
-                    </div>
-
-                    <h3 class="success-title">Request Received!</h3>
-                    <p class="success-text">
-                        Thanks — your free inspection request is in. Our team will reach out within 24 hours to
-                        confirm a time that works for you.
-                    </p>
-
-                    <button class="quote-btn-primary success-done-btn" id="successDoneBtn">Done</button>
-
-                </div>
+            <div class="quote-start-note">
+                <span>Takes about 2 minutes</span>
+                <span>No obligation</span>
+                <span>3 free quotes</span>
             </div>
 
         </div>
 
     </section>
 
+    <!-- QUOTE WIZARD — OVERLAY -->
+    <div class="wizard" id="quoteWizard">
+
+        <div class="wizard-bg">
+            <video src="calculator-bg.mp4" autoplay="true" loop="true"></video>
+        </div>
+
+        <div class="wizard-shell">
+
+            <div class="wizard-topbar">
+                <span class="wizard-badge">
+                    <span class="wizard-badge-dot"></span>
+                    3 free quotes · no obligation
+                </span>
+                <button class="wizard-close" id="wizardCloseBtn" aria-label="Close">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="wizard-progress" id="wizardProgress">
+                <!-- segments injected by quote-calculator.js -->
+            </div>
+
+            <div class="wizard-layout">
+
+                <div class="wizard-side">
+                    <div class="wizard-side-card">
+
+                        <div class="wizard-side-eyebrow">
+                            <span class="wizard-badge-dot"></span>
+                            Your selection at a glance
+                        </div>
+
+                        <div class="wizard-side-title" id="wizardSideTitle">Your project</div>
+
+                        <div class="wizard-selections" id="wizardSelections">
+                            <!-- rows injected by quote-calculator.js -->
+                        </div>
+
+                        <div class="wizard-steps-left">
+                            <div class="wizard-steps-left-label" id="wizardStepsLeftLabel">9 steps to your offers</div>
+                            <div class="wizard-steps-left-bar">
+                                <span id="wizardStepsLeftFill"></span>
+                            </div>
+                        </div>
+
+                        <p class="wizard-reassure">
+                            You'll receive <b>up to 3 offers from vetted painters</b>
+                            in your area — free of charge and without obligation.
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="wizard-main">
+
+                    <div id="wizardStepContent">
+                        <!-- current step's question injected by quote-calculator.js -->
+                    </div>
+
+                    <div class="wizard-actions">
+                        <div class="wizard-actions-left">
+                            <button class="wizard-back-btn" id="wizardBackBtn" type="button">&larr; Back</button>
+                            <button class="wizard-skip-btn" id="wizardSkipBtn" type="button">Skip this step</button>
+                        </div>
+                        <button class="wizard-continue-btn" id="wizardContinueBtn" type="button"
+                            disabled>Continue</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SUCCESS MODAL — final confirmation, reused by the wizard's submit step -->
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-inner">
+
+            <button class="success-modal-close" id="successModalClose" aria-label="Close">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+
+            <div class="success-badge">
+
+                <span class="success-ring ring-1"></span>
+                <span class="success-ring ring-2"></span>
+                <span class="success-ring ring-3"></span>
+
+                <svg class="success-check" viewBox="0 0 100 100">
+                    <circle class="success-check-circle" cx="50" cy="50" r="42" />
+                    <path class="success-check-mark" d="M30 52 L44 66 L72 36" />
+                </svg>
+
+                <span class="success-particles" id="successParticles"></span>
+
+            </div>
+
+            <h3 class="success-title">Request Received!</h3>
+            <p class="success-text">
+                Thanks — your free quote request is in. Our team will reach out within 24 hours
+                with up to three offers from vetted painters in your area.
+            </p>
+
+            <button class="quote-btn-primary success-done-btn" id="successDoneBtn">Done</button>
+
+        </div>
+    </div>
+
     <!-- ==================================================
-     SELECTED PROJECTS
+     SELECTED PROJECTS — COVERFLOW CAROUSEL
 ================================================== -->
 
     <section class="projects" id="projectsSection">
 
         <div class="projects-heading">
             <span class="eyebrow">SELECTED PROJECTS</span>
-            <h2>Crafted spaces that redefine modern living.</h2>
-            <p>Every project is designed around the people who live there — combining Swiss precision, timeless
-                materials and timeless architecture.</p>
+
+            <h2>Projects That Speak for Themselves.</h2>
+
+            <p>
+                Real work, real locations — drag, use the arrows,
+                or click a neighboring card to browse.
+            </p>
         </div>
 
-        <!-- Premium filmstrip carousel -->
-        <div class="proj-carousel" id="projCarousel">
 
-            <button class="proj-arrow proj-arrow--prev" id="projPrevBtn" aria-label="Previous project">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        <div class="projects-slider">
+
+            <button class="proj-arrow proj-prev" id="projPrev" type="button" aria-label="Previous project">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
             </button>
+
 
             <div class="proj-viewport" id="projViewport">
-                <div class="proj-track" id="projectsGallery">
-                    <!-- Cards injected by JS -->
+
+                <div class="proj-track" id="projTrack">
+                    <!-- Project cards injected by JavaScript -->
                 </div>
+
             </div>
 
-            <button class="proj-arrow proj-arrow--next" id="projNextBtn" aria-label="Next project">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+
+            <button class="proj-arrow proj-next" id="projNext" type="button" aria-label="Next project">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
             </button>
 
         </div>
 
-        <div class="proj-dots" id="projectsDots"></div>
+
+        <div class="proj-dots" id="projDots"></div>
 
     </section>
 
 
-    <!-- Dock sits outside the section — fixed to the viewport,
-     visibility controlled entirely by scroll position via JS. -->
     <div class="projects-dock" id="projectsDock">
+
         <span class="dock-indicator" id="dockIndicator"></span>
-        <button class="dock-tab active" data-filter="sale">Properties for Sale</button>
-        <button class="dock-tab" data-filter="purchase">Properties for Purchase</button>
-        <button class="dock-tab" data-filter="international">International Properties</button>
+
+        <button class="dock-tab active" data-filter="painting" type="button">
+            Painting
+        </button>
+
+        <button class="dock-tab" data-filter="facade" type="button">
+            Facade Restoration
+        </button>
+
+        <button class="dock-tab" data-filter="drywall" type="button">
+            Drywall
+        </button>
+
     </div>
 
     <!-- PLANS SECTION -->
@@ -1191,11 +1060,11 @@
 
             <span class="testimonial-kicker">TESTIMONIALS</span>
 
-            <h2>Trusted by<br>Swiss Homeowners.</h2>
+            <h2>Trust That Lasts.</h2>
 
             <div class="rating">
                 ★★★★★
-                <span>4.9 / 5 Average Rating</span>
+                <span>4.9 / 5 On Google</span>
             </div>
 
         </div>
@@ -1233,101 +1102,9 @@
 
     </section>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-
-        <div class="footer-wordmark">
-            <span class="eyebrow">Gmbh</span>
-            <h2>AMIGOS MALER</h2>
-        </div>
-
-        <div class="footer-meta">
-
-            <div class="footer-meta-left">
-                <span>© 2026 Amigos Maler. All rights reserved.</span>
-            </div>
-
-            <div class="footer-meta-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <span>License No. CH-RE-2026-00000</span>
-            </div>
-
-            <div class="footer-meta-right">
-                <span>Amigos Maler</span>
-            </div>
-
-        </div>
-
-    </footer>
-
-    <!-- ==================================================
-     CHATBOT WIDGET
-================================================== -->
-    <div class="chatbot-widget" id="chatbotWidget">
-
-        <!-- Chat Panel -->
-        <div class="chatbot-panel" id="chatbotPanel">
-
-            <div class="chatbot-header">
-                <div class="chatbot-header-info">
-                    <img src="assets/ChatBox-Girl.webp" alt="Assistant" class="chatbot-header-avatar">
-                    <div>
-                        <h4>Amigos Maler</h4>
-                        <span class="chatbot-status"><i class="chatbot-dot"></i> Online</span>
-                    </div>
-                </div>
-                <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="chatbot-body" id="chatbotBody">
-                <!-- MESSAGES INJECTION POINT: new bubbles get appended here by addMessage() -->
-                <div class="chatbot-message bot">
-                    <img src="assets/ChatBox-Girl.webp" alt="" class="chatbot-msg-avatar">
-                    <div class="chatbot-bubble">Hi 👋 how can we help you today?</div>
-                </div>
-            </div>
-
-            <div class="chatbot-footer">
-                <!-- INPUT INJECTION POINT: form submit handler lives in script.js -->
-                <form class="chatbot-form" id="chatbotForm">
-                    <input type="text" id="chatbotInput" placeholder="Type a message..." autocomplete="off">
-                    <button type="submit" class="chatbot-send" aria-label="Send message">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </form>
-            </div>
-
-        </div>
-
-        <!-- Floating Toggle Button — image-based, circular -->
-        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open chat" aria-expanded="false">
-            <img src="assets/ChatBox-Girl.webp" alt="Chat with us" class="chatbot-toggle-img">
-            <span class="chatbot-toggle-close-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-                </svg>
-            </span>
-        </button>
-
-    </div>
-
-    <!-- ==================================================
-     SCROLL TO TOP
-================================================== -->
-    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M12 19V5M12 5l-7 7M12 5l7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
-                stroke-linejoin="round" />
-        </svg>
-    </button>
+    <!-- GLOBAL FOOTER — injected here by /partials.js from /partials/footer.html
+         (includes footer, chatbot widget, and scroll-to-top button) -->
+    <div id="site-footer-root"></div>
 
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>

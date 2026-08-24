@@ -9,7 +9,7 @@ const video = document.getElementById("heroVideo");
 const colors = document.querySelectorAll(".color");
 
 const intro = document.querySelector(".intro-title");
-const header = document.querySelector(".hero-header");
+let header = null; // populated once the header partial is injected — see "partials:loaded" below
 const content = document.querySelector(".hero-content");
 const glow = document.querySelector(".content-glow");
 
@@ -42,206 +42,285 @@ let videoReady = false;
 
 /*----------------------------------------------------
 MOBILE NAV — ANIMATED REVEAL
+(deferred: the header only exists in the DOM once
+partials.js has fetched & injected partials/header.html
+— see the "partials:loaded" listener near the bottom
+of this file)
 ----------------------------------------------------*/
-
-const hamburger = document.querySelector(".hamburger");
-const heroNav = document.querySelector(".hero-nav");
-const navLinks = gsap.utils.toArray(".hero-nav > a, .hero-nav > .nav-dropdown > .dropdown-trigger");
 
 let navOpen = false;
 
-const navTl = gsap.timeline({ paused: true })
+function initHeaderInteractions() {
 
-    .to(heroNav, {
-        clipPath: "circle(150% at calc(100% - 46px) 42px)",
-        duration: 0.9,
-        ease: "power4.inOut"
-    })
+    const hamburger = document.querySelector(".hamburger");
+    const siteNav = document.querySelector(".site-nav");
+    const navLinks = gsap.utils.toArray(".site-nav > a, .site-nav > .nav-dropdown > .dropdown-trigger");
 
-    .to(navLinks, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.07,
-        ease: "power3.out"
-    }, "-=0.45");
+    if (!hamburger || !siteNav) return; // header partial failed to load — bail safely
 
-hamburger?.addEventListener("click", () => {
+    const navTl = gsap.timeline({ paused: true })
 
-    navOpen = !navOpen;
+        .to(siteNav, {
+            clipPath: "circle(150% at calc(100% - 46px) 42px)",
+            duration: 0.9,
+            ease: "power4.inOut"
+        })
 
-    hamburger.classList.toggle("active", navOpen);
-    heroNav.classList.toggle("open", navOpen);
-    hamburger.setAttribute("aria-expanded", navOpen);
+        .to(navLinks, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.07,
+            ease: "power3.out"
+        }, "-=0.45");
 
-    if (navOpen) {
-        navTl.play();
-    } else {
-        navTl.reverse();
-    }
+    hamburger.addEventListener("click", () => {
 
-});
+        navOpen = !navOpen;
 
-// Dropdown toggle for mobile / touch devices
-const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
-dropdownTriggers.forEach(trigger => {
-    trigger.addEventListener("click", (e) => {
-        const parent = trigger.closest(".nav-dropdown");
-        if (window.innerWidth <= 991) {
-            e.preventDefault();
-            e.stopPropagation();
-            parent?.classList.toggle("open");
-        }
-    });
-});
+        hamburger.classList.toggle("active", navOpen);
+        siteNav.classList.toggle("open", navOpen);
+        hamburger.setAttribute("aria-expanded", navOpen);
 
-// Close mobile navigation drawer when clicking a final link
-document.querySelectorAll(".hero-nav a, .site-nav a").forEach(link => {
-    if (link.classList.contains("dropdown-trigger")) return;
-
-    link.addEventListener("click", () => {
         if (navOpen) {
-            navOpen = false;
-            hamburger?.classList.remove("active");
-            heroNav?.classList.remove("open");
-            hamburger?.setAttribute("aria-expanded", false);
+            navTl.play();
+        } else {
             navTl.reverse();
         }
+
     });
-});
+
+    // Dropdown toggle for mobile / touch devices
+    document.querySelectorAll(".dropdown-trigger").forEach(trigger => {
+        trigger.addEventListener("click", (e) => {
+            const parent = trigger.closest(".nav-dropdown");
+            if (window.innerWidth <= 991) {
+                e.preventDefault();
+                e.stopPropagation();
+                parent?.classList.toggle("open");
+            }
+        });
+    });
+
+    // Close mobile navigation drawer when clicking a final link
+    document.querySelectorAll(".site-nav a").forEach(link => {
+        if (link.classList.contains("dropdown-trigger")) return;
+
+        link.addEventListener("click", () => {
+            if (navOpen) {
+                navOpen = false;
+                hamburger.classList.remove("active");
+                siteNav.classList.remove("open");
+                hamburger.setAttribute("aria-expanded", false);
+                navTl.reverse();
+            }
+        });
+    });
+
+}
+
+/*----------------------------------------------------
+STICKY HEADER
+Switches the header from a transparent hero overlay to
+a solid navy bar once the page has scrolled past whatever
+this page's hero section is — using GSAP ScrollTrigger's
+"bottom top" trigger against the [data-hero] element, so
+it adapts automatically to each page's actual hero height
+(no hardcoded pixel/vh values, no per-page tuning needed).
+If a page has no [data-hero] element at all, the header
+just starts in its solid state.
+----------------------------------------------------*/
+
+function initStickyHeader() {
+
+    const headerEl = document.querySelector(".site-header");
+    const heroEl = document.querySelector("[data-hero]");
+
+    if (!headerEl) return;
+
+    if (!heroEl) {
+        headerEl.classList.add("is-scrolled");
+        return;
+    }
+
+    ScrollTrigger.create({
+        trigger: heroEl,
+        start: "bottom top", // fires the instant the hero's bottom edge passes the top of the viewport
+        onEnter: () => headerEl.classList.add("is-scrolled"),
+        onLeaveBack: () => headerEl.classList.remove("is-scrolled")
+    });
+
+}
+
+/*----------------------------------------------------
+Runs once /partials/header.html + /partials/footer.html
+have both been fetched and injected by partials.js.
+Everything that touches header or footer elements must
+live behind this event — see partials.js for details.
+----------------------------------------------------*/
+
+function onPartialsReady() {
+    header = document.querySelector(".site-header");
+
+    initHeaderInteractions();
+    initStickyHeader();
+    initChatbotWidget();
+    initScrollTopButton();
+}
+
+if (window.__partialsLoaded) {
+    onPartialsReady();
+} else {
+    document.addEventListener("partials:loaded", onPartialsReady);
+}
 
 // Prime the video (needed for iOS to render the first frame) —
 // purely cosmetic, does NOT gate the ScrollTrigger anymore.
-video.addEventListener("loadedmetadata", () => {
+// Guard: heroVideo only exists on the homepage.
+if (video) {
+    video.addEventListener("loadedmetadata", () => {
 
-    video.play().then(() => {
-        video.pause();
-        video.currentTime = 0;
-        videoReady = true;
+        video.play().then(() => {
+            video.pause();
+            video.currentTime = 0;
+            videoReady = true;
+        });
+
     });
-
-});
+}
 
 // Hero ScrollTrigger now created IMMEDIATELY, synchronously,
 // on initial script execution — before .why's triggers run.
 // This guarantees the pin-spacer exists and the document height
 // is correct BEFORE anything below it measures the page.
-ScrollTrigger.create({
+// Hero ScrollTrigger + paint animations — homepage only
+if (document.querySelector(".hero")) {
 
-    trigger: ".hero",
-    start: "top top",
-    end: "+=3500",
-    scrub: 1,
-    pin: true,
-    anticipatePin: 1,
+    const paintCanvas = document.getElementById("paintCanvas");
+    const paintIcons  = document.querySelector(".paint-icons");
 
-    onUpdate(self) {
+    ScrollTrigger.create({
 
-        const p = self.progress;
+        trigger: ".hero",
+        start: "top top",
+        end: "+=3500",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
 
-        //-----------------------------------
-        // VIDEO — only scrub once it's actually ready
-        //-----------------------------------
+        onUpdate(self) {
 
-        if (videoReady) {
+            const p = self.progress;
 
-            const videoProgress = Math.min(p / 0.80, 1);
-            video.currentTime = video.duration * videoProgress;
+            //-----------------------------------
+            // VIDEO — only scrub once it's actually ready
+            //-----------------------------------
+
+            if (videoReady && video) {
+
+                const videoProgress = Math.min(p / 0.80, 1);
+                video.currentTime = video.duration * videoProgress;
+
+            }
+
+            //-----------------------------------
+            // INTRO
+            //-----------------------------------
+
+            if (intro) gsap.set(intro, {
+                y: -140 * Math.min(p / .20, 1),
+                opacity: 1 - Math.min(p / .18, 1),
+                scale: 1 + .08 * Math.min(p / .18, 1)
+            });
+
+            //-----------------------------------
+            // HEADER
+            //-----------------------------------
+
+            const hp = (p - .12) / .10;
+
+            if (header) {
+                gsap.set(header, {
+                    opacity: gsap.utils.clamp(0, 1, hp),
+                    y: -80 + (80 * gsap.utils.clamp(0, 1, hp))
+                });
+            }
+
+            //-----------------------------------
+            // CONTENT REVEAL
+            //-----------------------------------
+
+            const cp = (p - .72) / .08;
+
+            if (content) gsap.set(content, { opacity: gsap.utils.clamp(0, 1, cp) });
+            if (glow)    gsap.set(glow,    { opacity: gsap.utils.clamp(0, 1, cp) });
+
+            //-----------------------------------
+            // CONTENT EXIT
+            //-----------------------------------
+
+            if (p > .84) {
+
+                const exit = (p - .84) / .10;
+
+                if (content) gsap.set(content, { y: -220 * exit, opacity: 1 - exit, pointerEvents: "none" });
+                if (glow)    gsap.set(glow, { opacity: 1 - exit });
+                if (intro)   gsap.set(intro, { pointerEvents: "none" });
+
+            }
+
+            //-----------------------------------
+            // VIDEO -> CANVAS
+            //-----------------------------------
+
+            if (p >= 0.94 && !swapped) {
+
+                swapped = true;
+
+                if (video)       gsap.to(video, { opacity: 0, duration: 0.18, ease: "power2.out" });
+                if (paintCanvas) gsap.to(paintCanvas, { opacity: 1, duration: 0.18, ease: "power2.out", pointerEvents: "auto" });
+
+            }
+
+            if (p < 0.94 && swapped) {
+
+                swapped = false;
+
+                if (video)       gsap.to(video, { opacity: 1, duration: 0.18 });
+                if (paintCanvas) gsap.to(paintCanvas, { opacity: 0, duration: 0.18, pointerEvents: "none" });
+
+            }
+
+            //-----------------------------------
+            // SHOW PAINT ICONS
+            //-----------------------------------
+
+            if (paintIcons) {
+                if (p >= .95 && !iconsVisible) {
+                    paintIcons.classList.add("show");
+                    iconsVisible = true;
+                }
+
+                if (p < .95 && iconsVisible) {
+                    paintIcons.classList.remove("show");
+                    iconsVisible = false;
+                }
+            }
 
         }
 
-        //-----------------------------------
-        // INTRO
-        //-----------------------------------
+    });
 
-        gsap.set(intro, {
-            y: -140 * Math.min(p / .20, 1),
-            opacity: 1 - Math.min(p / .18, 1),
-            scale: 1 + .08 * Math.min(p / .18, 1)
-        });
+    gsap.to(".paint-trigger", {
+        y: -5,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: .2
+    });
 
-        //-----------------------------------
-        // HEADER
-        //-----------------------------------
-
-        const hp = (p - .12) / .10;
-
-        gsap.set(header, {
-            opacity: gsap.utils.clamp(0, 1, hp),
-            y: -80 + (80 * gsap.utils.clamp(0, 1, hp))
-        });
-
-        //-----------------------------------
-        // CONTENT REVEAL
-        //-----------------------------------
-
-        const cp = (p - .72) / .08;
-
-        gsap.set(content, { opacity: gsap.utils.clamp(0, 1, cp) });
-        gsap.set(glow, { opacity: gsap.utils.clamp(0, 1, cp) });
-
-        //-----------------------------------
-        // CONTENT EXIT
-        //-----------------------------------
-
-        if (p > .84) {
-
-            const exit = (p - .84) / .10;
-
-            gsap.set(content, { y: -220 * exit, opacity: 1 - exit, pointerEvents: "none" });
-            gsap.set(glow, { opacity: 1 - exit });
-            gsap.set(intro, { pointerEvents: "none" })
-
-        }
-
-        //-----------------------------------
-        // VIDEO -> CANVAS
-        //-----------------------------------
-
-        if (p >= 0.94 && !swapped) {
-
-            swapped = true;
-
-            gsap.to(video, { opacity: 0, duration: 0.18, ease: "power2.out" });
-            gsap.to(paintCanvas, { opacity: 1, duration: 0.18, ease: "power2.out", pointerEvents: "auto" });
-
-        }
-
-        if (p < 0.94 && swapped) {
-
-            swapped = false;
-
-            gsap.to(video, { opacity: 1, duration: 0.18 });
-            gsap.to(paintCanvas, { opacity: 0, duration: 0.18, pointerEvents: "none" });
-
-        }
-
-        //-----------------------------------
-        // SHOW PAINT ICONS
-        //-----------------------------------
-
-        if (p >= .95 && !iconsVisible) {
-            paintIcons.classList.add("show");
-            iconsVisible = true;
-        }
-
-        if (p < .95 && iconsVisible) {
-            paintIcons.classList.remove("show");
-            iconsVisible = false;
-        }
-
-    }
-
-});
-
-gsap.to(".paint-trigger", {
-    y: -5,
-    duration: 2,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-    stagger: .2
-});
+}
 
 /*----------------------------------------------------
 LOADER
@@ -252,11 +331,15 @@ const loaderCount = document.getElementById("loaderCount");
 const leftDoor = document.querySelector(".loader-door-left");
 const rightDoor = document.querySelector(".loader-door-right");
 
-// Lock scroll while loading
-document.documentElement.style.overflow = "hidden";
-
-// intro-title starts hidden, revealed only once the loader finishes.
-gsap.set(".intro-title", { opacity: 0, y: 50, filter: "blur(16px)" });
+// Lock scroll while loading — homepage only (loader element only exists on index.html)
+if (loader) {
+    document.documentElement.style.overflow = "hidden";
+    // intro-title starts hidden, revealed only once the loader finishes.
+    gsap.set(".intro-title", { opacity: 0, y: 50, filter: "blur(16px)" });
+} else {
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+}
 
 const loadProgress = { value: 0 };
 let pageLoaded = false;
@@ -273,7 +356,7 @@ function tickLoader() {
         loadProgress.value = 100;
     }
 
-    loaderCount.textContent = Math.floor(loadProgress.value);
+    if (loaderCount) loaderCount.textContent = Math.floor(loadProgress.value);
 
     if (loadProgress.value >= 100) {
         finishLoader();
@@ -284,7 +367,8 @@ function tickLoader() {
 
 }
 
-requestAnimationFrame(tickLoader);
+// Only run the loader on pages that have it (homepage)
+if (loader) requestAnimationFrame(tickLoader);
 
 function finishLoader() {
 
@@ -398,99 +482,277 @@ function animateCounter(counter) {
 
 }
 
-// SERVICES JS (5x2 Viewport Expanding Grid)
-document.addEventListener("DOMContentLoaded", () => {
-    const panelsContainer = document.querySelector(".services-panels");
-    const panels = document.querySelectorAll(".service-panel");
+/*==================================================
+        SERVICES — hover-to-expand panel grid
+==================================================*/
 
-    if (!panelsContainer || !panels.length) return;
+const SERVICES_DATA = [
+    { num: "01", title: "Painting", desc: "Interior & exterior painting with premium, long-lasting finishes.", img: "assets/services/pexels-kseniachernaya-5691592.jpg" },
+    { num: "02", title: "Plastering", desc: "Professional drywall & plaster installation and repair.", img: "assets/services/pexels-ai25studioai-5493673.jpg" },
+    { num: "03", title: "Facades", desc: "Restore beauty while preserving architectural value.", img: "assets/services/pexels-dmitry93-32114413.jpg" },
+    { num: "04", title: "Apartment Renovation", desc: "Get properties ready for sale or new tenants.", img: "assets/services/pexels-tr-n-chinh-587690133-20666871.jpg" },
+    { num: "05", title: "Property Value Preservation", desc: "Protect and increase long-term property value.", img: "assets/services/pexels-amine-kubranur-cakiroglu-689611212-37919681.jpg" },
+    { num: "06", title: "Digital Project Planning", desc: "Plan and visualize your project before work begins.", img: "assets/services/engineers-brainstorming-ways-use-ai.jpg", tags: ["Price Calculator", "Photo Upload", "Color Visualization"] }
+];
 
-    let activeIndex = 0;
+(() => {
 
-    function updateGrid(index) {
-        if (index < 0 || index >= panels.length) return;
-        activeIndex = index;
+    const grid = document.getElementById("servicesExpandGrid");
+    if (!grid) return;
 
-        const isDesktop = window.innerWidth > 991;
+    const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
-        if (isDesktop) {
-            const activeCol = index % 5;
-            const activeRow = Math.floor(index / 5);
+    /*----- BUILD PANELS -----*/
 
-            for (let c = 0; c < 5; c++) {
-                panelsContainer.style.setProperty(`--c${c}`, c === activeCol ? "2.5fr" : "0.63fr");
-            }
-            for (let r = 0; r < 2; r++) {
-                panelsContainer.style.setProperty(`--r${r}`, r === activeRow ? "2.5fr" : "0.63fr");
-            }
-        }
+    SERVICES_DATA.forEach((service, i) => {
 
-        panels.forEach((panel, i) => {
-            if (i === index) {
-                panel.classList.add("active");
-            } else {
-                panel.classList.remove("active");
-            }
+        const panel = document.createElement("div");
+        panel.className = "service-panel" + (i === 0 && !isTouch ? " active" : "");
+        panel.dataset.index = i;
+        panel.setAttribute("tabindex", "0");
+        panel.setAttribute("role", "button");
+        panel.setAttribute("aria-expanded", i === 0 ? "true" : "false");
+
+        panel.innerHTML = `
+            <div class="sp-media">
+                <img src="${service.img}" alt="${service.title}" loading="lazy">
+            </div>
+
+            <div class="sp-collapsed">
+                <span class="sp-num">${service.num}</span>
+                <span class="sp-vert-title">${service.title}</span>
+                <span class="sp-plus" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </div>
+
+            <div class="sp-expanded">
+                <span class="sp-num">${service.num}</span>
+                <h3>${service.title}</h3>
+                <p>${service.desc}</p>
+                ${service.tags ? `<div class="sp-tags">${service.tags.map(t => `<span>${t}</span>`).join("")}</div>` : ""}
+                <span class="sp-link">
+                    Explore
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </div>
+        `;
+
+        grid.appendChild(panel);
+
+    });
+
+    const panels = grid.querySelectorAll(".service-panel");
+
+    function setActive(target) {
+        panels.forEach(p => {
+            const isActive = p === target;
+            p.classList.toggle("active", isActive);
+            p.setAttribute("aria-expanded", isActive ? "true" : "false");
         });
     }
 
-    panels.forEach((panel, index) => {
-        // Primary interaction: CLICK to activate and expand
-        panel.addEventListener("click", (e) => {
-            // Allow direct navigation if clicking the Explore Service button inside active panel
-            if (e.target.closest(".panel-btn")) {
-                return;
-            }
+    if (isTouch) {
 
-            // Expand panel on click if not already active
-            if (!panel.classList.contains("active")) {
-                e.preventDefault();
-                updateGrid(index);
-            }
+        /*----- TOUCH: tap toggles open/close, first one starts collapsed -----*/
+        panels.forEach(p => p.classList.remove("active"));
+
+        panels.forEach(panel => {
+            panel.addEventListener("click", () => {
+                const alreadyActive = panel.classList.contains("active");
+                setActive(alreadyActive ? null : panel);
+            });
         });
 
-        // Subtle hover preview on desktop
-        panel.addEventListener("mouseenter", () => {
-            if (window.innerWidth > 991) {
-                updateGrid(index);
+    } else {
+
+        /*----- DESKTOP: hover expands, keyboard focus expands too -----*/
+        panels.forEach(panel => {
+
+            panel.addEventListener("mouseenter", () => setActive(panel));
+            panel.addEventListener("focus", () => setActive(panel));
+
+        });
+
+        grid.addEventListener("mouseleave", () => setActive(panels[0]));
+
+    }
+
+})();
+
+
+/*==================================================
+        TARGET AUDIENCE — tilt + cursor spotlight
+==================================================*/
+
+(() => {
+
+    const section = document.getElementById("audienceCardsSection");
+    const glow = document.getElementById("audienceGlow");
+    const cards = document.querySelectorAll(".audience-card[data-tilt]");
+
+    if (!section) return;
+
+    // ambient spotlight follows the cursor anywhere in the section
+    section.addEventListener("mousemove", (e) => {
+
+        const rect = section.getBoundingClientRect();
+        glow.style.left = (e.clientX - rect.left) + "px";
+        glow.style.top = (e.clientY - rect.top) + "px";
+
+    });
+
+    // per-card 3D tilt + icon "draw in" the first time it's hovered
+    cards.forEach(card => {
+
+        card.addEventListener("mousemove", (e) => {
+
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const rotateY = ((x - rect.width / 2) / rect.width) * 10;
+            const rotateX = -((y - rect.height / 2) / rect.height) * 10;
+
+            card.style.transform =
+                `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "perspective(900px) rotateX(0) rotateY(0) translateY(0)";
+        });
+
+    });
+
+    // icons draw themselves in once, when the section scrolls into view —
+    // not on hover
+    const iconObserver = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+                entry.target.classList.add("icon-drawn");
+                iconObserver.unobserve(entry.target);
+            }
+
+        });
+
+    }, { threshold: .35 });
+
+    cards.forEach(card => iconObserver.observe(card));
+
+})();
+
+/*==================================================
+    DIGITAL TOOLS SECTION
+==================================================*/
+
+(() => {
+
+    const section = document.querySelector(".dtools-section");
+    if (!section) return;
+
+    /*----- Section reveal -----*/
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                section.classList.add("show");
+                revealObserver.unobserve(entry.target);
             }
         });
-    });
+    }, { threshold: .2 });
 
-    // Handle window resize
-    window.addEventListener("resize", () => {
-        updateGrid(activeIndex);
-    });
+    revealObserver.observe(section);
 
-    // Initialize Card 01 active
-    updateGrid(0);
-});
+    /*----- Cursor-tracked glow on each card -----*/
 
-/*=========================================
-        SECTION REVEAL
-=========================================*/
+    section.querySelectorAll(".dtools-card").forEach(card => {
 
-const servicesSection = document.querySelector(".services-section");
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+            card.style.setProperty("--my", `${e.clientY - rect.top}px`);
+        });
 
-const revealObserver = new IntersectionObserver((entries) => {
+        // subtle tilt to match — magnetic, not cartoonish
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const px = (e.clientX - rect.left) / rect.width - 0.5;
+            const py = (e.clientY - rect.top) / rect.height - 0.5;
 
-    entries.forEach(entry => {
+            card.style.transform = `perspective(900px) rotateX(${py * -4}deg) rotateY(${px * 4}deg) translateY(-2px)`;
+        });
 
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("show");
-
-            revealObserver.unobserve(entry.target);
-
-        }
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+        });
 
     });
 
-}, {
-    threshold: .18
-});
+    /*----- AI card: cycling color swatch demo -----*/
 
-revealObserver.observe(servicesSection);
+    const swatch = document.getElementById("dtoolsSwatch");
+
+    if (swatch) {
+
+        const DEMO_COLORS = ["#A6B09A", "#D8CCB4", "#8D98A4", "#5C6771", "#C9D4BF"];
+        let colorIndex = 0;
+
+        setInterval(() => {
+            colorIndex = (colorIndex + 1) % DEMO_COLORS.length;
+            swatch.style.background = DEMO_COLORS[colorIndex];
+        }, 1600);
+
+    }
+
+    /*----- Quote card: ticking price counter, replays on scroll into view -----*/
+
+    const ticker = document.getElementById("dtoolsTicker");
+
+    if (ticker) {
+
+        const tickerObserver = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (!entry.isIntersecting) return;
+
+                const target = 4280;
+                const duration = 1600;
+                let start = null;
+
+                function step(ts) {
+
+                    if (!start) start = ts;
+
+                    const progress = Math.min((ts - start) / duration, 1);
+                    const value = Math.floor(progress * target);
+
+                    ticker.textContent = "CHF " + value.toLocaleString("en-CH");
+
+                    if (progress < 1) requestAnimationFrame(step);
+
+                }
+
+                requestAnimationFrame(step);
+                tickerObserver.unobserve(ticker);
+
+            });
+
+        }, { threshold: .6 });
+
+        tickerObserver.observe(ticker);
+
+    }
+
+})();
+
 
 /*==================================================
             AI PROPERTY VISUALIZER
@@ -784,652 +1046,685 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
 /*
 ============================================================
-AI QUOATION
+QUOTE WIZARD
 ============================================================
 */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const section = document.querySelector(".quote-section");
-    if (!section) return;
+    const openBtn = document.getElementById("wizardOpenBtn");
+    const wizard = document.getElementById("quoteWizard");
+    const closeBtn = document.getElementById("wizardCloseBtn");
+    const shell = wizard?.querySelector(".wizard-shell");
+    const progressEl = document.getElementById("wizardProgress");
+    const stepContentEl = document.getElementById("wizardStepContent");
+    const sideTitleEl = document.getElementById("wizardSideTitle");
+    const selectionsEl = document.getElementById("wizardSelections");
+    const stepsLeftLabelEl = document.getElementById("wizardStepsLeftLabel");
+    const stepsLeftFillEl = document.getElementById("wizardStepsLeftFill");
+    const backBtn = document.getElementById("wizardBackBtn");
+    const skipBtn = document.getElementById("wizardSkipBtn");
+    const continueBtn = document.getElementById("wizardContinueBtn");
+    const quoteSection = document.querySelector(".quote-section");
+
+    if (!wizard || !openBtn) return;
 
     /*==================================================
-        PRICING CONFIG — placeholder unit rates.
-        Adjust to Amigos Maler's real pricing before going live.
+        ICONS — small inline set reused across steps
     ==================================================*/
 
-    const PRICING = {
-        ceilingPerSqm: 12,
-        wallsPerSqm: 18,
-        doorEach: 120,
-        doorFrameEach: 60,
-        windowSashEach: 90,
-        curtainBoardEach: 40,
-        radiatorEach: 80,
+    const ICONS = {
+        paint: `<svg viewBox="0 0 24 24" fill="none"><path d="M17 3l4 4-9 9-5 1 1-5 9-9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 7l4 4" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        facade: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-6 8 6v12" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        wallpaper: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 9c4 0 4 6 8 6s4-6 8-6" stroke="currentColor" stroke-width="1.4"/></svg>`,
+        plaster: `<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" stroke-width="1.2" opacity=".5"/></svg>`,
+        drywall: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="8" height="16" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="4" width="8" height="16" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        other: `<svg viewBox="0 0 24 24" fill="none"><circle cx="6" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="18" cy="12" r="1.6" fill="currentColor"/></svg>`,
 
-        // Material class multiplies the whole room total (warranty tier).
-        materialMultiplier: {
-            standard: 1,
-            premium: 1.35
-        },
+        rectangle: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="1" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        lshape: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 4h10v8h6v8H4V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+        sloped: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 18V6l16 4v8H4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+        multi: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="7" height="14" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="5" width="7" height="14" stroke="currentColor" stroke-width="1.5"/></svg>`,
+        custom: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/></svg>`,
 
-        // Add-ons are surcharges as a % of the pre-multiplier room total.
-        addonExpressPercent: 0.20,
-        addonCleaningPercent: 0.08
+        walls: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="1.6"/><path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="1.2"/></svg>`,
+        ceiling: `<svg viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 8l3-4h12l3 4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+        doors: `<svg viewBox="0 0 24 24" fill="none"><rect x="6" y="3" width="12" height="18" rx="1" stroke="currentColor" stroke-width="1.6"/><circle cx="15" cy="12" r="1" fill="currentColor"/></svg>`,
+        windows: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="1.6"/><path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        radiator: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="10" rx="1" stroke="currentColor" stroke-width="1.6"/><path d="M8 7v10M12 7v10M16 7v10" stroke="currentColor" stroke-width="1.2"/></svg>`,
+        stairs: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20v-4h4v-4h4v-4h4V4h4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+        house: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v10h12V10" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        fence: `<svg viewBox="0 0 24 24" fill="none"><path d="M5 4v16M12 4v16M19 4v16M3 9h18M3 15h18" stroke="currentColor" stroke-width="1.4"/></svg>`,
+
+        good: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+        minor: `<svg viewBox="0 0 24 24" fill="none"><path d="M13 2 5 14h6l-2 8 9-13h-6l1-7Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>`,
+        repair: `<svg viewBox="0 0 24 24" fill="none"><path d="M14 4l6 6-9 9H5v-6l9-9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+        damp: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3s6 7 6 11a6 6 0 1 1-12 0c0-4 6-11 6-11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+
+        calendar: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+        clock: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l4 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+
+        own: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v10h12V10" stroke="currentColor" stroke-width="1.6"/></svg>`,
+        rental: `<svg viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M14 12l6 6M18 12l2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+        commercial: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" stroke="currentColor" stroke-width="1.6"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`
     };
 
-    const MATERIAL_CLASSES = [
-        { value: "standard", label: "Standard · 5-yr warranty" },
-        { value: "premium", label: "Premium +35% · 12-yr warranty" }
-    ];
-
-    const ROOM_TYPES = ["Living room", "Bedroom", "Nursery", "Corridor", "Kitchen", "Wet room"];
-
-    function emptyDraft() {
-        return {
-            type: "Living room",
-            size: "",
-            items: {
-                ceiling: true,
-                walls: false,
-                doors: false,
-                doorCount: 1,
-                doorFrameCount: 1,
-                windows: false,
-                windowSashCount: 1,
-                curtainBoardCount: 1,
-                radiators: false,
-                materialClass: "standard",
-                addonExpress: false,
-                addonCleaning: false
-            }
-        };
-    }
-
-    function calcPrice(room) {
-
-        const size = parseFloat(room.size) || 0;
-        const it = room.items;
-        let total = 0;
-
-        if (it.ceiling) total += size * PRICING.ceilingPerSqm;
-        if (it.walls) total += size * PRICING.wallsPerSqm;
-
-        if (it.doors) {
-            total += (parseInt(it.doorCount) || 0) * PRICING.doorEach;
-            total += (parseInt(it.doorFrameCount) || 0) * PRICING.doorFrameEach;
-        }
-
-        if (it.windows) {
-            total += (parseInt(it.windowSashCount) || 0) * PRICING.windowSashEach;
-            total += (parseInt(it.curtainBoardCount) || 0) * PRICING.curtainBoardEach;
-        }
-
-        if (it.radiators) total += PRICING.radiatorEach;
-
-        const rawTotal = total;
-
-        // Material class scales the whole room total.
-        const multiplier = PRICING.materialMultiplier[it.materialClass] || 1;
-        total = rawTotal * multiplier;
-
-        // Add-ons are surcharges off the pre-multiplier base.
-        if (it.addonExpress) total += rawTotal * PRICING.addonExpressPercent;
-        if (it.addonCleaning) total += rawTotal * PRICING.addonCleaningPercent;
-
-        return total;
-
-    }
-
-    function summaryFor(room) {
-
-        const it = room.items;
-        const parts = [];
-
-        if (it.ceiling) parts.push("Ceiling");
-        if (it.walls) parts.push("Walls");
-
-        if (it.doors) {
-            parts.push(`${parseInt(it.doorCount) || 0} x door`);
-            parts.push(`${parseInt(it.doorFrameCount) || 0} x door frame`);
-        }
-
-        if (it.windows) {
-            parts.push(`${parseInt(it.windowSashCount) || 0} x window`);
-            parts.push(`${parseInt(it.curtainBoardCount) || 0} x curtain board`);
-        }
-
-        if (it.radiators) parts.push("Radiator");
-
-        if (it.materialClass === "premium") parts.push("Premium materials");
-        if (it.addonExpress) parts.push("Express 24h");
-        if (it.addonCleaning) parts.push("Final cleaning");
-
-        return parts.length ? parts.join(", ") : "No work selected yet";
-
-    }
-
-    function fmt(n) {
-        return n.toFixed(2);
-    }
+    const CHECK_SVG = `<svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const BULB_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3 11.2c.6.4 1 1.1 1 1.8h4c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const UPLOAD_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
 
     /*==================================================
-        ISOMETRIC ROOM ILLUSTRATION
-        Bilinear interpolation places the window/door/
-        radiator inside a wall's four corners so they
-        follow the wall's own perspective skew instead of
-        sitting on top as flat, mismatched rectangles.
+        STEP CONFIG
     ==================================================*/
 
-    function bilerp(c, u, v) {
+    const WIZARD_STEPS = [
+        {
+            id: "workType", label: "Work", title: "What kind of work is this?",
+            sub: "Pick the closest match — we'll refine details as we go.",
+            type: "select",
+            options: [
+                { value: "painting", label: "Interior Painting", icon: "paint" },
+                { value: "facade", label: "Facade Painting", icon: "facade" },
+                { value: "wallpaper", label: "Wallpapering", icon: "wallpaper" },
+                { value: "plaster", label: "Plastering", icon: "plaster" },
+                { value: "drywall", label: "Drywall", icon: "drywall" },
+                { value: "other", label: "Something Else", icon: "other" }
+            ]
+        },
+        {
+            id: "wallShape", label: "Wall Shape", title: "What shape are the walls?",
+            sub: "A rough idea is enough — exact measurements come later if needed.",
+            type: "select",
+            options: [
+                { value: "rectangle", label: "Rectangle", icon: "rectangle" },
+                { value: "lshape", label: "L-Shape", icon: "lshape" },
+                { value: "sloped", label: "Sloped / Attic", icon: "sloped" },
+                { value: "multiple", label: "Multiple Walls", icon: "multi" },
+                { value: "custom", label: "Custom / Not Sure", icon: "custom" }
+            ]
+        },
+        {
+            id: "areas", label: "Areas", title: "Which areas are affected?",
+            sub: "Select everything that applies — you can pick more than one.",
+            type: "multiselect",
+            options: [
+                { value: "walls", label: "Walls", icon: "walls" },
+                { value: "ceiling", label: "Ceiling", icon: "ceiling" },
+                { value: "doors", label: "Doors", icon: "doors" },
+                { value: "windows", label: "Window Frames", icon: "windows" },
+                { value: "radiators", label: "Radiators", icon: "radiator" },
+                { value: "staircase", label: "Staircase / Corridor", icon: "stairs" },
+                { value: "facade", label: "House Facade", icon: "house" },
+                { value: "fence", label: "Fence", icon: "fence" },
+                { value: "other", label: "Other", icon: "other" }
+            ]
+        },
+        {
+            id: "condition", label: "Condition", title: "What's the current condition?",
+            sub: "This helps us understand how much prep work is involved.",
+            type: "select",
+            options: [
+                { value: "good", label: "Good", desc: "Just needs a fresh coat", icon: "good" },
+                { value: "minor", label: "Minor Marks or Cracks", desc: "Small touch-ups needed", icon: "minor" },
+                { value: "repair", label: "Needs Repair", desc: "Holes, larger cracks or damage", icon: "repair" },
+                { value: "damp", label: "Peeling or Damp", desc: "Flaking paint or moisture issues", icon: "damp" }
+            ]
+        },
+        {
+            id: "scope", label: "Scope", title: "How big is the scope?",
+            sub: "A rough estimate is fine — we'll confirm exact measurements on-site.",
+            type: "scope",
+            options: [
+                { value: "touchup", label: "Small Touch-Up", icon: "minor", needsArea: false },
+                { value: "single", label: "Single Wall or Area", icon: "rectangle", needsArea: true },
+                { value: "1-2rooms", label: "1–2 Rooms", icon: "walls", needsArea: true },
+                { value: "2+rooms", label: "More Than 2 Rooms", icon: "multi", needsArea: true },
+                { value: "wholehouse", label: "Whole House", icon: "house", needsArea: true },
+                { value: "facade", label: "House Facade", icon: "facade", needsArea: true }
+            ]
+        },
+        {
+            id: "timing", label: "Timing", title: "When should this happen?", sub: null,
+            type: "select",
+            options: [
+                { value: "asap", label: "As Soon As Possible", icon: "minor" },
+                { value: "3months", label: "Next 3 Months", icon: "calendar" },
+                { value: "3-6months", label: "In 3–6 Months", icon: "calendar" },
+                { value: "flexible", label: "6–12 Months / Flexible", icon: "clock" }
+            ]
+        },
+        {
+            id: "situation", label: "Situation", title: "What's the situation?", sub: null,
+            tip: "Renting and moving out? Booking 2–3 weeks ahead usually gets the best availability.",
+            type: "select",
+            options: [
+                { value: "own", label: "Own Property", desc: "Your own home", icon: "own" },
+                { value: "rental", label: "Rental", desc: "e.g. moving out", icon: "rental" },
+                { value: "commercial", label: "Commercial / Office", desc: null, icon: "commercial" }
+            ]
+        },
+        {
+            id: "details", label: "Details", title: "Tell us a bit more",
+            sub: "A sentence or two — and photos if you have them — helps painters quote accurately.",
+            type: "text"
+        },
+        {
+            id: "contact", label: "Contact", title: "Where should we send your quotes?",
+            sub: "We'll match you with up to 3 vetted painters in your area.",
+            type: "contact"
+        }
+    ];
 
-        const [x0, y0] = c.innerTop;
-        const [x1, y1] = c.outerTop;
-        const [x2, y2] = c.outerBottom;
-        const [x3, y3] = c.innerBottom;
-
-        const x = (1 - u) * (1 - v) * x0 + u * (1 - v) * x1 + u * v * x2 + (1 - u) * v * x3;
-        const y = (1 - u) * (1 - v) * y0 + u * (1 - v) * y1 + u * v * y2 + (1 - u) * v * y3;
-
-        return [x, y];
-
-    }
-
-    function rectPoints(c, u0, u1, v0, v1) {
-        return [bilerp(c, u0, v0), bilerp(c, u1, v0), bilerp(c, u1, v1), bilerp(c, u0, v1)]
-            .map(p => p.join(",")).join(" ");
-    }
-
-    function poly(points) {
-        return points.map(p => p.join(",")).join(" ");
-    }
-
-    function buildRoomSVG(items, sizeKey) {
-
-        const dims = sizeKey === "large" ? { w: 340, h: 270 } : { w: 150, h: 119 };
-
-        // Shared anchor points — every face (ceiling, walls, floor) is
-        // built from these, so nothing floats or misaligns between faces.
-        const backTopOuter = [170, 15];
-        const backTopInner = [170, 40];
-        const lCeilOuter = [20, 55];
-        const rCeilOuter = [320, 55];
-        const lWallTop = [20, 80];
-        const rWallTop = [320, 80];
-        const lBottomOuter = [20, 195];
-        const rBottomOuter = [320, 195];
-        const backBottom = [170, 150];
-        const frontBottom = [170, 255];
-
-        const leftWallCorners = { innerTop: backTopInner, outerTop: lWallTop, outerBottom: lBottomOuter, innerBottom: backBottom };
-        const rightWallCorners = { innerTop: backTopInner, outerTop: rWallTop, outerBottom: rBottomOuter, innerBottom: backBottom };
-
-        const ceilingOn = !!items.ceiling;
-        const wallsOn = !!items.walls;
-        const doorOn = !!items.doors;
-        const windowOn = !!items.windows;
-        const radiatorOn = !!items.radiators;
-
-        // Recolored to the site's own palette (olive accent) instead of red.
-        const ACTIVE_FILL = "#E7ECE2";
-        const ACTIVE_STROKE = "#ffc400ff";
-        const INK = "#1f2937";
-
-        const windowPts = rectPoints(leftWallCorners, 0.14, 0.58, 0.22, 0.68);
-        const radiatorPts = rectPoints(leftWallCorners, 0.14, 0.58, 0.72, 0.85);
-        const doorPts = rectPoints(rightWallCorners, 0.58, 0.86, 0.2, 0.96);
-        const mullionTop = bilerp(leftWallCorners, 0.36, 0.22);
-        const mullionBottom = bilerp(leftWallCorners, 0.36, 0.68);
-        const knob = bilerp(rightWallCorners, 0.8, 0.55);
-
-        return `
-            <svg viewBox="0 0 340 270" width="${dims.w}" height="${dims.h}">
-                <polygon points="${poly([backBottom, lBottomOuter, frontBottom, rBottomOuter])}" fill="#3a3a3a" />
-
-                <polygon points="${poly([backTopOuter, lCeilOuter, lWallTop, backTopInner])}"
-                    fill="${ceilingOn ? ACTIVE_FILL : "#fbfbfb"}"
-                    stroke="${ceilingOn ? ACTIVE_STROKE : INK}"
-                    stroke-width="${ceilingOn ? 2 : 1}" />
-                <polygon points="${poly([backTopOuter, rCeilOuter, rWallTop, backTopInner])}"
-                    fill="${ceilingOn ? ACTIVE_FILL : "#f5f5f5"}"
-                    stroke="${ceilingOn ? ACTIVE_STROKE : INK}"
-                    stroke-width="${ceilingOn ? 2 : 1}" />
-
-                <polygon points="${poly([backTopInner, lWallTop, lBottomOuter, backBottom])}"
-                    fill="${wallsOn ? ACTIVE_FILL : "#e8e8e8"}"
-                    stroke="${wallsOn ? ACTIVE_STROKE : INK}"
-                    stroke-width="${wallsOn ? 2 : 1.5}" />
-                <polygon points="${poly([backTopInner, rWallTop, rBottomOuter, backBottom])}"
-                    fill="${wallsOn ? ACTIVE_FILL : "#f2f2f2"}"
-                    stroke="${wallsOn ? ACTIVE_STROKE : INK}"
-                    stroke-width="${wallsOn ? 2 : 1.5}" />
-
-                <line x1="${backTopInner[0]}" y1="${backTopInner[1]}" x2="${backBottom[0]}" y2="${backBottom[1]}"
-                    stroke="${INK}" stroke-width="1" opacity="0.45" />
-
-                <polygon points="${windowPts}" fill="#ffffff"
-                    stroke="${windowOn ? ACTIVE_STROKE : INK}" stroke-width="${windowOn ? 2.5 : 1.5}" />
-                <line x1="${mullionTop[0]}" y1="${mullionTop[1]}" x2="${mullionBottom[0]}" y2="${mullionBottom[1]}"
-                    stroke="${windowOn ? ACTIVE_STROKE : INK}" stroke-width="1.2" />
-
-                ${radiatorOn ? `<polygon points="${radiatorPts}" fill="#d1d5db" stroke="${ACTIVE_STROKE}" stroke-width="2" />` : ""}
-
-                <polygon points="${doorPts}" fill="#ffffff"
-                    stroke="${doorOn ? ACTIVE_STROKE : INK}" stroke-width="${doorOn ? 2.5 : 1.5}" />
-                <circle cx="${knob[0]}" cy="${knob[1]}" r="2.5" fill="${doorOn ? ACTIVE_STROKE : INK}" />
-
-                <polyline points="${poly([backTopOuter, lCeilOuter, lBottomOuter, frontBottom, rBottomOuter, rCeilOuter, backTopOuter])}"
-                    fill="none" stroke="${INK}" stroke-width="3" stroke-linejoin="round" />
-
-                <line x1="${backTopInner[0] + 20}" y1="${backTopInner[1] + 5}" x2="${backTopInner[0] + 20}" y2="95"
-                    stroke="${INK}" stroke-width="1.5" />
-                <path d="M${backTopInner[0] + 8},95 L${backTopInner[0] + 32},95 L${backTopInner[0] + 27},108 L${backTopInner[0] + 13},108 Z"
-                    fill="${INK}" />
-            </svg>
-        `;
-
-    }
-
-    const editIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 20h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-    const xIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
-    const checkIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const TOTAL_STEPS = WIZARD_STEPS.length;
 
     /*==================================================
         STATE
     ==================================================*/
 
-    let rooms = [];
-    let modalOpen = false;
-    let modalStep = 1;
-    let editingId = null;
-    let draft = emptyDraft();
+    let currentStep = 0;
+    let selections = {};
+    let areaValue = 24;
+    let detailsText = "";
+    let detailsPhotos = [];
+    let contactValues = { firstName: "", lastName: "", email: "", phone: "", postcode: "", city: "" };
+    let consentChecked = false;
 
-    /*==================================================
-        DOM REFS
-    ==================================================*/
-
-    const roomsListEl = document.getElementById("roomsList");
-    const addSpaceBtn = document.getElementById("addSpaceBtn");
-    const estimatedPriceEl = document.getElementById("estimatedPrice");
-    const estimatedRoomsEl = document.getElementById("estimatedRooms");
-    const summaryListEl = document.getElementById("summaryList");
-    const modalEl = document.getElementById("quoteModal");
-    const modalBodyEl = document.getElementById("modalBody");
-    const modalCloseBtn = document.getElementById("modalClose");
-    const modalTotalValueEl = document.getElementById("modalTotalValue");
-
-    if (!roomsListEl || !modalEl) return;
-
-    function grandTotal() {
-        let sum = rooms.reduce((s, r) => s + calcPrice(r), 0);
-        if (modalOpen) sum += calcPrice(draft);
-        return sum;
+    function resetWizardState() {
+        currentStep = 0;
+        selections = {};
+        areaValue = 24;
+        detailsText = "";
+        detailsPhotos = [];
+        contactValues = { firstName: "", lastName: "", email: "", phone: "", postcode: "", city: "" };
+        consentChecked = false;
     }
 
     /*==================================================
-        RENDER — rooms list + live estimate card
+        OPEN / CLOSE
     ==================================================*/
 
-    function renderRoomsList() {
-
-        if (!rooms.length) {
-            roomsListEl.innerHTML = `<div class="rooms-empty">No rooms added yet — click "Add Space" to start your quote.</div>`;
-            return;
-        }
-
-        roomsListEl.innerHTML = rooms.map(room => `
-            <div class="room-row" data-id="${room.id}">
-                <div class="room-row-illustration">${buildRoomSVG(room.items, "small")}</div>
-                <div class="room-row-info">
-                    <div class="room-row-title">${room.type} <span class="room-row-size">${room.size} m&sup2;</span></div>
-                    <div class="room-row-summary">${summaryFor(room)}</div>
-                </div>
-                <div class="room-row-actions">
-                    <button class="room-action-btn edit-room-btn" data-id="${room.id}" aria-label="Edit room">${editIcon}</button>
-                    <button class="room-action-btn delete-room-btn" data-id="${room.id}" aria-label="Remove room">${xIcon}</button>
-                </div>
-                <div class="room-row-price">CHF ${fmt(calcPrice(room))}</div>
-            </div>
-        `).join("");
-
-        roomsListEl.querySelectorAll(".edit-room-btn").forEach(btn => {
-            btn.addEventListener("click", () => openEdit(btn.dataset.id));
-        });
-
-        roomsListEl.querySelectorAll(".delete-room-btn").forEach(btn => {
-            btn.addEventListener("click", () => removeRoom(btn.dataset.id));
-        });
-
-    }
-
-    function renderEstimate() {
-
-        estimatedPriceEl.textContent = fmt(grandTotal());
-        estimatedRoomsEl.textContent = rooms.length;
-
-        if (!rooms.length) {
-            summaryListEl.innerHTML = `<li>No rooms added yet</li>`;
-        } else {
-            summaryListEl.innerHTML = rooms.map(room =>
-                `<li>${room.type} — ${summaryFor(room)} — CHF ${fmt(calcPrice(room))}</li>`
-            ).join("");
-        }
-
-    }
-
-    function renderAll() {
-        renderRoomsList();
-        renderEstimate();
-        if (modalOpen) renderModal();
-    }
-
-    /*==================================================
-        MODAL — open / close / navigation
-    ==================================================*/
-
-    function openAdd() {
-        draft = emptyDraft();
-        editingId = null;
-        modalStep = 1;
-        openModal();
-    }
-
-    function openEdit(id) {
-        const room = rooms.find(r => String(r.id) === String(id));
-        if (!room) return;
-        draft = JSON.parse(JSON.stringify(room));
-        editingId = id;
-        modalStep = 1;
-        openModal();
-    }
-
-    function openModal() {
-        modalOpen = true;
-        modalEl.classList.add("open");
+    function openWizard() {
+        resetWizardState();
+        buildProgressSegments();
+        wizard.classList.add("open");
         document.body.style.overflow = "hidden";
-        renderModal();
+        renderStep();
     }
 
-    function closeModal() {
-        modalOpen = false;
-        modalEl.classList.remove("open");
+    function closeWizard() {
+        wizard.classList.remove("open");
         document.body.style.overflow = "";
-        renderEstimate();
     }
 
-    function goFurther() {
-        if (!draft.size || parseFloat(draft.size) <= 0) return;
-        modalStep = 2;
-        renderModal();
-    }
+    openBtn.addEventListener("click", openWizard);
+    closeBtn?.addEventListener("click", closeWizard);
 
-    function goBack() {
-        modalStep = 1;
-        renderModal();
-    }
-
-    function saveDraft() {
-
-        if (editingId) {
-            rooms = rooms.map(r => String(r.id) === String(editingId) ? { ...draft, id: editingId } : r);
-        } else {
-            rooms = [...rooms, { ...draft, id: Date.now() + "-" + Math.random().toString(36).slice(2) }];
-        }
-
-        closeModal();
-        renderAll();
-
-    }
-
-    function removeRoom(id) {
-        rooms = rooms.filter(r => String(r.id) !== String(id));
-        renderAll();
-    }
-
-    function updateDraftField(key, value) {
-        draft = { ...draft, [key]: value };
-        renderModal();
-    }
-
-    function updateItem(key, value) {
-        draft = { ...draft, items: { ...draft.items, [key]: value } };
-        renderModal();
-    }
-
-    /*==================================================
-        MODAL — render step 1 / step 2
-    ==================================================*/
-
-    function renderModal() {
-
-        modalTotalValueEl.textContent = fmt(grandTotal());
-
-        modalBodyEl.innerHTML = modalStep === 1 ? step1HTML() : step2HTML();
-
-        if (modalStep === 1) bindStep1();
-        else bindStep2();
-
-    }
-
-    function step1HTML() {
-
-        const canContinue = draft.size && parseFloat(draft.size) > 0;
-
-        return `
-            <span class="section-tag">Step 1 / 2 — The space</span>
-            <h3 class="quote-modal-title">Tell us about the room</h3>
-            <p class="quote-modal-sub">Room type and size are used to calculate ceiling and wall coverage.</p>
-
-            <div class="quote-step-grid">
-
-                <div class="quote-field-group">
-                    <span class="quote-group-label">Room type</span>
-                    <div class="option-grid quote-radio-grid">
-                        ${ROOM_TYPES.map(t => `
-                            <label class="option">
-                                <input type="radio" name="roomType" value="${t}" ${draft.type === t ? "checked" : ""}>
-                                <span class="option-check">${checkIcon}</span>
-                                <span>${t}</span>
-                            </label>
-                        `).join("")}
-                    </div>
-                </div>
-
-                <div class="quote-field-group">
-                    <span class="quote-group-label">Room size (m&sup2;)</span>
-                    <input type="number" min="0" id="draftSizeInput" class="quote-size-input" placeholder="e.g. 24" value="${draft.size}">
-                </div>
-
-            </div>
-
-            <div class="quote-step-actions">
-                <button class="quote-btn-primary" id="goFurtherBtn" ${canContinue ? "" : "disabled"}>Continue</button>
-            </div>
-        `;
-
-    }
-
-    function bindStep1() {
-
-        modalBodyEl.querySelectorAll('input[name="roomType"]').forEach(input => {
-            input.addEventListener("change", () => updateDraftField("type", input.value));
-        });
-
-        const sizeInput = document.getElementById("draftSizeInput");
-        sizeInput.addEventListener("input", () => updateDraftField("size", sizeInput.value));
-
-        document.getElementById("goFurtherBtn").addEventListener("click", goFurther);
-
-    }
-
-    function optionRow(key, label, checked) {
-        return `
-            <label class="option">
-                <input type="checkbox" data-key="${key}" ${checked ? "checked" : ""}>
-                <span class="option-check">${checkIcon}</span>
-                <span>${label}</span>
-            </label>
-        `;
-    }
-
-    function subfieldRow(key, label, value) {
-        return `
-            <div class="quote-subfield-row">
-                <span>${label}</span>
-                <input type="number" min="0" class="quote-number-input" data-key="${key}" value="${value}">
-            </div>
-        `;
-    }
-
-    function materialPill(cls, checked) {
-        return `
-            <label class="quote-pill">
-                <input type="radio" name="materialClass" value="${cls.value}" ${checked ? "checked" : ""}>
-                <span>${cls.label}</span>
-            </label>
-        `;
-    }
-
-    function addonPill(key, label, checked) {
-        return `
-            <label class="quote-pill">
-                <input type="checkbox" data-key="${key}" ${checked ? "checked" : ""}>
-                <span>${label}</span>
-            </label>
-        `;
-    }
-
-    function step2HTML() {
-
-        const it = draft.items;
-
-        return `
-            <button class="quote-back-btn" id="modalBackBtn">&larr; Back</button>
-            <span class="section-tag">Step 2 / 2 — The work</span>
-            <h3 class="quote-modal-title">What needs painting?</h3>
-
-            <div class="quote-step2-grid">
-
-                <div class="quote-checklist">
-
-                    <div class="quote-check-group">
-                        <div class="quote-group-label">Ceiling / Walls</div>
-                        <div class="option-grid quote-check-grid">
-                            ${optionRow("ceiling", "Painting the ceiling", it.ceiling)}
-                            ${optionRow("walls", "Painting walls", it.walls)}
-                        </div>
-                    </div>
-
-                    <div class="quote-check-group">
-                        <div class="quote-group-label">Woodworking</div>
-                        <div class="option-grid quote-check-grid">
-                            ${optionRow("doors", "Painting doors", it.doors)}
-                            ${optionRow("windows", "Painting windows", it.windows)}
-                        </div>
-                        ${it.doors ? `
-                            <div class="quote-subfield-box">
-                                ${subfieldRow("doorCount", "Number of doors", it.doorCount)}
-                                ${subfieldRow("doorFrameCount", "Number of door frames", it.doorFrameCount)}
-                            </div>
-                        ` : ""}
-                        ${it.windows ? `
-                            <div class="quote-subfield-box">
-                                ${subfieldRow("windowSashCount", "Number of window sashes", it.windowSashCount)}
-                                ${subfieldRow("curtainBoardCount", "Number of curtain boards", it.curtainBoardCount)}
-                            </div>
-                        ` : ""}
-                    </div>
-
-                    <div class="quote-check-group">
-                        <div class="quote-group-label">Metal</div>
-                        <div class="option-grid quote-check-grid">
-                            ${optionRow("radiators", "Painting radiators", it.radiators)}
-                        </div>
-                    </div>
-
-                    <div class="quote-check-group">
-                        <div class="quote-group-label">Material Class</div>
-                        <div class="quote-pill-group">
-                            ${MATERIAL_CLASSES.map(cls => materialPill(cls, it.materialClass === cls.value)).join("")}
-                        </div>
-                    </div>
-
-                    <div class="quote-check-group">
-                        <div class="quote-group-label">Add-Ons</div>
-                        <div class="quote-pill-group">
-                            ${addonPill("addonExpress", "Express 24h +20%", it.addonExpress)}
-                            ${addonPill("addonCleaning", "Final cleaning +8%", it.addonCleaning)}
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="quote-illustration-col">
-                    <div class="quote-illustration-card">${buildRoomSVG(it, "large")}</div>
-                    <button class="quote-btn quote-save-btn" id="saveDraftBtn">${editingId ? "Save changes" : "Add to offer"}</button>
-                </div>
-
-            </div>
-        `;
-
-    }
-
-    function bindStep2() {
-
-        document.getElementById("modalBackBtn").addEventListener("click", goBack);
-        document.getElementById("saveDraftBtn").addEventListener("click", saveDraft);
-
-        modalBodyEl.querySelectorAll(".quote-checklist input[type='checkbox']").forEach(input => {
-            input.addEventListener("change", () => updateItem(input.dataset.key, input.checked));
-        });
-
-        modalBodyEl.querySelectorAll('input[name="materialClass"]').forEach(input => {
-            input.addEventListener("change", () => updateItem("materialClass", input.value));
-        });
-
-        modalBodyEl.querySelectorAll(".quote-number-input").forEach(input => {
-            input.addEventListener("input", () => updateItem(input.dataset.key, input.value));
-        });
-
-    }
-
-    /*==================================================
-        GLOBAL EVENTS
-    ==================================================*/
-
-    addSpaceBtn.addEventListener("click", openAdd);
-    modalCloseBtn.addEventListener("click", closeModal);
-
-    modalEl.addEventListener("click", (e) => {
-        if (e.target === modalEl) closeModal();
+    // Click on the dark backdrop (outside the shell) closes it too.
+    wizard.addEventListener("click", (e) => {
+        if (e.target === wizard) closeWizard();
     });
 
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modalOpen) closeModal();
+        if (e.key === "Escape" && wizard.classList.contains("open")) closeWizard();
     });
+
+    /*==================================================
+        PROGRESS BAR
+    ==================================================*/
+
+    function buildProgressSegments() {
+        progressEl.innerHTML = WIZARD_STEPS
+            .map(() => `<div class="wizard-progress-seg"><span></span></div>`)
+            .join("");
+    }
+
+    function updateProgress() {
+        const segs = progressEl.querySelectorAll(".wizard-progress-seg span");
+        segs.forEach((span, i) => {
+            span.style.width = i <= currentStep ? "100%" : "0%";
+        });
+    }
+
+    /*==================================================
+        SIDEBAR
+    ==================================================*/
+
+    function selectionSummary(step) {
+
+        if (step.type === "select" || step.type === "scope") {
+            const val = selections[step.id];
+            if (!val) return null;
+            const opt = step.options.find(o => o.value === val);
+            if (!opt) return null;
+            if (step.type === "scope" && opt.needsArea) {
+                return `${opt.label} · ~${areaValue} m²`;
+            }
+            return opt.label;
+        }
+
+        if (step.type === "multiselect") {
+            const vals = selections[step.id];
+            if (!vals || !vals.length) return null;
+            return vals.map(v => step.options.find(o => o.value === v)?.label).filter(Boolean).join(", ");
+        }
+
+        return null;
+    }
+
+    function updateSidebar() {
+
+        const workOpt = WIZARD_STEPS[0].options.find(o => o.value === selections.workType);
+        sideTitleEl.textContent = workOpt ? `Your ${workOpt.label} Project` : "Your Project";
+
+        const rowsHTML = WIZARD_STEPS
+            .map(step => {
+                const summary = selectionSummary(step);
+                if (!summary) return "";
+                return `
+                    <div class="wizard-selection-row">
+                        <span class="wizard-selection-check">${CHECK_SVG}</span>
+                        <div>
+                            <span class="wizard-selection-label">${step.label}</span>
+                            <span class="wizard-selection-value">${summary}</span>
+                        </div>
+                    </div>
+                `;
+            })
+            .join("");
+
+        selectionsEl.innerHTML = rowsHTML;
+
+        // Stagger the rows in on the next frame so newly-added ones animate.
+        requestAnimationFrame(() => {
+            selectionsEl.querySelectorAll(".wizard-selection-row").forEach(row => {
+                row.classList.add("show");
+            });
+        });
+
+        const remaining = TOTAL_STEPS - currentStep - 1;
+        stepsLeftLabelEl.textContent = remaining <= 0
+            ? "Last step to your offers"
+            : `${remaining} step${remaining === 1 ? "" : "s"} to your offers`;
+
+        stepsLeftFillEl.style.width = `${((currentStep + 1) / TOTAL_STEPS) * 100}%`;
+
+    }
+
+    /*==================================================
+        STEP RENDERING
+    ==================================================*/
+
+    function optionGridHTML(step, isMulti) {
+
+        return `
+            <div class="wizard-option-grid">
+                ${step.options.map(opt => {
+
+            const selected = isMulti
+                ? (selections[step.id] || []).includes(opt.value)
+                : selections[step.id] === opt.value;
+
+            return `
+                        <button type="button" class="wizard-option ${selected ? "selected" : ""}" data-value="${opt.value}">
+                            <span class="wizard-option-check">${CHECK_SVG}</span>
+                            <span class="wizard-option-icon">${ICONS[opt.icon] || ""}</span>
+                            <span class="wizard-option-label">${opt.label}</span>
+                            ${opt.desc ? `<span class="wizard-option-desc">${opt.desc}</span>` : ""}
+                        </button>
+                    `;
+
+        }).join("")}
+            </div>
+        `;
+
+    }
+
+    function stepperHTML() {
+        return `
+            <div class="wizard-stepper-wrap">
+                <div class="wizard-stepper-label">Approximate area</div>
+                <div class="wizard-stepper">
+                    <button type="button" class="wizard-stepper-btn" id="wizardAreaMinus" aria-label="Decrease">&minus;</button>
+                    <div class="wizard-stepper-value" id="wizardAreaValue">${areaValue}<span>m²</span></div>
+                    <button type="button" class="wizard-stepper-btn" id="wizardAreaPlus" aria-label="Increase">+</button>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderStep() {
+
+        const step = WIZARD_STEPS[currentStep];
+
+        let bodyHTML = "";
+
+        if (step.type === "select") {
+            bodyHTML = optionGridHTML(step, false);
+        } else if (step.type === "multiselect") {
+            bodyHTML = optionGridHTML(step, true);
+        } else if (step.type === "scope") {
+            const selectedOpt = step.options.find(o => o.value === selections[step.id]);
+            bodyHTML = optionGridHTML(step, false) + (selectedOpt?.needsArea ? stepperHTML() : "");
+        } else if (step.type === "text") {
+            bodyHTML = `
+                <textarea class="wizard-textarea" id="wizardDetailsText" placeholder="e.g. Living room and hallway, walls are slightly faded, would like a light grey finish...">${detailsText}</textarea>
+                <label class="wizard-upload" id="wizardUploadZone">
+                    <input type="file" id="wizardPhotoInput" accept="image/*" multiple hidden>
+                    <span class="wizard-upload-icon">${UPLOAD_SVG}</span>
+                    <span class="wizard-upload-text"><b>Add photos</b> — optional, drag & drop or click</span>
+                    <span class="wizard-upload-count" id="wizardUploadCount"></span>
+                </label>
+            `;
+        } else if (step.type === "contact") {
+            bodyHTML = `
+                <div class="wizard-form-grid">
+                    <div class="wizard-field">
+                        <label for="wizardFirstName">First name (optional)</label>
+                        <input type="text" id="wizardFirstName" value="${contactValues.firstName}" placeholder="Jane">
+                    </div>
+                    <div class="wizard-field">
+                        <label for="wizardLastName">Last name</label>
+                        <input type="text" id="wizardLastName" value="${contactValues.lastName}" placeholder="Doe">
+                    </div>
+                </div>
+                <div class="wizard-form-grid full">
+                    <div class="wizard-field">
+                        <label for="wizardEmail">Email address</label>
+                        <input type="email" id="wizardEmail" value="${contactValues.email}" placeholder="jane@example.com">
+                    </div>
+                </div>
+                <div class="wizard-form-grid full">
+                    <div class="wizard-field">
+                        <label for="wizardPhone">Phone number</label>
+                        <input type="tel" id="wizardPhone" value="${contactValues.phone}" placeholder="079 123 45 67">
+                    </div>
+                </div>
+                <div class="wizard-form-grid">
+                    <div class="wizard-field">
+                        <label for="wizardPostcode">Postcode</label>
+                        <input type="text" id="wizardPostcode" value="${contactValues.postcode}" placeholder="e.g. 8001">
+                    </div>
+                    <div class="wizard-field">
+                        <label for="wizardCity">City</label>
+                        <input type="text" id="wizardCity" value="${contactValues.city}" placeholder="e.g. Zurich">
+                    </div>
+                </div>
+                <label class="wizard-consent">
+                    <input type="checkbox" id="wizardConsent" ${consentChecked ? "checked" : ""}>
+                    <span>I have read and accept the terms and privacy policy.</span>
+                </label>
+                <div class="wizard-privacy-note">
+                    🔒 Your details are sent securely and used only to match you with painters.
+                </div>
+            `;
+        }
+
+        stepContentEl.innerHTML = `
+            <span class="wizard-step-eyebrow">STEP ${currentStep + 1} / ${TOTAL_STEPS}</span>
+            <h3 class="wizard-step-title">${step.title}</h3>
+            ${step.sub ? `<p class="wizard-step-sub">${step.sub}</p>` : ""}
+            ${step.tip ? `
+                <div class="wizard-tip">
+                    ${BULB_SVG}
+                    <p>${step.tip}</p>
+                </div>
+            ` : ""}
+            ${bodyHTML}
+        `;
+
+        bindStepEvents(step);
+        updateNavState(step);
+        updateProgress();
+        updateSidebar();
+
+        // Reset scroll position on the main panel for each new step.
+        document.querySelector(".wizard-main")?.scrollTo({ top: 0 });
+
+    }
+
+    /*==================================================
+        EVENT BINDING (re-bound on every render, since
+        stepContentEl's innerHTML is fully replaced each
+        time)
+    ==================================================*/
+
+    function bindStepEvents(step) {
+
+        if (step.type === "select" || step.type === "multiselect" || step.type === "scope") {
+
+            stepContentEl.querySelectorAll(".wizard-option").forEach(btn => {
+
+                btn.addEventListener("click", () => {
+
+                    const value = btn.dataset.value;
+
+                    if (step.type === "multiselect") {
+                        const current = selections[step.id] || [];
+                        selections[step.id] = current.includes(value)
+                            ? current.filter(v => v !== value)
+                            : [...current, value];
+                    } else {
+                        selections[step.id] = value;
+                    }
+
+                    renderStep();
+
+                });
+
+            });
+
+        }
+
+        if (step.type === "scope") {
+
+            const minus = document.getElementById("wizardAreaMinus");
+            const plus = document.getElementById("wizardAreaPlus");
+            const valueEl = document.getElementById("wizardAreaValue");
+
+            minus?.addEventListener("click", () => {
+                areaValue = Math.max(4, areaValue - 2);
+                if (valueEl) valueEl.innerHTML = `${areaValue}<span>m²</span>`;
+                updateSidebar();
+            });
+
+            plus?.addEventListener("click", () => {
+                areaValue = Math.min(600, areaValue + 2);
+                if (valueEl) valueEl.innerHTML = `${areaValue}<span>m²</span>`;
+                updateSidebar();
+            });
+
+        }
+
+        if (step.type === "text") {
+
+            const textarea = document.getElementById("wizardDetailsText");
+            textarea?.addEventListener("input", () => {
+                detailsText = textarea.value;
+            });
+
+            const uploadZone = document.getElementById("wizardUploadZone");
+            const photoInput = document.getElementById("wizardPhotoInput");
+            const countEl = document.getElementById("wizardUploadCount");
+
+            function refreshCount() {
+                if (!countEl) return;
+                countEl.textContent = detailsPhotos.length
+                    ? `${detailsPhotos.length} photo${detailsPhotos.length > 1 ? "s" : ""} added`
+                    : "";
+            }
+
+            function addFiles(fileList) {
+                Array.from(fileList).forEach(f => {
+                    if (f.type.startsWith("image/") && detailsPhotos.length < 10) {
+                        detailsPhotos.push(f);
+                    }
+                });
+                refreshCount();
+            }
+
+            photoInput?.addEventListener("change", (e) => addFiles(e.target.files));
+
+            ["dragenter", "dragover"].forEach(evt => {
+                uploadZone?.addEventListener(evt, (e) => {
+                    e.preventDefault();
+                    uploadZone.classList.add("dragging");
+                });
+            });
+
+            ["dragleave", "drop"].forEach(evt => {
+                uploadZone?.addEventListener(evt, (e) => {
+                    e.preventDefault();
+                    uploadZone.classList.remove("dragging");
+                });
+            });
+
+            uploadZone?.addEventListener("drop", (e) => addFiles(e.dataTransfer.files));
+
+            refreshCount();
+
+        }
+
+        if (step.type === "contact") {
+
+            const fields = {
+                firstName: document.getElementById("wizardFirstName"),
+                lastName: document.getElementById("wizardLastName"),
+                email: document.getElementById("wizardEmail"),
+                phone: document.getElementById("wizardPhone"),
+                postcode: document.getElementById("wizardPostcode"),
+                city: document.getElementById("wizardCity")
+            };
+
+            Object.keys(fields).forEach(key => {
+                fields[key]?.addEventListener("input", () => {
+                    contactValues[key] = fields[key].value;
+                    updateNavState(step);
+                });
+            });
+
+            const consentInput = document.getElementById("wizardConsent");
+            consentInput?.addEventListener("change", () => {
+                consentChecked = consentInput.checked;
+                updateNavState(step);
+            });
+
+        }
+
+    }
+
+    /*==================================================
+        NAV STATE (back / skip / continue)
+    ==================================================*/
+
+    function isStepValid(step) {
+
+        if (step.type === "select") return !!selections[step.id];
+
+        if (step.type === "multiselect") return (selections[step.id] || []).length > 0;
+
+        if (step.type === "scope") {
+            const val = selections[step.id];
+            if (!val) return false;
+            const opt = step.options.find(o => o.value === val);
+            return !opt?.needsArea || areaValue > 0;
+        }
+
+        if (step.type === "text") return true; // optional step
+
+        if (step.type === "contact") {
+            return contactValues.lastName.trim() !== "" &&
+                /\S+@\S+\.\S+/.test(contactValues.email) &&
+                consentChecked;
+        }
+
+        return true;
+
+    }
+
+    function updateNavState(step) {
+
+        backBtn.style.visibility = currentStep === 0 ? "hidden" : "visible";
+        skipBtn.style.display = step.type === "text" ? "inline-flex" : "none";
+
+        continueBtn.disabled = !isStepValid(step);
+        continueBtn.textContent = currentStep === TOTAL_STEPS - 1
+            ? "Request My Free Quotes"
+            : "Continue";
+
+    }
+
+    backBtn.addEventListener("click", () => {
+        if (currentStep === 0) return;
+        currentStep -= 1;
+        renderStep();
+    });
+
+    skipBtn.addEventListener("click", () => {
+        goToNextStep();
+    });
+
+    continueBtn.addEventListener("click", () => {
+        const step = WIZARD_STEPS[currentStep];
+        if (!isStepValid(step)) return;
+        goToNextStep();
+    });
+
+    function goToNextStep() {
+        if (currentStep === TOTAL_STEPS - 1) {
+            submitWizard();
+            return;
+        }
+        currentStep += 1;
+        renderStep();
+    }
+
+    /*==================================================
+        SUBMIT
+
+        HOOK YOUR BACKEND CALL HERE. `selections`,
+        `areaValue`, `detailsText`, `detailsPhotos` and
+        `contactValues` are all plain, easily serialized
+        state — once there's a real endpoint (and pricing
+        rules to go with it), something like:
+
+          const formData = new FormData();
+          formData.append("payload", JSON.stringify({
+              selections, areaValue, detailsText, contactValues
+          }));
+          detailsPhotos.forEach(f => formData.append("photos", f));
+
+          fetch("/api/quotes", { method: "POST", body: formData })
+              .then(res => res.json())
+              .then(() => { closeWizard(); window.wizardSuccess?.open(); })
+              .catch(err => { showErrorState(err); });
+
+        For now it just opens the success confirmation directly.
+    ==================================================*/
+
+    function submitWizard() {
+        closeWizard();
+        window.wizardSuccess?.open();
+    }
 
     /*==================================================
         SECTION REVEAL (same pattern as the rest of the site)
     ==================================================*/
 
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                section.classList.add("show");
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: .18 });
+    if (quoteSection) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: .2 });
 
-    revealObserver.observe(section);
-
-    /*==================================================
-        INITIAL RENDER
-    ==================================================*/
-
-    renderAll();
+        revealObserver.observe(quoteSection);
+    }
 
 });
 
@@ -1437,13 +1732,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const bookBtn = document.getElementById("bookInspectionBtn");
     const successModal = document.getElementById("successModal");
     const successClose = document.getElementById("successModalClose");
     const successDone = document.getElementById("successDoneBtn");
     const particlesHost = document.getElementById("successParticles");
 
-    if (!bookBtn || !successModal) return;
+    if (!successModal) return;
 
     /*==================================================
         PARTICLE BURST — rebuilt fresh each time the modal
@@ -1479,7 +1773,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /*==================================================
-        OPEN / CLOSE
+        OPEN / CLOSE — exposed on window.wizardSuccess so
+        the quote wizard's final submit step (see the
+        QUOTE WIZARD block further down) can trigger this
+        same confirmation without needing to know anything
+        about how it's built.
     ==================================================*/
 
     function openSuccess() {
@@ -1504,31 +1802,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow = "";
     }
 
-    bookBtn.addEventListener("click", (e) => {
-
-        e.preventDefault();
-
-        // ------------------------------------------------------------
-        // HOOK YOUR BACKEND CALL HERE.
-        // `rooms` and `grandTotal()` come from quote-calculator.js —
-        // both are plain, serializable data, so this is typically all
-        // you need once you have a real endpoint:
-        //
-        //   fetch("/api/quotes", {
-        //       method: "POST",
-        //       headers: { "Content-Type": "application/json" },
-        //       body: JSON.stringify({ rooms, total: grandTotal() })
-        //   })
-        //   .then(res => res.json())
-        //   .then(() => openSuccess())
-        //   .catch(err => { /* show an error state instead */ });
-        //
-        // For now it opens the success modal immediately.
-        // ------------------------------------------------------------
-
-        openSuccess();
-
-    });
+    window.wizardSuccess = { open: openSuccess, close: closeSuccess };
 
     successClose.addEventListener("click", closeSuccess);
     successDone.addEventListener("click", closeSuccess);
@@ -1543,17 +1817,202 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
 /*==================================================
     TESTIMONIALS — CONVEX ARC CAROUSEL
 ==================================================== */
 
 const TESTIMONIALS_DATA = [
-    { name: "Daniel Müller", city: "Zurich", quote: "Professional from inspection to completion. Everything exceeded expectations." },
-    { name: "Sarah Weber", city: "Bern", quote: "Fast communication and flawless finishing. Highly recommended." },
-    { name: "Lucas Frei", city: "Geneva", quote: "The AI inspection saved us thousands. Amazing experience." },
-    { name: "Emma Keller", city: "Basel", quote: "Everything felt transparent from day one." },
-    { name: "Sophia Baumann", city: "Lugano", quote: "Beautiful renovation. Better than we imagined." },
-    { name: "Marco Steiner", city: "Lausanne", quote: "Couldn't have chosen a better company." }
+
+    {
+        name: "Natasha Fischer",
+        city: "Switzerland",
+        rating: 5,
+        quote: "We are absolutely thrilled with Patricio's work. Both interior and exterior walls were painted perfectly. The work was clean, precise, and completed with great attention to detail."
+    },
+
+    {
+        name: "Bettina Marinelli",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Our ground floor, entrance, living room, kitchen, stairwell and doors were beautifully painted. Expert advice, careful execution, and excellent quality."
+    },
+
+    {
+        name: "Melanie Bryan",
+        city: "Aarau",
+        rating: 5,
+        quote: "Amigos Maler provided expert advice and professional service. They were dedicated, helpful, and delivered outstanding results."
+    },
+
+    {
+        name: "Sabiduri 1010",
+        city: "Switzerland",
+        rating: 5,
+        quote: "I needed help painting my office wall and couldn't have wished for a better person. Professional, reliable, and excellent work."
+    },
+
+    {
+        name: "Rineta Slishani",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Highly recommended! The work was completed reliably, on schedule, and with excellent quality."
+    },
+
+    {
+        name: "P",
+        city: "Switzerland",
+        rating: 5,
+        quote: "We have already trusted Amigos with multiple jobs. Their plastering and painting work was completed professionally and beautifully."
+    },
+
+    {
+        name: "Corinne Sittmann",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Very friendly and competent advice. The work was completed quickly and to a high standard. I would definitely hire Amigos again."
+    },
+
+    {
+        name: "Erich Leimgruber",
+        city: "Switzerland",
+        rating: 5,
+        quote: "The workers are very competent, clean, and precise. The price-performance ratio is excellent."
+    },
+
+    {
+        name: "Benjamin Allemann",
+        city: "Switzerland",
+        rating: 5,
+        quote: "You guys are great, friendly, and very helpful. We would book you again anytime."
+    },
+
+    {
+        name: "Matteo Müller",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Excellent professionalism and dedication. Amigos provided great advice on colors and materials from the beginning."
+    },
+
+    {
+        name: "Nicole Stadelmann",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Friendly service, excellent quality, and fair prices — everything you could want from a painting company."
+    },
+
+    {
+        name: "Michael Niederle",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Fast communication, professional consultation, fair pricing, and the work was completed perfectly on time."
+    },
+
+    {
+        name: "Hubert Strohmeier",
+        city: "Switzerland",
+        rating: 5,
+        quote: "The windows of my apartment building were repainted beautifully. Excellent workmanship, completed on time and within budget."
+    },
+
+    {
+        name: "Luca I.",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Very satisfied with the plastering and painting work. Friendly, efficient, professional service with a top-quality result."
+    },
+
+    {
+        name: "Kevin Plüss",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Everything went perfectly from the first quote to the final painting work. Expectations were fully exceeded."
+    },
+
+    {
+        name: "V M",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Amigos Painting Company is everything you could wish for — professional, reliable, and excellent value for money."
+    },
+
+    {
+        name: "Heidi Jonch-Clausen",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Absolutely fantastic service, fast and efficient work, and a beautiful final result. Highly recommended."
+    },
+
+    {
+        name: "Bahadir Sahin",
+        city: "Switzerland",
+        rating: 5,
+        quote: "A very personable managing director who completes work quickly, professionally, and exactly according to expectations."
+    },
+
+    {
+        name: "Bestattungen Nisio AG",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Careful and professional workmanship with a wonderful result. Everything was perfect."
+    },
+
+    {
+        name: "Peter Gutknecht",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Everything went perfectly and the quality is excellent. I would recommend Amigos again without hesitation."
+    },
+
+    {
+        name: "Andreas Rocci",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Thank you very much for your work. Quick, organized, and highly recommended."
+    },
+
+    {
+        name: "Tanja Friedli",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Excellent work, very friendly service, precise execution, and highly recommended."
+    },
+
+    {
+        name: "Aline Bammert",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Competent, honest, and friendly service during repair work."
+    },
+
+    {
+        name: "Max Husi",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Friendly, dedicated service with great value for money."
+    },
+
+    {
+        name: "Elsel Elsel",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Excellent work. Highly recommended."
+    },
+
+    {
+        name: "Giorgy",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Thank you so much for the great work!"
+    },
+
+    {
+        name: "Anthony Troy",
+        city: "Switzerland",
+        rating: 5,
+        quote: "Completely satisfied with Amigos Maler GmbH. The team worked cleanly, reliably, and professionally. The result exceeded expectations."
+    }
+
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -1580,7 +2039,9 @@ document.addEventListener("DOMContentLoaded", () => {
         card.dataset.index = i;
 
         card.innerHTML = `
-            <div class="stars">★★★★★</div>
+            <div class="stars">
+            ${"★".repeat(t.rating || 5)}
+            </div>
             <p>"${t.quote}"</p>
             <h4>${t.name}</h4>
             <span class="city">${t.city}</span>
@@ -1720,473 +2181,1376 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /*==================================================
     PROJECTS SECTION — COVERFLOW CAROUSEL
-==================================================== *
-    A large centered card with softly peeking neighbors
-    on either side. Each project renders exactly ONCE in
-    the DOM (no cloned/tripled cards). Every card's position
-    is driven individually by GSAP: for the current active
-    index, each card computes its own "offset" (its shortest
-    circular distance from the active index), then is
-    translated to centerX + offset * step and scaled/faded
-    based on |offset|. Because the offset math wraps around
-    the array length, going past the last project loops
-    straight back to the first (and vice-versa) with no
-    duplicated markup and no snap/seam to hide.
 ==================================================== */
-
 const PROJECTS_DATA = [
 
-    // ===== Properties for Sale =====
-    { category: "sale", image: "assets/projects/project-01.jpg", location: "Zurich", title: "Modern Family Villa" },
-    { category: "sale", image: "assets/projects/project-02.jpg", location: "Geneva", title: "Lake View Residence" },
-    { category: "sale", image: "assets/projects/project-03.jpg", location: "Lausanne", title: "Contemporary Residence" },
-    { category: "sale", image: "assets/projects/project-04.jpg", location: "Zermatt", title: "Alpine Chalet" },
-    { category: "sale", image: "assets/projects/project-05.jpg", location: "Basel", title: "Vision Mansion" },
-    { category: "sale", image: "assets/projects/project-06.jpg", location: "Bern", title: "Eli House Corner Plot" },
+    // ===== Painting =====
+    {
+        category: "painting",
+        type: "Interior Repaint",
+        location: "Bern, BE",
+        service: "Painting & Renovation Work",
+        before: "https://images.unsplash.com/photo-1525909002-1b05e0c869d8?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1565183997392-2f6f122e5912?auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+        category: "painting",
+        type: "Ceiling & Wall Painting",
+        location: "Thun, BE",
+        service: "Painting & Renovation Work",
+        before: "https://images.unsplash.com/photo-1674376360445-2996327553e7?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+        category: "painting",
+        type: "Living Room Refresh",
+        location: "Lucerne, LU",
+        service: "Painting & Renovation Work",
+        before: "https://images.unsplash.com/photo-1647996179012-66b87eba3d17?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1532490389938-2856e3f1560a?auto=format&fit=crop&w=1000&q=80"
+    },
 
-    // ===== Properties for Purchase =====
-    { category: "purchase", image: "assets/projects/project-07.jpg", location: "Lucerne", title: "Lakeside Horizon Villa" },
-    { category: "purchase", image: "assets/projects/project-08.jpg", location: "Interlaken", title: "Mountain Crest Estate" },
-    { category: "purchase", image: "assets/projects/project-09.jpg", location: "Lugano", title: "Sunset Panorama Home" },
-    { category: "purchase", image: "assets/projects/project-10.jpg", location: "Montreux", title: "Grand Riverside Residence" },
-    { category: "purchase", image: "assets/projects/project-11.jpg", location: "St. Moritz", title: "Crystal Peak Chalet" },
-    { category: "purchase", image: "assets/projects/project-12.jpg", location: "Fribourg", title: "Oakwood Signature House" },
+    // ===== Facade Restoration =====
+    {
+        category: "facade",
+        type: "Facade Renovation",
+        location: "Olten, SO",
+        service: "Maler- & Sanierungsarbeiten",
+        before: "https://images.unsplash.com/photo-1753893558281-9acda0662bbd?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1613061538705-01190bb0e3b8?auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+        category: "facade",
+        type: "Building Exterior Restoration",
+        location: "Aarau, AG",
+        service: "Facade Restoration",
+        before: "https://images.unsplash.com/photo-1602757115429-b4190ae087be?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1600596525163-36b26caa9c89?auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+        category: "facade",
+        type: "Facade Repaint",
+        location: "Winterthur, ZH",
+        service: "Facade Restoration",
+        before: "https://images.unsplash.com/photo-1478979464727-af7d24e18554?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1481253127861-534498168948?auto=format&fit=crop&w=1000&q=80"
+    },
 
-    // ===== International Properties =====
-    { category: "international", image: "assets/projects/project-13.jpg", location: "Thun", title: "Emerald Lake Retreat" },
-    { category: "international", image: "assets/projects/project-14.jpg", location: "Sion", title: "Prestige Valley Villa" },
-    { category: "international", image: "assets/projects/project-15.jpg", location: "Neuchâtel", title: "Modern Skyline Residence" },
-    { category: "international", image: "assets/projects/project-16.jpg", location: "Winterthur", title: "Urban Harmony Estate" },
-    { category: "international", image: "assets/projects/project-17.jpg", location: "Bellinzona", title: "Heritage Stone Manor" },
-    { category: "international", image: "assets/projects/project-18.jpg", location: "Davos", title: "Summit View Chalet" }
+    // ===== Drywall =====
+    {
+        category: "drywall",
+        type: "Drywall Installation",
+        location: "Basel, BS",
+        service: "Drywall Services",
+        before: "https://images.unsplash.com/photo-1704742950992-9815a104820c?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1733431772808-82d878e59000?auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+        category: "drywall",
+        type: "Wall Board Finishing",
+        location: "Zurich, ZH",
+        service: "Drywall Services",
+        before: "https://images.unsplash.com/photo-1768321903410-54961e343b71?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1523413363574-c30aa1c2a516?auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+        category: "drywall",
+        type: "Basement Drywall Finish",
+        location: "Thun, BE",
+        service: "Drywall Services",
+        before: "https://images.unsplash.com/photo-1770838772836-6de311c35a91?auto=format&fit=crop&w=1000&q=80",
+        after: "https://images.unsplash.com/photo-1733431774078-692252a6605e?auto=format&fit=crop&w=1000&q=80"
+    }
+
 ];
+/* =====================================================
+   PROJECTS CAROUSEL
+===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const section = document.getElementById("projectsSection");
     const viewport = document.getElementById("projViewport");
-    const gallery = document.getElementById("projectsGallery");
+    const track = document.getElementById("projTrack");
+
+    const dotsWrap = document.getElementById("projDots");
+
+    const prevBtn = document.getElementById("projPrev");
+    const nextBtn = document.getElementById("projNext");
+
     const dock = document.getElementById("projectsDock");
     const indicator = document.getElementById("dockIndicator");
-    const tabs = document.querySelectorAll(".dock-tab");
-    const prevBtn = document.getElementById("projPrevBtn");
-    const nextBtn = document.getElementById("projNextBtn");
-    const dotsWrap = document.getElementById("projectsDots");
 
-    if (!section || !gallery || !viewport) return;
+    const tabs = Array.from(
+        document.querySelectorAll(".dock-tab")
+    );
 
-    let currentCategory = "sale";
-    let activeIdx = 0;   // real index (0..setSize-1) of the centered project — never leaves this range
-    let setSize = 0;   // number of projects in the current category
-    let categoryProjects = [];
-    let isSwitching = false;
-    const CARD_GAP = 18; // px spacing between cards, matches the old track gap
-    const VISIBLE_RANGE = 1; // how many cards peek on each side of the active one
 
-    // Persistent per-card position, keyed by real index. Unlike recomputing
-    // "shortest path from active index" fresh on every click, this only
-    // ever moves in the same direction the user navigated — so a card
-    // never has to jump across the frame to reach a newly-computed spot.
-    let cardOffsets = {};
-    // Cards that just wrapped around the back this step (see stepOffsets) —
-    // rendered instantly instead of tweened, since they're always fully
-    // hidden at the moment they wrap.
-    let wrappedThisStep = {};
+    if (
+        !section ||
+        !viewport ||
+        !track ||
+        !dotsWrap
+    ) {
+        return;
+    }
 
-    /*============================================
-        BUILD CARD MARKUP — rendered exactly once
-        per project, no duplicated copies.
-    =============================================*/
 
-    function buildCardHTML(project, realIndex) {
-        return `
-            <article class="proj-card" data-real-index="${realIndex}">
-                <div class="proj-card-image">
-                    <img src="${project.image}" alt="${project.title}" loading="lazy">
-                </div>
-                <div class="proj-card-info">
-                    <span class="proj-card-count">${String(realIndex + 1).padStart(2, "0")} / ${String(setSize).padStart(2, "0")}</span>
-                    <span class="proj-card-loc">${project.location}</span>
-                    <h3>${project.title}</h3>
-                </div>
-            </article>
+    /* =================================================
+       STATE
+    ================================================= */
+
+    let currentCategory = "painting";
+
+    let projects = [];
+
+    let activeIndex = 0;
+
+    let isAnimating = false;
+
+    let dragStartX = null;
+
+    let dragDelta = 0;
+
+    let didDrag = false;
+
+    let resizeTimer = null;
+
+
+    /* =================================================
+       HELPERS
+    ================================================= */
+
+    function normalizeIndex(index) {
+
+        const total = projects.length;
+
+        if (!total) return 0;
+
+        return (
+            (index % total) + total
+        ) % total;
+
+    }
+
+
+    function getRelativeIndex(index) {
+
+        const total = projects.length;
+
+        let diff =
+            index - activeIndex;
+
+
+        /*
+            Example with 3 cards:
+
+            active 0:
+            card 0 =  0
+            card 1 =  1
+            card 2 = -1
+
+            active 1:
+            card 0 = -1
+            card 1 =  0
+            card 2 =  1
+
+            This guarantees one card on each side
+            with perfectly symmetrical spacing.
+        */
+
+        if (diff > total / 2) {
+            diff -= total;
+        }
+
+        if (diff < -total / 2) {
+            diff += total;
+        }
+
+        return diff;
+
+    }
+
+
+    function getLayoutValues(relativeIndex) {
+
+        const width =
+            viewport.clientWidth;
+
+        const mobile =
+            width <= 700;
+
+        const tablet =
+            width <= 1100;
+
+
+        /*
+            The key difference from your old carousel:
+
+            Position is based on VIEWPORT size,
+            not the card's changing/scaled width.
+
+            Therefore the left and right cards always
+            remain exactly symmetrical.
+        */
+
+        let sideDistance;
+
+
+        if (mobile) {
+
+            sideDistance =
+                Math.min(
+                    width * 0.72,
+                    285
+                );
+
+        }
+
+        else if (tablet) {
+
+            sideDistance =
+                Math.min(
+                    width * 0.42,
+                    390
+                );
+
+        }
+
+        else {
+
+            sideDistance =
+                Math.min(
+                    width * 0.36,
+                    520
+                );
+
+        }
+
+
+        const distance =
+            Math.abs(relativeIndex);
+
+
+        /*
+            ACTIVE
+        */
+
+        if (relativeIndex === 0) {
+
+            return {
+                x: 0,
+                y: 0,
+                scale: 1,
+                opacity: 1,
+                blur: 0,
+                zIndex: 30
+            };
+
+        }
+
+
+        /*
+            DIRECT LEFT / RIGHT NEIGHBOR
+        */
+
+        if (distance === 1) {
+
+            return {
+                x:
+                    relativeIndex *
+                    sideDistance,
+
+                y: 12,
+
+                scale:
+                    mobile
+                        ? 0.88
+                        : 0.90,
+
+                opacity:
+                    mobile
+                        ? 0.38
+                        : 0.45,
+
+                blur:
+                    mobile
+                        ? 1.5
+                        : 1,
+
+                zIndex: 20
+            };
+
+        }
+
+
+        /*
+            ANYTHING FURTHER AWAY
+        */
+
+        return {
+
+            x:
+                relativeIndex > 0
+                    ? sideDistance * 1.7
+                    : -sideDistance * 1.7,
+
+            y: 20,
+
+            scale: 0.80,
+
+            opacity: 0,
+
+            blur: 4,
+
+            zIndex: 1
+        };
+
+    }
+
+
+    /* =================================================
+       CARD MARKUP
+    ================================================= */
+
+    function createCard(project, index) {
+
+        const card =
+            document.createElement("article");
+
+
+        card.className =
+            "proj-card";
+
+
+        card.dataset.index =
+            index;
+
+
+        card.innerHTML = `
+
+            <div class="proj-card-image">
+
+                <img
+                    src="${project.after}"
+                    alt="${project.type}"
+                    draggable="false"
+                >
+
+            </div>
+
+
+            <div class="proj-card-info">
+
+                <span class="proj-card-count">
+
+                    ${String(index + 1).padStart(2, "0")}
+                    /
+                    ${String(projects.length).padStart(2, "0")}
+
+                </span>
+
+
+                <span class="proj-card-loc">
+
+                    ${project.location}
+                    ·
+                    ${project.service}
+
+                </span>
+
+
+                <h3>
+                    ${project.type}
+                </h3>
+
+            </div>
+
         `;
+
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                if (didDrag) return;
+
+
+                const index =
+                    Number(
+                        card.dataset.index
+                    );
+
+
+                if (
+                    index !==
+                    activeIndex
+                ) {
+
+                    goTo(
+                        index
+                    );
+
+                }
+
+            }
+        );
+
+
+        return card;
+
     }
 
-    /*============================================
-        OFFSETS
 
-        computeInitialOffsets() — used only right after a
-        fresh render, when there's no prior position to
-        continue from, so a plain shortest-path calc is safe.
+    /* =================================================
+       DOTS
+    ================================================= */
 
-        stepOffsets(delta) — shifts every card's offset by
-        `delta` steps at once, then wraps any card that has
-        drifted past the halfway point around to the
-        opposite side of the circle. A card can only ever
-        cross that halfway point while it's already out in
-        the fully-hidden periphery (dist > VISIBLE_RANGE),
-        so the wrap is flagged in wrappedThisStep and
-        layout() renders it instantly — no visible card
-        ever slides across the frame to get there.
-    =============================================*/
+    function buildDots() {
 
-    function computeInitialOffsets() {
-        cardOffsets = {};
-        for (let real = 0; real < setSize; real++) {
-            let offset = real - activeIdx;
-            if (offset > setSize / 2) offset -= setSize;
-            if (offset < -setSize / 2) offset += setSize;
-            cardOffsets[real] = offset;
+        dotsWrap.innerHTML = "";
+
+
+        projects.forEach(
+            (_, index) => {
+
+                const dot =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                dot.className =
+                    "proj-dot";
+
+
+                dot.type =
+                    "button";
+
+
+                dot.setAttribute(
+                    "aria-label",
+                    `View project ${index + 1}`
+                );
+
+
+                dot.addEventListener(
+                    "click",
+                    () => {
+
+                        goTo(index);
+
+                    }
+                );
+
+
+                dotsWrap.appendChild(
+                    dot
+                );
+
+            }
+        );
+
+    }
+
+
+    function updateDots() {
+
+        const dots =
+            dotsWrap.querySelectorAll(
+                ".proj-dot"
+            );
+
+
+        dots.forEach(
+            (dot, index) => {
+
+                dot.classList.toggle(
+                    "active",
+                    index === activeIndex
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       LAYOUT
+    ================================================= */
+
+    function positionCards(
+        animate = true
+    ) {
+
+        const cards =
+            Array.from(
+                track.querySelectorAll(
+                    ".proj-card"
+                )
+            );
+
+
+        if (!cards.length) {
+            return;
         }
-    }
 
-    function stepOffsets(delta) {
-        wrappedThisStep = {};
-        for (let real = 0; real < setSize; real++) {
-            let o = cardOffsets[real] - delta;
-            if (o > setSize / 2) { o -= setSize; wrappedThisStep[real] = true; }
-            else if (o < -setSize / 2) { o += setSize; wrappedThisStep[real] = true; }
-            cardOffsets[real] = o;
-        }
-    }
 
-    /*============================================
-        LAYOUT — coverflow positioning.
-        Every card is anchored at the exact center of
-        the track (top:50%; left:50%; xPercent/yPercent:-50
-        in CSS/GSAP), then nudged sideways by its persistent
-        offset from cardOffsets.
-    =============================================*/
+        cards.forEach(
+            (card, index) => {
 
-    function layout(animate = true) {
+                const relative =
+                    getRelativeIndex(
+                        index
+                    );
 
-        const cards = Array.from(gallery.querySelectorAll(".proj-card"));
-        if (!cards.length || !setSize) return;
 
-        const firstCard = cards[0];
-        const cardW = firstCard.getBoundingClientRect().width;
-        const cardH = firstCard.getBoundingClientRect().height;
-        const step = cardW + CARD_GAP;
+                const layout =
+                    getLayoutValues(
+                        relative
+                    );
 
-        // Track has no in-flow children anymore (cards are absolute),
-        // so its height must be set explicitly or the section collapses.
-        gallery.style.height = cardH + "px";
 
-        cards.forEach((card) => {
+                card.classList.toggle(
+                    "is-active",
+                    relative === 0
+                );
 
-            const real = parseInt(card.dataset.realIndex, 10);
-            const offset = cardOffsets[real] ?? 0;
 
-            const isActive = offset === 0;
-            const dist = Math.abs(offset);
-            const isVisible = dist <= VISIBLE_RANGE;
-            const justWrapped = !!wrappedThisStep[real];
+                card.style.pointerEvents =
+                    Math.abs(relative) <= 1
+                        ? "auto"
+                        : "none";
 
-            gsap.to(card, {
-                xPercent: -50,
-                yPercent: -50,
-                x: offset * step,
-                scale: isActive ? 1 : 0.88,
-                opacity: isVisible ? (isActive ? 1 : 0.45) : 0,
-                filter: isActive ? "blur(0px)" : "blur(1px)",
-                zIndex: 100 - dist,
-                duration: (animate && !justWrapped) ? 0.65 : 0,
-                ease: "power3.out",
-                overwrite: "auto"
-            });
 
-            card.style.pointerEvents = isVisible ? "auto" : "none";
-            card.classList.toggle("is-active", isActive);
+                const properties = {
 
-        });
+                    xPercent: -50,
+
+                    yPercent: -50,
+
+                    x:
+                        layout.x,
+
+                    y:
+                        layout.y,
+
+                    scale:
+                        layout.scale,
+
+                    opacity:
+                        layout.opacity,
+
+                    filter:
+                        `blur(${layout.blur}px)`,
+
+                    zIndex:
+                        layout.zIndex,
+
+                    force3D: true,
+
+                    overwrite: true
+
+                };
+
+
+                if (!animate) {
+
+                    gsap.set(
+                        card,
+                        properties
+                    );
+
+                    return;
+
+                }
+
+
+                gsap.to(
+                    card,
+                    {
+
+                        ...properties,
+
+                        duration: 0.72,
+
+                        ease:
+                            "power4.inOut"
+
+                    }
+                );
+
+            }
+        );
+
 
         updateDots();
 
     }
 
-    /*============================================
-        DOTS
-    =============================================*/
 
-    function buildDots(total) {
+    /* =================================================
+       NAVIGATION
+    ================================================= */
 
-        dotsWrap.innerHTML = "";
+    function goTo(index) {
 
-        for (let i = 0; i < total; i++) {
-            const dot = document.createElement("button");
-            dot.className = "proj-dot";
-            dot.setAttribute("aria-label", `Go to project ${i + 1}`);
-            dot.addEventListener("click", () => goToReal(i));
-            dotsWrap.appendChild(dot);
+        if (
+            isAnimating ||
+            projects.length <= 1
+        ) {
+            return;
         }
 
-    }
 
-    function updateDots() {
-        dotsWrap.querySelectorAll(".proj-dot").forEach((d, i) => {
-            d.classList.toggle("active", i === activeIdx);
-        });
-    }
+        const nextIndex =
+            normalizeIndex(index);
 
-    /*============================================
-        NAVIGATION — activeIdx always stays a real,
-        wrapped index (0..setSize-1), used for dots/counters.
-        The actual visual position of every card comes from
-        cardOffsets, incrementally shifted by stepOffsets()
-        so movement is always continuous.
-    =============================================*/
 
-    function goTo(delta) {
-        activeIdx = ((activeIdx + delta) % setSize + setSize) % setSize;
-        stepOffsets(delta);
-        layout(true);
-    }
+        if (
+            nextIndex ===
+            activeIndex
+        ) {
+            return;
+        }
 
-    // Jump straight to a specific project (dot click, or clicking a
-    // peeking neighbor), via the shortest arc — same idea as goTo,
-    // just with a bigger (still single, still smooth) delta.
-    function goToReal(realIndex) {
-        const target = ((realIndex % setSize) + setSize) % setSize;
-        let delta = target - activeIdx;
-        if (delta > setSize / 2) delta -= setSize;
-        if (delta < -setSize / 2) delta += setSize;
-        activeIdx = target;
-        stepOffsets(delta);
-        layout(true);
-    }
 
-    prevBtn?.addEventListener("click", () => goTo(-1));
-    nextBtn?.addEventListener("click", () => goTo(1));
+        isAnimating =
+            true;
 
-    /*============================================
-        CARD CLICK — clicking a peeking neighbor
-        brings it to the center
-    =============================================*/
 
-    gallery.addEventListener("click", (e) => {
-        const card = e.target.closest(".proj-card");
-        if (!card) return;
-        const real = parseInt(card.dataset.realIndex, 10);
-        if (real !== activeIdx) goToReal(real);
-    });
+        activeIndex =
+            nextIndex;
 
-    /*============================================
-        RENDER CATEGORY — each project renders exactly
-        once; no cloned copies anymore.
-    =============================================*/
 
-    function renderCategory(category) {
+        positionCards(true);
 
-        categoryProjects = PROJECTS_DATA.filter(p => p.category === category);
-        setSize = categoryProjects.length;
 
-        gallery.innerHTML = categoryProjects
-            .map((p, i) => buildCardHTML(p, i))
-            .join("");
+        /*
+            Prevent rapid multiple clicks from
+            fighting the same GSAP animation.
+        */
 
-        activeIdx = 0;
-        computeInitialOffsets();
-        wrappedThisStep = {};
-        buildDots(setSize);
-        layout(false);
+        window.setTimeout(
+            () => {
+
+                isAnimating = false;
+
+            },
+            560
+        );
 
     }
 
-    /*============================================
-        CATEGORY SWITCHING — soft blur-fade crossfade
-    =============================================*/
 
-    function switchCategory(category) {
+    function goNext() {
 
-        if (category === currentCategory || isSwitching) return;
-        isSwitching = true;
+        goTo(
+            activeIndex + 1
+        );
 
-        gsap.to(gallery, {
-            opacity: 0,
-            y: 18,
-            filter: "blur(10px)",
-            duration: 0.32,
-            ease: "power2.in",
-            onComplete: () => {
+    }
 
-                currentCategory = category;
-                renderCategory(category);
 
-                gsap.fromTo(gallery,
-                    { opacity: 0, y: 18, filter: "blur(10px)" },
-                    {
-                        opacity: 1, y: 0, filter: "blur(0px)",
-                        duration: 0.5, ease: "power3.out",
-                        onComplete: () => { isSwitching = false; }
+    function goPrev() {
+
+        goTo(
+            activeIndex - 1
+        );
+
+    }
+
+
+    prevBtn?.addEventListener(
+        "click",
+        goPrev
+    );
+
+
+    nextBtn?.addEventListener(
+        "click",
+        goNext
+    );
+
+
+    /* =================================================
+       DRAG / SWIPE
+    ================================================= */
+
+    viewport.addEventListener(
+        "pointerdown",
+        (event) => {
+
+            if (
+                event.pointerType ===
+                "mouse" &&
+                event.button !== 0
+            ) {
+                return;
+            }
+
+
+            dragStartX =
+                event.clientX;
+
+            dragDelta =
+                0;
+
+            didDrag =
+                false;
+
+
+            viewport.setPointerCapture?.(
+                event.pointerId
+            );
+
+        }
+    );
+
+
+    viewport.addEventListener(
+        "pointermove",
+        (event) => {
+
+            if (
+                dragStartX === null
+            ) {
+                return;
+            }
+
+
+            dragDelta =
+                event.clientX -
+                dragStartX;
+
+
+            if (
+                Math.abs(
+                    dragDelta
+                ) > 8
+            ) {
+
+                didDrag =
+                    true;
+
+            }
+
+        }
+    );
+
+
+    viewport.addEventListener(
+        "pointerup",
+        (event) => {
+
+            if (
+                dragStartX === null
+            ) {
+                return;
+            }
+
+
+            const threshold =
+                Math.min(
+                    70,
+                    viewport.clientWidth *
+                    0.12
+                );
+
+
+            if (
+                Math.abs(
+                    dragDelta
+                ) >= threshold
+            ) {
+
+                if (
+                    dragDelta < 0
+                ) {
+
+                    goNext();
+
+                }
+
+                else {
+
+                    goPrev();
+
+                }
+
+            }
+
+
+            dragStartX =
+                null;
+
+            dragDelta =
+                0;
+
+
+            /*
+                Delay reset so the click event
+                after pointerup doesn't activate
+                the card accidentally.
+            */
+
+            requestAnimationFrame(
+                () => {
+
+                    requestAnimationFrame(
+                        () => {
+
+                            didDrag =
+                                false;
+
+                        }
+                    );
+
+                }
+            );
+
+
+            try {
+
+                viewport
+                    .releasePointerCapture(
+                        event.pointerId
+                    );
+
+            }
+
+            catch (_) { }
+
+        }
+    );
+
+
+    viewport.addEventListener(
+        "pointercancel",
+        () => {
+
+            dragStartX =
+                null;
+
+            dragDelta =
+                0;
+
+            didDrag =
+                false;
+
+        }
+    );
+
+
+    /* =================================================
+       KEYBOARD
+    ================================================= */
+
+    let sectionVisible =
+        false;
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        sectionVisible =
+                            entry.isIntersecting;
+
                     }
                 );
 
+            },
+            {
+                threshold: 0.3
             }
-        });
+        );
 
-    }
 
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            tabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
-            moveIndicatorTo(tab);
-            switchCategory(tab.dataset.filter);
-        });
-    });
+    observer.observe(
+        section
+    );
 
-    /*============================================
-        KEYBOARD NAV — only while the section is
-        actually in view, so arrow keys don't get
-        hijacked elsewhere on the page
-    =============================================*/
 
-    let sectionInView = false;
+    document.addEventListener(
+        "keydown",
+        event => {
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { sectionInView = entry.isIntersecting; });
-    }, { threshold: 0.4 });
+            if (
+                !sectionVisible
+            ) {
+                return;
+            }
 
-    sectionObserver.observe(section);
 
-    document.addEventListener("keydown", (e) => {
-        if (!sectionInView) return;
-        if (e.key === "ArrowLeft") goTo(-1);
-        if (e.key === "ArrowRight") goTo(1);
-    });
+            if (
+                event.key ===
+                "ArrowLeft"
+            ) {
 
-    /*============================================
-        WHEEL — only intercepts genuinely horizontal
-        gestures (trackpad swipes, shift+wheel). A
-        normal vertical scroll over the carousel now
-        falls through and scrolls the page like anywhere
-        else — this was previously calling preventDefault()
-        unconditionally on every wheel event, which blocked
-        page scrolling entirely while the cursor sat over
-        the carousel.
-    =============================================*/
+                goPrev();
 
-    let wheelCooldown = false;
+            }
 
-    viewport.addEventListener("wheel", (e) => {
 
-        const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-        if (!isHorizontal) return; // let vertical scroll pass through untouched
+            if (
+                event.key ===
+                "ArrowRight"
+            ) {
 
-        e.preventDefault();
-        if (wheelCooldown) return;
-        wheelCooldown = true;
+                goNext();
 
-        if (e.deltaX > 30) goTo(1);
-        if (e.deltaX < -30) goTo(-1);
+            }
 
-        setTimeout(() => wheelCooldown = false, 550);
-
-    }, { passive: false });
-
-    /*============================================
-        DRAG / SWIPE
-    =============================================*/
-
-    let dragStartX = null;
-    let dragging = false;
-
-    viewport.addEventListener("pointerdown", (e) => {
-        dragStartX = e.clientX;
-        dragging = false;
-    });
-
-    viewport.addEventListener("pointermove", (e) => {
-        if (dragStartX === null) return;
-        if (Math.abs(e.clientX - dragStartX) > 8) dragging = true;
-    });
-
-    viewport.addEventListener("pointerup", (e) => {
-        if (dragStartX === null) return;
-        const diff = e.clientX - dragStartX;
-        if (dragging && Math.abs(diff) > 50) {
-            if (diff < 0) goTo(1);
-            else goTo(-1);
         }
-        dragStartX = null;
-        dragging = false;
-    });
+    );
 
-    viewport.addEventListener("pointercancel", () => {
-        dragStartX = null;
-        dragging = false;
-    });
 
-    /*============================================
-        RESIZE — re-measure and re-center
-    =============================================*/
+    /* =================================================
+       CATEGORY RENDERING
+    ================================================= */
 
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => layout(false), 150);
-    });
+    function renderCategory(
+        category,
+        animateEntrance = true
+    ) {
 
-    /*============================================
-        SLIDING INDICATOR (dock pill)
-    =============================================*/
+        projects =
+            PROJECTS_DATA.filter(
+                project =>
+                    project.category ===
+                    category
+            );
 
-    function moveIndicatorTo(tab) {
-        const dockRect = dock.getBoundingClientRect();
-        const tabRect = tab.getBoundingClientRect();
-        gsap.to(indicator, {
-            x: tabRect.left - dockRect.left - 8,
-            width: tabRect.width,
-            duration: .5,
-            ease: "power3.out"
-        });
+
+        activeIndex =
+            0;
+
+
+        track.innerHTML =
+            "";
+
+
+        projects.forEach(
+            (project, index) => {
+
+                track.appendChild(
+                    createCard(
+                        project,
+                        index
+                    )
+                );
+
+            }
+        );
+
+
+        buildDots();
+
+
+        /*
+            Important:
+            Wait one frame so CSS has calculated
+            the responsive card sizes before
+            calculating slider positions.
+        */
+
+        requestAnimationFrame(
+            () => {
+
+                positionCards(
+                    false
+                );
+
+
+                if (
+                    animateEntrance
+                ) {
+
+                    gsap.fromTo(
+                        track,
+                        {
+                            opacity: 0,
+                            y: 18
+                        },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.55,
+                            ease:
+                                "power3.out"
+                        }
+                    );
+
+                }
+
+                else {
+
+                    gsap.set(
+                        track,
+                        {
+                            opacity: 1,
+                            y: 0
+                        }
+                    );
+
+                }
+
+            }
+        );
+
     }
 
-    /*============================================
-        INITIAL RENDER
-    =============================================*/
 
-    renderCategory(currentCategory);
-    requestAnimationFrame(() => moveIndicatorTo(document.querySelector(".dock-tab.active")));
+    /* =================================================
+       CATEGORY TABS
+    ================================================= */
 
-    /*============================================
-        DOCK VISIBILITY — tied to section position.
-        Fades in as section approaches, fades out
-        when section is scrolled past either direction.
-    =============================================*/
+    function moveIndicatorTo(
+        tab,
+        animate = true
+    ) {
 
-    gsap.set(dock, { opacity: 0, y: 30, scale: .85, filter: "blur(14px)" });
+        if (
+            !dock ||
+            !indicator ||
+            !tab
+        ) {
+            return;
+        }
 
-    function showDock() {
-        gsap.to(dock, {
-            opacity: 1, y: 0, scale: 1, filter: "blur(0px)",
-            duration: .6, ease: "power3.out",
-            onStart: () => dock.style.pointerEvents = "auto"
-        });
+
+        const dockRect =
+            dock.getBoundingClientRect();
+
+
+        const tabRect =
+            tab.getBoundingClientRect();
+
+
+        const x =
+            tabRect.left -
+            dockRect.left -
+            8;
+
+
+        if (!animate) {
+
+            gsap.set(
+                indicator,
+                {
+                    x,
+                    width:
+                        tabRect.width
+                }
+            );
+
+            return;
+
+        }
+
+
+        gsap.to(
+            indicator,
+            {
+
+                x,
+
+                width:
+                    tabRect.width,
+
+                duration: 0.45,
+
+                ease:
+                    "power3.inOut",
+
+                overwrite: true
+
+            }
+        );
+
     }
 
-    function hideDock() {
-        gsap.to(dock, {
-            opacity: 0, y: 24, scale: .85, filter: "blur(14px)",
-            duration: .5, ease: "power2.in",
-            onStart: () => dock.style.pointerEvents = "none"
+
+    tabs.forEach(
+        tab => {
+
+            tab.addEventListener(
+                "click",
+                () => {
+
+                    const category =
+                        tab.dataset.filter;
+
+
+                    if (
+                        category ===
+                        currentCategory
+                    ) {
+                        return;
+                    }
+
+
+                    currentCategory =
+                        category;
+
+
+                    tabs.forEach(
+                        item =>
+                            item.classList.remove(
+                                "active"
+                            )
+                    );
+
+
+                    tab.classList.add(
+                        "active"
+                    );
+
+
+                    moveIndicatorTo(
+                        tab
+                    );
+
+
+                    gsap.to(
+                        track,
+                        {
+
+                            opacity: 0,
+
+                            y: -10,
+
+                            duration: 0.25,
+
+                            ease:
+                                "power2.in",
+
+                            onComplete:
+                                () => {
+
+                                    renderCategory(
+                                        category,
+                                        true
+                                    );
+
+                                }
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       RESIZE
+    ================================================= */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            clearTimeout(
+                resizeTimer
+            );
+
+
+            resizeTimer =
+                setTimeout(
+                    () => {
+
+                        /*
+                            No state rebuilding is necessary.
+
+                            We simply calculate the correct
+                            responsive spacing again.
+                        */
+
+                        positionCards(
+                            false
+                        );
+
+
+                        const activeTab =
+                            document.querySelector(
+                                ".dock-tab.active"
+                            );
+
+
+                        moveIndicatorTo(
+                            activeTab,
+                            false
+                        );
+
+                    },
+                    120
+                );
+
+        }
+    );
+
+
+    /* =================================================
+       PROJECT FILTER DOCK VISIBILITY
+    ================================================= */
+
+    if (
+        dock &&
+        typeof ScrollTrigger !==
+        "undefined"
+    ) {
+
+        gsap.set(
+            dock,
+            {
+
+                opacity: 0,
+
+                y: 25,
+
+                scale: 0.92,
+
+                filter:
+                    "blur(12px)"
+
+            }
+        );
+
+
+        function showDock() {
+
+            dock.style.pointerEvents =
+                "auto";
+
+
+            gsap.to(
+                dock,
+                {
+
+                    opacity: 1,
+
+                    y: 0,
+
+                    scale: 1,
+
+                    filter:
+                        "blur(0px)",
+
+                    duration: 0.55,
+
+                    ease:
+                        "power3.out",
+
+                    overwrite: true
+
+                }
+            );
+
+        }
+
+
+        function hideDock() {
+
+            dock.style.pointerEvents =
+                "none";
+
+
+            gsap.to(
+                dock,
+                {
+
+                    opacity: 0,
+
+                    y: 20,
+
+                    scale: 0.94,
+
+                    filter:
+                        "blur(10px)",
+
+                    duration: 0.38,
+
+                    ease:
+                        "power2.in",
+
+                    overwrite: true
+
+                }
+            );
+
+        }
+
+
+        ScrollTrigger.create({
+
+            trigger:
+                section,
+
+            start:
+                "top 75%",
+
+            end:
+                "bottom 18%",
+
+            onEnter:
+                showDock,
+
+            onEnterBack:
+                showDock,
+
+            onLeave:
+                hideDock,
+
+            onLeaveBack:
+                hideDock
+
         });
+
     }
 
-    ScrollTrigger.create({
-        trigger: section,
-        start: "top 75%",
-        end: "bottom 20%",
-        onEnter: showDock,
-        onEnterBack: showDock,
-        onLeave: hideDock,
-        onLeaveBack: hideDock
-    });
+
+    /* =================================================
+       INITIALIZE
+    ================================================= */
+
+    renderCategory(
+        currentCategory,
+        false
+    );
+
+
+    requestAnimationFrame(
+        () => {
+
+            requestAnimationFrame(
+                () => {
+
+                    const activeTab =
+                        document.querySelector(
+                            ".dock-tab.active"
+                        );
+
+
+                    moveIndicatorTo(
+                        activeTab,
+                        false
+                    );
+
+                }
+            );
+
+        }
+    );
 
 });
-
-
 
 // PLANS JS
 /* =====================================================
@@ -2640,9 +4004,13 @@ document.addEventListener("DOMContentLoaded", () => {
     Handles open/close + message rendering.
     No AI/backend logic wired in yet — see the
     "HOOK YOUR CHATBOT LOGIC HERE" comment below.
+
+    Lives in the footer partial, so this only runs once
+    /partials/footer.html has been injected — see the
+    "partials:loaded" listener above.
 ==================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+function initChatbotWidget() {
 
     const widget = document.getElementById("chatbotWidget");
     const toggleBtn = document.getElementById("chatbotToggle");
@@ -2743,32 +4111,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-});
+}
 
 /*==================================================
     SCROLL TO TOP BUTTON
+    Lives in the footer partial — same deferred timing
+    as the chatbot widget above. Triggers off [data-hero]
+    rather than a hardcoded ".hero" so it works on any
+    page regardless of that page's hero height.
 ==================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+function initScrollTopButton() {
 
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
     if (!scrollTopBtn) return;
 
-    ScrollTrigger.create({
-        trigger: ".hero",
-        start: "bottom top", // fires once the hero's bottom edge passes the top of the viewport
-        onEnter: () => scrollTopBtn.classList.add("visible"),
-        onLeaveBack: () => scrollTopBtn.classList.remove("visible")
-    });
+    function handleScroll() {
+        scrollTopBtn.classList.toggle("visible", window.scrollY > 80);
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
     scrollTopBtn.addEventListener("click", () => {
-
         window.scrollTo({
             top: 0,
             behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
         });
-
     });
 
-});
+}

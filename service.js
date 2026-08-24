@@ -1,138 +1,359 @@
-//==================================================
-// SERVICE PAGE — SHARED ANIMATIONS
-//==================================================
-// This file is shared by every service detail page.
-// It works generically off class names (.service-section,
-// .service-section-heading, .glass-card, .service-cta) so
-// no page-specific JS is needed — just plug in the markup.
-//==================================================
+document.addEventListener("DOMContentLoaded", () => {
 
-gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
 
-//==================================================
-// HERO INTRO
-//==================================================
 
-const serviceHeroTL = gsap.timeline({
-    defaults: { ease: "power3.out" }
-});
+    /* ================================
+    INITIAL STATES
+    ================================ */
 
-serviceHeroTL
 
-    .from(".service-hero-lines span", {
-        width: 0,
-        stagger: .12,
-        duration: 1.1
-    })
+    gsap.set([
+        ".hero-content .eyebrow",
+        ".hero-content h1",
+        ".hero-content p",
+        ".hero-buttons a"
+    ], {
+        opacity: 0,
+        y: 40
+    });
 
-    .to(".service-hero-eyebrow", {
-        opacity: 1, y: 0, filter: "blur(0px)", duration: .8
-    }, .2)
 
-    .to(".service-hero-content h1", {
-        opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2
-    }, .4)
+    gsap.set(".reveal", {
+        opacity: 0,
+        y: 50
+    });
 
-    .to(".service-hero-content p", {
-        opacity: 1, y: 0, filter: "blur(0px)", duration: .9
-    }, .7)
 
-    .to(".service-hero-buttons", {
-        opacity: 1, y: 0, filter: "blur(0px)", duration: .8, stagger: .1
-    }, .85)
+    gsap.set([
+        ".service-card",
+        ".process-card",
+        ".why-card",
+        ".colour-sample"
+    ], {
+        opacity: 0,
+        y: 60
+    });
 
-    .to(".service-hero-bg-text", {
-        opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2
-    }, .5)
 
-    .to(".service-scroll-indicator", {
-        opacity: 1, y: 0, filter: "blur(0px)", duration: .8
-    }, 1.1);
+    gsap.set(".before-after-slider", {
+        clipPath: "inset(0 0 100% 0)"
+    });
 
-gsap.to(".service-scroll-indicator span", {
-    y: 16,
-    repeat: -1,
-    yoyo: true,
-    duration: 1,
-    ease: "power1.inOut"
-});
 
-//==================================================
-// SECTION HEADING + CARD REVEALS (generic)
-//==================================================
 
-document.querySelectorAll(".service-section").forEach(section => {
+    /* ================================
+    HERO ANIMATION
+    ================================ */
 
-    const heading = section.querySelector(".service-section-heading");
 
-    if (heading) {
-        gsap.timeline({
-            scrollTrigger: { trigger: heading, start: "top 80%" }
-        })
-            .to(heading.querySelector("span"), { opacity: 1, y: 0, filter: "blur(0px)", duration: .8 })
-            .to(heading.querySelector("h2"), { opacity: 1, y: 0, filter: "blur(0px)", duration: 1 }, "-=.45")
-            .to(heading.querySelector("p"), { opacity: 1, y: 0, filter: "blur(0px)", duration: .8 }, "-=.55");
-    }
+    gsap.timeline()
 
-    const cardGrid = section.querySelector("[class*='-grid']");
-    const cards = section.querySelectorAll(".glass-card");
-
-    if (cards.length) {
-        gsap.to(cards, {
+        .to(".hero-content .eyebrow", {
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
-            duration: .9,
-            ease: "power3.out",
-            stagger: .12,
-            scrollTrigger: {
-                trigger: cardGrid || section,
-                start: "top 82%"
-            }
-        });
-    }
-});
+            duration: .8,
+            ease: "power3.out"
+        })
 
-//==================================================
-// CTA BAND
-//==================================================
+        .to(".hero-content h1", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.5")
 
-document.querySelectorAll(".service-cta").forEach(cta => {
+        .to(".hero-content p", {
+            opacity: 1,
+            y: 0,
+            duration: .8,
+            ease: "power3.out"
+        }, "-=0.6")
 
-    gsap.timeline({
-        scrollTrigger: { trigger: cta, start: "top 78%" }
-    })
-        .to(cta.querySelector("h2"), { opacity: 1, y: 0, filter: "blur(0px)", duration: .9 })
-        .to(cta.querySelector("p"), { opacity: 1, y: 0, filter: "blur(0px)", duration: .8 }, "-=.5")
-        .to(cta.querySelector(".btn-primary"), { opacity: 1, y: 0, filter: "blur(0px)", duration: .7 }, "-=.4");
-});
-
-//==================================================
-// GLASS CARD HOVER TILT
-//==================================================
-
-document.querySelectorAll(".glass-card").forEach(card => {
-
-    card.addEventListener("mousemove", e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        gsap.to(card, {
-            rotationY: (x - rect.width / 2) / 30,
-            rotationX: -(y - rect.height / 2) / 30,
-            transformPerspective: 900,
-            duration: .35
-        });
-    });
-
-    card.addEventListener("mouseleave", () => {
-        gsap.to(card, {
-            rotationX: 0,
-            rotationY: 0,
+        .to(".hero-buttons a", {
+            opacity: 1,
+            y: 0,
+            stagger: .15,
             duration: .6,
             ease: "power3.out"
-        });
-    });
-});
+        }, "-=0.5");
 
+
+
+    /* ================================
+    SCROLL REVEAL
+    ================================ */
+
+
+    gsap.utils.toArray(".reveal").forEach(section => {
+
+        gsap.to(section, {
+
+            opacity: 1,
+            y: 0,
+            duration: .9,
+            ease: "power3.out",
+
+            scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                once: true
+            }
+
+        });
+
+    });
+
+
+
+    /* ================================
+    SERVICE CARDS
+    ================================ */
+
+
+    gsap.to(".service-card", {
+
+        opacity: 1,
+        y: 0,
+
+        duration: .9,
+        stagger: .12,
+
+        ease: "power3.out",
+
+        scrollTrigger: {
+            trigger: ".service-grid",
+            start: "top 80%",
+            once: true
+        }
+
+    });
+
+
+
+    /* ================================
+    PROCESS CARDS
+    ================================ */
+
+
+    gsap.to(".process-card", {
+
+        opacity: 1,
+        y: 0,
+
+        duration: .8,
+        stagger: .15,
+
+        ease: "power3.out",
+
+        scrollTrigger: {
+            trigger: ".process-grid",
+            start: "top 80%",
+            once: true
+        }
+
+    });
+
+
+
+    /* ================================
+    WHY CARDS
+    ================================ */
+
+
+    gsap.to(".why-card", {
+
+        opacity: 1,
+        y: 0,
+
+        duration: .8,
+        stagger: .15,
+
+        ease: "power3.out",
+
+        scrollTrigger: {
+            trigger: ".why-grid",
+            start: "top 80%",
+            once: true
+        }
+
+    });
+
+
+
+    /* ================================
+    HERO PARALLAX
+    ================================ */
+
+
+    gsap.to(".hero-image img", {
+
+        y: -120,
+
+        ease: "none",
+
+        scrollTrigger: {
+            trigger: ".services-hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.5
+        }
+
+    });
+
+
+
+    /* ================================
+    KEN BURNS
+    ================================ */
+
+
+    gsap.to(".hero-image img", {
+
+        scale: 1.08,
+
+        duration: 18,
+
+        repeat: -1,
+
+        yoyo: true,
+
+        ease: "sine.inOut"
+
+    });
+
+
+
+    /* ================================
+    BEFORE AFTER REVEAL
+    ================================ */
+
+
+    gsap.to(".before-after-slider", {
+
+        clipPath: "inset(0 0 0% 0)",
+
+        duration: 1.2,
+
+        ease: "power3.out",
+
+        scrollTrigger: {
+            trigger: ".before-after-slider",
+            start: "top 80%",
+            once: true
+        }
+
+    });
+
+
+
+    /* ================================
+    COLOR BLOCKS
+    ================================ */
+
+
+    gsap.to(".colour-sample", {
+
+        opacity: 1,
+        y: 0,
+        scale: 1,
+
+        duration: .8,
+
+        stagger: .12,
+
+        ease: "power3.out",
+
+        scrollTrigger: {
+            trigger: ".colour-grid",
+            start: "top 80%",
+            once: true
+        }
+
+    });
+
+
+
+    /* ================================
+    PROPERTY PARALLAX
+    ================================ */
+
+
+    gsap.utils.toArray(".property-image img")
+        .forEach(img => {
+
+            gsap.to(img, {
+
+                y: -80,
+
+                ease: "none",
+
+                scrollTrigger: {
+                    trigger: img,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.5
+                }
+
+            });
+
+        });
+
+
+    // SLIDER DRAG
+    const slider = document.getElementById("baSlider");
+    const beforePane = document.getElementById("baBeforePane");
+    const afterPane = document.getElementById("baAfterPane");
+    const divider = document.getElementById("baDivider");
+    const baTagBefore = document.getElementById("baTagBefore");
+    const baTagAfter = document.getElementById("baTagAfter");
+
+    if (slider && beforePane && afterPane && divider) {
+
+        let active = false;
+        const EDGE_FADE_ZONE = 10; // % width under which a pane's tag starts fading
+
+        function clamp01(n) {
+            return Math.max(0, Math.min(1, n));
+        }
+
+        function updateSlider(x) {
+
+            const box = slider.getBoundingClientRect();
+            let value = ((x - box.left) / box.width) * 100;
+            value = Math.max(0, Math.min(100, value));
+
+            beforePane.style.width = value + "%";
+            afterPane.style.width = (100 - value) + "%";
+            divider.style.left = value + "%";
+
+            baTagBefore.style.opacity = value < EDGE_FADE_ZONE ? clamp01(value / EDGE_FADE_ZONE) : 1;
+            baTagAfter.style.opacity = (100 - value) < EDGE_FADE_ZONE ? clamp01((100 - value) / EDGE_FADE_ZONE) : 1;
+
+        }
+
+        divider.addEventListener("mousedown", () => { active = true; });
+        window.addEventListener("mouseup", () => { active = false; });
+        window.addEventListener("mousemove", (e) => { if (active) updateSlider(e.clientX); });
+
+        divider.addEventListener("touchstart", () => { active = true; });
+        window.addEventListener("touchend", () => { active = false; });
+        window.addEventListener("touchmove", (e) => { if (active) updateSlider(e.touches[0].clientX); });
+
+        window.addEventListener("load", () => {
+            const box = slider.getBoundingClientRect();
+            updateSlider(box.left + box.width / 2);
+        });
+
+    }
+
+
+    /* ================================
+    REFRESH
+    ================================ */
+
+
+    ScrollTrigger.refresh();
+
+
+});

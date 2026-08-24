@@ -1,315 +1,448 @@
-gsap.registerPlugin(ScrollTrigger);
+/* =========================================================
+   AMIGOS CONTACT PAGE — ANIMATIONS
+   GSAP + ScrollTrigger
+========================================================= */
 
-/*==================================================
-        MOBILE NAV
-==================================================*/
+document.addEventListener("DOMContentLoaded", () => {
 
-const hamburger = document.getElementById("hamburger");
-const siteNav = document.getElementById("siteNav");
-
-hamburger?.addEventListener("click", () => {
-    const open = siteNav.classList.toggle("open");
-    hamburger.classList.toggle("active", open);
-    hamburger.setAttribute("aria-expanded", open);
-});
-
-siteNav?.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-        siteNav.classList.remove("open");
-        hamburger.classList.remove("active");
-    });
-});
-
-/*==================================================
-        HERO INTRO
-==================================================*/
-
-gsap.timeline({ defaults: { ease: "power3.out" } })
-    .from(".contact-hero-lines span", { width: 0, stagger: .12, duration: 1 }, .2)
-    .from(".contact-eyebrow", { y: 40, opacity: 0, filter: "blur(14px)", duration: .8 }, .35)
-    .from(".contact-hero-inner h1", { y: 60, opacity: 0, filter: "blur(18px)", duration: 1.1 }, .5)
-    .from(".contact-hero-inner p", { y: 30, opacity: 0, filter: "blur(12px)", duration: .8 }, .8)
-    .from(".contact-hero-buttons a", { y: 30, opacity: 0, stagger: .1, duration: .7 }, .95)
-    .from(".contact-hero-bg-text", { y: 80, opacity: 0, duration: 1.2 }, .5)
-    .from(".contact-scroll-indicator", { opacity: 0, y: 20, duration: .6 }, 1.2);
-
-gsap.to(".contact-scroll-indicator span", {
-    y: 16, repeat: -1, yoyo: true, duration: 1, ease: "power1.inOut"
-});
-
-/*==================================================
-        CURSOR-FOLLOW GLOW (hero only)
-==================================================*/
-
-const hero = document.querySelector(".contact-hero");
-const glow = document.getElementById("cursorGlow");
-
-if (hero && glow) {
-
-    const glowX = gsap.quickTo(glow, "x", { duration: .6, ease: "power3.out" });
-    const glowY = gsap.quickTo(glow, "y", { duration: .6, ease: "power3.out" });
-
-    hero.addEventListener("mousemove", (e) => {
-        const rect = hero.getBoundingClientRect();
-        glowX(e.clientX - rect.left);
-        glowY(e.clientY - rect.top);
-    });
-
-}
-
-/*==================================================
-        MAGNETIC BUTTONS
-==================================================*/
-
-document.querySelectorAll(".magnetic-btn").forEach(btn => {
-
-    const strength = .35;
-
-    btn.addEventListener("mousemove", (e) => {
-
-        const rect = btn.getBoundingClientRect();
-        const relX = e.clientX - rect.left - rect.width / 2;
-        const relY = e.clientY - rect.top - rect.height / 2;
-
-        gsap.to(btn, {
-            x: relX * strength,
-            y: relY * strength,
-            duration: .4,
-            ease: "power3.out"
-        });
-
-    });
-
-    btn.addEventListener("mouseleave", () => {
-        gsap.to(btn, { x: 0, y: 0, duration: .6, ease: "elastic.out(1, 0.4)" });
-    });
-
-});
-
-/*==================================================
-        FLOATING LABEL — <select> needs a class
-        toggled manually since :placeholder-shown
-        doesn't apply to it.
-==================================================*/
-
-document.querySelectorAll(".select-field select").forEach(select => {
-
-    const field = select.closest(".form-field");
-
-    function sync() {
-        field.classList.toggle("has-value", select.value !== "");
-    }
-
-    select.addEventListener("change", sync);
-    sync();
-
-});
-
-/*==================================================
-        SUBMIT — animated success state + particle burst
-==================================================*/
-
-const contactForm = document.getElementById("contactForm");
-const submitBtn = document.getElementById("formSubmitBtn");
-const particlesHost = document.getElementById("submitParticles");
-
-const PARTICLE_COLORS = ["#ffffff", "#A6B09A", "#D8CCB4"];
-
-function spawnSubmitParticles(count = 12) {
-
-    particlesHost.innerHTML = "";
-
-    for (let i = 0; i < count; i++) {
-
-        const angle = (Math.PI * 2 * i) / count + (Math.random() * 0.4 - 0.2);
-        const distance = 50 + Math.random() * 60;
-
-        const dot = document.createElement("span");
-        dot.className = "submit-particle";
-        dot.style.setProperty("--tx", `${Math.cos(angle) * distance}px`);
-        dot.style.setProperty("--ty", `${Math.sin(angle) * distance}px`);
-        dot.style.setProperty("--size", `${4 + Math.random() * 4}px`);
-        dot.style.setProperty("--delay", `${Math.random() * 0.15}s`);
-        dot.style.setProperty("--color", PARTICLE_COLORS[i % PARTICLE_COLORS.length]);
-
-        particlesHost.appendChild(dot);
-
-    }
-
-}
-
-contactForm?.addEventListener("submit", (e) => {
-
-    e.preventDefault();
-
-    if (!contactForm.checkValidity()) {
-        contactForm.reportValidity();
+    // Fail gracefully if GSAP is unavailable.
+    if (typeof gsap === "undefined") {
+        console.warn("GSAP is not loaded. Contact animations are disabled.");
         return;
     }
 
-    // ------------------------------------------------------------
-    // HOOK YOUR BACKEND CALL HERE. Grab field values with:
-    //   document.getElementById("fieldName").value  (etc.)
-    // POST them, then only run the success animation below once
-    // the request actually succeeds — don't fire it optimistically
-    // in production.
-    // ------------------------------------------------------------
+    if (typeof ScrollTrigger !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
+    }
 
-    spawnSubmitParticles();
-    submitBtn.classList.add("sent");
 
-    setTimeout(() => {
-        submitBtn.classList.remove("sent");
-        contactForm.reset();
-        document.querySelectorAll(".select-field").forEach(f => f.classList.remove("has-value"));
-    }, 2600);
+    /* =========================================================
+       HERO INTRO
+    ========================================================= */
 
-});
-
-/*==================================================
-        COPY TO CLIPBOARD
-==================================================*/
-
-document.querySelectorAll(".info-copy-btn").forEach(btn => {
-
-    btn.addEventListener("click", async () => {
-
-        const value = btn.dataset.copy;
-
-        try {
-            await navigator.clipboard.writeText(value);
-        } catch (err) {
-            // Clipboard API unavailable — fail silently, the value
-            // is still visible on the button for manual copying.
+    const heroTimeline = gsap.timeline({
+        defaults: {
+            ease: "power3.out"
         }
-
-        btn.classList.add("copied");
-        clearTimeout(btn._copyTimeout);
-        btn._copyTimeout = setTimeout(() => btn.classList.remove("copied"), 1800);
-
     });
 
-});
+    heroTimeline
+        .from(".contact-kicker", {
+            y: 18,
+            opacity: 0,
+            duration: 0.65
+        })
 
-/*==================================================
-        LIVE ZÜRICH CLOCK + OPEN/CLOSED STATUS
-==================================================*/
+        .from(".contact-copy h1", {
+            y: 55,
+            opacity: 0,
+            duration: 0.95
+        }, "-=0.35")
 
-const liveClock = document.getElementById("liveClock");
-const clockStatus = document.getElementById("clockStatus");
+        .from(".contact-intro", {
+            y: 25,
+            opacity: 0,
+            duration: 0.7
+        }, "-=0.55")
 
-function updateClock() {
+        .from(".contact-actions", {
+            y: 20,
+            opacity: 0,
+            duration: 0.6
+        }, "-=0.4")
 
-    const now = new Date();
+        .from(".contact-details", {
+            y: 18,
+            opacity: 0,
+            duration: 0.6
+        }, "-=0.35")
 
-    const timeStr = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/Zurich",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false
-    }).format(now);
+        .from(".contact-visual", {
+            x: 55,
+            opacity: 0,
+            duration: 1.05
+        }, "-=1.0");
 
-    liveClock.textContent = timeStr;
 
-    const zurichHour = parseInt(new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/Zurich", hour: "2-digit", hour12: false
-    }).format(now), 10);
+    /* =========================================================
+       HERO IMAGE REVEAL
+    ========================================================= */
 
-    const zurichWeekday = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/Zurich", weekday: "short"
-    }).format(now);
+    const image = document.querySelector(
+        ".contact-image-frame img"
+    );
 
-    const isWeekday = !["Sat", "Sun"].includes(zurichWeekday);
-    const isOpenHours = zurichHour >= 8 && zurichHour < 18;
-    const isOpen = isWeekday && isOpenHours;
+    if (image) {
 
-    clockStatus.classList.toggle("open", isOpen);
-    clockStatus.innerHTML = isOpen
-        ? `<i class="clock-dot"></i> We're online now`
-        : `<i class="clock-dot"></i> Outside business hours`;
+        gsap.fromTo(
+            image,
 
-}
+            {
+                scale: 1.14
+            },
 
-updateClock();
-setInterval(updateClock, 1000);
-
-/*==================================================
-        FAQ ACCORDION
-==================================================*/
-
-document.querySelectorAll(".faq-item").forEach(item => {
-
-    const question = item.querySelector(".faq-question");
-    const answer = item.querySelector(".faq-answer");
-
-    question.addEventListener("click", () => {
-
-        const isOpen = item.classList.contains("open");
-
-        // close any other open item for a clean single-open accordion
-        document.querySelectorAll(".faq-item.open").forEach(openItem => {
-            if (openItem !== item) {
-                openItem.classList.remove("open");
-                openItem.querySelector(".faq-answer").style.maxHeight = null;
+            {
+                scale: 1.03,
+                duration: 1.8,
+                ease: "power3.out"
             }
+        );
+
+    }
+
+
+    /* =========================================================
+       IMAGE DETAILS
+    ========================================================= */
+
+    gsap.from(".contact-image-tag", {
+        y: 25,
+        opacity: 0,
+        duration: 0.75,
+        delay: 0.65,
+        ease: "power3.out"
+    });
+
+
+    gsap.from(".contact-image-number", {
+        y: -15,
+        opacity: 0,
+        duration: 0.55,
+        delay: 0.85,
+        ease: "power2.out"
+    });
+
+
+    gsap.from(".contact-image-caption", {
+        y: 12,
+        opacity: 0,
+        duration: 0.55,
+        delay: 1.15,
+        ease: "power2.out"
+    });
+
+
+    /* =========================================================
+       SUBTLE IMAGE PARALLAX
+    ========================================================= */
+
+    if (
+        typeof ScrollTrigger !== "undefined" &&
+        image
+    ) {
+
+        gsap.to(image, {
+
+            yPercent: 5,
+
+            ease: "none",
+
+            scrollTrigger: {
+
+                trigger: ".contact-visual",
+
+                start: "top bottom",
+
+                end: "bottom top",
+
+                scrub: 1
+
+            }
+
         });
 
-        if (isOpen) {
-            item.classList.remove("open");
-            answer.style.maxHeight = null;
-        } else {
-            item.classList.add("open");
-            answer.style.maxHeight = answer.scrollHeight + "px";
-        }
+    }
 
-    });
 
-});
+    /* =========================================================
+       FORM SECTION
+    ========================================================= */
 
-/*==================================================
-        SCROLL REVEALS
-==================================================*/
+    if (typeof ScrollTrigger !== "undefined") {
 
-gsap.utils.toArray(".reveal").forEach(el => {
 
-    gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-            trigger: el,
-            start: "top 85%"
-        }
-    });
+        /* -----------------------------------------------------
+           FORM HEADING
+        ----------------------------------------------------- */
 
-});
+        gsap.from(".form-heading", {
 
-/*==================================================
-        TILT CARDS (reused technique from about.js)
-==================================================*/
+            y: 50,
 
-document.querySelectorAll(".tilt-card").forEach(card => {
+            opacity: 0,
 
-    card.addEventListener("mousemove", e => {
+            duration: 0.9,
 
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+            ease: "power3.out",
 
-        gsap.to(card, {
-            rotationY: (x - rect.width / 2) / 22,
-            rotationX: -(y - rect.height / 2) / 22,
-            transformPerspective: 900,
-            duration: .35
+            scrollTrigger: {
+
+                trigger: ".contact-form-section",
+
+                start: "top 78%",
+
+                once: true
+
+            }
+
         });
 
-    });
 
-    card.addEventListener("mouseleave", () => {
-        gsap.to(card, { rotationX: 0, rotationY: 0, duration: .6, ease: "power3.out" });
+        /* -----------------------------------------------------
+           FORM CONTAINER
+        ----------------------------------------------------- */
+
+        gsap.from(".contact-form", {
+
+            y: 45,
+
+            opacity: 0,
+
+            duration: 0.9,
+
+            delay: 0.12,
+
+            ease: "power3.out",
+
+            scrollTrigger: {
+
+                trigger: ".contact-form-section",
+
+                start: "top 78%",
+
+                once: true
+
+            }
+
+        });
+
+
+        /* -----------------------------------------------------
+           FORM LABELS
+        ----------------------------------------------------- */
+
+        gsap.from(".contact-form label", {
+
+            y: 18,
+
+            opacity: 0,
+
+            duration: 0.55,
+
+            stagger: 0.08,
+
+            ease: "power2.out",
+
+            scrollTrigger: {
+
+                trigger: ".contact-form",
+
+                start: "top 80%",
+
+                once: true
+
+            }
+
+        });
+
+
+        /* -----------------------------------------------------
+           SUBMIT BUTTON
+        ----------------------------------------------------- */
+
+        gsap.from(".contact-submit", {
+
+            y: 15,
+
+            opacity: 0,
+
+            duration: 0.55,
+
+            ease: "power2.out",
+
+            scrollTrigger: {
+
+                trigger: ".contact-submit",
+
+                start: "top 90%",
+
+                once: true
+
+            }
+
+        });
+
+
+        /* =====================================================
+           FINAL CTA STRIP
+        ===================================================== */
+
+        gsap.from(".contact-strip-inner > div", {
+
+            x: -45,
+
+            opacity: 0,
+
+            duration: 0.9,
+
+            ease: "power3.out",
+
+            scrollTrigger: {
+
+                trigger: ".contact-strip",
+
+                start: "top 80%",
+
+                once: true
+
+            }
+
+        });
+
+
+        gsap.from(".contact-strip-inner > a", {
+
+            x: 35,
+
+            opacity: 0,
+
+            duration: 0.75,
+
+            delay: 0.15,
+
+            ease: "power3.out",
+
+            scrollTrigger: {
+
+                trigger: ".contact-strip",
+
+                start: "top 80%",
+
+                once: true
+
+            }
+
+        });
+
+    }
+
+
+    /* =========================================================
+       BUTTON MICRO-INTERACTION
+    ========================================================= */
+
+    document
+        .querySelectorAll(
+            ".contact-btn, .contact-submit"
+        )
+        .forEach(button => {
+
+            const arrow = button.querySelector("span");
+
+            if (!arrow) return;
+
+
+            button.addEventListener(
+                "mouseenter",
+                () => {
+
+                    gsap.to(arrow, {
+
+                        x: 5,
+
+                        duration: 0.25,
+
+                        ease: "power2.out"
+
+                    });
+
+                }
+            );
+
+
+            button.addEventListener(
+                "mouseleave",
+                () => {
+
+                    gsap.to(arrow, {
+
+                        x: 0,
+
+                        duration: 0.25,
+
+                        ease: "power2.out"
+
+                    });
+
+                }
+            );
+
+        });
+
+
+    /* =========================================================
+       SMOOTH ANCHOR SCROLL
+    ========================================================= */
+
+    document
+        .querySelectorAll('a[href^="#"]')
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                event => {
+
+                    const targetId =
+                        link.getAttribute("href");
+
+                    if (
+                        !targetId ||
+                        targetId === "#"
+                    ) {
+                        return;
+                    }
+
+
+                    const target =
+                        document.querySelector(targetId);
+
+                    if (!target) return;
+
+
+                    event.preventDefault();
+
+
+                    window.scrollTo({
+
+                        top:
+                            target.getBoundingClientRect().top +
+                            window.scrollY -
+                            40,
+
+                        behavior: "smooth"
+
+                    });
+
+                }
+            );
+
+        });
+
+
+    /* =========================================================
+       REFRESH SCROLLTRIGGER AFTER LOAD
+    ========================================================= */
+
+    window.addEventListener("load", () => {
+
+        if (
+            typeof ScrollTrigger !== "undefined"
+        ) {
+
+            ScrollTrigger.refresh();
+
+        }
+
     });
 
 });

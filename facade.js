@@ -1,244 +1,176 @@
-/*==================================================
-    SCROLL REVEAL — .fac-reveal, drag track, accordion
-==================================================*/
-
-function facObserve(selector, className = "in-view", threshold = .15) {
-    document.querySelectorAll(selector).forEach(el => {
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add(className);
-                    io.unobserve(entry.target);
-                }
-            });
-        }, { threshold });
-        io.observe(el);
-    });
-}
-
-facObserve(".fac-reveal");
-facObserve("#facDragTrack");
-facObserve("#facAccordion");
-
-/*==================================================
-    ANIMATED COUNTERS
-==================================================*/
-
-document.querySelectorAll(".fac-counter").forEach(counter => {
-
-    const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-
-            const target = +counter.dataset.target;
-            const suffix = counter.dataset.suffix || "";
-            const duration = 1300;
-            let start = null;
-
-            function step(ts) {
-                if (!start) start = ts;
-                const progress = Math.min((ts - start) / duration, 1);
-                counter.textContent = Math.floor(progress * target) + suffix;
-                if (progress < 1) requestAnimationFrame(step);
-                else counter.textContent = target + suffix;
-            }
-
-            requestAnimationFrame(step);
-            io.unobserve(counter);
-
-        });
-    }, { threshold: .6 });
-
-    io.observe(counter);
-
-});
-
-/*==================================================
-    HORIZONTAL DRAG GALLERY — with momentum/inertia
-==================================================*/
-
-(() => {
-
-    const track = document.getElementById("facDragTrack");
-    if (!track) return;
-
-    let isDown = false;
-    let startX = 0;
-    let scrollStart = 0;
-    let velocity = 0;
-    let lastX = 0;
-    let lastTime = 0;
-    let momentumId = null;
-
-    function pointerX(e) {
-        return e.touches ? e.touches[0].clientX : e.clientX;
-    }
-
-    function stopMomentum() {
-        if (momentumId) cancelAnimationFrame(momentumId);
-        momentumId = null;
-    }
-
-    function runMomentum() {
-
-        if (Math.abs(velocity) < 0.5) {
-            stopMomentum();
-            return;
-        }
-
-        track.scrollLeft -= velocity;
-        velocity *= 0.94; // friction — smaller = stops sooner
-
-        momentumId = requestAnimationFrame(runMomentum);
-
-    }
-
-    function down(e) {
-        isDown = true;
-        stopMomentum();
-        track.classList.add("grabbing");
-        startX = pointerX(e);
-        scrollStart = track.scrollLeft;
-        lastX = startX;
-        lastTime = performance.now();
-        velocity = 0;
-    }
-
-    function move(e) {
-        if (!isDown) return;
-        const x = pointerX(e);
-        const dx = x - startX;
-        track.scrollLeft = scrollStart - dx;
-
-        const now = performance.now();
-        const dt = now - lastTime || 16;
-        velocity = ((x - lastX) / dt) * 16; // px per frame, roughly
-        lastX = x;
-        lastTime = now;
-    }
-
-    function up() {
-        if (!isDown) return;
-        isDown = false;
-        track.classList.remove("grabbing");
-        runMomentum();
-    }
-
-    track.addEventListener("mousedown", down);
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseup", up);
-    track.addEventListener("mouseleave", up);
-
-    track.addEventListener("touchstart", down, { passive: true });
-    track.addEventListener("touchmove", move, { passive: true });
-    track.addEventListener("touchend", up);
-
-    // fade the "drag to explore" hint once the user has actually dragged
-    const hint = document.querySelector(".fac-drag-hint");
-    let hasInteracted = false;
-
-    track.addEventListener("scroll", () => {
-        if (hasInteracted || !hint) return;
-        hasInteracted = true;
-        hint.style.opacity = "0.4";
-    });
-
-})();
-
-/*==================================================
-    ACCORDION — height-measured smooth open
-==================================================*/
-
-document.querySelectorAll(".fac-acc-trigger").forEach(trigger => {
-
-    trigger.addEventListener("click", () => {
-
-        const item = trigger.closest(".fac-acc-item");
-        const panel = item.querySelector(".fac-acc-panel");
-        const wasActive = item.classList.contains("active");
-
-        document.querySelectorAll(".fac-acc-item").forEach(i => {
-            i.classList.remove("active");
-            i.querySelector(".fac-acc-panel").style.maxHeight = null;
-        });
-
-        if (!wasActive) {
-            item.classList.add("active");
-            panel.style.maxHeight = panel.scrollHeight + "px";
-        }
-
-    });
-
-});
-
-/*==================================================
-    PINNED RESTORATION STAGE SEQUENCE
-==================================================*/
-
-(() => {
-
-    const pinSection = document.getElementById("facStagePin");
-    if (!pinSection || typeof gsap === "undefined") return;
-
+document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
+    const q = (s) => document.querySelector(s);
+    const qa = (s) => document.querySelectorAll(s);
 
-    const stageImgs = pinSection.querySelectorAll(".fac-stage-img");
-    const stageTexts = pinSection.querySelectorAll(".fac-stage-text");
-    const stageDots = pinSection.querySelectorAll(".fac-stage-dot");
+    const hero = gsap.timeline({ defaults: { ease: "power3.out" } });
+    if (q(".facade-hero")) {
+        hero.fromTo(".facade-hero .reveal-hero", { opacity: 0, y: 45 }, { opacity: 1, y: 0, duration: .8, stagger: .16 });
+    }
+    if (q(".facade-hero-media img")) {
+        gsap.to(".facade-hero-media img", { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".facade-hero", start: "top top", end: "bottom top", scrub: 1.5 } });
+    }
 
-    let currentStage = 0;
+    if (q(".facade-intro-visual")) {
+        gsap.fromTo(".facade-intro-visual", { opacity: 0, x: -70 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".facade-intro", start: "top 75%", once: true } });
+    }
+    if (q(".facade-intro-content")) {
+        gsap.fromTo(".facade-intro-content", { opacity: 0, x: 70 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".facade-intro", start: "top 75%", once: true } });
+    }
 
-    function setStage(index) {
+    if (qa(".reveal-card").length) {
+        gsap.fromTo(".reveal-card", { opacity: 0, y: 55 }, { opacity: 1, y: 0, duration: .8, stagger: .14, ease: "power3.out", scrollTrigger: { trigger: ".facade-work-grid", start: "top 78%", once: true } });
+    }
 
-        if (index === currentStage) return;
-        currentStage = index;
+    qa(".facade-work-card").forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            gsap.to(card, { y: -10, duration: .35, ease: "power2.out" });
+        });
+        card.addEventListener("mouseleave", () => {
+            gsap.to(card, { y: 0, duration: .35, ease: "power2.out" });
+        });
+    });
 
-        stageImgs.forEach((img, i) => img.classList.toggle("active", i === index));
-        stageTexts.forEach((txt, i) => txt.classList.toggle("active", i === index));
-        stageDots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+    /* =========================================
+       BEFORE / AFTER SLIDER
+    ========================================= */
+    // SLIDER DRAG
+    const slider = document.getElementById("baSlider");
+    const beforePane = document.getElementById("baBeforePane");
+    const afterPane = document.getElementById("baAfterPane");
+    const divider = document.getElementById("baDivider");
+    const baTagBefore = document.getElementById("baTagBefore");
+    const baTagAfter = document.getElementById("baTagAfter");
+
+    if (slider && beforePane && afterPane && divider) {
+
+        let active = false;
+        const EDGE_FADE_ZONE = 10; // % width under which a pane's tag starts fading
+
+        function clamp01(n) {
+            return Math.max(0, Math.min(1, n));
+        }
+
+        function updateSlider(x) {
+
+            const box = slider.getBoundingClientRect();
+            let value = ((x - box.left) / box.width) * 100;
+            value = Math.max(0, Math.min(100, value));
+
+            beforePane.style.width = value + "%";
+            afterPane.style.width = (100 - value) + "%";
+            divider.style.left = value + "%";
+
+            baTagBefore.style.opacity = value < EDGE_FADE_ZONE ? clamp01(value / EDGE_FADE_ZONE) : 1;
+            baTagAfter.style.opacity = (100 - value) < EDGE_FADE_ZONE ? clamp01((100 - value) / EDGE_FADE_ZONE) : 1;
+
+        }
+
+        divider.addEventListener("mousedown", () => { active = true; });
+        window.addEventListener("mouseup", () => { active = false; });
+        window.addEventListener("mousemove", (e) => { if (active) updateSlider(e.clientX); });
+
+        divider.addEventListener("touchstart", () => { active = true; });
+        window.addEventListener("touchend", () => { active = false; });
+        window.addEventListener("touchmove", (e) => { if (active) updateSlider(e.touches[0].clientX); });
+
+        window.addEventListener("load", () => {
+            const box = slider.getBoundingClientRect();
+            updateSlider(box.left + box.width / 2);
+        });
 
     }
 
-    ScrollTrigger.create({
-        trigger: pinSection,
-        start: "top top",
-        end: "+=2600",
-        pin: true,
-        scrub: 0.4,
-        onUpdate(self) {
-            const stage = Math.min(3, Math.floor(self.progress * 4));
-            setStage(stage);
+    /* =========================================
+       BEFORE AFTER REVEAL
+    ========================================= */
+
+    gsap.from("#baSlider", {
+
+        clipPath: "inset(0 0 100% 0)",
+
+        duration: 1.2,
+
+        ease: "power3.out",
+
+        scrollTrigger: {
+
+            trigger: "#baSlider",
+
+            start: "top 80%",
+
+            once: true
+
         }
-    });
-
-})();
-
-/*==================================================
-    HERO — subtle parallax tilt on mouse move
-==================================================*/
-
-(() => {
-
-    const heroRight = document.querySelector(".fac-hero-right");
-    if (!heroRight) return;
-
-    const imgA = heroRight.querySelector(".fac-hero-img-a");
-    const imgB = heroRight.querySelector(".fac-hero-img-b");
-
-    heroRight.addEventListener("mousemove", (e) => {
-
-        const rect = heroRight.getBoundingClientRect();
-        const px = (e.clientX - rect.left) / rect.width - 0.5;
-        const py = (e.clientY - rect.top) / rect.height - 0.5;
-
-        imgA.style.transform = `translate(${px * 10}px, ${py * 10}px)`;
-        imgB.style.transform = `translate(${px * -16}px, ${py * -16}px)`;
 
     });
 
-    heroRight.addEventListener("mouseleave", () => {
-        imgA.style.transform = "translate(0,0)";
-        imgB.style.transform = "translate(0,0)";
+
+    if (q(".quality-parallax")) {
+        gsap.to(".quality-parallax", { yPercent: 10, ease: "none", scrollTrigger: { trigger: ".facade-quality", start: "top bottom", end: "bottom top", scrub: 1.5 } });
+    }
+
+    if (qa(".reveal-point").length) {
+        gsap.fromTo(".reveal-point", { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: .7, stagger: .16, ease: "power3.out", scrollTrigger: { trigger: ".quality-points", start: "top 78%", once: true } });
+    }
+
+    if (q(".timeline-progress")) {
+        gsap.to(".timeline-progress", { height: "100%", ease: "none", scrollTrigger: { trigger: ".facade-timeline", start: "top 55%", end: "bottom 65%", scrub: 1 } });
+    }
+
+    if (qa(".reveal-process").length) {
+        gsap.fromTo(".reveal-process", { opacity: 0, y: 55 }, { opacity: 1, y: 0, duration: .75, stagger: .18, ease: "power3.out", scrollTrigger: { trigger: ".facade-timeline", start: "top 75%", once: true } });
+    }
+
+    qa(".timeline-step").forEach(step => {
+        const image = step.querySelector(".timeline-image");
+        if (!image) return;
+        step.addEventListener("mouseenter", () => {
+            gsap.to(image, { opacity: 1, x: 0, scale: 1, duration: .45, ease: "power3.out" });
+        });
+        step.addEventListener("mouseleave", () => {
+            gsap.to(image, { opacity: .35, x: 25, scale: .97, duration: .45, ease: "power3.out" });
+        });
     });
 
-})();
+    qa(".pd-panel").forEach(panel => {
+        panel.addEventListener("mouseenter", () => {
+            gsap.to(panel.querySelector(".pd-image img"), { scale: 1.08, duration: .8, ease: "power3.out" });
+            gsap.to(panel.querySelector(".pd-arrow"), { rotation: 45, duration: .35, ease: "power2.out" });
+        });
+        panel.addEventListener("mouseleave", () => {
+            gsap.to(panel.querySelector(".pd-image img"), { scale: 1, duration: .8, ease: "power3.out" });
+            gsap.to(panel.querySelector(".pd-arrow"), { rotation: 0, duration: .35, ease: "power2.out" });
+        });
+    });
+
+    if (qa(".reveal-benefit").length) {
+        gsap.fromTo(".reveal-benefit", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: .75, stagger: .15, ease: "power3.out", scrollTrigger: { trigger: ".benefits-grid", start: "top 80%", once: true } });
+    }
+
+    if (q(".value-background")) {
+        gsap.to(".value-background", { yPercent: -7, ease: "none", scrollTrigger: { trigger: ".facade-value", start: "top bottom", end: "bottom top", scrub: 1.5 } });
+    }
+    if (q(".reveal-value")) {
+        gsap.fromTo(".reveal-value", { opacity: 0, y: 55 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".facade-value", start: "top 75%", once: true } });
+    }
+
+    if (q(".reveal-cta")) {
+        gsap.fromTo(".reveal-cta", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".facade-final-cta", start: "top 78%", once: true } });
+    }
+
+    if (q(".cta-orbit")) {
+        gsap.to(".cta-orbit", { rotation: 360, duration: 45, repeat: -1, ease: "none" });
+    }
+
+    qa(".facade-btn").forEach(button => {
+        button.addEventListener("mouseenter", () => {
+            gsap.to(button, { y: -4, duration: .3, ease: "power2.out" });
+        });
+        button.addEventListener("mouseleave", () => {
+            gsap.to(button, { y: 0, duration: .3, ease: "power2.out" });
+        });
+    });
+
+    ScrollTrigger.refresh();
+});

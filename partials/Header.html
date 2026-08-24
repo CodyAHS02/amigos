@@ -1,0 +1,114 @@
+<!-- ==================================================
+     GLOBAL SITE HEADER
+     Loaded once from here and injected into every page
+     by /partials.js. Edit ONLY this file to change the
+     header anywhere on the site.
+
+     Active-link highlighting: each top-level link carries
+     a data-page value. partials.js reads <body data-page="...">
+     on the current page and adds .active to the matching link.
+================================================== -->
+<header class="site-header" id="siteHeader">
+
+    <a class="logo" href="index.html">
+        <img src="assets/logo.png" alt="Amigos Maler">
+    </a>
+
+    <nav class="site-nav">
+
+        <a href="index.html" data-page="home">Home</a>
+        <a href="about.html" data-page="about">About</a>
+
+        <div class="nav-dropdown">
+            <a href="../services.html" class="dropdown-trigger">
+                Services
+                <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </a>
+            <div class="dropdown-menu">
+                <a href="../interior-painting.html" class="dropdown-item">
+                    <span class="item-num">01</span>
+                    <div class="item-info">
+                        <span class="item-title">Interior Painting</span>
+                        <span class="item-desc">Walls, ceilings, doors and high-quality coatings</span>
+                    </div>
+                </a>
+                <a href="../exterior-painting.html" class="dropdown-item">
+                    <span class="item-num">02</span>
+                    <div class="item-info">
+                        <span class="item-title">Exterior Painting</span>
+                        <span class="item-desc">Facades, woodwork and weather-resistant coatings</span>
+                    </div>
+                </a>
+                <a href="../Plastering.html" class="dropdown-item">
+                    <span class="item-num">03</span>
+                    <div class="item-info">
+                        <span class="item-title">Plastering Work</span>
+                        <span class="item-desc">Filling, plastering and surface work</span>
+                    </div>
+                </a>
+                <a href="..//Drywall.html" class="dropdown-item">
+                    <span class="item-num">04</span>
+                    <div class="item-info">
+                        <span class="item-title">Drywall/Interior construction</span>
+                        <span class="item-desc">Walls, ceilings and customized room solutions</span>
+                    </div>
+                </a>
+                <a href="../Facade-Renovation.html" class="dropdown-item">
+                    <span class="item-num">05</span>
+                    <div class="item-info">
+                        <span class="item-title">Facade Renovation</span>
+                        <span class="item-desc">Protection, renovation and redesign of facades</span>
+                    </div>
+                </a>
+                <a href="../appartment-renovation.html" class="dropdown-item">
+                    <span class="item-num">06</span>
+                    <div class="item-info">
+                        <span class="item-title">Appartment Renovation</span>
+                        <span class="item-desc">Renovations for tenant changes, property sales or personal
+                            use</span>
+                    </div>
+                </a>
+                <a href="../spray-painting.html" class="dropdown-item">
+                    <span class="item-num">07</span>
+                    <div class="item-info">
+                        <span class="item-title">Spray Painting</span>
+                        <span class="item-desc">Doors, frames, shutters and other components</span>
+                    </div>
+                </a>
+                <a href="../color-and-material.html" class="dropdown-item">
+                    <span class="item-num">08</span>
+                    <div class="item-info">
+                        <span class="item-title">Color & Material Construction</span>
+                        <span class="item-desc">Color concepts and suitable coating systems</span>
+                    </div>
+                </a>
+                <a href="../services.html" class="dropdown-item">
+                    <span class="item-num">09</span>
+                    <div class="item-info">
+                        <span class="item-title">Discover All Services</span>
+                        <span class="item-desc">Explore More Services</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <a href="index.html#projectsSection" data-page="projects">Projects</a>
+        <a href="../property-value-preservation.html" data-page="werterhalt">Property Value Preservation</a>
+        <a href="contact.html" data-page="contact">Contact</a>
+
+    </nav>
+
+    <a href="contact.html" class="header-btn">
+        Request A Quote
+    </a>
+
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+</header>

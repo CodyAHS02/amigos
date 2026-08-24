@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Photo Analysis | Amigos Maler</title>
+    <link rel="stylesheet" href="aiphoto.css">
+    <link rel="stylesheet" href="contact.css">
+</head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
+
+    <header class="site-header">
+
+        <a class="logo" href="index.html">
+            <img src="assets/logo.png" alt="Amigos Maler">
+        </a>
+
+        <nav class="site-nav" id="siteNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+
+            <div class="nav-dropdown">
+                <a href="index.html#services" class="dropdown-trigger">
+                    Maler Services
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="painting.html" class="dropdown-item">
+                        <span class="item-num">01</span>
+                        <div class="item-info">
+                            <span class="item-title">Painting &amp; Renovations</span>
+                            <span class="item-desc">Interior &amp; exterior premium finishes</span>
+                        </div>
+                    </a>
+                    <a href="drywall.html" class="dropdown-item">
+                        <span class="item-num">02</span>
+                        <div class="item-info">
+                            <span class="item-title">Drywall</span>
+                            <span class="item-desc">Professional installation &amp; repair</span>
+                        </div>
+                    </a>
+                    <a href="facade.html" class="dropdown-item">
+                        <span class="item-num">03</span>
+                        <div class="item-info">
+                            <span class="item-title">Facade Restoration</span>
+                            <span class="item-desc">Restore &amp; preserve architectural beauty</span>
+                        </div>
+                    </a>
+                    <a href="apartment.html" class="dropdown-item">
+                        <span class="item-num">04</span>
+                        <div class="item-info">
+                            <span class="item-title">Apartment Preparation</span>
+                            <span class="item-desc">Get properties ready for sale or tenants</span>
+                        </div>
+                    </a>
+                    <a href="maintenance.html" class="dropdown-item">
+                        <span class="item-num">05</span>
+                        <div class="item-info">
+                            <span class="item-title">Property Maintenance</span>
+                            <span class="item-desc">Reliable scheduled upkeep</span>
+                        </div>
+                    </a>
+                    <a href="property-value.html" class="dropdown-item">
+                        <span class="item-num">06</span>
+                        <div class="item-info">
+                            <span class="item-title">Property Value Preservation</span>
+                            <span class="item-desc">Long-term value protection strategy</span>
+                        </div>
+                    </a>
+                    <a href="investment.html" class="dropdown-item">
+                        <span class="item-num">07</span>
+                        <div class="item-info">
+                            <span class="item-title">Investment Property Support</span>
+                            <span class="item-desc">Dedicated services for investors</span>
+                        </div>
+                    </a>
+                    <a href="ai-quote-calculator.html" class="dropdown-item">
+                        <span class="item-num">08</span>
+                        <div class="item-info">
+                            <span class="item-title">AI Quote Calculator</span>
+                            <span class="item-desc">Instant transparent cost estimates</span>
+                        </div>
+                    </a>
+                    <a href="square-meter.html" class="dropdown-item">
+                        <span class="item-num">09</span>
+                        <div class="item-info">
+                            <span class="item-title">Square Meter Calculator</span>
+                            <span class="item-desc">Surface area calculation tool</span>
+                        </div>
+                    </a>
+                    <a href="photo-upload.html" class="dropdown-item">
+                        <span class="item-num">10</span>
+                        <div class="item-info">
+                            <span class="item-title">Photo Upload Functionality</span>
+                            <span class="item-desc">Upload photos for consultation</span>
+                        </div>
+                    </a>
+                    <a href="photo-analysis.html" class="dropdown-item">
+                        <span class="item-num">11</span>
+                        <div class="item-info">
+                            <span class="item-title">AI-Powered Photo Analysis</span>
+                            <span class="item-desc">Intelligent renovation insights</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+
+        <a href="tel:+41440000000" class="header-btn">Call Now</a>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
+
+    <!-- =========================================
+            HERO — LIVE DETECTION OVERLAY
+    ========================================= -->
+
+    <section class="ap-hero">
+
+        <div class="ap-wrapper">
+
+            <div class="ap-hero-text ap-reveal">
+                <span class="ap-eyebrow">SERVICE — AI PHOTO ANALYSIS</span>
+                <h1>Upload A Photo. <br>Let The AI Find The Walls.</h1>
+                <p>
+                    Our vision model scans your photo and isolates each wall
+                    surface in seconds — the same detection that powers our
+                    AI Property Visualizer below, so you can preview paint
+                    without touching a single brush.
+                </p>
+                <a href="#ap-visualizer" class="ap-btn-primary">Try It On Your Photo</a>
+            </div>
+
+            <div class="ap-detect-wrap ap-reveal ap-reveal-right">
+
+                <div class="ap-detect-frame">
+
+                    <img src="https://images.unsplash.com/photo-1647996179012-66b87eba3d17?auto=format&fit=crop&w=1400&q=80"
+                        alt="Living room interior scanned for surfaces">
+
+                    <div class="ap-detect-scanline"></div>
+
+                    <div class="ap-box ap-box-1" style="top:8%; left:6%; width:34%; height:52%;">
+                        <span class="ap-box-label">Wall · 98%</span>
+                    </div>
+
+                    <div class="ap-box ap-box-2" style="top:8%; left:44%; width:26%; height:52%;">
+                        <span class="ap-box-label">Wall · 97%</span>
+                    </div>
+
+                    <div class="ap-box ap-box-3" style="top:8%; left:74%; width:20%; height:52%;">
+                        <span class="ap-box-label">Wall · 95%</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- =========================================
+            THE EMBEDDED VISUALIZER (cleaned)
+    ========================================= -->
+
+    <section class="ai-section" id="ap-visualizer">
+
+        <div class="ai-container">
+
+            <div class="ai-top">
+
+                <div class="ai-heading">
+                    <span class="section-tag">AI PROPERTY VISUALIZER</span>
+                    <h2>Visualize Your Property <span>Before You Paint.</span></h2>
+                </div>
+
+                <div class="ai-side">
+                    <p>
+                        Upload a photo of your facade, living room,
+                        bedroom, office or kitchen and instantly explore
+                        different paint colors, materials and finishes
+                        before making a decision.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="ai-workspace" id="aiWorkspace">
+
+                <input type="file" id="roomUpload" accept="image/*" hidden>
+
+                <div class="ai-stage" id="aiStage">
+
+                    <div class="stage-corner tl"></div>
+                    <div class="stage-corner tr"></div>
+                    <div class="stage-corner bl"></div>
+                    <div class="stage-corner br"></div>
+
+                    <div class="stage-topbar" id="stageTopbar">
+                        <div class="preview-toggle">
+                            <button class="toggle-btn active" data-view="before">Before</button>
+                            <button class="toggle-btn" data-view="after">After</button>
+                        </div>
+                        <span class="ai-status-badge" id="aiStatusBadge">
+                            <span class="ai-status-dot"></span> Idle
+                        </span>
+                    </div>
+
+                    <div class="stage-empty" id="stageEmpty">
+                        <div class="upload-icon-ring">
+                            <div class="upload-icon">⬆</div>
+                        </div>
+                        <h3>Upload Your Photo</h3>
+                        <p>Drag &amp; drop an image here, or click to choose one</p>
+                        <button class="upload-btn" id="uploadBtn" type="button">Choose Image</button>
+                        <span class="upload-hint">AI wall detection runs automatically</span>
+                    </div>
+
+                    <div class="preview-images" id="previewImages">
+                        <img class="preview-before active" id="beforeImg" src="" alt="Before">
+                        <img class="preview-after" id="afterImg" src="" alt="After">
+                    </div>
+
+                    <div class="scan-overlay" id="scanOverlay">
+                        <div class="scan-grid"></div>
+                        <div class="scan-line"></div>
+                        <div class="scan-status" id="scanStatusText">Analyzing image…</div>
+                    </div>
+
+                </div>
+
+                <div class="ai-controls-dock" id="aiControlsDock">
+
+                    <div class="dock-picker">
+
+                        <div class="option-tabs">
+                            <button class="option-tab active" data-mode="color" type="button">Paint Color</button>
+                            <button class="option-tab" data-mode="wallpaper" type="button">Wallpaper</button>
+                        </div>
+
+                        <div class="option-panel color-panel active" data-panel="color">
+                            <div class="color-slider-wrap">
+                                <div class="color-slider" id="colorSlider">
+                                    <div class="color-slider-cursor" id="colorSliderCursor">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M17.5 3.5a2.6 2.6 0 0 1 3.68 3.68L9.5 18.86l-4.86 1.18 1.18-4.86L17.5 3.5Z"
+                                                stroke="#111" stroke-width="1.6" stroke-linejoin="round" fill="#fff" />
+                                            <path d="M14.5 6.5l3 3" stroke="#111" stroke-width="1.6" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="color-selected-row" id="colorSelectedRow">
+                                <span class="color-selected-swatch" id="colorSelectedSwatch"></span>
+                                <span class="color-selected-label">Your selected color <b
+                                        id="colorSelectedHex"></b></span>
+                            </div>
+                        </div>
+
+                        <div class="option-panel wallpaper-panel" data-panel="wallpaper">
+                            <div class="wallpaper-grid">
+                                <button class="wallpaperAI" data-wallpaper="assets/wallpapers/wallpaper-1.jpg"
+                                    type="button">
+                                    <img src="assets/wallpapers/wallpaper-1-thumb.jpg" alt="Textured Linen">
+                                    <span>Textured Linen</span>
+                                </button>
+                                <button class="wallpaperAI" data-wallpaper="assets/wallpapers/wallpaper-2.jpg"
+                                    type="button">
+                                    <img src="assets/wallpapers/wallpaper-2-thumb.jpg" alt="Botanical Leaf">
+                                    <span>Botanical Leaf</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="dock-action">
+                        <button class="generate-btn" id="generateBtn" disabled>Generate AI Visualization</button>
+                        <div class="ai-note">
+                            <p>Colors may vary slightly depending on lighting conditions in your photo.</p>
+                            <p>For the most accurate preview, upload a clear, high-quality image with good resolution.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- =========================================
+            ACCURACY BY CATEGORY
+    ========================================= -->
+
+    <section class="ap-section ap-section-dark">
+        <div class="ap-wrapper">
+
+            <div class="ap-section-heading ap-reveal ap-heading-light">
+                <span>MODEL ACCURACY</span>
+                <h2>How Confident Is The AI?</h2>
+                <p>Detection confidence by category, from our internal validation set.</p>
+            </div>
+
+            <div class="ap-bars ap-reveal" id="apBars">
+
+                <div class="ap-bar-row">
+                    <span class="ap-bar-label">Wall Surfaces</span>
+                    <div class="ap-bar-track">
+                        <div class="ap-bar-fill" data-target="98"></div>
+                    </div>
+                    <span class="ap-bar-value">98%</span>
+                </div>
+
+                <div class="ap-bar-row">
+                    <span class="ap-bar-label">Windows &amp; Doors</span>
+                    <div class="ap-bar-track">
+                        <div class="ap-bar-fill" data-target="94"></div>
+                    </div>
+                    <span class="ap-bar-value">94%</span>
+                </div>
+
+                <div class="ap-bar-row">
+                    <span class="ap-bar-label">Ceilings</span>
+                    <div class="ap-bar-track">
+                        <div class="ap-bar-fill" data-target="96"></div>
+                    </div>
+                    <span class="ap-bar-value">96%</span>
+                </div>
+
+                <div class="ap-bar-row">
+                    <span class="ap-bar-label">Trim &amp; Woodwork</span>
+                    <div class="ap-bar-track">
+                        <div class="ap-bar-fill" data-target="91"></div>
+                    </div>
+                    <span class="ap-bar-value">91%</span>
+                </div>
+
+                <div class="ap-bar-row">
+                    <span class="ap-bar-label">Surface Damage</span>
+                    <div class="ap-bar-track">
+                        <div class="ap-bar-fill" data-target="87"></div>
+                    </div>
+                    <span class="ap-bar-value">87%</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =========================================
+            HOW IT WORKS — PIPELINE
+    ========================================= -->
+
+    <section class="ap-section">
+        <div class="ap-wrapper">
+
+            <div class="ap-section-heading ap-reveal">
+                <span>THE PIPELINE</span>
+                <h2>From Photo To Recommendation.</h2>
+            </div>
+
+            <div class="ap-pipeline">
+
+                <div class="ap-pipeline-step ap-reveal">
+                    <span class="ap-pipeline-num">01</span>
+                    <h3>Upload</h3>
+                    <p>Any phone photo works — no special angle or lighting required.</p>
+                </div>
+
+                <div class="ap-pipeline-arrow">→</div>
+
+                <div class="ap-pipeline-step ap-reveal">
+                    <span class="ap-pipeline-num">02</span>
+                    <h3>Detect</h3>
+                    <p>Surfaces, materials and fixtures identified in the frame.</p>
+                </div>
+
+                <div class="ap-pipeline-arrow">→</div>
+
+                <div class="ap-pipeline-step ap-reveal">
+                    <span class="ap-pipeline-num">03</span>
+                    <h3>Segment</h3>
+                    <p>Each surface isolated into its own editable mask.</p>
+                </div>
+
+                <div class="ap-pipeline-arrow">→</div>
+
+                <div class="ap-pipeline-step ap-reveal">
+                    <span class="ap-pipeline-num">04</span>
+                    <h3>Recommend</h3>
+                    <p>Colour, material and prep-work suggestions generated instantly.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =========================================
+            CTA
+    ========================================= -->
+
+    <section class="ap-cta">
+        <div class="ap-cta-wrapper ap-reveal">
+            <h2>See What The AI Sees In Your Space.</h2>
+            <p>Upload a photo above — it takes seconds, and it's free.</p>
+            <a href="#ap-visualizer" class="ap-btn-primary">Try It Now</a>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-wordmark">
+            <span class="eyebrow">Gmbh</span>
+            <h2>AMIGOS MALER</h2>
+        </div>
+
+        <div class="footer-meta">
+
+            <div class="footer-meta-left">
+                <span>© 2026 Amigos Maler. All rights reserved.</span>
+            </div>
+
+            <div class="footer-meta-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <span>License No. CH-RE-2026-00000</span>
+            </div>
+
+            <div class="footer-meta-right">
+                <span>Amigos Maler</span>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="contact.js"></script>
+    <script src="aiphoto.js"></script>
+
+</body>
+
+</html>

@@ -1,141 +1,433 @@
-/*==================================================
-    SCROLL REVEAL
-==================================================*/
-
-function dwObserve(selector, className = "in-view", threshold = .15) {
-    document.querySelectorAll(selector).forEach(el => {
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add(className);
-                    io.unobserve(entry.target);
-                }
-            });
-        }, { threshold });
-        io.observe(el);
-    });
-}
-
-dwObserve(".dw-reveal");
-dwObserve(".dw-flip-grid");
-
-/*==================================================
-    HERO DECK — separates slightly as you scroll
-==================================================*/
-
-(() => {
-
-    const deck = document.getElementById("dwHeroDeck");
-    if (!deck || typeof gsap === "undefined") return;
+document.addEventListener("DOMContentLoaded", () => {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.to(".dw-deck-1", {
-        x: -24, y: -14,
-        scrollTrigger: { trigger: deck, start: "top 80%", end: "bottom top", scrub: 0.6 }
+    gsap.set([
+        ".hero-label",
+        ".hero-content h1",
+        ".hero-description",
+        ".hero-actions a"
+    ], {
+        opacity: 0,
+        y: 50
     });
 
-    gsap.to(".dw-deck-2", {
-        x: 26, y: 10,
-        scrollTrigger: { trigger: deck, start: "top 80%", end: "bottom top", scrub: 0.6 }
+    gsap.set([
+        ".reveal-left",
+        ".reveal-right",
+        ".creation-card",
+        ".application-item",
+        ".process-step",
+        ".flow-item",
+        ".benefit-card",
+        ".property-image",
+        ".property-content",
+        ".cta-inner"
+    ], {
+        opacity: 0,
+        y: 60
     });
 
-    gsap.to(".dw-deck-3", {
-        x: -18, y: 20,
-        scrollTrigger: { trigger: deck, start: "top 80%", end: "bottom top", scrub: 0.6 }
+
+    const heroAnimation = gsap.timeline();
+
+    heroAnimation
+        .to(".hero-label", {
+            opacity: 1,
+            y: 0,
+            duration: .7,
+            ease: "power3.out"
+        })
+        .to(".hero-content h1", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=.3")
+        .to(".hero-description", {
+            opacity: 1,
+            y: 0,
+            duration: .8,
+            ease: "power3.out"
+        }, "-=.4")
+        .to(".hero-actions a", {
+            opacity: 1,
+            y: 0,
+            stagger: .15,
+            duration: .7,
+            ease: "power3.out"
+        }, "-=.3");
+
+
+    gsap.to(".hero-bg img", {
+        scale: 1.08,
+        duration: 18,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
     });
 
-})();
 
-/*==================================================
-    WALL CROSS-SECTION — click to expand a layer
-==================================================*/
-
-document.querySelectorAll(".dw-layer-bar").forEach(bar => {
-
-    bar.addEventListener("click", () => {
-
-        const layer = bar.closest(".dw-layer");
-        const wasActive = layer.classList.contains("active");
-
-        document.querySelectorAll(".dw-layer").forEach(l => l.classList.remove("active"));
-
-        if (!wasActive) layer.classList.add("active");
-
-    });
-
-});
-
-/*==================================================
-    FINISH LEVEL SLIDER
-==================================================*/
-
-(() => {
-
-    const slider = document.getElementById("dwFinishSlider");
-    const numEl = document.getElementById("dwFinishNum");
-    const titleEl = document.getElementById("dwFinishTitle");
-    const descEl = document.getElementById("dwFinishDesc");
-    const textureEl = document.getElementById("dwFinishTexture");
-
-    if (!slider) return;
-
-    const LEVELS = [
-        {
-            title: "Level 0 — Unfinished",
-            desc: "No taping or compound at all. Used only where the wall will be permanently hidden, like behind removable panels.",
-            blur: "0px", opacity: 1
-        },
-        {
-            title: "Level 1 — Tape Embedded",
-            desc: "Joints taped and embedded in compound with excess wiped off. Common for above ceilings and areas that stay concealed.",
-            blur: "0.4px", opacity: .9
-        },
-        {
-            title: "Level 2 — One Skim Coat",
-            desc: "A single coat of compound over tape and fasteners. Standard behind tile, in garages, or utility spaces.",
-            blur: "0.8px", opacity: .75
-        },
-        {
-            title: "Level 3 — Two Skim Coats",
-            desc: "An additional coat smooths joints further. Typical prep for heavy or textured wall coverings.",
-            blur: "1.2px", opacity: .55
-        },
-        {
-            title: "Level 4 — Standard Finish",
-            desc: "Three coats of compound, sanded smooth. The default for flat or eggshell paint in most homes.",
-            blur: "1.8px", opacity: .3
-        },
-        {
-            title: "Level 5 — Skim Coat Finish",
-            desc: "A full skim coat over the entire surface. The only level that hides imperfections under raking light or gloss paint.",
-            blur: "2.4px", opacity: .08
+    gsap.to(".hero-bg img", {
+        y: -100,
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".drywall-hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.5
         }
-    ];
+    });
 
-    function applyLevel(index) {
 
-        const level = LEVELS[index];
+    gsap.fromTo(".reveal-left",
+        {
+            opacity: 0,
+            x: -80
+        },
+        {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".space-intro",
+                start: "top 75%",
+                once: true
+            }
+        });
 
-        numEl.textContent = index;
-        titleEl.style.opacity = 0;
-        descEl.style.opacity = 0;
 
-        setTimeout(() => {
-            titleEl.textContent = level.title;
-            descEl.textContent = level.desc;
-            titleEl.style.opacity = 1;
-            descEl.style.opacity = 1;
-        }, 150);
+    gsap.fromTo(".reveal-right",
+        {
+            opacity: 0,
+            x: 80
+        },
+        {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".space-intro",
+                start: "top 75%",
+                once: true
+            }
+        });
 
-        textureEl.style.filter = `blur(${level.blur})`;
-        textureEl.style.backgroundColor = `rgba(255,255,255,${0.02 + (index * 0.01)})`;
-        textureEl.style.opacity = 0.3 + (index * 0.12);
+
+    gsap.to(".creation-card", {
+        opacity: 1,
+        y: 0,
+        stagger: .15,
+        duration: .8,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".creation-grid",
+            start: "top 80%",
+            once: true
+        }
+    });
+
+
+    gsap.to(".application-item", {
+        opacity: 1,
+        y: 0,
+        stagger: .2,
+        duration: .8,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".drywall-applications",
+            start: "top 75%",
+            once: true
+        }
+    });
+
+
+    gsap.to(".process-step", {
+        opacity: 1,
+        y: 0,
+        stagger: .25,
+        duration: .9,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".process-timeline",
+            start: "top 80%",
+            once: true
+        }
+    });
+
+
+    gsap.to(".timeline-line:after", {
+        height: "100%",
+        duration: 2,
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".process-timeline",
+            start: "top center",
+            end: "bottom center",
+            scrub: 1
+        }
+    });
+
+
+    gsap.to(".flow-item", {
+        opacity: 1,
+        y: 0,
+        stagger: .2,
+        duration: .8,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".service-flow",
+            start: "top 80%",
+            once: true
+        }
+    });
+
+
+    gsap.to(".benefit-card", {
+        opacity: 1,
+        y: 0,
+        stagger: .15,
+        duration: .8,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".benefit-grid",
+            start: "top 80%",
+            once: true
+        }
+    });
+
+
+    gsap.to([
+        ".property-image",
+        ".property-content"
+    ], {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: .2,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".property-preservation",
+            start: "top 80%",
+            once: true
+        }
+    });
+
+
+    gsap.to(".property-image img", {
+        y: -80,
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".property-preservation",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.5
+        }
+    });
+
+
+    gsap.to(".cta-inner", {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".final-cta",
+            start: "top 80%",
+            once: true
+        }
+    });
+
+
+    const slider = document.querySelector(".before-after-slider");
+    const after = document.querySelector(".after-image");
+    const handle = document.querySelector(".slider-handle");
+
+
+    if (slider && after && handle) {
+
+        let dragging = false;
+
+        function updateSlider(position) {
+
+            const rect = slider.getBoundingClientRect();
+
+            let percentage = ((position - rect.left) / rect.width) * 100;
+
+            percentage = Math.max(0, Math.min(100, percentage));
+
+            after.style.width = percentage + "%";
+            handle.style.left = percentage + "%";
+
+        }
+
+
+        handle.addEventListener("mousedown", () => {
+            dragging = true;
+        });
+
+
+        window.addEventListener("mouseup", () => {
+            dragging = false;
+        });
+
+
+        window.addEventListener("mousemove", (e) => {
+
+            if (dragging) {
+                updateSlider(e.clientX);
+            }
+
+        });
+
+
+        handle.addEventListener("touchstart", () => {
+            dragging = true;
+        });
+
+
+        window.addEventListener("touchend", () => {
+            dragging = false;
+        });
+
+
+        window.addEventListener("touchmove", (e) => {
+
+            if (dragging) {
+                updateSlider(e.touches[0].clientX);
+            }
+
+        });
 
     }
 
-    slider.addEventListener("input", () => applyLevel(+slider.value));
 
-    applyLevel(0);
+    const track = document.querySelector(".carousel-track");
+    const next = document.querySelector(".carousel-next");
+    const prev = document.querySelector(".carousel-prev");
 
-})();
+
+    if (track && next && prev) {
+
+        next.addEventListener("click", () => {
+
+            track.scrollBy({
+                left: 400,
+                behavior: "smooth"
+            });
+
+        });
+
+
+        prev.addEventListener("click", () => {
+
+            track.scrollBy({
+                left: -400,
+                behavior: "smooth"
+            });
+
+        });
+
+
+        let pressed = false;
+        let startX = 0;
+        let currentScroll = 0;
+
+
+        track.addEventListener("mousedown", (e) => {
+
+            pressed = true;
+            startX = e.pageX - track.offsetLeft;
+            currentScroll = track.scrollLeft;
+
+        });
+
+
+        track.addEventListener("mouseleave", () => {
+            pressed = false;
+        });
+
+
+        track.addEventListener("mouseup", () => {
+            pressed = false;
+        });
+
+
+        track.addEventListener("mousemove", (e) => {
+
+            if (!pressed) return;
+
+            e.preventDefault();
+
+            const move = e.pageX - track.offsetLeft;
+
+            track.scrollLeft = currentScroll - (move - startX) * 1.2;
+
+        });
+
+    }
+
+
+    document.querySelectorAll(".creation-card,.transform-card,.application-item,.flow-item,.benefit-card")
+        .forEach(item => {
+
+            item.addEventListener("mouseenter", () => {
+
+                gsap.to(item, {
+                    y: -10,
+                    duration: .35,
+                    ease: "power2.out"
+                });
+
+            });
+
+
+            item.addEventListener("mouseleave", () => {
+
+                gsap.to(item, {
+                    y: 0,
+                    duration: .35,
+                    ease: "power2.out"
+                });
+
+            });
+
+        });
+
+
+    document.querySelectorAll(".process-step")
+        .forEach(step => {
+
+            const image = step.querySelector(".floating-process-image");
+
+            step.addEventListener("mouseenter", () => {
+
+                gsap.to(image, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: .4,
+                    ease: "power3.out"
+                });
+
+            });
+
+
+            step.addEventListener("mouseleave", () => {
+
+                gsap.to(image, {
+                    opacity: 0,
+                    scale: .9,
+                    duration: .4,
+                    ease: "power3.inOut"
+                });
+
+            });
+
+        });
+
+
+    ScrollTrigger.refresh();
+
+});

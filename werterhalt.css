@@ -1,0 +1,2802 @@
+/* =========================================================
+   AMIGOS — PROPERTY VALUE PRESERVATION
+   COMPLETE PAGE STYLES
+========================================================= */
+
+
+/* =========================================================
+   01. GLOBAL RESET & VARIABLES
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: themeFont, Arial, sans-serif;
+    background: #f7f3eb;
+    color: #102238;
+}
+
+@font-face {
+    font-family: "themeFont";
+    src: url("/fonts/n.woff2") format("woff2");
+    font-display: swap;
+}
+
+:root {
+    --navy: #071a33;
+    --navy-dark: #051426;
+    --navy-soft: #102b47;
+
+    --cream: #f7f1e7;
+    --paper: #fbf8f2;
+    --off-white: #f5f0e7;
+
+    --sand: #e8ddcb;
+    --sand-dark: #d5c7b1;
+
+    --gold: #b7893d;
+    --gold-light: #d9bb82;
+
+    --olive: #7f8e74;
+    --mist: #7fa0a3;
+
+    --ink: #102238;
+    --muted: #68645b;
+    --light-muted: #9b968d;
+
+    --line: #ddd3c3;
+    --dark-line: rgba(255, 255, 255, .13);
+
+    --white: #ffffff;
+
+    --ease: cubic-bezier(.22, 1, .36, 1);
+    --shadow: 0 30px 80px rgba(7, 26, 51, .12);
+}
+
+
+/* =========================================================
+   02. BASIC ELEMENTS
+========================================================= */
+
+img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+section {
+    position: relative;
+}
+
+.property-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    min-height: 54px;
+    padding: 0 27px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    transition:
+        transform .4s var(--ease),
+        background .4s ease,
+        border-color .4s ease,
+        color .4s ease;
+}
+
+.property-button span {
+    font-size: 17px;
+    transition: transform .4s var(--ease);
+}
+
+.property-button:hover {
+    transform: translateY(-4px);
+}
+
+.property-button:hover span {
+    transform: translateX(5px);
+}
+
+.property-button-primary {
+    background: var(--gold);
+    color: var(--white);
+}
+
+.property-button-primary:hover {
+    background: #9e763b;
+}
+
+.property-button-outline {
+    border: 1px solid rgba(7, 26, 51, .25);
+    color: var(--navy);
+}
+
+.property-button-outline:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+}
+
+.property-button-light {
+    border: 1px solid rgba(255, 255, 255, .3);
+    color: var(--white);
+    background: rgba(255, 255, 255, .07);
+    backdrop-filter: blur(10px);
+}
+
+.property-button-light:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--navy);
+}
+
+.section-label {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--gold);
+}
+
+/* =========================================================
+   04. HERO — ARCHITECTURAL PROPERTY COMPOSITION
+========================================================= */
+
+.property-hero {
+    min-height: 100svh;
+    padding: 150px 4.5% 50px;
+    background: var(--paper);
+    overflow: hidden;
+}
+
+.hero-architectural-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 1;
+    background-color: var(--navy);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: min(1400px, 100%);
+    margin: auto;
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    align-items: center;
+    gap: 7%;
+    color: white;
+}
+
+.hero-introduction {
+    max-width: 610px;
+}
+
+.hero-label {
+    display: inline-block;
+    margin-bottom: 26px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--gold);
+}
+
+.hero-introduction h1 {
+    max-width: 650px;
+    font-size: clamp(35px, 4vw, 58px);
+    line-height: .88;
+    font-weight: 400;
+    color: var(--cream);
+}
+
+.hero-introduction h1 em {
+    display: block;
+    font-weight: 400;
+    color: var(--gold);
+}
+
+.hero-introduction>p {
+    max-width: 530px;
+    margin-top: 32px;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--off-white);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 11px;
+    flex-wrap: wrap;
+    margin-top: 34px;
+}
+
+.property-condition-visual {
+    position: relative;
+    min-height: 670px;
+    padding-top: 20px;
+}
+
+.condition-visual-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--off-white);
+}
+
+.condition-live {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.condition-live i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cream);
+    box-shadow: 0 0 0 5px rgba(127, 142, 116, .12);
+}
+
+.property-building {
+    position: relative;
+    height: 610px;
+    overflow: hidden;
+    background: #d7d0c4;
+    box-shadow: var(--shadow);
+}
+
+.building-image-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.building-image-wrap img {
+    transform: scale(1.04);
+    transition: transform 1.5s var(--ease);
+}
+
+.property-building:hover .building-image-wrap img {
+    transform: scale(1.08);
+}
+
+.building-overlay-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .09) 1px, transparent 1px);
+    background-size: 70px 70px;
+    mix-blend-mode: overlay;
+}
+
+.property-hotspot {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 0;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+}
+
+.property-hotspot strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, .7);
+    border-radius: 50%;
+    background: rgba(7, 26, 51, .45);
+    backdrop-filter: blur(8px);
+    font-size: 8px;
+}
+
+.property-hotspot small {
+    font-size: 9px;
+    letter-spacing: 1px;
+    opacity: .8;
+}
+
+.hotspot-pulse {
+    position: absolute;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, .45);
+    border-radius: 50%;
+    animation: hotspotPulse 2.5s ease-out infinite;
+}
+
+@keyframes hotspotPulse {
+    0% {
+        transform: scale(1);
+        opacity: .8;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.hotspot-facade {
+    left: 17%;
+    top: 28%;
+}
+
+.hotspot-windows {
+    right: 19%;
+    top: 44%;
+}
+
+.hotspot-interior {
+    left: 41%;
+    bottom: 28%;
+}
+
+.building-status-card {
+    position: absolute;
+    z-index: 6;
+    right: 24px;
+    bottom: 24px;
+    width: 280px;
+    padding: 24px;
+    background: rgba(7, 26, 51, .86);
+    backdrop-filter: blur(18px);
+    color: white;
+}
+
+.status-card-label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+}
+
+.status-card-title {
+    display: block;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.building-status-card p {
+    margin-top: 9px;
+    font-size: 11px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, .58);
+}
+
+.status-progress {
+    height: 2px;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, .16);
+}
+
+.status-progress span {
+    display: block;
+    width: 65%;
+    height: 100%;
+    background: var(--gold);
+}
+
+.status-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, .38);
+}
+
+.condition-data {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 15px;
+    background: rgba(251, 248, 242, .92);
+    box-shadow: 0 15px 35px rgba(7, 26, 51, .08);
+    backdrop-filter: blur(10px);
+}
+
+.condition-data span {
+    font-size: 8px;
+    color: var(--gold);
+}
+
+.condition-data strong {
+    font-size: 10px;
+    color: var(--navy);
+}
+
+.condition-data small {
+    display: none;
+}
+
+.condition-data-one {
+    top: 20%;
+    left: -22px;
+}
+
+.condition-data-two {
+    top: 45%;
+    right: -25px;
+}
+
+.condition-data-three {
+    bottom: 19%;
+    left: -30px;
+}
+
+.condition-data-four {
+    right: 8%;
+    bottom: 3px;
+}
+
+.hero-bottom-meta {
+    position: absolute;
+    left: 4.5%;
+    right: 4.5%;
+    bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7px;
+    letter-spacing: 2px;
+    color: var(--light-muted);
+}
+
+
+/* =========================================================
+   05. MEANING — INTERACTIVE DIAGRAM
+========================================================= */
+
+.property-meaning {
+    min-height: 950px;
+    padding: 145px 5%;
+    background: #fcf8f0;
+    color: white;
+    overflow: hidden;
+}
+
+.meaning-intro {
+    width: min(1250px, 100%);
+    margin: auto;
+    display: grid;
+    grid-template-columns: .2fr 1fr .65fr;
+    align-items: end;
+    gap: 50px;
+}
+
+.section-index {
+    font-size: 90px;
+    line-height: .8;
+    color: rgba(255, 255, 255, .07);
+}
+
+.meaning-intro h2 {
+    margin-top: 20px;
+    font-size: clamp(58px, 6.5vw, 95px);
+    line-height: .88;
+    font-weight: 400;
+    color: var(--ink);
+}
+
+.meaning-intro h2 em {
+    color: var(--gold-light);
+}
+
+.meaning-lead {
+    max-width: 410px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--navy);
+}
+
+.meaning-diagram {
+    position: relative;
+    width: min(1200px, 100%);
+    height: 650px;
+    margin: 90px auto 0;
+}
+
+.meaning-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 5;
+    width: 240px;
+    height: 240px;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--navy);
+    text-align: center;
+}
+
+.meaning-center-ring {
+    position: absolute;
+    inset: -22px;
+    border: 1px solid rgba(183, 137, 61, .22);
+    border-radius: 50%;
+    animation: meaningRotate 30s linear infinite;
+}
+
+@keyframes meaningRotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.meaning-center>span {
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: var(--gold-light);
+}
+
+.meaning-center strong {
+    margin-top: 12px;
+    font-size: 27px;
+    font-weight: 400;
+    line-height: .95;
+    color: var(--gold);
+}
+
+.meaning-center small {
+    margin-top: 15px;
+    font-size: 8px;
+    color: var(--off-white) !important;
+}
+
+.meaning-node strong {
+    color: var(--ink) !important;
+}
+
+.meaning-node small {
+    color: var(--ink) !important;
+}
+
+
+.meaning-connections {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.meaning-connections path {
+    fill: none;
+    stroke: #071a3391;
+    stroke-width: 1;
+    stroke-dasharray: 6 8;
+}
+
+.meaning-node {
+    position: absolute;
+    z-index: 6;
+    width: 230px;
+    min-height: 90px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255, 255, 255, .11);
+    background: rgba(255, 255, 255, .035);
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        transform .45s var(--ease),
+        background .45s ease,
+        border-color .45s ease;
+}
+
+.meaning-node:hover,
+.meaning-node.active {
+    transform: translateY(-7px);
+    border-color: rgba(183, 137, 61, .55);
+    background: rgba(183, 137, 61, .12);
+}
+
+.meaning-node span {
+    display: block;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+}
+
+.meaning-node strong {
+    display: block;
+    margin: 8px 0 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.meaning-node small {
+    font-size: 9px;
+    color: rgba(255, 255, 255, .42);
+}
+
+.meaning-node-one {
+    left: 2%;
+    top: 4%;
+}
+
+.meaning-node-two {
+    right: 2%;
+    top: 4%;
+}
+
+.meaning-node-three {
+    left: -1%;
+    top: 43%;
+}
+
+.meaning-node-four {
+    right: -1%;
+    top: 43%;
+}
+
+.meaning-node-five {
+    left: 9%;
+    bottom: 2%;
+}
+
+.meaning-node-six {
+    right: 9%;
+    bottom: 2%;
+}
+
+.meaning-active-panel {
+    width: min(400px, 90%);
+    margin: -35px auto 0;
+    display: flex;
+    gap: 18px;
+    padding: 20px 24px;
+    border-top: 1px solid rgb(0 0 0 / 13%);
+    background: var(--navy);
+}
+
+.active-panel-number {
+    color: var(--gold-light);
+    font-size: 9px;
+}
+
+.meaning-active-panel strong {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.meaning-active-panel p {
+    margin-top: 5px;
+    font-size: 10px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, .45);
+}
+
+
+/* =========================================================
+   06. PROPERTY INSPECTION
+========================================================= */
+
+.property-inspection {
+    padding: 145px 5%;
+    background: var(--cream);
+}
+
+.inspection-heading {
+    width: min(1250px, 100%);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    gap: 80px;
+    align-items: end;
+}
+
+.inspection-heading h2,
+.process-header h2,
+.service-system-header h2,
+.audience-header h2,
+.lifecycle-copy h2,
+.digital-value-content h2,
+.trust-heading h2 {
+    margin-top: 20px;
+    font-size: clamp(35px, 4vw, 58px);
+    line-height: .9;
+    font-weight: 400;
+    color: var(--navy);
+}
+
+.inspection-heading h2 em,
+.process-header h2 em,
+.service-system-header h2 em,
+.audience-header h2 em,
+.lifecycle-copy h2 em,
+.digital-value-content h2 em,
+.trust-heading h2 em {
+    color: var(--gold);
+}
+
+.inspection-heading>p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+
+.inspection-stage {
+    width: min(1250px, 100%);
+    min-height: 650px;
+    margin: 75px auto 0;
+    display: grid;
+    grid-template-columns: 1.55fr .45fr;
+    background: var(--navy);
+}
+
+.inspection-property-image {
+    position: relative;
+    min-height: 650px;
+    overflow: hidden;
+}
+
+.inspection-property-image>img {
+    transition: transform 1.2s var(--ease);
+}
+
+.inspection-stage:hover .inspection-property-image>img {
+    transform: scale(1.035);
+}
+
+.inspection-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            transparent 55%,
+            rgba(7, 26, 51, .35));
+}
+
+.inspection-hotspot {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 11px;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 100px;
+    background: rgba(7, 26, 51, .45);
+    backdrop-filter: blur(8px);
+    color: white;
+    cursor: pointer;
+    transition: .35s ease;
+}
+
+.inspection-hotspot:hover,
+.inspection-hotspot.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    transform: scale(1.04);
+}
+
+.inspection-hotspot span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+}
+
+.inspection-hotspot strong {
+    font-size: 9px;
+    font-weight: 500;
+}
+
+.inspection-hotspot-facade {
+    top: 25%;
+    left: 30%;
+}
+
+.inspection-hotspot-windows {
+    top: 44%;
+    right: 22%;
+}
+
+.inspection-hotspot-interior {
+    bottom: 30%;
+    left: 48%;
+}
+
+.inspection-hotspot-walls {
+    top: 60%;
+    left: 20%;
+}
+
+.inspection-hotspot-surfaces {
+    bottom: 16%;
+    right: 29%;
+}
+
+.inspection-information {
+    padding: 35px 30px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inspection-information-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, .38);
+}
+
+.inspection-information-content {
+    padding: 40px 0;
+}
+
+.inspection-number {
+    font-size: 9px;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+}
+
+.inspection-information-content h3 {
+    margin: 16px 0;
+    font-size: 36px;
+    font-weight: 400;
+}
+
+.inspection-information-content p {
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, .5);
+}
+
+.inspection-information-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+}
+
+.inspection-information-footer span {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, .35);
+}
+
+
+/* =========================================================
+   07. PROPERTY PROCESS / TIMELINE
+========================================================= */
+
+.property-process {
+    padding: 145px 5%;
+    background: var(--paper);
+}
+
+.process-header {
+    width: min(1250px, 100%);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    gap: 80px;
+    align-items: end;
+}
+
+.process-header>p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+
+.process-timeline {
+    position: relative;
+    width: min(1050px, 100%);
+    margin: 90px auto 0;
+}
+
+.process-line {
+    position: absolute;
+    left: 26px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+}
+
+.process-line-progress {
+    display: block;
+    width: 100%;
+    height: 0;
+    background: var(--gold);
+}
+
+.process-item {
+    position: relative;
+    min-height: 190px;
+    padding: 0 0 60px 100px;
+    display: grid;
+    grid-template-columns: 1fr 130px;
+    gap: 50px;
+    opacity: .3;
+    transition: opacity .6s ease;
+}
+
+.process-item.active,
+.process-item.is-visible {
+    opacity: 1;
+}
+
+.process-marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 53px;
+    height: 53px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--gold);
+    transition: .4s ease;
+}
+
+.process-item.active .process-marker,
+.process-item.is-visible .process-marker {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: white;
+}
+
+.process-item-content>span {
+    display: block;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--gold);
+}
+
+.process-item-content h3 {
+    margin: 12px 0 10px;
+    font-size: 29px;
+    font-weight: 500;
+    color: var(--navy);
+}
+
+.process-item-content p {
+    max-width: 550px;
+    font-size: 12px;
+    line-height: 1.75;
+    color: var(--muted);
+}
+
+.process-item-side {
+    padding-top: 3px;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--light-muted);
+    text-align: right;
+}
+
+
+/* =========================================================
+   08. PREVENTION SECTION
+========================================================= */
+
+.prevention-section {
+    padding: 145px 5%;
+    background: #eee9e1;
+}
+
+.prevention-heading {
+    width: min(1250px, 100%);
+    margin: auto;
+}
+
+.prevention-heading h2 {
+    max-width: 800px;
+    margin-top: 20px;
+    font-size: clamp(35px, 4vw, 58px);
+    line-height: .9;
+    font-weight: 400;
+    color: var(--navy);
+}
+
+.prevention-heading h2 em {
+    color: var(--gold);
+}
+
+.prevention-heading p {
+    max-width: 560px;
+    margin-top: 28px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+
+.prevention-story {
+    width: min(1350px, 100%);
+    margin: 75px auto 0;
+    display: grid;
+    grid-template-columns: 1fr 50px 1fr 50px 1fr;
+    align-items: center;
+}
+
+.prevention-panel {
+    position: relative;
+    min-height: 500px;
+    overflow: hidden;
+    background: var(--navy);
+    color: white;
+}
+
+.prevention-panel-image {
+    position: absolute;
+    inset: 0;
+}
+
+.prevention-panel-image img {
+    transition: transform 1s var(--ease);
+}
+
+.prevention-panel:hover .prevention-panel-image img {
+    transform: scale(1.06);
+}
+
+.prevention-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 35%,
+            rgba(7, 26, 51, .92));
+}
+
+.prevention-panel-content {
+    position: absolute;
+    z-index: 2;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+}
+
+.prevention-panel-content span {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+}
+
+.prevention-panel-content h3 {
+    margin: 12px 0 8px;
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.prevention-panel-content p {
+    font-size: 11px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, .58);
+}
+
+.prevention-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--gold);
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   09. AMIGOS SERVICE SYSTEM
+========================================================= */
+
+.service-system {
+    padding: 145px 5%;
+    background: var(--navy);
+    color: white;
+}
+
+.service-system-header {
+    width: min(1250px, 100%);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    gap: 70px;
+    align-items: end;
+}
+
+.service-system-header h2 {
+    color: white;
+}
+
+.service-system-header>p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, .52);
+}
+
+.service-system-grid {
+    width: min(1250px, 100%);
+    margin: 75px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+}
+
+.service-system-card {
+    position: relative;
+    overflow: hidden;
+    background: #102b47;
+    border: 1px solid rgba(255, 255, 255, .08);
+    transition:
+        transform .5s var(--ease),
+        background .4s ease;
+}
+
+.service-system-card:hover {
+    transform: translateY(-9px);
+    background: #153653;
+}
+
+.service-card-image {
+    position: relative;
+    height: 290px;
+    overflow: hidden;
+}
+
+.service-card-image img {
+    transition: transform .9s var(--ease);
+}
+
+.service-system-card:hover .service-card-image img {
+    transform: scale(1.07);
+}
+
+.service-card-content {
+    position: relative;
+    padding: 22px 23px 28px;
+}
+
+.service-card-content>span {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+}
+
+.service-card-content h3 {
+    margin: 12px 0 9px;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.service-card-content p {
+    min-height: 58px;
+    font-size: 11px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, .5);
+}
+
+.service-card-content a {
+    display: inline-flex;
+    gap: 8px;
+    margin-top: 20px;
+    font-size: 10px;
+    color: var(--gold-light);
+}
+
+.service-card-content a span {
+    transition: transform .3s ease;
+}
+
+.service-card-content a:hover span {
+    transform: translate(3px, -3px);
+}
+
+.service-system-card-digital .service-card-image {
+    background: #0b2038;
+}
+
+.digital-card-grid {
+    position: absolute;
+    inset: 0;
+    opacity: .25;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .12) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+
+/* =========================================================
+   10. AUDIENCE
+========================================================= */
+
+.audience-section {
+    padding: 145px 5%;
+    background: var(--cream);
+}
+
+.audience-header {
+    width: min(1250px, 100%);
+    margin: auto;
+}
+
+.audience-header h2 {
+    max-width: 850px;
+}
+
+.audience-grid {
+    width: min(1250px, 100%);
+    margin: 75px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+}
+
+.audience-card {
+    position: relative;
+    min-height: 580px;
+    overflow: hidden;
+    color: white;
+}
+
+.audience-image {
+    position: absolute;
+    inset: 0;
+}
+
+.audience-image img {
+    transition: transform 1.1s var(--ease);
+}
+
+.audience-card:hover .audience-image img {
+    transform: scale(1.07);
+}
+
+.audience-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 30%,
+            rgba(7, 26, 51, .92));
+}
+
+.audience-number {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 50%;
+    font-size: 8px;
+}
+
+.audience-content {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 28px;
+}
+
+.audience-content>span {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+}
+
+.audience-content h3 {
+    margin: 12px 0 9px;
+    font-size: 35px;
+    font-weight: 400;
+}
+
+.audience-content p {
+    max-width: 320px;
+    font-size: 11px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, .58);
+}
+
+
+/* =========================================================
+   11. LONG-TERM PROPERTY LIFECYCLE
+========================================================= */
+
+.property-lifecycle {
+    min-height: 800px;
+    padding: 145px 7%;
+    display: grid;
+    grid-template-columns: .75fr 1.25fr;
+    align-items: center;
+    gap: 7%;
+    background: var(--paper);
+    overflow: hidden;
+}
+
+.lifecycle-copy {
+    max-width: 580px;
+}
+
+.lifecycle-copy h2 {
+    margin-bottom: 28px;
+}
+
+.lifecycle-copy p {
+    max-width: 500px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--muted);
+}
+
+.lifecycle-copy .property-button {
+    margin-top: 32px;
+}
+
+.lifecycle-visual {
+    position: relative;
+    height: 610px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lifecycle-ring {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+}
+
+.lifecycle-ring::before {
+    content: "";
+    position: absolute;
+    inset: 55px;
+    border: 1px dashed var(--line);
+    border-radius: 50%;
+    animation: lifecycleSpin 40s linear infinite;
+}
+
+@keyframes lifecycleSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.lifecycle-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 170px;
+    height: 170px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(7, 26, 51, .16);
+}
+
+.lifecycle-center span {
+    font-size: 7px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+}
+
+.lifecycle-center strong {
+    margin: 8px 0;
+    font-size: 29px;
+    font-weight: 400;
+}
+
+.lifecycle-center small {
+    font-size: 7px;
+    color: rgba(255, 255, 255, .38);
+}
+
+.lifecycle-point {
+    position: absolute;
+    z-index: 5;
+    width: 125px;
+    height: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--paper);
+    transition:
+        transform .5s var(--ease),
+        background .4s ease;
+}
+
+.lifecycle-point:hover {
+    transform: scale(1.08);
+    background: var(--gold);
+    color: white;
+    border-color: var(--gold);
+}
+
+.lifecycle-point span {
+    font-size: 8px;
+    color: var(--gold);
+}
+
+.lifecycle-point strong {
+    margin-top: 7px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.lifecycle-point-one {
+    left: -55px;
+    top: 80px;
+}
+
+.lifecycle-point-two {
+    right: -55px;
+    top: 80px;
+}
+
+.lifecycle-point-three {
+    right: -55px;
+    bottom: 80px;
+}
+
+.lifecycle-point-four {
+    left: -55px;
+    bottom: 80px;
+}
+
+.lifecycle-arrow {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    font-size: 30px;
+    color: var(--gold);
+    animation: arrowRotate 8s linear infinite;
+}
+
+@keyframes arrowRotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   12. DIGITAL PROPERTY VALUE
+========================================================= */
+
+.digital-value-section {
+    min-height: 850px;
+    padding: 145px 5%;
+    position: relative;
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    align-items: center;
+    gap: 7%;
+    background: var(--navy-dark);
+    color: white;
+    overflow: hidden;
+}
+
+.digital-value-background {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.digital-grid-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: .13;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .15) 1px, transparent 1px);
+    background-size: 75px 75px;
+    transform: perspective(600px) rotateX(55deg) scale(1.5);
+    transform-origin: center bottom;
+}
+
+.digital-value-content {
+    position: relative;
+    z-index: 2;
+    max-width: 580px;
+}
+
+.digital-value-content h2 {
+    color: white;
+    margin-bottom: 28px;
+}
+
+.digital-value-content h2 em {
+    color: var(--gold-light);
+}
+
+.digital-value-content>p {
+    max-width: 520px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, .52);
+}
+
+.digital-note {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 9px 13px;
+    border: 1px solid rgba(255, 255, 255, .13);
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, .38);
+}
+
+.digital-interface {
+    position: relative;
+    z-index: 2;
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .035);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .15);
+}
+
+.interface-topbar {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 17px;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    font-size: 7px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, .38);
+}
+
+.interface-cards {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.interface-card {
+    min-height: 205px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, .09);
+    background: rgba(255, 255, 255, .025);
+    transition:
+        transform .4s var(--ease),
+        background .4s ease;
+}
+
+.interface-card:hover {
+    transform: translateY(-6px);
+    background: rgba(183, 137, 61, .08);
+}
+
+.interface-card>span {
+    display: block;
+    font-size: 8px;
+    color: var(--gold-light);
+}
+
+.interface-card strong {
+    display: block;
+    margin-top: 28px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.interface-card small {
+    display: block;
+    max-width: 220px;
+    margin-top: 8px;
+    font-size: 9px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, .4);
+}
+
+.interface-progress {
+    height: 2px;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, .1);
+}
+
+.interface-progress span {
+    display: block;
+    width: 65%;
+    height: 100%;
+    background: var(--gold);
+    animation: interfaceProgress 3s ease-in-out infinite alternate;
+}
+
+@keyframes interfaceProgress {
+    from {
+        width: 35%;
+    }
+
+    to {
+        width: 78%;
+    }
+}
+
+.interface-visual-lines {
+    display: flex;
+    gap: 5px;
+    margin-top: 26px;
+}
+
+.interface-visual-lines i {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(183, 137, 61, .5);
+    border-radius: 50%;
+}
+
+.interface-visual-lines i:nth-child(2) {
+    transform: translateY(-8px);
+}
+
+.interface-price {
+    margin-top: 25px;
+    font-size: 27px;
+    color: var(--gold-light);
+}
+
+.interface-dots {
+    display: flex;
+    gap: 7px;
+    margin-top: 29px;
+}
+
+.interface-dots i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: .5;
+    animation: interfaceDot 1.8s ease-in-out infinite alternate;
+}
+
+.interface-dots i:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.interface-dots i:nth-child(3) {
+    animation-delay: .4s;
+}
+
+.interface-dots i:nth-child(4) {
+    animation-delay: .6s;
+}
+
+@keyframes interfaceDot {
+    to {
+        opacity: 1;
+        transform: translateY(-4px);
+    }
+}
+
+
+/* =========================================================
+   13. LARGE PROPERTY VISUAL
+========================================================= */
+
+.property-visual-section {
+    height: 760px;
+    overflow: hidden;
+    position: relative;
+    color: white;
+}
+
+.property-visual-image {
+    position: absolute;
+    inset: 0;
+}
+
+.property-visual-image img {
+    transform: scale(1.08);
+}
+
+.property-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+            rgba(7, 26, 51, .72),
+            rgba(7, 26, 51, .15));
+}
+
+.property-visual-statement {
+    position: absolute;
+    left: 7%;
+    top: 50%;
+    max-width: 750px;
+    transform: translateY(-50%);
+}
+
+.property-visual-statement>span {
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: var(--gold-light);
+}
+
+.property-visual-statement h2 {
+    margin-top: 20px;
+    font-size: clamp(35px, 4vw, 58px);
+    line-height: .87;
+    font-weight: 400;
+}
+
+.property-visual-statement h2 em {
+    display: block;
+    color: var(--gold-light);
+}
+
+.property-visual-meta {
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, .18);
+    padding-top: 15px;
+}
+
+.property-visual-meta span {
+    font-size: 7px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, .45);
+}
+
+
+/* =========================================================
+   14. TRUST / QUALITY
+========================================================= */
+
+.trust-section {
+    padding: 145px 5%;
+    background: var(--paper);
+}
+
+.trust-heading {
+    width: min(1250px, 100%);
+    margin: auto;
+}
+
+.trust-heading h2 {
+    max-width: 800px;
+}
+
+.trust-grid {
+    width: min(1250px, 100%);
+    margin: 75px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.trust-item {
+    min-height: 280px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--line);
+    transition:
+        background .4s ease,
+        transform .4s var(--ease);
+}
+
+.trust-item:last-child {
+    border-right: 0;
+}
+
+.trust-item:hover {
+    background: #f0ebe2;
+    transform: translateY(-5px);
+}
+
+.trust-item>span {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--gold);
+}
+
+.trust-item h3 {
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 10px;
+}
+
+.trust-item p {
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   15. FINAL CTA
+========================================================= */
+
+.property-final-cta {
+    min-height: 700px;
+    padding: 120px 5% 35px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--navy);
+    color: white;
+    overflow: hidden;
+}
+
+.final-cta-background {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.final-cta-grid {
+    position: absolute;
+    inset: 0;
+    opacity: .12;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .14) 1px, transparent 1px);
+    background-size: 90px 90px;
+}
+
+.property-final-cta::before {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    right: -200px;
+    top: -250px;
+    border: 1px solid rgba(183, 137, 61, .18);
+    border-radius: 50%;
+}
+
+.property-final-cta::after {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    right: -70px;
+    top: -120px;
+    border: 1px solid rgba(183, 137, 61, .1);
+    border-radius: 50%;
+}
+
+.final-cta-content {
+    position: relative;
+    z-index: 3;
+    width: min(1000px, 100%);
+    margin: auto;
+    text-align: center;
+}
+
+.final-cta-content .section-label {
+    color: var(--gold-light);
+}
+
+.final-cta-content h2 {
+    max-width: 950px;
+    margin: 25px auto;
+    font-size: clamp(60px, 7.5vw, 112px);
+    line-height: .86;
+    letter-spacing: -6px;
+    font-weight: 400;
+}
+
+.final-cta-content h2 em {
+    display: block;
+    color: var(--gold-light);
+}
+
+.final-cta-content>p {
+    max-width: 650px;
+    margin: auto;
+    font-size: 14px;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, .52);
+}
+
+.final-cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 34px;
+}
+
+.final-cta-footer {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    padding-top: 18px;
+    font-size: 7px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, .3);
+}
+
+
+/* =========================================================
+   16. FOOTER
+========================================================= */
+
+.property-footer {
+    padding: 80px 5% 0;
+    background: #06182a;
+    color: white;
+}
+
+.property-footer-main {
+    width: min(1250px, 100%);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.7fr repeat(3, 1fr);
+    gap: 55px;
+    padding-bottom: 65px;
+}
+
+.property-footer-logo {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    font-size: 28px;
+    line-height: .85;
+    font-weight: 600;
+    letter-spacing: 4px;
+}
+
+.property-footer-logo span {
+    margin-top: 8px;
+    font-size: 7px;
+    letter-spacing: 4px;
+    color: var(--gold-light);
+}
+
+.property-footer-brand p {
+    max-width: 350px;
+    margin-top: 22px;
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, .4);
+}
+
+.property-footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.property-footer-column>span {
+    margin-bottom: 22px;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+}
+
+.property-footer-column a {
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, .48);
+    transition:
+        color .3s ease,
+        transform .3s ease;
+}
+
+.property-footer-column a:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+.property-footer-bottom {
+    width: min(1250px, 100%);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, .11);
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, .28);
+}
+
+
+/* =========================================================
+   17. RESPONSIVE — 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .property-navigation {
+        display: none;
+    }
+
+    .property-header-button {
+        margin-left: auto;
+    }
+
+    .property-menu-toggle {
+        display: block;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+
+    .property-condition-visual {
+        min-height: 550px;
+    }
+
+    .property-building {
+        height: 520px;
+    }
+
+    .condition-data-four {
+        display: none;
+    }
+
+    .meaning-intro {
+        grid-template-columns: .15fr 1fr;
+    }
+
+    .meaning-lead {
+        grid-column: 2;
+        margin-top: 20px;
+    }
+
+    .inspection-stage {
+        grid-template-columns: 1fr;
+    }
+
+    .inspection-information {
+        min-height: 320px;
+    }
+
+    .service-system-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .audience-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .audience-card:last-child {
+        grid-column: 1 / -1;
+        min-height: 480px;
+    }
+
+    .property-lifecycle {
+        grid-template-columns: 1fr;
+    }
+
+    .lifecycle-copy {
+        max-width: 750px;
+    }
+
+    .digital-value-section {
+        grid-template-columns: 1fr;
+    }
+
+    .digital-value-content {
+        max-width: 800px;
+    }
+
+    .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .trust-item:nth-child(2) {
+        border-right: 0;
+    }
+
+    .trust-item:nth-child(1),
+    .trust-item:nth-child(2) {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .property-footer-main {
+        grid-template-columns: 1.5fr 1fr 1fr;
+    }
+
+    .property-footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* =========================================================
+   18. RESPONSIVE — 760px
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .property-header-inner {
+        min-height: 70px;
+    }
+
+    .property-header-button {
+        display: none;
+    }
+
+    .property-hero {
+        min-height: auto;
+        padding: 115px 6% 45px;
+    }
+
+    .hero-introduction h1 {
+        font-size: clamp(48px, 14vw, 78px);
+        letter-spacing: -4px;
+    }
+
+    .hero-introduction>p {
+        font-size: 13px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-actions .property-button {
+        width: max-content;
+    }
+
+    .property-condition-visual {
+        min-height: 470px;
+    }
+
+    .property-building {
+        height: 430px;
+    }
+
+    .condition-visual-top {
+        font-size: 7px;
+    }
+
+    .condition-data {
+        display: none;
+    }
+
+    .building-status-card {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        width: auto;
+    }
+
+    .property-hotspot small {
+        display: none;
+    }
+
+    .hero-bottom-meta {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin-top: 25px;
+    }
+
+    .property-meaning,
+    .property-inspection,
+    .property-process,
+    .prevention-section,
+    .service-system,
+    .audience-section,
+    .property-lifecycle,
+    .digital-value-section,
+    .trust-section {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+    .meaning-intro {
+        display: block;
+    }
+
+    .section-index {
+        font-size: 65px;
+        margin-bottom: 25px;
+    }
+
+    .meaning-intro h2,
+    .inspection-heading h2,
+    .process-header h2,
+    .service-system-header h2,
+    .audience-header h2,
+    .lifecycle-copy h2,
+    .digital-value-content h2,
+    .trust-heading h2 {
+        font-size: 48px;
+        letter-spacing: -3px;
+    }
+
+    .meaning-lead {
+        margin-top: 25px;
+    }
+
+    .meaning-diagram {
+        height: 850px;
+        margin-top: 55px;
+    }
+
+    .meaning-center {
+        width: 180px;
+        height: 180px;
+    }
+
+    .meaning-center strong {
+        font-size: 21px;
+    }
+
+    .meaning-node {
+        width: 165px;
+        min-height: 75px;
+        padding: 12px;
+    }
+
+    .meaning-node strong {
+        font-size: 11px;
+    }
+
+    .meaning-node small {
+        font-size: 8px;
+    }
+
+    .meaning-node-one {
+        left: 0;
+        top: 0;
+    }
+
+    .meaning-node-two {
+        right: 0;
+        top: 0;
+    }
+
+    .meaning-node-three {
+        left: 0;
+        top: 35%;
+    }
+
+    .meaning-node-four {
+        right: 0;
+        top: 35%;
+    }
+
+    .meaning-node-five {
+        left: 0;
+        bottom: 2%;
+    }
+
+    .meaning-node-six {
+        right: 0;
+        bottom: 2%;
+    }
+
+    .meaning-connections {
+        opacity: .5;
+    }
+
+    .inspection-heading,
+    .process-header,
+    .service-system-header {
+        display: block;
+    }
+
+    .inspection-heading>p,
+    .process-header>p,
+    .service-system-header>p {
+        margin-top: 25px;
+    }
+
+    .inspection-stage {
+        margin-top: 50px;
+    }
+
+    .inspection-property-image {
+        min-height: 470px;
+    }
+
+    .inspection-information {
+        padding: 25px;
+    }
+
+    .inspection-information-content h3 {
+        font-size: 29px;
+    }
+
+    .process-timeline {
+        margin-top: 55px;
+    }
+
+    .process-item {
+        grid-template-columns: 1fr;
+        padding-left: 78px;
+        min-height: 220px;
+        padding-bottom: 45px;
+    }
+
+    .process-item-side {
+        display: none;
+    }
+
+    .prevention-story {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .prevention-arrow {
+        transform: rotate(90deg);
+        height: 30px;
+    }
+
+    .prevention-panel {
+        min-height: 440px;
+    }
+
+    .service-system-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card-image {
+        height: 270px;
+    }
+
+    .audience-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .audience-card,
+    .audience-card:last-child {
+        min-height: 480px;
+        grid-column: auto;
+    }
+
+    .lifecycle-visual {
+        height: 480px;
+    }
+
+    .lifecycle-ring {
+        width: 360px;
+        height: 360px;
+    }
+
+    .lifecycle-center {
+        width: 130px;
+        height: 130px;
+    }
+
+    .lifecycle-center strong {
+        font-size: 23px;
+    }
+
+    .lifecycle-point {
+        width: 90px;
+        height: 90px;
+    }
+
+    .lifecycle-point-one {
+        left: -20px;
+        top: 35px;
+    }
+
+    .lifecycle-point-two {
+        right: -20px;
+        top: 35px;
+    }
+
+    .lifecycle-point-three {
+        right: -20px;
+        bottom: 35px;
+    }
+
+    .lifecycle-point-four {
+        left: -20px;
+        bottom: 35px;
+    }
+
+    .digital-interface {
+        padding: 12px;
+    }
+
+    .interface-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .interface-card {
+        min-height: 165px;
+    }
+
+    .property-visual-section {
+        height: 600px;
+    }
+
+    .property-visual-statement {
+        left: 6%;
+        right: 6%;
+    }
+
+    .property-visual-statement h2 {
+        font-size: 55px;
+        letter-spacing: -4px;
+    }
+
+    .property-visual-meta {
+        left: 6%;
+        right: 6%;
+        flex-wrap: wrap;
+        gap: 10px 25px;
+    }
+
+    .trust-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-item,
+    .trust-item:nth-child(1),
+    .trust-item:nth-child(2),
+    .trust-item:nth-child(3) {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .trust-item:last-child {
+        border-bottom: 0;
+    }
+
+    .property-final-cta {
+        min-height: 620px;
+        padding: 100px 6% 30px;
+    }
+
+    .final-cta-content h2 {
+        font-size: 53px;
+        letter-spacing: -3px;
+    }
+
+    .final-cta-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .final-cta-actions .property-button {
+        width: max-content;
+    }
+
+    .final-cta-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .property-footer {
+        padding: 65px 6% 0;
+    }
+
+    .property-footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 25px;
+    }
+
+    .property-footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* =========================================================
+   19. RESPONSIVE — 480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .property-logo {
+        font-size: 19px;
+    }
+
+    .property-hero {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .hero-introduction h1 {
+        font-size: 47px;
+    }
+
+    .hero-introduction>p {
+        font-size: 12px;
+    }
+
+    .hero-actions .property-button {
+        width: 100%;
+    }
+
+    .property-condition-visual {
+        min-height: 390px;
+    }
+
+    .property-building {
+        height: 360px;
+    }
+
+    .building-status-card {
+        padding: 17px;
+    }
+
+    .status-card-title {
+        font-size: 23px;
+    }
+
+    .property-hotspot strong {
+        width: 23px;
+        height: 23px;
+    }
+
+    .hotspot-pulse {
+        width: 23px;
+        height: 23px;
+    }
+
+    .hotspot-facade {
+        left: 10%;
+    }
+
+    .hotspot-windows {
+        right: 10%;
+    }
+
+    .hotspot-interior {
+        left: 35%;
+    }
+
+    .hero-bottom-meta span:nth-child(2) {
+        display: none;
+    }
+
+    .meaning-intro h2,
+    .inspection-heading h2,
+    .process-header h2,
+    .service-system-header h2,
+    .audience-header h2,
+    .lifecycle-copy h2,
+    .digital-value-content h2,
+    .trust-heading h2 {
+        font-size: 42px;
+    }
+
+    .meaning-diagram {
+        height: 760px;
+    }
+
+    .meaning-center {
+        width: 150px;
+        height: 150px;
+    }
+
+    .meaning-center strong {
+        font-size: 18px;
+    }
+
+    .meaning-node {
+        width: 140px;
+        min-height: 68px;
+    }
+
+    .meaning-node strong {
+        font-size: 10px;
+    }
+
+    .meaning-node small {
+        display: none;
+    }
+
+    .inspection-property-image {
+        min-height: 390px;
+    }
+
+    .inspection-hotspot {
+        padding: 6px 8px;
+    }
+
+    .inspection-hotspot strong {
+        font-size: 8px;
+    }
+
+    .process-item {
+        padding-left: 68px;
+    }
+
+    .process-item-content h3 {
+        font-size: 22px;
+    }
+
+    .prevention-panel {
+        min-height: 390px;
+    }
+
+    .prevention-panel-content h3 {
+        font-size: 23px;
+    }
+
+    .service-card-image {
+        height: 240px;
+    }
+
+    .audience-card,
+    .audience-card:last-child {
+        min-height: 420px;
+    }
+
+    .audience-content h3 {
+        font-size: 29px;
+    }
+
+    .lifecycle-visual {
+        height: 400px;
+    }
+
+    .lifecycle-ring {
+        width: 280px;
+        height: 280px;
+    }
+
+    .lifecycle-center {
+        width: 105px;
+        height: 105px;
+    }
+
+    .lifecycle-center strong {
+        font-size: 19px;
+    }
+
+    .lifecycle-point {
+        width: 72px;
+        height: 72px;
+    }
+
+    .lifecycle-point strong {
+        font-size: 8px;
+    }
+
+    .lifecycle-point-one {
+        left: -8px;
+        top: 20px;
+    }
+
+    .lifecycle-point-two {
+        right: -8px;
+        top: 20px;
+    }
+
+    .lifecycle-point-three {
+        right: -8px;
+        bottom: 20px;
+    }
+
+    .lifecycle-point-four {
+        left: -8px;
+        bottom: 20px;
+    }
+
+    .digital-value-section {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .interface-card strong {
+        font-size: 15px;
+    }
+
+    .property-visual-section {
+        height: 530px;
+    }
+
+    .property-visual-statement h2 {
+        font-size: 45px;
+        letter-spacing: -3px;
+    }
+
+    .trust-item {
+        min-height: 230px;
+    }
+
+    .final-cta-content h2 {
+        font-size: 43px;
+    }
+
+    .final-cta-actions .property-button {
+        width: 100%;
+    }
+
+    .property-footer-main {
+        grid-template-columns: 1fr;
+    }
+
+    .property-footer-brand {
+        grid-column: auto;
+    }
+
+    .property-footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+/* =========================================================
+   20. ACCESSIBILITY / REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

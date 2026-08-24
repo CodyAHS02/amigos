@@ -79,6 +79,7 @@ async function init() {
     }
 
     drawRoom();
+    computeMaskBaseLightness();
 }
 
 let originalImageData;
@@ -242,6 +243,40 @@ function hslToRgb(h, s, l) {
 
 }
 
+function clamp01(n) {
+    return Math.max(0, Math.min(1, n));
+}
+
+const maskBaseLightness = {};
+
+function computeMaskBaseLightness() {
+
+    for (const name of maskNames) {
+
+        const maskPixels = maskCache[name];
+        let total = 0;
+        let count = 0;
+
+        for (let i = 0; i < maskPixels.length; i += 4) {
+
+            if (maskPixels[i + 3] < 10) continue;
+
+            const r = originalImageData.data[i];
+            const g = originalImageData.data[i + 1];
+            const b = originalImageData.data[i + 2];
+
+            total += rgbToHsl(r, g, b).l;
+            count++;
+
+        }
+
+        maskBaseLightness[name] = count ? total / count : 0.5;
+
+    }
+
+}
+
+
 function paintMaskOnly(maskName, color) {
 
     const imgData = ctx.getImageData(
@@ -280,6 +315,11 @@ function paintMaskOnly(maskName, color) {
             hsl.s * .35 +
             targetHsl.s * .65;
 
+        const baseL = maskBaseLightness[maskName] ?? 0.5;
+        const shadingPreserve = 0.65; // higher = more of the wall's natural shadow/highlight texture kept
+
+        hsl.l = clamp01(targetHsl.l + (hsl.l - baseL) * shadingPreserve);
+
         const rgb = hslToRgb(
             hsl.h,
             hsl.s,
@@ -309,6 +349,8 @@ function paintWall(maskName, color) {
 }
 
 const paintIcons = document.querySelector(".paint-icons");
+
+
 const points = document.querySelectorAll(".paint-point");
 
 let activePoint = null;
@@ -390,6 +432,35 @@ points.forEach(point => {
             });
 
         });
+
+    const customInput = point.querySelector(".palette-custom");
+
+    if (customInput) {
+
+        // don't let opening the native picker bubble up and
+        // trigger the "click outside closes the palette" handler
+        customInput.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+
+        // live preview while the picker is open, same feel as hovering a preset swatch
+        customInput.addEventListener("input", () => {
+
+            wallState[point.dataset.wall] = customInput.value;
+            renderScene();
+
+        });
+
+        // committed selection — save permanently, same as clicking a preset swatch
+        customInput.addEventListener("change", () => {
+
+            wallState[point.dataset.wall] = customInput.value;
+            point._backup = null;
+            renderScene();
+
+        });
+
+    }
 });
 
 document.addEventListener("click", () => {

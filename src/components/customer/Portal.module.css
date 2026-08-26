@@ -1,0 +1,521 @@
+@font-face {
+  font-family: "themeFont";
+  src: url("/fonts/n.woff2");
+}
+
+.portalPage,
+.loginPage {
+  --am-navy: #071A33;
+  --am-navy-soft: #102844;
+  --am-cream: #F7F1E7;
+  --am-panel: #FFFDF8;
+  --am-muted-panel: #F2EBDD;
+  --am-ochre: #B7893D;
+  --am-ink: #102238;
+  --am-text: #6B665C;
+  --am-line: #E3D8C8;
+  --am-green: #2E6F68;
+  min-height: 100vh;
+  color: var(--am-ink);
+  font-family: themeFont, Inter, sans-serif;
+}
+
+.portalPage {
+  display: grid;
+  grid-template-columns: 276px minmax(0, 1fr);
+  background:
+    radial-gradient(circle at 85% 12%, rgba(183, 137, 61, .12), transparent 26%),
+    linear-gradient(120deg, rgba(7, 26, 51, .04), transparent 34%),
+    var(--am-cream);
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--am-navy);
+  color: var(--am-panel);
+}
+
+.sidebarTop {
+  padding: 10px 8px 16px;
+  border-bottom: 1px solid rgba(255, 253, 248, .1);
+}
+
+.brand,
+.nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 900;
+}
+
+.brand img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.nav {
+  display: grid;
+  gap: 6px;
+}
+
+.nav a {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 12px;
+  color: rgba(255, 253, 248, .68);
+  font-weight: 850;
+  transition: background .24s ease, color .24s ease, transform .24s ease;
+}
+
+.nav a:hover,
+.navActive {
+  background: rgba(255, 253, 248, .1);
+  color: var(--am-panel) !important;
+  transform: translateX(3px);
+}
+
+.accountCard {
+  margin-top: auto;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(183, 137, 61, .45);
+  border-radius: 16px;
+  background: rgba(255, 253, 248, .06);
+}
+
+.avatar {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--am-navy);
+  color: var(--am-ochre);
+  font-weight: 950;
+  box-shadow: inset 0 0 0 2px rgba(183, 137, 61, .34);
+}
+
+.accountCard span,
+.eyebrow {
+  display: block;
+  color: var(--am-ochre);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.accountCard strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--am-panel);
+  font-size: 15px;
+}
+
+.accountCard p {
+  margin: 5px 0 0;
+  color: rgba(255, 253, 248, .68);
+  line-height: 1.4;
+}
+
+.mainPanel {
+  min-width: 0;
+  padding: 28px;
+}
+
+.topbar {
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.topbar h1 {
+  margin: 8px 0 0;
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: .92;
+}
+
+.userTools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--am-text);
+  font-weight: 900;
+}
+
+.logoutButton,
+.primaryButton {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 24px;
+  background: var(--am-ochre);
+  color: #111;
+  font-family: themeFont, Inter, sans-serif;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+
+.logoutButton {
+  background: var(--am-navy);
+  color: var(--am-panel);
+}
+
+.logoutButton:hover,
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(16, 34, 56, .13);
+}
+
+.grid {
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.card,
+.tableCard,
+.highlightCard {
+  border: 1px solid var(--am-line);
+  border-radius: 18px;
+  background: rgba(255, 253, 248, .88);
+  box-shadow: 0 22px 70px rgba(16, 34, 56, .08);
+}
+
+.card {
+  min-height: 138px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: rgba(46, 111, 104, .14);
+}
+
+.card span {
+  color: var(--am-text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.card strong {
+  display: block;
+  margin-top: 18px;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.card p {
+  margin: 10px 0 0;
+  color: var(--am-text);
+  line-height: 1.45;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.highlightCard {
+  min-height: 310px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(7, 26, 51, .88), rgba(16, 40, 68, .6)),
+    url("/assets/services-imags/appartment-hero.jpg") center/cover;
+  color: var(--am-panel);
+}
+
+.highlightCard h2 {
+  max-width: 620px;
+  margin: 12px 0;
+  font-size: clamp(32px, 4vw, 58px);
+  line-height: 1;
+}
+
+.highlightCard p {
+  max-width: 620px;
+  color: rgba(255, 253, 248, .76);
+  line-height: 1.7;
+}
+
+.highlightCard .primaryButton {
+  width: max-content;
+  margin-top: 12px;
+}
+
+.tableCard {
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.tableHeader {
+  min-height: 78px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--am-line);
+}
+
+.tableHeader h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.tableHeader p {
+  margin: 6px 0 0;
+  color: var(--am-text);
+  line-height: 1.45;
+}
+
+.tableHeader a {
+  color: var(--am-navy);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 16px 22px;
+  text-align: left;
+  border-bottom: 1px solid rgba(227, 216, 200, .72);
+  vertical-align: middle;
+}
+
+.table th {
+  color: var(--am-text);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.table tbody tr {
+  transition: background .2s ease;
+}
+
+.table tbody tr:hover {
+  background: rgba(242, 235, 221, .55);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  min-width: 86px;
+  justify-content: center;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.statusPaid {
+  background: #DFF5E8;
+  color: #17653B;
+}
+
+.statusDue {
+  background: #FFF0D1;
+  color: #846017;
+}
+
+.statusPending {
+  background: #E6EDF8;
+  color: #244D82;
+}
+
+.statusPlanned {
+  background: #ECE8DF;
+  color: #5F5647;
+}
+
+.loginPage {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(7, 26, 51, .86), rgba(7, 26, 51, .58)),
+    url("/assets/about-hero.jpg") center/cover;
+}
+
+.loginCard {
+  width: min(980px, 100%);
+  min-height: 560px;
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(360px, 1fr);
+  overflow: hidden;
+  border: 1px solid rgba(255, 253, 248, .18);
+  border-radius: 28px;
+  background: rgba(255, 253, 248, .96);
+  box-shadow: 0 32px 110px rgba(0, 0, 0, .28);
+}
+
+.loginCard::before {
+  content: "AMIGOS MALER";
+  grid-row: 1 / span 6;
+  padding: 34px;
+  display: flex;
+  align-items: flex-end;
+  background:
+    linear-gradient(135deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .5)),
+    url("/assets/services-imags/painting-hero.jpg") center/cover;
+  color: var(--am-panel);
+  font-size: 34px;
+  font-weight: 950;
+  letter-spacing: .02em;
+}
+
+.loginCard > img {
+  grid-column: 2;
+  width: 58px;
+  height: 58px;
+  margin: 42px 42px 0;
+  object-fit: contain;
+}
+
+.loginCard h1,
+.loginCard p,
+.loginForm,
+.authSwitch {
+  grid-column: 2;
+}
+
+.loginCard h1 {
+  margin: 26px 42px 8px;
+  font-size: 46px;
+  line-height: 1;
+}
+
+.loginCard p {
+  margin: 0 42px 22px;
+  color: var(--am-text);
+  line-height: 1.6;
+}
+
+.loginForm {
+  margin: 0 42px 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.loginForm label {
+  display: grid;
+  gap: 8px;
+  color: var(--am-ink);
+  font-weight: 900;
+}
+
+.loginForm input {
+  width: 100%;
+  border: 1px solid var(--am-line);
+  border-radius: 12px;
+  padding: 15px 16px;
+  background: var(--am-panel);
+  color: var(--am-ink);
+  font: inherit;
+}
+
+.fieldError {
+  color: #922B2B;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.error {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #FFE7E7;
+  color: #922B2B;
+  font-weight: 800;
+}
+
+.authSwitch {
+  margin: 0 42px 38px !important;
+  color: var(--am-text);
+}
+
+.authSwitch a {
+  color: var(--am-navy);
+  font-weight: 900;
+}
+
+@media (max-width: 980px) {
+  .portalPage,
+  .loginCard {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    height: auto;
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .loginCard::before {
+    min-height: 190px;
+  }
+
+  .loginCard > img,
+  .loginCard h1,
+  .loginCard p,
+  .loginForm,
+  .authSwitch {
+    grid-column: 1;
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+}

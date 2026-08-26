@@ -1,0 +1,21 @@
+.next/
+node_modules/
+out/
+.env*.local
+.data/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Local-only Python vision backend. Deploy separately from the Next/Vercel app.
+backend/
+
+# Python/generated artifacts, kept here in case backend/ is tracked separately later.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+models/checkpoints/
+outputs/
+uploads/

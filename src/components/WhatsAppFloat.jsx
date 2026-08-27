@@ -5,7 +5,7 @@ import styles from "@/components/WhatsAppFloat.module.css";
 
 export default function WhatsAppFloat() {
   const pathname = usePathname();
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "41790000000";
   const isPortalPage = pathname.startsWith("/admin") || pathname.startsWith("/customer");
 
   if (isPortalPage || !whatsappNumber) return null;

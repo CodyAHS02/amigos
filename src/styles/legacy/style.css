@@ -5741,7 +5741,7 @@ span.section-tag {
     inset: 0;
     z-index: 1;
     background: var(--am-navy);
-    opacity: .6;
+    opacity: .9;
     backdrop-filter: blur(0px) !important;
     -webkit-backdrop-filter: blur(0px) !important;
 }

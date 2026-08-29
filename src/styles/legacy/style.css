@@ -9434,6 +9434,60 @@ body {
     color: var(--am-navy);
 }
 
+.plans-grid .plan-card:nth-child(1) {
+    background:
+        linear-gradient(145deg, rgba(246, 190, 16, .42) 0%, rgba(246, 190, 16, .24) 34%, rgba(243, 145, 37, .16) 68%, rgba(252, 248, 240, .96) 100%);
+    border-color: rgba(246, 190, 16, .45);
+}
+
+.plans-grid .plan-card:nth-child(2) {
+    background:
+        linear-gradient(145deg, rgba(243, 145, 37, .44) 0%, rgba(243, 145, 37, .26) 42%, rgba(246, 190, 16, .14) 72%, rgba(252, 248, 240, .96) 100%);
+    border-color: rgba(243, 145, 37, .52);
+}
+
+.plans-grid .plan-card:nth-child(3) {
+    background:
+        linear-gradient(145deg, rgba(199, 59, 142, .40) 0%, rgba(230, 36, 83, .24) 46%, rgba(199, 59, 142, .13) 74%, rgba(252, 248, 240, .96) 100%);
+    border-color: rgba(230, 36, 83, .42);
+}
+
+.plans-grid .plan-card button,
+.plans-grid .plan-card.featured button {
+    background: transparent;
+    color: var(--am-navy);
+}
+
+.plans-grid .plan-card:nth-child(1) button {
+    border-color: #e62453;
+}
+
+.plans-grid .plan-card:nth-child(2) button {
+    border-color: #c73b8e;
+}
+
+.plans-grid .plan-card:nth-child(3) button {
+    border-color: #f39125;
+}
+
+.plans-grid .plan-card:nth-child(1) button:hover {
+    background: linear-gradient(90deg, #c73b8e 0%, #e62453 100%);
+    border-color: transparent;
+    color: var(--am-offwhite);
+}
+
+.plans-grid .plan-card:nth-child(2) button:hover {
+    background: linear-gradient(90deg, #c73b8e 0%, #e62453 100%);
+    border-color: transparent;
+    color: var(--am-offwhite);
+}
+
+.plans-grid .plan-card:nth-child(3) button:hover {
+    background: linear-gradient(90deg, #f6be10 0%, #f39125 100%);
+    border-color: transparent;
+    color: var(--am-navy);
+}
+
 .testimonial-orb {
     background: radial-gradient(circle, rgba(233, 221, 201, .80) 0%, rgba(207, 195, 177, .30) 48%, transparent 74%);
 }

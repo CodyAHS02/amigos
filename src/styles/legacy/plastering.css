@@ -28,6 +28,26 @@ body {
     --am-ink: #102238;
     --am-text: #5F5A50;
     --am-line: #DED2C0;
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+@keyframes plasterLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 img {
@@ -233,6 +253,11 @@ a {
 .intro-points span {
     color: var(--am-ochre);
     font-weight: 600;
+}
+
+.intro-points p {
+    margin: 0;
+    line-height: 1.55;
 }
 
 .gipser-services {
@@ -1011,5 +1036,318 @@ a {
 
     .cta-buttons {
         flex-direction: column;
+    }
+}
+
+/* =========================================
+   LOGO COLOR THEME OVERRIDES
+========================================= */
+
+.gipser-hero-overlay {
+    background:
+        radial-gradient(circle at 18% 18%, rgba(199, 59, 142, .36), transparent 34%),
+        radial-gradient(circle at 74% 58%, rgba(243, 145, 37, .28), transparent 36%),
+        linear-gradient(90deg, rgba(7, 26, 51, .92) 0%, rgba(7, 26, 51, .68) 55%, rgba(7, 26, 51, .34) 100%);
+}
+
+.hero-label,
+.section-tag,
+.service-body span,
+.problem-number,
+.professional-card span,
+.transition-badge span,
+.transition-step strong,
+.floating-card strong,
+.footer-links a:hover {
+    color: var(--logo-yellow) !important;
+}
+
+.btn-primary,
+.process-progress,
+.step-number,
+.slider-divider,
+.divider-handle,
+.ba-tag,
+.transition-badge,
+.final-cta-section .btn-primary {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: plasterLogoGradientShift 8s ease-in-out infinite;
+}
+
+.btn-primary:hover {
+    color: #fff !important;
+    transform: translateY(-4px);
+    box-shadow: 0 24px 62px rgba(230, 36, 83, .28);
+}
+
+.btn-outline {
+    border-color: rgba(246, 190, 16, .62) !important;
+    background: rgba(255, 255, 255, .1);
+    color: #fff !important;
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline:hover,
+.cta-buttons .btn-outline:hover {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: plasterLogoGradientShift 8s ease-in-out infinite;
+}
+
+.cta-buttons .btn-outline {
+    background: rgba(255, 255, 255, .3) !important;
+    border-color: rgba(230, 36, 83, .58) !important;
+    color: var(--am-navy) !important;
+}
+
+.hero-stat,
+.floating-card {
+    border-color: rgba(246, 190, 16, .28);
+    background: rgba(255, 255, 255, .12);
+}
+
+.hero-stat strong,
+.intro-points span {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    animation: plasterLogoGradientShift 8s ease-in-out infinite;
+}
+
+.transition-badge,
+.transition-badge span,
+.transition-badge strong {
+    color: #fff !important;
+}
+
+.intro-points div {
+    position: relative;
+    overflow: hidden;
+    padding: 18px 20px;
+    border: 1px solid rgba(230, 36, 83, .14);
+    border-radius: 16px;
+    background: var(--am-cream);
+    transition:
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .42s ease,
+        border-color .42s ease;
+}
+
+.intro-points div::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: opacity .45s ease;
+    animation: plasterLogoGradientShift 9s ease-in-out infinite;
+}
+
+.intro-points div:nth-child(3n + 1)::before {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.intro-points div:nth-child(3n + 2)::before {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.intro-points div:nth-child(3n)::before {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.intro-points div>* {
+    position: relative;
+    z-index: 1;
+    transition: color .35s ease;
+}
+
+.intro-points div:hover {
+    transform: translateY(-6px);
+    border-color: transparent;
+    box-shadow: 0 18px 48px rgba(230, 36, 83, .18);
+}
+
+.intro-points div:hover::before {
+    opacity: 1;
+}
+
+.intro-points div:hover *,
+.intro-points div:hover span {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+}
+
+.service-card,
+.problem-item,
+.material-item,
+.professional-card,
+.step-content {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .42s ease,
+        border-color .42s ease,
+        color .35s ease;
+}
+
+.service-card::before,
+.problem-item::before,
+.material-item::before,
+.professional-card::before,
+.step-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: opacity .45s ease;
+    animation: plasterLogoGradientShift 9s ease-in-out infinite;
+}
+
+.service-card:nth-child(3n + 1)::before,
+.problem-item:nth-child(3n + 1)::before,
+.material-item:nth-child(3n + 1)::before,
+.professional-card:nth-child(3n + 1)::before,
+.process-step:nth-child(3n + 1) .step-content::before {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.service-card:nth-child(3n + 2)::before,
+.problem-item:nth-child(3n + 2)::before,
+.material-item:nth-child(3n + 2)::before,
+.professional-card:nth-child(3n + 2)::before,
+.process-step:nth-child(3n + 2) .step-content::before {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.service-card:nth-child(3n)::before,
+.problem-item:nth-child(3n)::before,
+.material-item:nth-child(3n)::before,
+.professional-card:nth-child(3n)::before,
+.process-step:nth-child(3n) .step-content::before {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.service-card>*,
+.problem-item>*,
+.material-item>*,
+.professional-card>*,
+.step-content>* {
+    position: relative;
+    z-index: 1;
+}
+
+.service-card:hover,
+.problem-item:hover,
+.material-item:hover,
+.professional-card:hover,
+.step-content:hover {
+    border-color: transparent !important;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .18);
+}
+
+.service-card:hover::before,
+.problem-item:hover::before,
+.material-item:hover::before,
+.professional-card:hover::before,
+.step-content:hover::before {
+    opacity: 1;
+}
+
+.service-card:hover *,
+.problem-item:hover *,
+.material-item:hover *,
+.professional-card:hover *,
+.step-content:hover * {
+    color: #fff !important;
+}
+
+.problem-item,
+.professional-card {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    border-color: transparent;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .14);
+    animation: plasterLogoGradientShift 9s ease-in-out infinite;
+}
+
+.problem-item:nth-child(3n + 1),
+.professional-card:nth-child(3n + 1) {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.problem-item:nth-child(3n + 2),
+.professional-card:nth-child(3n + 2) {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.problem-item:nth-child(3n),
+.professional-card:nth-child(3n) {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.problem-item *,
+.professional-card * {
+    color: #fff !important;
+}
+
+.process-section,
+.service-footer {
+    background:
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .74)),
+        var(--logo-gradient-moving) !important;
+    background-size: auto, 280% 280% !important;
+    animation: plasterLogoGradientShift 9s ease-in-out infinite;
+}
+
+.property-overlay {
+    background:
+        radial-gradient(circle at 82% 22%, rgba(230, 36, 83, .28), transparent 34%),
+        radial-gradient(circle at 16% 74%, rgba(246, 190, 16, .22), transparent 36%),
+        linear-gradient(90deg, rgba(7, 26, 51, .82), rgba(7, 26, 51, .48)) !important;
+}
+
+.surface-transition-section,
+.final-cta-section {
+    background:
+        radial-gradient(circle at 85% 12%, rgba(230, 36, 83, .12), transparent 32%),
+        radial-gradient(circle at 15% 78%, rgba(246, 190, 16, .14), transparent 34%),
+        var(--am-cream);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-primary,
+    .btn-outline:hover,
+    .hero-stat strong,
+    .intro-points span,
+    .process-progress,
+    .step-number,
+    .slider-divider,
+    .divider-handle,
+    .ba-tag,
+    .transition-badge,
+    .service-card::before,
+    .problem-item,
+    .problem-item::before,
+    .material-item::before,
+    .professional-card,
+    .professional-card::before,
+    .step-content::before,
+    .process-section,
+    .property-overlay,
+    .service-footer {
+        animation: none !important;
     }
 }

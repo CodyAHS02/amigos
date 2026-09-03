@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 const POLL_INTERVAL_MS = 2500;
+const LIVE_CHAT_ENABLED = process.env.NEXT_PUBLIC_LIVE_CHAT_ENABLED === "true";
+const CHATBOT_AVATAR = "/chatbot-main-face.jpeg";
 const GREETING = {
   id: "local-greeting",
   senderType: "SYSTEM",
@@ -25,6 +27,8 @@ export default function LiveChatWidget() {
   const bodyRef = useRef(null);
 
   async function loadMessages() {
+    if (!LIVE_CHAT_ENABLED) return;
+
     try {
       const response = await fetch("/api/chat/messages", { cache: "no-store" });
       const result = await response.json();
@@ -39,6 +43,8 @@ export default function LiveChatWidget() {
   }
 
   useEffect(() => {
+    if (!LIVE_CHAT_ENABLED) return undefined;
+
     loadMessages();
     const timer = window.setInterval(loadMessages, POLL_INTERVAL_MS);
 
@@ -55,6 +61,26 @@ export default function LiveChatWidget() {
     const message = draft.trim();
 
     if (!message || sending) return;
+
+    if (!LIVE_CHAT_ENABLED) {
+      setMessages((currentMessages) => [
+        ...currentMessages,
+        {
+          id: `local-visitor-${Date.now()}`,
+          senderType: "VISITOR",
+          body: message,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: `local-offline-${Date.now()}`,
+          senderType: "SYSTEM",
+          body: "Live chat is temporarily closed. Please use WhatsApp or the enquiry form and we will get back to you.",
+          createdAt: new Date().toISOString()
+        }
+      ]);
+      setDraft("");
+      return;
+    }
 
     setSending(true);
     setError("");
@@ -89,7 +115,7 @@ export default function LiveChatWidget() {
       <div className="chatbot-panel" id="chatbotPanel">
         <div className="chatbot-header">
           <div className="chatbot-header-info">
-            <img src="/assets/ChatBox-Girl.webp" alt="Assistant" className="chatbot-header-avatar" />
+            <img src={CHATBOT_AVATAR} alt="Assistant" className="chatbot-header-avatar" />
             <div>
               <h4>Amigos Maler</h4>
               <span className="chatbot-status">
@@ -108,14 +134,14 @@ export default function LiveChatWidget() {
           {messages.map((message) => (
             <div className={messageClassName(message)} key={message.id}>
               {message.senderType !== "VISITOR" && (
-                <img src="/assets/ChatBox-Girl.webp" alt="" className="chatbot-msg-avatar" />
+                <img src={CHATBOT_AVATAR} alt="" className="chatbot-msg-avatar" />
               )}
               <div className="chatbot-bubble">{message.body}</div>
             </div>
           ))}
           {error && (
             <div className="chatbot-message bot">
-              <img src="/assets/ChatBox-Girl.webp" alt="" className="chatbot-msg-avatar" />
+              <img src={CHATBOT_AVATAR} alt="" className="chatbot-msg-avatar" />
               <div className="chatbot-bubble">{error}</div>
             </div>
           )}
@@ -155,7 +181,7 @@ export default function LiveChatWidget() {
         aria-expanded={open}
         onClick={() => setOpen((currentOpen) => !currentOpen)}
       >
-        <img src="/assets/ChatBox-Girl.webp" alt="Chat with us" className="chatbot-toggle-img" />
+        <img src={CHATBOT_AVATAR} alt="Chat with us" className="chatbot-toggle-img" />
         <span className="chatbot-badge" title="Chat with us">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor" />

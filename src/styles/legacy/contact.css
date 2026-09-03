@@ -10,10 +10,30 @@
     --am-text: #52606d;
     --am-line: rgba(7, 26, 51, .15);
     --am-ochre: #b7893d;
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
 }
 
 * {
     box-sizing: border-box;
+}
+
+@keyframes contactLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 html {
@@ -66,7 +86,7 @@ body.contact-page {
 
     margin-bottom: 28px;
 
-    color: var(--am-ochre);
+    color: var(--logo-yellow);
 
     font-size: 9px;
     font-weight: 700;
@@ -76,7 +96,7 @@ body.contact-page {
 .contact-kicker span {
     width: 34px;
     height: 1px;
-    background: var(--am-ochre);
+    background: var(--logo-gradient);
 }
 
 .contact-copy h1,
@@ -92,8 +112,13 @@ body.contact-page {
 .contact-copy h1 em,
 .form-heading h2 em {
     display: block;
-    color: var(--am-ochre);
     font-style: normal;
+    color: transparent;
+    background: var(--logo-gradient-moving);
+    background-size: 240% 240%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: contactLogoGradientShift 8s ease-in-out infinite;
 }
 
 .contact-intro {
@@ -134,10 +159,13 @@ body.contact-page {
     letter-spacing: 1.8px;
     text-transform: uppercase;
 
+    border-radius: 999px;
     transition:
         transform .3s ease,
         background .3s ease,
-        color .3s ease;
+        color .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
 }
 
 .contact-btn span {
@@ -149,13 +177,25 @@ body.contact-page {
 }
 
 .contact-btn-dark {
-    background: var(--am-navy);
+    background: var(--logo-gradient-moving);
+    background-size: 240% 240%;
     color: white;
+    box-shadow: 0 18px 44px rgba(230, 36, 83, .18);
+    animation: contactLogoGradientShift 8s ease-in-out infinite;
 }
 
 .contact-btn-outline {
-    border: 1px solid var(--am-line);
+    border: 1px solid rgba(230, 36, 83, .38);
+    background: rgba(255, 255, 255, .3);
     color: var(--am-navy);
+}
+
+.contact-btn-outline:hover {
+    border-color: transparent;
+    background: var(--logo-gradient-moving);
+    background-size: 240% 240%;
+    color: white;
+    animation: contactLogoGradientShift 8s ease-in-out infinite;
 }
 
 
@@ -178,7 +218,7 @@ body.contact-page {
 }
 
 .contact-detail span {
-    color: var(--am-ochre);
+    color: var(--logo-orange);
 
     font-size: 8px;
     font-weight: 700;
@@ -265,6 +305,7 @@ body.contact-page {
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 3px;
+    color: var(--logo-yellow);
 }
 
 .contact-image-tag strong {
@@ -290,13 +331,15 @@ body.contact-page {
     padding: 10px 13px;
 
     color: white;
-    background: rgba(7, 26, 51, .75);
+    background: var(--logo-gradient-moving);
+    background-size: 240% 240%;
 
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 2px;
 
     backdrop-filter: blur(10px);
+    animation: contactLogoGradientShift 8s ease-in-out infinite;
 }
 
 
@@ -319,7 +362,7 @@ body.contact-page {
 .contact-image-caption i {
     width: 24px;
     height: 1px;
-    background: var(--am-line);
+    background: var(--logo-gradient);
 }
 
 
@@ -383,7 +426,7 @@ body.contact-page {
 }
 
 .contact-form label>span {
-    color: var(--am-ochre);
+    color: var(--logo-orange);
 
     font-size: 8px;
     font-weight: 700;
@@ -423,7 +466,7 @@ body.contact-page {
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
-    border-color: var(--am-ochre);
+    border-image: var(--logo-gradient) 1;
 }
 
 .contact-form input[aria-invalid="true"],
@@ -476,7 +519,8 @@ body.contact-page {
 
     border: 0;
 
-    background: var(--am-navy);
+    background: var(--logo-gradient-moving);
+    background-size: 240% 240%;
     color: white;
 
     cursor: pointer;
@@ -486,7 +530,10 @@ body.contact-page {
     letter-spacing: 2px;
     text-transform: uppercase;
 
-    transition: transform .3s ease, background .3s ease;
+    border-radius: 999px;
+    transition: transform .3s ease, box-shadow .3s ease;
+    animation: contactLogoGradientShift 8s ease-in-out infinite;
+    box-shadow: 0 18px 44px rgba(230, 36, 83, .18);
 }
 
 .contact-submit span {
@@ -495,7 +542,7 @@ body.contact-page {
 
 .contact-submit:hover {
     transform: translateY(-3px);
-    background: #0c294b;
+    box-shadow: 0 24px 56px rgba(230, 36, 83, .26);
 }
 
 .contact-submit:disabled {
@@ -510,8 +557,12 @@ body.contact-page {
 ========================================================= */
 
 .contact-strip {
-    background: var(--am-navy);
+    background:
+        linear-gradient(90deg, rgba(7, 26, 51, .92), rgba(7, 26, 51, .72)),
+        var(--logo-gradient-moving);
+    background-size: auto, 260% 260%;
     color: white;
+    animation: contactLogoGradientShift 9s ease-in-out infinite;
 }
 
 .contact-strip-inner {
@@ -525,7 +576,7 @@ body.contact-page {
 }
 
 .contact-strip-inner>div>span {
-    color: var(--am-ochre);
+    color: var(--logo-yellow);
 
     font-size: 8px;
     font-weight: 700;
@@ -560,7 +611,7 @@ body.contact-page {
 }
 
 .contact-strip-inner>a span {
-    color: var(--am-ochre);
+    color: var(--logo-yellow);
     font-size: 18px;
 }
 

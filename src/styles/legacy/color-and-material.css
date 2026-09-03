@@ -28,6 +28,27 @@ body {
     --am-ink: #102238;
     --am-text: #5F5A50;
     --am-line: #DED2C0;
+    --color-shadow: 0 24px 65px rgba(7, 26, 51, .16);
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+@keyframes colorMaterialLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* =========================================================
@@ -3782,5 +3803,473 @@ button {
         transition-duration: .01ms !important;
 
         scroll-behavior: auto !important;
+    }
+}
+
+/* Final color and material logo-theme cascade */
+.color-hero-overlay {
+    background:
+        radial-gradient(circle at 22% 18%, rgba(199, 59, 142, .34), transparent 34%),
+        radial-gradient(circle at 78% 58%, rgba(246, 190, 16, .22), transparent 36%),
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .36)) !important;
+}
+
+.color-btn-primary,
+.choice-card:hover .choice-arrow,
+.custom-swatch>span,
+.consultation-line span,
+.consultation-step:hover .consultation-number,
+.palette-option.active,
+.color-benefit-card:hover .benefit-card-icon,
+.material-gallery-controls button:hover {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    animation: colorMaterialLogoGradientShift 8s ease-in-out infinite;
+}
+
+.color-btn-primary,
+.color-btn-primary *,
+.color-btn-primary:hover,
+.color-btn-primary:hover *,
+.color-btn-light:hover,
+.color-btn-light:hover *,
+.color-btn-outline-dark:hover,
+.color-btn-outline-dark:hover *,
+.palette-option.active,
+.palette-option.active *,
+.consultation-step:hover .consultation-number,
+.choice-card:hover .choice-arrow {
+    color: #fff !important;
+}
+
+.color-btn-primary:hover {
+    box-shadow: 0 24px 62px rgba(230, 36, 83, .3);
+}
+
+.color-btn-light {
+    background: rgba(255, 255, 255, .3) !important;
+    border-color: rgba(246, 190, 16, .72) !important;
+}
+
+.color-btn-light:hover,
+.color-btn-outline-dark:hover {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    border-color: transparent !important;
+    animation: colorMaterialLogoGradientShift 8s ease-in-out infinite;
+}
+
+.color-hero-kicker,
+.color-hero-note span:first-child,
+.color-choices .color-kicker,
+.material-gallery .color-kicker,
+.color-benefits .color-kicker,
+.color-final-cta .color-kicker,
+.color-footer-column a:hover {
+    color: var(--logo-yellow) !important;
+}
+
+.color-intro .color-kicker,
+.color-experience .color-kicker,
+.color-light .color-kicker,
+.color-consultation .color-kicker,
+.palette-builder .color-kicker,
+.digital-planning .color-kicker,
+.service-connection .color-kicker,
+.color-intro-details span,
+.room-selection-label,
+.material-info>span,
+.consultation-content>span,
+.palette-current>span,
+.benefit-card-number,
+.digital-index {
+    color: var(--am-navy) !important;
+}
+
+.color-hero-content h1 em,
+.color-intro-copy h2 em,
+.choices-heading h2 em,
+.color-experience-intro h2 em,
+.color-light-header h2 em,
+.material-gallery-header h2 em,
+.consultation-heading h2 em,
+.palette-builder-heading h2 em,
+.benefits-top h2 em,
+.digital-planning-content h2 em,
+.color-final-content h2 em {
+    color: var(--logo-pink) !important;
+}
+
+.color-intro,
+.color-experience,
+.color-light,
+.color-consultation,
+.palette-builder,
+.service-connection {
+    background:
+        radial-gradient(circle at 86% 12%, rgba(230, 36, 83, .12), transparent 32%),
+        radial-gradient(circle at 16% 78%, rgba(246, 190, 16, .14), transparent 34%),
+        var(--am-cream) !important;
+}
+
+.color-choices,
+.color-benefits,
+.digital-planning,
+.color-final-cta,
+.color-footer {
+    background:
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .74)),
+        var(--logo-gradient-moving) !important;
+    background-size: auto, 280% 280% !important;
+    animation: colorMaterialLogoGradientShift 9s ease-in-out infinite;
+}
+
+.choice-card,
+.color-intro-details>div,
+.material-item,
+.consultation-content,
+.palette-option,
+.color-benefit-card,
+.digital-feature {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .42s ease,
+        border-color .42s ease,
+        color .35s ease;
+}
+
+.choice-card::before,
+.material-item::before,
+.consultation-content::before,
+.palette-option::before,
+.color-benefit-card::before,
+.digital-feature::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: opacity .45s ease;
+    animation: colorMaterialLogoGradientShift 9s ease-in-out infinite;
+}
+
+.choice-card:nth-child(3n + 1)::before,
+.material-item:nth-child(3n + 1)::before,
+.consultation-step:nth-child(3n + 1) .consultation-content::before,
+.palette-option:nth-child(3n + 1)::before,
+.color-benefit-card:nth-child(3n + 1)::before,
+.digital-feature:nth-child(3n + 1)::before {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.choice-card:nth-child(3n + 2)::before,
+.material-item:nth-child(3n + 2)::before,
+.consultation-step:nth-child(3n + 2) .consultation-content::before,
+.palette-option:nth-child(3n + 2)::before,
+.color-benefit-card:nth-child(3n + 2)::before,
+.digital-feature:nth-child(3n + 2)::before {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.choice-card:nth-child(3n)::before,
+.material-item:nth-child(3n)::before,
+.consultation-step:nth-child(3n) .consultation-content::before,
+.palette-option:nth-child(3n)::before,
+.color-benefit-card:nth-child(3n)::before,
+.digital-feature:nth-child(3n)::before {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.choice-card>*,
+.material-item>*,
+.consultation-content>*,
+.palette-option>*,
+.color-benefit-card>*,
+.digital-feature>* {
+    position: relative;
+    z-index: 1;
+    transition: color .35s ease;
+}
+
+.choice-card:hover::before,
+.material-item:hover::before,
+.consultation-step:hover .consultation-content::before,
+.palette-option:hover::before,
+.color-benefit-card:hover::before,
+.digital-feature:hover::before {
+    opacity: 1;
+}
+
+.choice-card:hover,
+.material-item:hover,
+.consultation-step:hover .consultation-content,
+.palette-option:hover,
+.color-benefit-card:hover,
+.digital-feature:hover {
+    border-color: transparent !important;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .18);
+}
+
+.choice-card:hover *,
+.material-item:hover *,
+.consultation-step:hover .consultation-content *,
+.palette-option:hover *,
+.color-benefit-card:hover *,
+.digital-feature:hover * {
+    color: #fff !important;
+}
+
+.choice-card:hover {
+    background: #102C49 !important;
+}
+
+.color-swatch.active {
+    border-color: var(--logo-pink) !important;
+    box-shadow: 0 16px 38px rgba(230, 36, 83, .18);
+}
+
+.color-swatch:hover {
+    border-color: var(--logo-yellow) !important;
+}
+
+.color-room-info,
+.palette-preview-label {
+    border: 1px solid rgba(246, 190, 16, .28);
+}
+
+.benefit-card-line,
+.material-image:after {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+}
+
+.cta-color-orbit {
+    border-color: rgba(246, 190, 16, .28) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .color-btn-primary,
+    .color-btn-light:hover,
+    .color-btn-outline-dark:hover,
+    .choice-card:hover .choice-arrow,
+    .custom-swatch>span,
+    .consultation-line span,
+    .consultation-step:hover .consultation-number,
+    .palette-option.active,
+    .color-benefit-card:hover .benefit-card-icon,
+    .material-gallery-controls button:hover,
+    .color-choices,
+    .color-benefits,
+    .digital-planning,
+    .color-final-cta,
+    .color-footer,
+    .choice-card::before,
+    .material-item::before,
+    .consultation-content::before,
+    .palette-option::before,
+    .color-benefit-card::before,
+    .digital-feature::before {
+        animation: none !important;
+    }
+}
+
+/* Color and material requested refinements */
+.color-intro-details>div {
+    position: relative;
+    transition:
+        padding-left .35s ease,
+        border-color .35s ease,
+        color .35s ease;
+}
+
+.color-intro-details>div::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 0;
+    height: 2px;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: width .45s ease;
+    animation: colorMaterialLogoGradientShift 8s ease-in-out infinite;
+}
+
+.color-intro-details>div:hover {
+    padding-left: 16px;
+    border-color: transparent !important;
+}
+
+.color-intro-details>div:hover::after {
+    width: 100%;
+}
+
+.color-intro-details>div:hover span,
+.color-intro-details>div:hover strong {
+    color: var(--am-navy) !important;
+}
+
+.color-room-stage {
+    height: min(62vh, 610px) !important;
+    min-height: 520px;
+}
+
+.consultation-content::before,
+.material-item::before {
+    display: none !important;
+}
+
+.consultation-content {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.consultation-content::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -18px;
+    height: 2px;
+    width: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: width .45s ease;
+    animation: colorMaterialLogoGradientShift 8s ease-in-out infinite;
+}
+
+.consultation-step:hover .consultation-content {
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.consultation-step:hover .consultation-content::after {
+    width: 100%;
+}
+
+.consultation-step:hover .consultation-content *,
+.material-item:hover * {
+    color: inherit !important;
+}
+
+.consultation-step:hover .consultation-content>span,
+.consultation-step:hover .consultation-content h3 {
+    color: var(--am-navy) !important;
+}
+
+.consultation-step:hover .consultation-content p {
+    color: var(--am-text) !important;
+}
+
+.material-image::after {
+    background:
+        linear-gradient(180deg, transparent 62%, rgba(7, 26, 51, .28)) !important;
+    opacity: 0 !important;
+    transition: opacity .45s ease;
+}
+
+.material-item:hover .material-image::after {
+    opacity: .55 !important;
+}
+
+.material-item:hover {
+    box-shadow: none !important;
+}
+
+.color-benefits {
+    background: var(--am-navy) !important;
+    color: #fff !important;
+}
+
+.benefits-top h2,
+.benefits-top h2 em,
+.benefits-top>p,
+.color-benefit-card p {
+    color: #fff !important;
+}
+
+.color-benefit-card h3 {
+    color: var(--logo-yellow) !important;
+}
+
+.color-benefit-card {
+    border-color: rgba(255, 255, 255, .18) !important;
+}
+
+.color-benefit-card:hover {
+    background: rgba(255, 255, 255, .08) !important;
+}
+
+.color-benefit-card:hover .benefit-card-icon {
+    background: #fff !important;
+    color: var(--am-navy) !important;
+    border-color: #fff !important;
+    transform: rotate(0deg) translateY(-4px);
+}
+
+.benefit-card-icon {
+    position: static !important;
+    margin: 82px 0 0 !important;
+}
+
+.color-benefit-card h3 {
+    margin-top: 26px !important;
+}
+
+.color-benefit-card:hover h3 {
+    color: var(--logo-yellow) !important;
+}
+
+.color-benefit-card:hover p,
+.color-benefit-card:hover .benefit-card-number {
+    color: #fff !important;
+}
+
+.color-final-content h2,
+.color-final-content h2 em,
+.color-final-content>p {
+    color: #fff !important;
+}
+
+.color-final-actions .color-btn-light,
+.color-final-actions .color-btn-outline-dark {
+    border-color: rgba(255, 255, 255, .86) !important;
+    color: #fff !important;
+    background: rgba(255, 255, 255, .08) !important;
+}
+
+.color-final-actions .color-btn-light *,
+.color-final-actions .color-btn-outline-dark * {
+    color: #fff !important;
+}
+
+.material-gallery .color-kicker,
+.material-gallery-header .color-kicker {
+    color: var(--am-navy) !important;
+}
+
+.palette-builder {
+    background: var(--am-navy) !important;
+    color: #fff !important;
+}
+
+.palette-builder .color-kicker,
+.palette-builder-heading .color-kicker,
+.palette-builder-heading h2,
+.palette-builder-heading h2 em,
+.palette-builder-heading>p {
+    color: #fff !important;
+}
+
+@media(max-width:768px) {
+    .color-room-stage {
+        height: 560px !important;
+        min-height: 560px;
     }
 }

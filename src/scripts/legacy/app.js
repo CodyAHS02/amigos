@@ -25,6 +25,31 @@ const wallState = {
 };
 
 let highlightedWall = null;
+let selectedPaintFinish = "matte";
+
+const paintFinishLabels = {
+    matte: "Matte",
+    satin: "Satin",
+    textured: "Textured"
+};
+
+const paintFinishSettings = {
+    matte: {
+        shadingPreserve: 0.52,
+        saturationLift: 0.95,
+        highlightSoftness: 0
+    },
+    satin: {
+        shadingPreserve: 0.78,
+        saturationLift: 0.98,
+        highlightSoftness: 0.075
+    },
+    textured: {
+        shadingPreserve: 0.68,
+        saturationLift: 0.92,
+        highlightSoftness: 0.025
+    }
+};
 
 async function loadImage(src) {
 
@@ -247,6 +272,36 @@ function clamp01(n) {
     return Math.max(0, Math.min(1, n));
 }
 
+function pseudoRandom(x, y) {
+    const noise = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+    return noise - Math.floor(noise);
+}
+
+function getFinishLightnessOffset(finish, x, y) {
+
+    if (finish === "satin") {
+
+        const diagonal = (x / canvas.width) * 1.35 + (y / canvas.height) * 0.85;
+        const sheen = Math.max(0, 1 - Math.abs(diagonal - 1.05) / 0.22);
+
+        return Math.pow(sheen, 2) * paintFinishSettings.satin.highlightSoftness;
+
+    }
+
+    if (finish === "textured") {
+
+        const fineGrain = Math.sin(x * 0.85 + y * 1.15) * 0.012;
+        const broadGrain = Math.sin(x * 0.12 - y * 0.18) * 0.016;
+        const stipple = (pseudoRandom(x, y) - 0.5) * 0.034;
+
+        return fineGrain + broadGrain + stipple;
+
+    }
+
+    return 0;
+
+}
+
 const maskBaseLightness = {};
 
 function computeMaskBaseLightness() {
@@ -291,6 +346,12 @@ function paintMaskOnly(maskName, color) {
     const maskPixels = maskCache[maskName];
 
     const target = hexToRgb(color);
+    const targetHsl = rgbToHsl(
+        target.r,
+        target.g,
+        target.b
+    );
+    const finish = paintFinishSettings[selectedPaintFinish] || paintFinishSettings.matte;
 
     for (let i = 0; i < pixels.length; i += 4) {
 
@@ -303,22 +364,24 @@ function paintMaskOnly(maskName, color) {
 
         const hsl = rgbToHsl(r, g, b);
 
-        const targetHsl = rgbToHsl(
-            target.r,
-            target.g,
-            target.b
-        );
-
         hsl.h = targetHsl.h;
 
         hsl.s =
             hsl.s * .35 +
             targetHsl.s * .65;
+        hsl.s *= finish.saturationLift;
 
         const baseL = maskBaseLightness[maskName] ?? 0.5;
-        const shadingPreserve = 0.65; // higher = more of the wall's natural shadow/highlight texture kept
 
-        hsl.l = clamp01(targetHsl.l + (hsl.l - baseL) * shadingPreserve);
+        const pixelIndex = i / 4;
+        const x = pixelIndex % canvas.width;
+        const y = Math.floor(pixelIndex / canvas.width);
+
+        hsl.l = clamp01(
+            targetHsl.l +
+            (hsl.l - baseL) * finish.shadingPreserve +
+            getFinishLightnessOffset(selectedPaintFinish, x, y)
+        );
 
         const rgb = hslToRgb(
             hsl.h,
@@ -349,6 +412,54 @@ function paintWall(maskName, color) {
 }
 
 const paintIcons = document.querySelector(".paint-icons");
+
+function createPaintFinishPanel() {
+
+    if (!paintIcons || paintIcons.querySelector(".paint-finish-panel")) return;
+
+    const panel = document.createElement("div");
+    panel.className = "paint-finish-panel";
+    panel.setAttribute("aria-label", "Paint finish options");
+
+    panel.innerHTML = `
+        <span>Finish</span>
+        <div class="paint-finish-options">
+            ${Object.entries(paintFinishLabels).map(([finish, label]) => `
+                <button
+                    class="paint-finish-btn${finish === selectedPaintFinish ? " active" : ""}"
+                    type="button"
+                    data-finish="${finish}"
+                    aria-pressed="${finish === selectedPaintFinish ? "true" : "false"}"
+                >
+                    ${label}
+                </button>
+            `).join("")}
+        </div>
+    `;
+
+    panel.addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
+    panel.querySelectorAll(".paint-finish-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+            selectedPaintFinish = button.dataset.finish || "matte";
+
+            panel.querySelectorAll(".paint-finish-btn").forEach((item) => {
+                const isActive = item === button;
+                item.classList.toggle("active", isActive);
+                item.setAttribute("aria-pressed", isActive ? "true" : "false");
+            });
+
+            renderScene();
+        });
+    });
+
+    paintIcons.appendChild(panel);
+
+}
+
+createPaintFinishPanel();
 
 
 const points = document.querySelectorAll(".paint-point");

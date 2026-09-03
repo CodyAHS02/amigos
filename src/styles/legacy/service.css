@@ -29,6 +29,27 @@ body {
     --am-ink: #102238;
     --am-text: #5F5A50;
     --am-line: #DED2C0;
+    --am-shadow: 0 24px 65px rgba(7, 26, 51, .16);
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+@keyframes servicesLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 
@@ -1760,4 +1781,327 @@ RESPONSIVE
 
 
 
+}
+
+/* Final services page logo-theme cascade */
+.services-hero {
+    padding-top: 110px;
+}
+
+.hero-overlay {
+    background:
+        radial-gradient(circle at 18% 18%, rgba(199, 59, 142, .34), transparent 34%),
+        radial-gradient(circle at 78% 58%, rgba(246, 190, 16, .24), transparent 36%),
+        linear-gradient(90deg, rgba(7, 26, 51, .92), rgba(7, 26, 51, .42)) !important;
+}
+
+.eyebrow,
+.services-hero .eyebrow,
+.section-heading.dark span,
+.property-content span,
+.reviews-section .section-heading span {
+    color: var(--logo-yellow) !important;
+}
+
+.before-after-section .section-heading span,
+.services-overview .section-heading span,
+.colour-section .section-heading span,
+.process-section .section-heading span {
+    color: var(--am-navy) !important;
+}
+
+.primary-btn,
+.service-ticker,
+.ba-tag,
+.slider-divider,
+.divider-handle,
+.cta-buttons a:first-child,
+.property-content a {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: servicesLogoGradientShift 8s ease-in-out infinite;
+}
+
+.primary-btn *,
+.cta-buttons a:first-child *,
+.property-content a * {
+    color: #fff !important;
+}
+
+.primary-btn:hover,
+.cta-buttons a:first-child:hover,
+.property-content a:hover {
+    box-shadow: 0 24px 62px rgba(230, 36, 83, .28);
+}
+
+.secondary-btn,
+.cta-buttons a:last-child {
+    background: rgba(255, 255, 255, .3) !important;
+    border: 1px solid rgba(246, 190, 16, .72) !important;
+    color: #fff !important;
+}
+
+.secondary-btn:hover,
+.cta-buttons a:last-child:hover {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: servicesLogoGradientShift 8s ease-in-out infinite;
+}
+
+.before-after-section,
+.services-overview,
+.colour-section,
+.process-section,
+.reviews-section {
+    background:
+        radial-gradient(circle at 86% 12%, rgba(230, 36, 83, .12), transparent 32%),
+        radial-gradient(circle at 16% 78%, rgba(246, 190, 16, .14), transparent 34%),
+        var(--am-cream) !important;
+}
+
+.why-section,
+.final-cta {
+    background:
+        linear-gradient(90deg, rgba(7, 26, 51, .92), rgba(7, 26, 51, .76)),
+        var(--logo-gradient-moving) !important;
+    background-size: auto, 280% 280% !important;
+    animation: servicesLogoGradientShift 9s ease-in-out infinite;
+}
+
+.service-card,
+.process-card,
+.why-card,
+.review-card,
+.colour-sample {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .42s ease,
+        border-color .42s ease,
+        color .35s ease;
+}
+
+.service-card::before,
+.process-card::before,
+.why-card::before,
+.review-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: opacity .45s ease;
+    animation: servicesLogoGradientShift 9s ease-in-out infinite;
+}
+
+.service-card:nth-child(3n + 1)::before,
+.process-card:nth-child(3n + 1)::before,
+.why-card:nth-child(3n + 1)::before,
+.review-card:nth-child(3n + 1)::before {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.service-card:nth-child(3n + 2)::before,
+.process-card:nth-child(3n + 2)::before,
+.why-card:nth-child(3n + 2)::before,
+.review-card:nth-child(3n + 2)::before {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.service-card:nth-child(3n)::before,
+.process-card:nth-child(3n)::before,
+.why-card:nth-child(3n)::before,
+.review-card:nth-child(3n)::before {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.service-card>*,
+.process-card>*,
+.why-card>*,
+.review-card>* {
+    position: relative;
+    z-index: 1;
+    transition: color .35s ease;
+}
+
+.service-card:hover::before,
+.process-card:hover::before,
+.why-card:hover::before,
+.review-card:hover::before {
+    opacity: 1;
+}
+
+.service-card:hover,
+.process-card:hover,
+.why-card:hover,
+.review-card:hover {
+    border-color: transparent !important;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .18);
+}
+
+.service-card:hover *,
+.process-card:hover *,
+.why-card:hover *,
+.review-card:hover * {
+    color: #fff !important;
+}
+
+.service-card .number,
+.process-card span,
+.why-card .icon,
+.stars,
+.review-card span {
+    color: var(--logo-yellow) !important;
+}
+
+.service-card .number {
+    color: var(--logo-pink) !important;
+}
+
+.service-card:not(:hover) .service-content h3,
+.service-card:not(:hover) .service-content h4,
+.service-card:not(:hover) .service-content p {
+    color: var(--am-navy) !important;
+}
+
+.service-card:hover .number,
+.process-card:hover span,
+.why-card:hover .icon,
+.review-card:hover .stars,
+.review-card:hover span {
+    color: #fff !important;
+}
+
+.service-content a {
+    color: var(--logo-pink) !important;
+}
+
+.service-card:hover .service-content a {
+    color: #fff !important;
+}
+
+.reviews-section .text-link {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    animation: servicesLogoGradientShift 8s ease-in-out infinite;
+}
+
+.colour-sample {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    animation: servicesLogoGradientShift 9s ease-in-out infinite;
+}
+
+.colour-sample:nth-child(1),
+.colour-sample:nth-child(4) {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink)) !important;
+}
+
+.colour-sample:nth-child(2),
+.colour-sample:nth-child(5) {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta)) !important;
+}
+
+.colour-sample:nth-child(3) {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow)) !important;
+}
+
+.property-care:after {
+    background:
+        radial-gradient(circle at 80% 18%, rgba(230, 36, 83, .28), transparent 32%),
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .42)) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primary-btn,
+    .secondary-btn:hover,
+    .service-ticker,
+    .ba-tag,
+    .slider-divider,
+    .divider-handle,
+    .cta-buttons a:first-child,
+    .cta-buttons a:last-child:hover,
+    .property-content a,
+    .why-section,
+    .final-cta,
+    .service-card::before,
+    .process-card::before,
+    .why-card::before,
+    .review-card::before,
+    .colour-sample {
+        animation: none !important;
+    }
+}
+
+/* Services page requested corrections */
+.services-hero {
+    background: var(--am-navy) !important;
+    isolation: isolate;
+}
+
+.services-hero .hero-image {
+    z-index: 0 !important;
+}
+
+.services-hero .hero-overlay {
+    z-index: 1 !important;
+}
+
+.services-hero .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+body:has(.services-hero) .site-header.is-scrolled,
+.site-header.is-scrolled {
+    background: rgba(7, 26, 51, .94) !important;
+}
+
+.services-overview,
+.reviews-section {
+    background: var(--am-navy) !important;
+    color: #fff !important;
+}
+
+.services-overview .section-heading h2,
+.services-overview .section-heading p,
+.reviews-section .section-heading h2,
+.reviews-section .section-heading p {
+    color: #fff !important;
+}
+
+.services-overview .section-heading span,
+.reviews-section .section-heading span {
+    color: var(--logo-yellow) !important;
+}
+
+.final-cta {
+    background:
+        radial-gradient(circle at 52% 42%, rgba(246, 190, 16, .18), transparent 31%),
+        radial-gradient(circle at 62% 56%, rgba(230, 36, 83, .24), transparent 35%),
+        linear-gradient(90deg, rgba(7, 26, 51, .94), rgba(7, 26, 51, .76)),
+        var(--logo-gradient-moving) !important;
+    background-size: auto, auto, auto, 300% 300% !important;
+}
+
+.final-cta h2,
+.final-cta p,
+.final-cta * {
+    color: #fff !important;
+}
+
+.final-cta .cta-buttons a:last-child {
+    border-color: rgba(255, 255, 255, .86) !important;
+    color: #fff !important;
+    background: rgba(255, 255, 255, .08) !important;
 }

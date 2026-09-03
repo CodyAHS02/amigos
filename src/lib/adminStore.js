@@ -52,6 +52,19 @@ function formatScheduledDateTime(value) {
   }).format(value);
 }
 
+function formatEstimateRange(project) {
+  const min = Number(project.estimatedMinCents || 0);
+  const max = Number(project.estimatedMaxCents || project.estimatedValueCents || 0);
+
+  if (!min && !max) return "Not estimated";
+
+  const formatter = new Intl.NumberFormat("de-CH");
+
+  if (!min || min === max) return `${project.currency || "CHF"} ${formatter.format(Math.round(max / 100))}.–`;
+
+  return `${project.currency || "CHF"} ${formatter.format(Math.round(min / 100))}.– – ${formatter.format(Math.round(max / 100))}.–`;
+}
+
 export async function authenticateAdmin(email, password) {
   const normalizedEmail = normalizeEmail(email);
   const [admin] = await sql`
@@ -206,13 +219,22 @@ export async function getAdminCrmData() {
   const projects = await sql`
     select projects.id, projects.title, projects.service, projects.stage, projects.priority,
       projects.estimated_value_cents as "estimatedValueCents", projects.currency,
+      projects.estimated_min_cents as "estimatedMinCents", projects.estimated_max_cents as "estimatedMaxCents",
+      projects.source, projects.workflow,
       projects.created_at as "createdAt",
       coalesce(customers.name, consultations.name) as "customerName",
       coalesce(customers.email, consultations.email) as email,
-      consultations.message
+      consultations.message,
+      coalesce(photo_counts.photos, 0)::int as "photoCount"
     from projects
     left join customers on customers.id = projects.customer_id
     left join consultations on consultations.id = projects.consultation_id
+    left join offer_calculator_sessions on offer_calculator_sessions.project_id = projects.id
+    left join (
+      select session_id, count(*)::int as photos
+      from offer_calculator_photos
+      group by session_id
+    ) photo_counts on photo_counts.session_id = offer_calculator_sessions.id
     order by projects.created_at desc
   `;
   const tasks = await sql`
@@ -236,6 +258,7 @@ export async function getAdminCrmData() {
     projects: projects.map((project) => ({
       ...project,
       stageLabel: readableStatus(project.stage),
+      estimateRange: formatEstimateRange(project),
       created: formatDate(project.createdAt)
     })),
     tasks: tasks.map((task) => ({

@@ -18,7 +18,7 @@ export default function AdminShell({ activePath, admin, children, eyebrow, title
       <aside className={styles.sidebar}>
         <div className={styles.sidebarTop}>
           <Link className={styles.brand} href="/admin/dashboard">
-            <img src="/assets/logo.png" alt="Amigos Maler" />
+            <img src="/New-Logo.png" alt="Amigos Maler" />
             <span>Amigos Admin</span>
           </Link>
         </div>

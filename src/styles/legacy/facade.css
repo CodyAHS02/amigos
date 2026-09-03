@@ -28,6 +28,30 @@ body {
     --am-ink: #102238;
     --am-text: #5F5A50;
     --am-line: #DED2C0;
+    --facade-line: rgba(7, 26, 51, .16);
+    --facade-muted: #5F5A50;
+    --facade-gold-light: #f6be10;
+    --facade-shadow: 0 24px 65px rgba(7, 26, 51, .16);
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+@keyframes facadeLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 img {
@@ -820,6 +844,25 @@ a {
 
 .timeline-content {
     padding-top: 3px;
+    position: relative;
+}
+
+.timeline-content::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -14px;
+    width: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: width .45s cubic-bezier(.22, 1, .36, 1);
+    animation: facadeLogoGradientShift 8s ease-in-out infinite;
+}
+
+.timeline-step:hover .timeline-content::after {
+    width: min(420px, 100%);
 }
 
 .timeline-content>span {
@@ -1680,5 +1723,346 @@ a {
 
     .footer-main {
         grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   LOGO COLOR THEME OVERRIDES
+========================================= */
+
+.facade-hero-shade {
+    background:
+        radial-gradient(circle at 18% 18%, rgba(199, 59, 142, .36), transparent 34%),
+        radial-gradient(circle at 74% 58%, rgba(243, 145, 37, .28), transparent 36%),
+        linear-gradient(90deg, rgba(7, 26, 51, .94) 0%, rgba(7, 26, 51, .7) 48%, rgba(7, 26, 51, .24) 100%);
+}
+
+.section-kicker,
+.facade-hero-kicker,
+.facade-hero-side-note span:first-child,
+.facade-card-info>span,
+.facade-card-info a,
+.quality-content h2 span,
+.process-intro h2 span,
+.pd-content span,
+.benefit-card>span,
+.value-stat strong,
+.cta-content h2 span,
+.footer-brand>span,
+.footer-column>span,
+.footer-column a:hover,
+.svc-eyebrow-tag,
+.section-heading span {
+    color: var(--logo-yellow) !important;
+}
+
+.facade-intro .section-kicker,
+.timeline-content>span,
+.benefits-heading .section-kicker {
+    color: var(--am-navy) !important;
+}
+
+.facade-intro-content h2 em,
+.hero-accent {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    animation: facadeLogoGradientShift 8s ease-in-out infinite;
+}
+
+.facade-btn-primary,
+.facade-btn-light,
+.slider-divider,
+.divider-handle,
+.ba-tag,
+.timeline-progress,
+.timeline-step:hover .timeline-marker,
+.pd-panel:hover .pd-arrow,
+.benefit-card:hover .benefit-icon {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: facadeLogoGradientShift 8s ease-in-out infinite;
+}
+
+.facade-btn-primary,
+.facade-btn-primary *,
+.facade-btn-light:hover,
+.facade-btn-light:hover * {
+    color: #fff !important;
+}
+
+.facade-btn-primary:hover,
+.facade-btn-light:hover {
+    box-shadow: 0 24px 62px rgba(230, 36, 83, .3);
+}
+
+.facade-btn-outline {
+    border-color: rgba(246, 190, 16, .62) !important;
+    background: rgba(255, 255, 255, .1);
+    color: #fff !important;
+    backdrop-filter: blur(10px);
+}
+
+.facade-btn-outline:hover {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: facadeLogoGradientShift 8s ease-in-out infinite;
+}
+
+.facade-intro-image-wrap:before,
+.facade-hero-scroll i,
+.facade-hero-scroll i:after,
+.timeline-marker {
+    border-color: var(--logo-pink) !important;
+}
+
+.facade-intro-image-wrap:before,
+.timeline-marker {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    animation: facadeLogoGradientShift 8s ease-in-out infinite;
+}
+
+.facade-work-card,
+.facade-intro-points>div,
+.quality-point,
+.pd-panel,
+.benefit-card,
+.value-stat {
+    position: relative;
+    overflow: hidden;
+}
+
+.facade-work-card::before,
+.facade-intro-points>div::before,
+.quality-point::before,
+.pd-panel::after,
+.benefit-card::before,
+.value-stat::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: opacity .45s ease;
+    animation: facadeLogoGradientShift 9s ease-in-out infinite;
+}
+
+.facade-work-card:nth-child(3n + 1)::before,
+.facade-intro-points>div:nth-child(3n + 1)::before,
+.quality-point:nth-child(3n + 1)::before,
+.pd-panel:nth-child(3n + 1)::after,
+.benefit-card:nth-child(3n + 1)::before,
+.value-stat:nth-of-type(3n + 1)::before {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.facade-work-card:nth-child(3n + 2)::before,
+.facade-intro-points>div:nth-child(3n + 2)::before,
+.quality-point:nth-child(3n + 2)::before,
+.pd-panel:nth-child(3n + 2)::after,
+.benefit-card:nth-child(3n + 2)::before,
+.value-stat:nth-of-type(3n + 2)::before {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.facade-work-card:nth-child(3n)::before,
+.facade-intro-points>div:nth-child(3n)::before,
+.quality-point:nth-child(3n)::before,
+.pd-panel:nth-child(3n)::after,
+.benefit-card:nth-child(3n)::before,
+.value-stat:nth-of-type(3n)::before {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.facade-work-card>*,
+.facade-intro-points>div>*,
+.quality-point>*,
+.pd-panel>*,
+.benefit-card>*,
+.value-stat>* {
+    position: relative;
+    z-index: 1;
+    transition: color .35s ease;
+}
+
+.facade-work-card,
+.facade-intro-points>div,
+.quality-point,
+.benefit-card,
+.value-stat {
+    transition:
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .42s ease,
+        border-color .42s ease,
+        color .35s ease;
+}
+
+.facade-work-card:hover::before,
+.facade-intro-points>div:hover::before,
+.quality-point:hover::before,
+.pd-panel:hover::after,
+.benefit-card:hover::before,
+.value-stat:hover::before {
+    opacity: 1;
+}
+
+.facade-work-card:hover,
+.facade-intro-points>div:hover,
+.quality-point:hover,
+.benefit-card:hover,
+.value-stat:hover {
+    border-color: transparent !important;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .18);
+}
+
+.facade-work-card:hover *,
+.facade-intro-points>div:hover *,
+.quality-point:hover *,
+.pd-panel:hover *,
+.benefit-card:hover *,
+.value-stat:hover * {
+    color: #fff !important;
+}
+
+.benefit-card {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    border-color: transparent;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .15);
+    animation: facadeLogoGradientShift 9s ease-in-out infinite;
+}
+
+.benefit-card:nth-child(3n + 1) {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.benefit-card:nth-child(3n + 2) {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.benefit-card:nth-child(3n) {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.benefit-card *,
+.benefit-card>span,
+.benefit-card h3,
+.benefit-card p,
+.benefit-icon {
+    color: #fff !important;
+}
+
+.facade-work,
+.facade-quality,
+.facade-final-cta,
+.facade-footer {
+    background:
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .74)),
+        var(--logo-gradient-moving) !important;
+    background-size: auto, 280% 280% !important;
+    animation: facadeLogoGradientShift 9s ease-in-out infinite;
+}
+
+.facade-process,
+.facade-benefits,
+.before-after-section,
+.facade-intro {
+    background:
+        radial-gradient(circle at 86% 12%, rgba(230, 36, 83, .12), transparent 32%),
+        radial-gradient(circle at 16% 78%, rgba(246, 190, 16, .14), transparent 34%),
+        var(--am-cream) !important;
+}
+
+.value-overlay,
+.pd-overlay {
+    background:
+        radial-gradient(circle at 80% 18%, rgba(230, 36, 83, .26), transparent 32%),
+        linear-gradient(90deg, rgba(7, 26, 51, .86), rgba(7, 26, 51, .34)) !important;
+}
+
+.cta-orbit,
+.cta-orbit:before,
+.cta-orbit:after {
+    border-color: rgba(230, 36, 83, .24) !important;
+}
+
+.benefits-heading h2,
+.benefits-heading h2 span {
+    color: var(--am-navy) !important;
+}
+
+.benefit-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.benefit-card .benefit-icon {
+    position: static;
+    margin-top: 42px;
+    margin-bottom: 72px;
+}
+
+.benefit-card h3 {
+    margin-top: auto;
+}
+
+.benefit-card:hover {
+    background: #fff !important;
+    color: var(--am-navy) !important;
+}
+
+.benefit-card:hover::before {
+    opacity: 0 !important;
+}
+
+.benefit-card:hover *,
+.benefit-card:hover>span,
+.benefit-card:hover h3,
+.benefit-card:hover p,
+.benefit-card:hover .benefit-icon {
+    color: var(--am-navy) !important;
+}
+
+.benefit-card:hover .benefit-icon {
+    background: #fff !important;
+    border-color: rgba(7, 26, 51, .22) !important;
+    transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .facade-intro-content h2 em,
+    .hero-accent,
+    .facade-btn-primary,
+    .facade-btn-light,
+    .facade-btn-outline:hover,
+    .slider-divider,
+    .divider-handle,
+    .ba-tag,
+    .timeline-progress,
+    .timeline-marker,
+    .pd-panel:hover .pd-arrow,
+    .benefit-card,
+    .benefit-card::before,
+    .facade-work-card::before,
+    .facade-intro-points>div::before,
+    .quality-point::before,
+    .timeline-content::before,
+    .pd-panel::after,
+    .value-stat::before,
+    .facade-work,
+    .facade-quality,
+    .facade-final-cta,
+    .facade-footer {
+        animation: none !important;
     }
 }

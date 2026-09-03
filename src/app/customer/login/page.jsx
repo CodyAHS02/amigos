@@ -17,7 +17,7 @@ export default async function CustomerLoginPage({ searchParams }) {
   return (
     <main className={styles.loginPage}>
       <section className={styles.loginCard}>
-        <img src="/assets/logo.png" alt="Amigos Maler" />
+        <img src="/New-Logo.png" alt="Amigos Maler" />
         <h1>Customer Login</h1>
         <p>Access your project dashboard, invoices, and upcoming appointments.</p>
         <LoginForm nextPath={nextPath} />

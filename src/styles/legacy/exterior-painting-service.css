@@ -33,6 +33,26 @@ body {
     --am-ink: #102238;
     --am-text: #5F5A50;
     --am-line: #DED2C0;
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+@keyframes exteriorLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 a {
@@ -359,6 +379,12 @@ a {
 .svc-intro-point span {
     color: var(--am-ochre);
     font-weight: 700;
+}
+
+.svc-intro-point p {
+    margin: 0;
+    color: var(--am-text);
+    line-height: 1.55;
 }
 
 
@@ -999,4 +1025,293 @@ a {
         flex-direction: column;
     }
 
+}
+
+/* =========================================
+   LOGO COLOR THEME OVERRIDES
+========================================= */
+
+.svc-hero-overlay {
+    background:
+        radial-gradient(circle at 18% 18%, rgba(199, 59, 142, .34), transparent 34%),
+        radial-gradient(circle at 72% 58%, rgba(243, 145, 37, .28), transparent 35%),
+        linear-gradient(90deg, rgba(7, 26, 51, .9) 0%, rgba(7, 26, 51, .68) 52%, rgba(7, 26, 51, .28) 100%);
+}
+
+.svc-hero-eyebrow,
+.svc-eyebrow-tag,
+.section-heading span,
+.value-content span,
+.cta-content span,
+.light span {
+    color: var(--logo-yellow) !important;
+}
+
+.svc-hero h1,
+.section-heading h2,
+.svc-intro-content h2,
+.value-content h2,
+.cta-content h2 {
+    text-wrap: balance;
+}
+
+.svc-btn-primary {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    color: #fff;
+    border: 0;
+    box-shadow: 0 18px 45px rgba(230, 36, 83, .24);
+    animation: exteriorLogoGradientShift 8s ease-in-out infinite;
+}
+
+.svc-btn-primary:hover {
+    color: #fff;
+    box-shadow: 0 24px 62px rgba(230, 36, 83, .34);
+}
+
+.svc-btn-secondary {
+    border-color: rgba(246, 190, 16, .55);
+    background: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(10px);
+}
+
+.svc-btn-secondary:hover {
+    border-color: transparent;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    color: #fff;
+    animation: exteriorLogoGradientShift 8s ease-in-out infinite;
+}
+
+.svc-marquee-wrap,
+.navy-section,
+.final-cta {
+    background:
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .72)),
+        var(--logo-gradient-moving);
+    background-size: auto, 280% 280%;
+    animation: exteriorLogoGradientShift 9s ease-in-out infinite;
+}
+
+.svc-marquee-track span {
+    color: rgba(255, 255, 255, .78);
+}
+
+.svc-intro-point {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(230, 36, 83, .12);
+    transition: transform .35s ease, box-shadow .35s ease, color .35s ease;
+}
+
+.svc-intro-point::before,
+.service-card::before,
+.process-card::before,
+.material-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: opacity .45s ease;
+    animation: exteriorLogoGradientShift 9s ease-in-out infinite;
+}
+
+.svc-intro-point>*,
+.service-card>*,
+.process-card>*,
+.material-card>* {
+    position: relative;
+    z-index: 1;
+}
+
+.svc-intro-point:hover,
+.service-card:hover,
+.process-card:hover,
+.material-card:hover {
+    border-color: transparent;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .18);
+}
+
+.svc-intro-point:hover::before,
+.service-card:hover::before,
+.process-card:hover::before,
+.material-card:hover::before {
+    opacity: 1;
+}
+
+.svc-intro-point:nth-child(3n + 1)::before,
+.service-card:nth-child(3n + 1)::before,
+.process-card:nth-child(3n + 1)::before,
+.material-card:nth-child(3n + 1)::before {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.svc-intro-point:nth-child(3n + 2)::before,
+.service-card:nth-child(3n + 2)::before,
+.process-card:nth-child(3n + 2)::before,
+.material-card:nth-child(3n + 2)::before {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.svc-intro-point:nth-child(3n)::before,
+.service-card:nth-child(3n)::before,
+.process-card:nth-child(3n)::before,
+.material-card:nth-child(3n)::before {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.svc-intro-point span,
+.service-number,
+.process-card span,
+.benefit-card span {
+    color: var(--logo-orange) !important;
+}
+
+.svc-intro-point,
+.service-card,
+.process-card,
+.material-card {
+    position: relative;
+    transition:
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .42s ease,
+        border-color .42s ease;
+}
+
+.svc-intro-point,
+.svc-intro-point span,
+.service-card h3,
+.service-card p,
+.service-card a,
+.service-number,
+.process-card span,
+.process-card h3,
+.process-card p,
+.material-card h3,
+.material-card p {
+    transition: color .35s ease;
+}
+
+.svc-intro-point:hover,
+.svc-intro-point:hover span,
+.svc-intro-point:hover *,
+.service-card:hover h3,
+.service-card:hover p,
+.service-card:hover a,
+.service-card:hover .service-number,
+.service-card:hover *,
+.process-card:hover span,
+.process-card:hover h3,
+.process-card:hover p,
+.process-card:hover *,
+.material-card:hover h3,
+.material-card:hover p,
+.material-card:hover * {
+    color: #fff !important;
+}
+
+.svc-intro-point:hover svg,
+.service-card:hover svg,
+.process-card:hover svg,
+.material-card:hover svg {
+    color: #fff !important;
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+.svc-intro-point:hover {
+    color: #fff !important;
+}
+
+.svc-intro-point:hover span {
+    color: #fff !important;
+}
+
+.benefit-card {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    border-color: transparent;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .16);
+    animation: exteriorLogoGradientShift 9s ease-in-out infinite;
+}
+
+.benefit-card:nth-child(3n + 1) {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.benefit-card:nth-child(3n + 2) {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.benefit-card:nth-child(3n) {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.benefit-card span,
+.benefit-card h3,
+.benefit-card p {
+    color: #fff !important;
+}
+
+.slider-divider,
+.divider-handle,
+.ba-tag,
+.material-swatch {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    color: #fff;
+    animation: exteriorLogoGradientShift 8s ease-in-out infinite;
+}
+
+.material-swatch.mineral {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange));
+}
+
+.material-swatch.weather {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink));
+}
+
+.material-swatch.protective {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink));
+}
+
+.material-swatch.wood {
+    background-image: linear-gradient(135deg, var(--logo-pink), var(--logo-orange), var(--logo-yellow));
+}
+
+.value-section {
+    background:
+        radial-gradient(circle at 85% 15%, rgba(230, 36, 83, .12), transparent 32%),
+        radial-gradient(circle at 42% 86%, rgba(246, 190, 16, .14), transparent 34%),
+        var(--am-cream);
+}
+
+.value-content .svc-btn-primary {
+    color: #fff;
+}
+
+.footer-links a:hover {
+    color: var(--logo-yellow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .svc-btn-primary,
+    .svc-btn-secondary:hover,
+    .svc-marquee-wrap,
+    .navy-section,
+    .final-cta,
+    .svc-intro-point::before,
+    .service-card::before,
+    .process-card::before,
+    .material-card::before,
+    .benefit-card,
+    .slider-divider,
+    .divider-handle,
+    .ba-tag,
+    .material-swatch {
+        animation: none !important;
+    }
 }

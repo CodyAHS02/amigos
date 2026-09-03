@@ -17,6 +17,35 @@ Open `http://localhost:3000`.
 npm run build
 ```
 
+## Deploy
+
+This app is ready for Vercel or any Node host that can run Next.js 16.
+
+For Vercel:
+
+1. Import the repository.
+2. Use the default framework preset: Next.js.
+3. Build command: `npm run build`.
+4. Install command: `npm install`.
+5. Add the production environment variables from `.env.example`.
+6. Run the SQL migrations against the production database with `npm run db:push`.
+
+Required production variables:
+
+- `DATABASE_URL`
+- `CUSTOMER_PORTAL_SESSION_SECRET`
+- `SESSION_SECRET`
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+
+Optional production variables:
+
+- `STRIPE_SECRET_KEY`, `STRIPE_SUCCESS_URL`, `STRIPE_CANCEL_URL` for invoice payments.
+- `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_TEMPLATE_NAME` for appointment notifications.
+- `RESEND_API_KEY`, `OFFER_EMAIL_FROM` for offer calculator verification emails.
+- `NEXT_PUBLIC_WHATSAPP_NUMBER` for the floating WhatsApp button.
+- `NEXT_PUBLIC_LIVE_CHAT_ENABLED=true` to enable the public chat widget.
+
 ## Project Structure
 
 - `src/app` contains the page routes.

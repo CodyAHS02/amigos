@@ -11,7 +11,8 @@ const legacyPages = [
   "spray-painting",
   "color-and-material",
   "projects",
-  "property-value-preservation"
+  "property-value-preservation",
+  "partners"
 ];
 
 /** @type {import('next').NextConfig} */
@@ -31,6 +32,13 @@ const nextConfig = {
     return [
       {
         source: "/customer/:path*",
+        headers: [
+          { key: "Cache-Control", value: "no-store" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" }
+        ]
+      },
+      {
+        source: "/admin/:path*",
         headers: [
           { key: "Cache-Control", value: "no-store" },
           { key: "X-Robots-Tag", value: "noindex, nofollow" }

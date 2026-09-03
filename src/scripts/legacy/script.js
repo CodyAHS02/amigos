@@ -518,7 +518,8 @@ const SERVICES_DATA = [
     { num: "03", title: "Facades", desc: "Restore beauty while preserving architectural value.", img: "assets/services/pexels-dmitry93-32114413.jpg" },
     { num: "04", title: "Apartment Renovation", desc: "Get properties ready for sale or new tenants.", img: "assets/services/pexels-tr-n-chinh-587690133-20666871.jpg" },
     { num: "05", title: "Property Value Preservation", desc: "Protect and increase long-term property value.", img: "assets/services/pexels-amine-kubranur-cakiroglu-689611212-37919681.jpg" },
-    { num: "06", title: "Digital Project Planning", desc: "Plan and visualize your project before work begins.", img: "assets/services/engineers-brainstorming-ways-use-ai.jpg", tags: ["Price Calculator", "Photo Upload", "Color Visualization"] }
+    { num: "06", title: "Spray Painting", desc: "Smooth spray finishes for doors, frames, shutters and suitable components.", img: "assets/spray/Hero.png" },
+    { num: "07", title: "Digital Project Planning", desc: "Plan and visualize your project before work begins.", img: "assets/services/engineers-brainstorming-ways-use-ai.jpg", tags: ["Price Calculator", "Photo Upload", "Color Visualization"] }
 ];
 
 (() => {

@@ -6,9 +6,12 @@ import styles from "@/components/WhatsAppFloat.module.css";
 export default function WhatsAppFloat() {
   const pathname = usePathname();
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "41790000000";
-  const isPortalPage = pathname.startsWith("/admin") || pathname.startsWith("/customer");
+  const isHiddenPage =
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/customer") ||
+    pathname?.startsWith("/offer-calculator");
 
-  if (isPortalPage || !whatsappNumber) return null;
+  if (isHiddenPage || !whatsappNumber) return null;
 
   return (
     <a

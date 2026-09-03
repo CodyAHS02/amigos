@@ -28,6 +28,26 @@ body {
     --am-ink: #102238;
     --am-text: #5F5A50;
     --am-line: #DED2C0;
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+@keyframes drywallLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 img {
@@ -1118,5 +1138,306 @@ a {
 
     .footer-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   LOGO COLOR THEME OVERRIDES
+========================================= */
+
+.hero-grid-overlay {
+    background:
+        radial-gradient(circle at 18% 18%, rgba(199, 59, 142, .36), transparent 34%),
+        radial-gradient(circle at 74% 58%, rgba(243, 145, 37, .28), transparent 36%),
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .46)),
+        linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
+    background-size: auto, auto, auto, 80px 80px, 80px 80px;
+}
+
+.hero-label,
+.section-label,
+.card-content span,
+.transform-content span,
+.application-content .section-label,
+.step-content span,
+.flow-content span,
+.benefit-card span,
+.property-points span,
+.footer-column a:hover {
+    color: var(--logo-yellow) !important;
+}
+
+.primary-btn,
+.timeline-line:after,
+.slider-handle,
+.handle-line,
+.handle-button,
+.before-image span,
+.after-image span,
+.carousel-btn:hover {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: drywallLogoGradientShift 8s ease-in-out infinite;
+}
+
+.primary-btn:hover {
+    color: #fff !important;
+    box-shadow: 0 24px 62px rgba(230, 36, 83, .3);
+}
+
+.secondary-btn {
+    border-color: rgba(246, 190, 16, .62) !important;
+    background: rgba(255, 255, 255, .1);
+    color: #fff !important;
+    backdrop-filter: blur(10px);
+}
+
+.secondary-btn:hover {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: drywallLogoGradientShift 8s ease-in-out infinite;
+}
+
+.hero-details .detail-item,
+.intro-points div,
+.creation-card,
+.transform-card,
+.application-item,
+.step-content,
+.flow-item,
+.benefit-card,
+.property-points div {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .42s ease,
+        border-color .42s ease,
+        color .35s ease;
+}
+
+.hero-details .detail-item::before,
+.intro-points div::before,
+.creation-card::before,
+.transform-card::before,
+.application-item::before,
+.step-content::before,
+.flow-item::before,
+.benefit-card::before,
+.property-points div::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: opacity .45s ease;
+    animation: drywallLogoGradientShift 9s ease-in-out infinite;
+}
+
+.hero-details .detail-item:nth-child(3n + 1)::before,
+.intro-points div:nth-child(3n + 1)::before,
+.creation-card:nth-child(3n + 1)::before,
+.transform-card:nth-child(3n + 1)::before,
+.application-item:nth-child(3n + 1)::before,
+.process-step:nth-child(3n + 1) .step-content::before,
+.flow-item:nth-child(3n + 1)::before,
+.benefit-card:nth-child(3n + 1)::before,
+.property-points div:nth-child(3n + 1)::before {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.hero-details .detail-item:nth-child(3n + 2)::before,
+.intro-points div:nth-child(3n + 2)::before,
+.creation-card:nth-child(3n + 2)::before,
+.transform-card:nth-child(3n + 2)::before,
+.application-item:nth-child(3n + 2)::before,
+.process-step:nth-child(3n + 2) .step-content::before,
+.flow-item:nth-child(3n + 2)::before,
+.benefit-card:nth-child(3n + 2)::before,
+.property-points div:nth-child(3n + 2)::before {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.hero-details .detail-item:nth-child(3n)::before,
+.intro-points div:nth-child(3n)::before,
+.creation-card:nth-child(3n)::before,
+.transform-card:nth-child(3n)::before,
+.application-item:nth-child(3n)::before,
+.process-step:nth-child(3n) .step-content::before,
+.flow-item:nth-child(3n)::before,
+.benefit-card:nth-child(3n)::before,
+.property-points div:nth-child(3n)::before {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.hero-details .detail-item>*,
+.intro-points div>*,
+.creation-card>*,
+.transform-card>*,
+.application-item>*,
+.step-content>*,
+.flow-item>*,
+.benefit-card>*,
+.property-points div>* {
+    position: relative;
+    z-index: 1;
+    transition: color .35s ease;
+}
+
+.hero-details .detail-item:hover,
+.intro-points div:hover,
+.creation-card:hover,
+.transform-card:hover,
+.application-item:hover,
+.step-content:hover,
+.flow-item:hover,
+.benefit-card:hover,
+.property-points div:hover {
+    border-color: transparent !important;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .18);
+}
+
+.hero-details .detail-item:hover::before,
+.intro-points div:hover::before,
+.creation-card:hover::before,
+.transform-card:hover::before,
+.application-item:hover::before,
+.step-content:hover::before,
+.flow-item:hover::before,
+.benefit-card:hover::before,
+.property-points div:hover::before {
+    opacity: 1;
+}
+
+.hero-details .detail-item:hover *,
+.intro-points div:hover *,
+.creation-card:hover *,
+.transform-card:hover *,
+.application-item:hover *,
+.step-content:hover *,
+.flow-item:hover *,
+.benefit-card:hover *,
+.property-points div:hover * {
+    color: #fff !important;
+}
+
+.benefit-card {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    border-color: transparent;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .15);
+    animation: drywallLogoGradientShift 9s ease-in-out infinite;
+}
+
+.benefit-card:nth-child(3n + 1) {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.benefit-card:nth-child(3n + 2) {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.benefit-card:nth-child(3n) {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.benefit-card *,
+.benefit-card span,
+.benefit-card h3,
+.benefit-card p {
+    color: #fff !important;
+}
+
+.drywall-applications,
+.final-cta,
+.site-footer {
+    background:
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .74)),
+        var(--logo-gradient-moving) !important;
+    background-size: auto, 280% 280% !important;
+    animation: drywallLogoGradientShift 9s ease-in-out infinite;
+}
+
+.why-amigos {
+    background: var(--am-navy) !important;
+}
+
+.why-amigos .section-heading h2 {
+    color: #fff !important;
+}
+
+.why-amigos .section-heading .section-label {
+    color: var(--logo-yellow) !important;
+}
+
+.creation-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 24px;
+}
+
+@media(max-width:1100px) {
+    .creation-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media(max-width:768px) {
+    .creation-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.space-transformation,
+.drywall-process,
+.structure-finish,
+.property-preservation {
+    background:
+        radial-gradient(circle at 86% 12%, rgba(230, 36, 83, .12), transparent 32%),
+        radial-gradient(circle at 16% 78%, rgba(246, 190, 16, .14), transparent 34%),
+        var(--am-cream);
+}
+
+.flow-arrow {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    animation: drywallLogoGradientShift 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primary-btn,
+    .secondary-btn:hover,
+    .timeline-line:after,
+    .slider-handle,
+    .handle-line,
+    .handle-button,
+    .before-image span,
+    .after-image span,
+    .carousel-btn:hover,
+    .hero-details .detail-item::before,
+    .intro-points div::before,
+    .creation-card::before,
+    .transform-card::before,
+    .application-item::before,
+    .step-content::before,
+    .flow-item::before,
+    .benefit-card,
+    .benefit-card::before,
+    .property-points div::before,
+    .drywall-applications,
+    .why-amigos,
+    .final-cta,
+    .site-footer,
+    .flow-arrow {
+        animation: none !important;
     }
 }

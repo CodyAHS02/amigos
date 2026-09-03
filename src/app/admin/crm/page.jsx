@@ -11,6 +11,14 @@ const stages = [
   { key: "COMPLETED", label: "Completed" }
 ];
 
+function readableList(value) {
+  return String(value || "")
+    .replaceAll("_", " ")
+    .replaceAll(",", ", ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export const metadata = {
   title: "CRM | Amigos Maler",
   robots: {
@@ -67,7 +75,10 @@ export default async function AdminCrmPage() {
               <th>Customer</th>
               <th>Service</th>
               <th>Stage</th>
+              <th>Workflow</th>
+              <th>Estimate</th>
               <th>Priority</th>
+              <th>Photos</th>
               <th>Request Detail</th>
               <th>Created</th>
             </tr>
@@ -75,18 +86,21 @@ export default async function AdminCrmPage() {
           <tbody>
             {projects.map((project) => (
               <tr key={project.id}>
-                <td>
+                <td className={styles.projectCell}>
                   <strong>{project.title}</strong>
                   <span>{project.email}</span>
                 </td>
-                <td>{project.customerName || "Unassigned lead"}</td>
-                <td>{project.service}</td>
+                <td className={styles.customerCell}>{project.customerName || "Unassigned lead"}</td>
+                <td className={styles.serviceCell}>{readableList(project.service)}</td>
                 <td>
                   <span className={styles.stagePill}>{project.stageLabel}</span>
                 </td>
-                <td>{project.priority}</td>
+                <td className={styles.workflowCell}>{project.workflow || "Review"}</td>
+                <td className={styles.estimateCell}>{project.estimateRange}</td>
+                <td className={styles.priorityCell}>{project.priority}</td>
+                <td className={styles.photoCell}>{project.photoCount}</td>
                 <td className={styles.messageCell}>{project.message || "No project notes yet."}</td>
-                <td>{project.created}</td>
+                <td className={styles.dateCell}>{project.created}</td>
               </tr>
             ))}
           </tbody>

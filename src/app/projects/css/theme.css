@@ -1,0 +1,819 @@
+/* AMIGOS IMMO — Theme system (Dark default / Light override)
+   Apple / Linear / Arc — inspired clean light palette with liquid glass.
+   Additive layer. Toggle by setting `data-theme="light"` on <html>.
+*/
+
+/* Smooth cross-fade between themes */
+html {
+  transition: background-color .6s var(--ease), color .6s var(--ease)
+}
+
+body,
+.glass,
+.svc-card-h,
+.flow-step,
+.tl-card,
+.aud,
+.eco-card,
+.plan,
+.stat,
+.calc-panel,
+.calc-out,
+.dropzone,
+.compare,
+.trust,
+.cta-banner,
+.mat-comp,
+.mat-item,
+.case,
+.dash-side,
+.dash-main,
+.job,
+.faq-item,
+.tile,
+.ba-btn,
+.toggle,
+.chip,
+.field select,
+.field input[type=text],
+.vs-stage,
+.vs-swatches,
+.ring-pop,
+.tl-img,
+.svc-icon,
+.flow-ic,
+.vs-up-icon,
+.warranty,
+.hero-overlay,
+.hero-spotlight,
+.site-header,
+.site-header.scrolled,
+.site-footer,
+.amb,
+.grain,
+.tl-dot,
+.tl-line,
+.tl-fill,
+.ba,
+.ba-viewport,
+.vs-badge {
+  transition: background-color .6s var(--ease), background .6s var(--ease), color .6s var(--ease), border-color .6s var(--ease), box-shadow .6s var(--ease), opacity .6s var(--ease), filter .6s var(--ease), backdrop-filter .6s var(--ease);
+}
+
+/* =========================================================
+   THEME-AWARE MEDIA (Hero + Final CTA crossfade)
+   ========================================================= */
+.hero-media .media-light,
+#final .media-light {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .8s var(--ease), filter .8s var(--ease);
+  filter: blur(8px);
+  pointer-events: none;
+  animation: kenburns 28s ease-in-out infinite alternate;
+}
+
+.hero-media .media-dark,
+#final .media-dark {
+  transition: opacity .8s var(--ease), filter .8s var(--ease)
+}
+
+html[data-theme="light"] .hero-media .media-dark,
+html[data-theme="light"] #final .media-dark {
+  opacity: 0;
+  filter: blur(8px)
+}
+
+html[data-theme="light"] .hero-media .media-light,
+html[data-theme="light"] #final .media-light {
+  opacity: 1;
+  filter: blur(0)
+}
+
+/* =========================================================
+   THEME TOGGLE BUTTON (sun / moon) in header
+   ========================================================= */
+.theme-toggle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(197, 160, 89, .06);
+  border: 1px solid var(--gold-soft);
+  color: var(--gold);
+  cursor: pointer;
+  margin-right: 14px;
+  transition: all .4s var(--ease);
+  overflow: hidden;
+}
+
+.theme-toggle:hover {
+  background: rgba(197, 160, 89, .14);
+  border-color: var(--gold);
+  box-shadow: 0 0 22px var(--gold-glow);
+  transform: rotate(-8deg) scale(1.05)
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  transition: opacity .5s var(--ease), transform .5s var(--ease)
+}
+
+.theme-toggle .icon-sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(.6)
+}
+
+.theme-toggle .icon-moon {
+  opacity: 1;
+  transform: rotate(0) scale(1)
+}
+
+html[data-theme="light"] .theme-toggle {
+  color: #1D1D1F !important;
+  border-color: #1D1D1F;
+}
+
+html[data-theme="light"] .theme-toggle .icon-sun {
+  opacity: 1;
+  transform: rotate(0) scale(1)
+}
+
+html[data-theme="light"] .theme-toggle .icon-moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(.6)
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0
+}
+
+/* Services layout fix now lives in premium.css (unified). */
+
+/* =========================================================
+   LIGHT THEME — Apple / Linear / Arc inspired
+   ========================================================= */
+html[data-theme="light"] {
+  --black: #FFFFFF;
+  /* page bg base */
+  --anthracite: #FFFFFF;
+  /* card surface (used via glass override) */
+  --white: #1D1D1F;
+  /* primary text (Apple charcoal) */
+  --grey: #6E6E73;
+  /* secondary text */
+  --body: #515154;
+  /* body copy */
+  --gold-soft: rgba(197, 160, 89, .22);
+  --gold-glow: rgba(197, 160, 89, .22);
+}
+
+/* Base surfaces */
+html[data-theme="light"] body {
+  color: #1D1D1F;
+  background: #FFFFFF
+}
+
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4 {
+  color: #1D1D1F
+}
+
+html[data-theme="light"] p {
+  color: #6E6E73
+}
+
+/* Ambient background — clean whites with barely-there tints */
+html[data-theme="light"] .amb {
+  background:
+    radial-gradient(ellipse at 15% 0%, #F5F5F7 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 100%, #F0F1F4 0%, transparent 55%),
+    linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 50%, #F5F5F7 100%);
+}
+
+html[data-theme="light"] .amb .blob {
+  opacity: .14;
+  mix-blend-mode: multiply;
+  filter: blur(160px)
+}
+
+html[data-theme="light"] .amb .b1 {
+  background: radial-gradient(circle, #c9b98a 0%, transparent 70%);
+  opacity: .10
+}
+
+html[data-theme="light"] .amb .b2 {
+  background: radial-gradient(circle, #c9d3e0 0%, transparent 70%);
+  opacity: .18
+}
+
+html[data-theme="light"] .amb .b3 {
+  background: radial-gradient(circle, #d8dee7 0%, transparent 70%);
+  opacity: .14
+}
+
+html[data-theme="light"] .amb .b4 {
+  background: radial-gradient(circle, #e6ddc4 0%, transparent 70%);
+  opacity: .08
+}
+
+html[data-theme="light"] .grain {
+  opacity: .02;
+  mix-blend-mode: multiply
+}
+
+/* Header — Apple-style translucent white bar */
+html[data-theme="light"] .site-header {
+  color: #1D1D1F
+}
+
+html[data-theme="light"] .site-header.scrolled {
+  background: rgba(255, 255, 255, .72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, .06);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .02);
+}
+
+html[data-theme="light"] .brand {
+  color: #1D1D1F
+}
+
+html[data-theme="light"] .nav a {
+  color: #1D1D1F
+}
+
+html[data-theme="light"] .nav a:hover {
+  color: var(--gold)
+}
+
+/* Buttons */
+html[data-theme="light"] .btn {
+  color: #1D1D1F;
+  border-color: var(--gold)
+}
+
+html[data-theme="light"] .btn:hover {
+  color: #fff !important
+}
+
+html[data-theme="light"] .btn::before {
+  background: linear-gradient(120deg, #C5A059 0%, #b78e42 50%, #C5A059 100%)
+}
+
+html[data-theme="light"] .btn-solid {
+  background: var(--gold);
+  color: #fff;
+  border-color: var(--gold)
+}
+
+html[data-theme="light"] .btn-ghost {
+  border-color: rgba(0, 0, 0, .14);
+  color: #1D1D1F
+}
+
+html[data-theme="light"] .btn-ghost:hover {
+  border-color: var(--gold);
+  color: #fff
+}
+
+/* =========================================================
+   LIQUID GLASS — Apple-style translucent panels (light theme)
+   Truly translucent — the ambient background must read through.
+   ========================================================= */
+html[data-theme="light"] .glass,
+html[data-theme="light"] .svc-card-h,
+html[data-theme="light"] .flow-step,
+html[data-theme="light"] .tl-card,
+html[data-theme="light"] .plan,
+html[data-theme="light"] .vs-swatches,
+html[data-theme="light"] .compare,
+html[data-theme="light"] .mat-comp,
+html[data-theme="light"] .cta-banner,
+html[data-theme="light"] .stat,
+html[data-theme="light"] .calc-panel,
+html[data-theme="light"] .calc-out,
+html[data-theme="light"] .dropzone,
+html[data-theme="light"] .vs-stage,
+html[data-theme="light"] .aud,
+html[data-theme="light"] .eco-card,
+html[data-theme="light"] .case,
+html[data-theme="light"] .tile,
+html[data-theme="light"] .job,
+html[data-theme="light"] .ring-pop {
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .28) 55%, rgba(255, 255, 255, .4) 100%);
+  backdrop-filter: saturate(180%) blur(40px);
+  border: 1px solid rgba(255, 255, 255, .55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .95),
+    inset 0 -1px 0 rgba(255, 255, 255, .35),
+    inset 1px 0 0 rgba(255, 255, 255, .5),
+    0 0 0 1px rgba(15, 20, 40, .035),
+    0 1px 2px rgba(15, 20, 40, .04),
+    0 18px 40px -12px rgba(15, 20, 40, .10),
+    0 40px 80px -30px rgba(15, 20, 40, .12);
+  position: relative;
+}
+
+/* Subtle top-edge reflection highlight — the "liquid" sheen */
+html[data-theme="light"] .glass::after,
+html[data-theme="light"] .svc-card-h::after,
+html[data-theme="light"] .flow-step::after,
+html[data-theme="light"] .tl-card::after,
+html[data-theme="light"] .plan::after,
+html[data-theme="light"] .stat::after,
+html[data-theme="light"] .calc-panel::after,
+html[data-theme="light"] .vs-stage::after,
+html[data-theme="light"] .aud::after,
+html[data-theme="light"] .eco-card::after,
+html[data-theme="light"] .case::after,
+html[data-theme="light"] .tile::after,
+html[data-theme="light"] .ring-pop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0) 78%, rgba(255, 255, 255, .18) 100%);
+  mix-blend-mode: overlay;
+  opacity: .7;
+}
+
+html[data-theme="light"] .glass:hover,
+html[data-theme="light"] .svc-card-h:hover,
+html[data-theme="light"] .flow-step:hover,
+html[data-theme="light"] .tl-card:hover,
+html[data-theme="light"] .plan:hover,
+html[data-theme="light"] .case:hover,
+html[data-theme="light"] .tile:hover {
+  border-color: rgba(197, 160, 89, .42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(255, 255, 255, .4),
+    0 0 0 1px rgba(197, 160, 89, .18),
+    0 30px 60px -18px rgba(15, 20, 40, .16),
+    0 0 60px rgba(197, 160, 89, .10);
+}
+
+/* Card headings/copy inside light glass */
+html[data-theme="light"] .svc-card-h h3,
+html[data-theme="light"] .flow-step h4,
+html[data-theme="light"] .tl-card h3,
+html[data-theme="light"] .plan .plan-price,
+html[data-theme="light"] .stat .num,
+html[data-theme="light"] .calc-out .price,
+html[data-theme="light"] .calc-out .duration,
+html[data-theme="light"] .mat-item .v,
+html[data-theme="light"] .aud h4,
+html[data-theme="light"] .eco-card h4,
+html[data-theme="light"] .case .body h3,
+html[data-theme="light"] .job .info h3,
+html[data-theme="light"] .faq-item .q,
+html[data-theme="light"] .compare td:first-child,
+html[data-theme="light"] .doc-row .name,
+html[data-theme="light"] .progress-row .name,
+html[data-theme="light"] .tile .val,
+html[data-theme="light"] .vs-up-title,
+html[data-theme="light"] .sw-name,
+html[data-theme="light"] .ba-meta h3,
+html[data-theme="light"] .ring-pop .who b {
+  color: #1D1D1F
+}
+
+html[data-theme="light"] .svc-card-h>p,
+html[data-theme="light"] .flow-step p,
+html[data-theme="light"] .tl-card p,
+html[data-theme="light"] .plan .plan-desc,
+html[data-theme="light"] .stat .label,
+html[data-theme="light"] .calc-out .label,
+html[data-theme="light"] .calc-out .duration-label,
+html[data-theme="light"] .mat-item .k,
+html[data-theme="light"] .aud .need,
+html[data-theme="light"] .eco-card p,
+html[data-theme="light"] .case .body p,
+html[data-theme="light"] .job .info p,
+html[data-theme="light"] .faq-item .a,
+html[data-theme="light"] .compare th,
+html[data-theme="light"] .compare td,
+html[data-theme="light"] .doc-row .meta,
+html[data-theme="light"] .vs-up-sub,
+html[data-theme="light"] .vs-lede,
+html[data-theme="light"] .vs-steps li,
+html[data-theme="light"] .ba-meta p,
+html[data-theme="light"] .ring-pop p,
+html[data-theme="light"] .section-head p,
+html[data-theme="light"] .plan li {
+  color: #515154
+}
+
+/* Icons: gold accent on soft frosted disc */
+html[data-theme="light"] .svc-icon,
+html[data-theme="light"] .flow-ic,
+html[data-theme="light"] .vs-up-icon,
+html[data-theme="light"] .aud .ico,
+html[data-theme="light"] .ba-btn {
+  background: rgba(197, 160, 89, .10);
+  border-color: rgba(197, 160, 89, .28);
+  color: var(--gold);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 4px 12px rgba(20, 24, 40, .04);
+}
+
+/* Lists/rows separators */
+html[data-theme="light"] .plan li,
+html[data-theme="light"] .svc-list li,
+html[data-theme="light"] .progress-row,
+html[data-theme="light"] .compare th,
+html[data-theme="light"] .compare td,
+html[data-theme="light"] .faq-item {
+  border-color: rgba(0, 0, 0, .06) !important
+}
+
+html[data-theme="light"] .svc-list li {
+  border-top: 1px solid rgba(0, 0, 0, .06)
+}
+
+/* Inputs */
+html[data-theme="light"] .field select,
+html[data-theme="light"] .field input[type=text] {
+  background: rgba(255, 255, 255, .85);
+  border: 1px solid rgba(0, 0, 0, .10);
+  color: #1D1D1F;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+html[data-theme="light"] .field input[type=range] {
+  background: rgba(0, 0, 0, .08)
+}
+
+html[data-theme="light"] .dropzone {
+  border-color: rgba(197, 160, 89, .45);
+  color: #6E6E73;
+  background: rgba(255, 255, 255, .5)
+}
+
+html[data-theme="light"] .dropzone.drag {
+  background: rgba(197, 160, 89, .08)
+}
+
+/* Chips + toggle */
+html[data-theme="light"] .chip {
+  background: rgba(255, 255, 255, .7);
+  border-color: rgba(0, 0, 0, .08);
+  color: #515154;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px)
+}
+
+html[data-theme="light"] .chip:hover {
+  color: #1D1D1F
+}
+
+html[data-theme="light"] .chip.on {
+  background: rgba(197, 160, 89, .14);
+  color: #8a6a24;
+  border-color: var(--gold)
+}
+
+html[data-theme="light"] .toggle {
+  background: rgba(255, 255, 255, .7);
+  border-color: rgba(197, 160, 89, .25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px)
+}
+
+html[data-theme="light"] .toggle button {
+  color: #515154
+}
+
+html[data-theme="light"] .toggle button.on {
+  background: var(--gold);
+  color: #fff
+}
+
+/* Tabs */
+html[data-theme="light"] .tabs {
+  border-color: rgba(197, 160, 89, .30)
+}
+
+html[data-theme="light"] .tab {
+  color: #515154
+}
+
+html[data-theme="light"] .tab.on {
+  color: var(--gold)
+}
+
+/* Tiles (dashboard) */
+html[data-theme="light"] .tile .id {
+  color: #6E6E73
+}
+
+html[data-theme="light"] .tile .tooltip {
+  background: rgba(255, 255, 255, .95);
+  color: #1D1D1F;
+  border-color: rgba(197, 160, 89, .28);
+  box-shadow: 0 12px 30px rgba(20, 24, 40, .10);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px)
+}
+
+/* Dashboard sidebar */
+html[data-theme="light"] .dash-side .side-item {
+  color: #515154
+}
+
+html[data-theme="light"] .dash-side .side-item:hover {
+  background: rgba(197, 160, 89, .08);
+  color: #1D1D1F
+}
+
+html[data-theme="light"] .dash-side .side-item.on {
+  background: rgba(197, 160, 89, .14);
+  color: var(--gold)
+}
+
+html[data-theme="light"] .doc-row:hover {
+  background: rgba(197, 160, 89, .06)
+}
+
+/* Progress bar background */
+html[data-theme="light"] .progress-row .bar {
+  background: rgba(0, 0, 0, .06)
+}
+
+/* Calendar */
+html[data-theme="light"] .cal .cd {
+  color: #6E6E73
+}
+
+html[data-theme="light"] .cal .cd:not(.hdr):hover {
+  background: rgba(197, 160, 89, .10);
+  color: #1D1D1F;
+  border-color: var(--gold-soft)
+}
+
+html[data-theme="light"] .cal .cd.on {
+  background: var(--gold);
+  color: #fff
+}
+
+html[data-theme="light"] .cal .cd.event {
+  color: #1D1D1F
+}
+
+/* Before/After */
+html[data-theme="light"] .ba {
+  border-color: rgba(197, 160, 89, .28)
+}
+
+html[data-theme="light"] .ba .ba-label {
+  background: rgba(255, 255, 255, .85);
+  color: #1D1D1F;
+  border: 1px solid rgba(0, 0, 0, .06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px)
+}
+
+html[data-theme="light"] .ba .ba-label.after {
+  color: var(--gold)
+}
+
+html[data-theme="light"] .ba-btn {
+  background: rgba(255, 255, 255, .85);
+  color: var(--gold);
+  border-color: rgba(197, 160, 89, .28)
+}
+
+html[data-theme="light"] .ba-btn:hover {
+  background: var(--gold);
+  color: #fff
+}
+
+/* Vision Studio stage */
+html[data-theme="light"] .vs-stage {
+  background: rgba(245, 245, 247, .7)
+}
+
+html[data-theme="light"] .vs-badge {
+  background: rgba(255, 255, 255, .85);
+  color: var(--gold);
+  border-color: rgba(197, 160, 89, .28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px)
+}
+
+/* Timeline line/dot */
+html[data-theme="light"] .tl-line {
+  background: rgba(0, 0, 0, .08)
+}
+
+html[data-theme="light"] .tl-dot {
+  background: #fff;
+  border-color: var(--gold);
+  box-shadow: 0 4px 12px rgba(20, 24, 40, .08)
+}
+
+html[data-theme="light"] .tl-item.in .tl-dot {
+  background: var(--gold);
+  box-shadow: 0 0 0 6px rgba(197, 160, 89, .16), 0 0 24px var(--gold)
+}
+
+html[data-theme="light"] .tl-img {
+  border-color: rgba(197, 160, 89, .28);
+  box-shadow: 0 24px 60px rgba(20, 24, 40, .14), 0 0 30px rgba(197, 160, 89, .12)
+}
+
+/* Ring / testimonials */
+html[data-theme="light"] .testi-bg {
+  opacity: .04;
+  mix-blend-mode: multiply
+}
+
+html[data-theme="light"] .ring-avatar img {
+  border-color: rgba(197, 160, 89, .4);
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(20, 24, 40, .10)
+}
+
+html[data-theme="light"] .ring-pop::before {
+  background: rgba(255, 255, 255, .85);
+  border-color: rgba(0, 0, 0, .05)
+}
+
+/* Feature comparison table popular column */
+html[data-theme="light"] .compare th.pop,
+html[data-theme="light"] .compare td.pop {
+  background: rgba(197, 160, 89, .05);
+  border-left-color: rgba(197, 160, 89, .28);
+  border-right-color: rgba(197, 160, 89, .28)
+}
+
+/* Trust strip */
+html[data-theme="light"] .trust {
+  background: rgba(255, 255, 255, .55)
+}
+
+html[data-theme="light"] .trust .logo {
+  color: #6E6E73;
+  opacity: .7
+}
+
+html[data-theme="light"] .trust .logo:hover {
+  color: var(--gold);
+  opacity: 1
+}
+
+/* CTA banner */
+html[data-theme="light"] .cta-banner {
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 60px rgba(197, 160, 89, .15) inset, 0 20px 60px rgba(20, 24, 40, .08);
+}
+
+/* Warranty pill */
+html[data-theme="light"] .warranty {
+  background: rgba(197, 160, 89, .14);
+  border-color: rgba(197, 160, 89, .32);
+  color: #8a6a24
+}
+
+/* FAQ borders */
+html[data-theme="light"] .faq-item {
+  border-bottom: 1px solid rgba(0, 0, 0, .08)
+}
+
+/* Footer */
+html[data-theme="light"] .site-footer {
+  border-top: 1px solid rgba(0, 0, 0, .06);
+  color: #6E6E73
+}
+
+html[data-theme="light"] .site-footer p {
+  color: #6E6E73
+}
+
+/* Custom cursor blend in light */
+html[data-theme="light"] .cur-dot {
+  mix-blend-mode: normal;
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold-glow)
+}
+
+html[data-theme="light"] .cur-ring {
+  border-color: rgba(197, 160, 89, .55)
+}
+
+html[data-theme="light"] .cursor-glow,
+html[data-theme="light"] .trail {
+  mix-blend-mode: multiply
+}
+
+html[data-theme="light"] .cursor-glow {
+  background: radial-gradient(circle, rgba(197, 160, 89, .08) 0%, transparent 60%)
+}
+
+/* Hero overlay in light — subtle white-to-fade at bottom, dark radial spot behind text */
+html[data-theme="light"] .hero-overlay {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .08) 55%, rgba(250, 250, 252, .85) 100%)
+}
+
+html[data-theme="light"] .hero-spotlight {
+  background: radial-gradient(rgb(223 230 236 / 83%) 0%, rgb(231 231 231 / 62%) 22%, rgba(15, 18, 28, 0.15) 40%, rgb(243 243 243 / 59%) 55%, #00000000 68%);
+}
+
+html[data-theme="dark"] .hero-spotlight {
+  background: radial-gradient(ellipse at center, rgba(15, 18, 28, .55) 0%, rgba(15, 18, 28, .35) 22%, rgba(15, 18, 28, .15) 40%, rgba(15, 18, 28, .05) 55%, transparent 68%);
+}
+
+html[data-theme="light"] .hero h1,
+html[data-theme="light"] .hero h1 * {
+  color: #0B0C10 !important;
+  text-shadow: 0 2px 24px rgba(255, 255, 255, .35), 0 1px 2px rgba(0, 0, 0, .15)
+}
+
+html[data-theme="light"] .hero h1 .goldline {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #0B0C10 !important;
+  color: #0B0C10 !important
+}
+
+html[data-theme="light"] .hero h1 .goldline::after {
+  background: linear-gradient(90deg, transparent, var(--gold), transparent)
+}
+
+html[data-theme="light"] .hero-sub {
+  color: #1D1D1F;
+  text-shadow: 0 1px 16px rgba(255, 255, 255, .4), 0 1px 2px rgba(0, 0, 0, .1)
+}
+
+html[data-theme="light"] .hero-eyebrow {
+  color: #1D1D1F
+}
+
+html[data-theme="light"] .hero-eyebrow::before,
+html[data-theme="light"] .hero-eyebrow::after {
+  background: #1D1D1F;
+  opacity: .55
+}
+
+html[data-theme="light"] .hero-tag {
+  color: #3a3a3f
+}
+
+/* Final CTA overlay in light — the base uses var(--black) overlays that flip white
+   and hide the image; neutralize and use a soft white vignette over the bright photo */
+html[data-theme="light"] #final .media-light {
+  filter: brightness(1) grayscale(0) saturate(1.05);
+  background: #F5F5F7
+}
+
+html[data-theme="light"] #final video.bg.media-dark {
+  filter: brightness(.38) grayscale(.25)
+}
+
+/* keep dark styling on hidden video */
+html[data-theme="light"] #final::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .35) 0%, rgba(255, 255, 255, .15) 35%, rgba(255, 255, 255, .15) 65%, rgba(255, 255, 255, .55) 100%) !important
+}
+
+html[data-theme="light"] #final .final-vignette {
+  background: radial-gradient(ellipse at center, transparent 25%, rgba(255, 255, 255, .45) 100%) !important
+}
+
+html[data-theme="light"] #final h2 {
+  color: #1D1D1F;
+  text-shadow: 0 2px 30px rgba(255, 255, 255, .7)
+}
+
+html[data-theme="light"] #final p {
+  color: #3a3a3f;
+  text-shadow: 0 1px 18px rgba(255, 255, 255, .6)
+}
+
+/* Scrollbar */
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(197, 160, 89, .35);
+  border-radius: 8px
+}
+
+/* Prevent transition flash on first paint */
+html.theme-no-transition,
+html.theme-no-transition * {
+  transition: none !important
+}

@@ -15,7 +15,7 @@ export default function AdminLoginPage() {
     <main className={styles.loginPage}>
       <section className={styles.loginCard}>
         <Link className={styles.brand} href="/">
-          <img src="/assets/logo.png" alt="Amigos Maler" />
+          <img src="/New-Logo.png" alt="Amigos Maler" />
           <span>Amigos Maler</span>
         </Link>
         <h1>Admin Login</h1>

@@ -105,12 +105,16 @@
   flex: 0 0 auto;
   width: 42px;
   height: 42px;
-  display: inline-grid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   place-items: center;
   border-radius: 50%;
   background: var(--am-navy);
   color: var(--am-ochre);
   font-weight: 950;
+  font-size: 16px;
+  line-height: 1;
   box-shadow: inset 0 0 0 2px rgba(183, 137, 61, .34);
 }
 
@@ -1020,5 +1024,319 @@
     grid-column: 1;
     margin-left: 24px;
     margin-right: 24px;
+  }
+}
+
+/* Shared admin reset and logo-theme polish */
+
+:global(html),
+:global(body) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100%;
+  background: #071A33;
+}
+
+:global(*),
+:global(*::before),
+:global(*::after) {
+  box-sizing: border-box;
+}
+
+.adminPage,
+.loginPage {
+  --logo-yellow: #f6be10;
+  --logo-orange: #f39125;
+  --logo-magenta: #c73b8e;
+  --logo-pink: #e62453;
+  --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+  --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+.adminPage {
+  background:
+    radial-gradient(circle at 86% 12%, rgba(230, 36, 83, .10), transparent 30%),
+    radial-gradient(circle at 18% 88%, rgba(246, 190, 16, .10), transparent 32%),
+    linear-gradient(120deg, rgba(7, 26, 51, .05), transparent 34%),
+    var(--am-cream);
+}
+
+.loginPage {
+  padding: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(7, 26, 51, .90), rgba(7, 26, 51, .64)),
+    radial-gradient(circle at 78% 16%, rgba(230, 36, 83, .25), transparent 34%),
+    url("/assets/BG.jpg") center/cover;
+}
+
+.sidebar,
+.loginCard>.brand {
+  background:
+    radial-gradient(circle at 20% 12%, rgba(246, 190, 16, .18), transparent 34%),
+    var(--am-navy);
+}
+
+.brand img {
+  width: 92px;
+  height: auto;
+}
+
+.loginCard>.brand img {
+  width: 132px;
+  height: auto;
+}
+
+.loginCard {
+  border-color: rgba(255, 255, 255, .24);
+  background: rgba(252, 248, 240, .96);
+}
+
+.eyebrow,
+.adminCard span,
+.card span,
+.tableHeader span {
+  color: var(--logo-pink);
+}
+
+.primaryButton,
+.miniButton,
+.loginForm button {
+  background: var(--logo-gradient-moving);
+  background-size: 260% 260%;
+  color: #fff;
+  animation: adminGradientShift 8s ease-in-out infinite;
+}
+
+.logoutButton {
+  background: var(--am-navy);
+  color: #fff;
+}
+
+.card::after {
+  background: var(--logo-gradient);
+}
+
+.nav a:hover,
+.navActive {
+  background: rgba(255, 255, 255, .12);
+  box-shadow: inset 3px 0 0 var(--logo-pink);
+}
+
+@keyframes adminGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Dashboard and CRM readability refinements */
+
+.statsGrid {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  min-height: 154px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  border-radius: 20px;
+}
+
+.card::after {
+  display: none;
+}
+
+.statIcon {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: var(--logo-gradient);
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(230, 36, 83, .18);
+}
+
+.statIcon svg {
+  width: 27px;
+  height: 27px;
+}
+
+.card span {
+  color: var(--logo-pink);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.card strong {
+  margin-top: 16px;
+  color: var(--am-navy);
+  font-size: clamp(38px, 4vw, 58px);
+}
+
+.card p {
+  max-width: 26ch;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.adminCard,
+.accountCard {
+  align-items: center;
+}
+
+.adminCard .avatar,
+.userTools .avatar,
+.headerTools .avatar {
+  background: var(--logo-gradient);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(230, 36, 83, .18);
+}
+
+.tableCard {
+  border-radius: 22px;
+}
+
+.tableCard:has(.crmTable) {
+  overflow-x: auto;
+}
+
+.crmTable {
+  min-width: 1280px;
+  table-layout: fixed;
+}
+
+.crmTable th,
+.crmTable td {
+  padding: 18px 20px;
+  vertical-align: top;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.crmTable th {
+  color: rgba(7, 26, 51, .62);
+  white-space: nowrap;
+}
+
+.crmTable th:nth-child(1),
+.crmTable td:nth-child(1) {
+  width: 245px;
+}
+
+.crmTable th:nth-child(2),
+.crmTable td:nth-child(2) {
+  width: 150px;
+}
+
+.crmTable th:nth-child(3),
+.crmTable td:nth-child(3) {
+  width: 210px;
+}
+
+.crmTable th:nth-child(4),
+.crmTable td:nth-child(4) {
+  width: 150px;
+}
+
+.crmTable th:nth-child(5),
+.crmTable td:nth-child(5) {
+  width: 120px;
+}
+
+.crmTable th:nth-child(6),
+.crmTable td:nth-child(6) {
+  width: 150px;
+}
+
+.crmTable th:nth-child(7),
+.crmTable td:nth-child(7),
+.crmTable th:nth-child(8),
+.crmTable td:nth-child(8) {
+  width: 95px;
+  text-align: center;
+}
+
+.crmTable th:nth-child(9),
+.crmTable td:nth-child(9) {
+  width: 330px;
+}
+
+.crmTable th:nth-child(10),
+.crmTable td:nth-child(10) {
+  width: 128px;
+}
+
+.projectCell strong,
+.customerCell,
+.workflowCell,
+.estimateCell,
+.priorityCell,
+.photoCell,
+.dateCell {
+  color: var(--am-navy);
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.projectCell span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.serviceCell {
+  color: var(--am-navy);
+  font-size: 15px;
+  line-height: 1.48;
+  text-transform: capitalize;
+}
+
+.estimateCell,
+.priorityCell,
+.photoCell {
+  white-space: nowrap;
+}
+
+.messageCell {
+  max-width: none;
+  color: var(--am-text);
+  font-size: 15px;
+  line-height: 1.52;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.messageCell::first-letter {
+  text-transform: uppercase;
+}
+
+@media (max-width: 1240px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    grid-template-columns: 52px minmax(0, 1fr);
   }
 }

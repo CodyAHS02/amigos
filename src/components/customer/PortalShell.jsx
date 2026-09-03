@@ -15,7 +15,7 @@ export default function PortalShell({ children, title, eyebrow, activePath, cust
       <aside className={styles.sidebar}>
         <div className={styles.sidebarTop}>
           <Link href="/" className={styles.brand}>
-            <img src="/assets/logo.png" alt="Amigos Maler" />
+            <img src="/New-Logo.png" alt="Amigos Maler" />
             <span>Client Portal</span>
           </Link>
         </div>

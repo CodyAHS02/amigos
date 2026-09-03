@@ -28,6 +28,27 @@ body {
     --am-ink: #102238;
     --am-text: #5F5A50;
     --am-line: #DED2C0;
+    --am-shadow: 0 24px 65px rgba(7, 26, 51, .16);
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+@keyframes apartmentLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 img {
@@ -1129,5 +1150,334 @@ a {
 
     .footer-top {
         grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   LOGO COLOR THEME OVERRIDES
+========================================= */
+
+.ren-hero-overlay {
+    background:
+        radial-gradient(circle at 18% 18%, rgba(199, 59, 142, .36), transparent 34%),
+        radial-gradient(circle at 74% 58%, rgba(243, 145, 37, .28), transparent 36%),
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .46));
+}
+
+.section-label,
+.ren-eyebrow,
+.situation-item span,
+.intro-points span,
+.visual-tag span,
+.card-content span,
+.scope-overlay span,
+.process-heading .section-label,
+.flow-header .section-label,
+.property-content .section-label,
+.value-points span,
+.why-header .section-label,
+.why-card span,
+.cta-content .section-label,
+.footer-column a:hover {
+    color: var(--logo-yellow) !important;
+}
+
+.gold-btn,
+.process-progress,
+.process-step:hover .step-number,
+.flow-wrapper:hover .flow-line:after,
+.flow-item:hover .flow-icon,
+.ba-label,
+.ba-divider,
+.ba-handle {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: apartmentLogoGradientShift 8s ease-in-out infinite;
+}
+
+.gold-btn,
+.gold-btn *,
+.flow-item:hover .flow-icon {
+    color: #fff !important;
+}
+
+.gold-btn:hover {
+    color: #fff !important;
+    box-shadow: 0 24px 62px rgba(230, 36, 83, .3);
+}
+
+.outline-btn {
+    border-color: rgba(246, 190, 16, .62) !important;
+    background: rgba(255, 255, 255, .1);
+    color: #fff !important;
+    backdrop-filter: blur(10px);
+}
+
+.outline-btn:hover {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    animation: apartmentLogoGradientShift 8s ease-in-out infinite;
+}
+
+.cta-buttons .outline-btn {
+    background: rgba(255, 255, 255, .3) !important;
+}
+
+.ren-floating-shape,
+.visual-layer.layer-two,
+.flow-line,
+.process-line {
+    border-color: rgba(230, 36, 83, .28) !important;
+}
+
+.layer-one {
+    background: linear-gradient(135deg, rgba(246, 190, 16, .24), rgba(230, 36, 83, .14)) !important;
+}
+
+.layer-two {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    animation: apartmentLogoGradientShift 9s ease-in-out infinite;
+}
+
+.situation-item,
+.intro-points div,
+.ren-card,
+.scope-item,
+.process-step .step-content,
+.flow-item,
+.value-points div,
+.why-card {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .42s ease,
+        border-color .42s ease,
+        color .35s ease;
+}
+
+.situation-item::before,
+.intro-points div::before,
+.ren-card::before,
+.scope-item::before,
+.process-step .step-content::before,
+.flow-item::before,
+.value-points div::before,
+.why-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    transition: opacity .45s ease;
+    animation: apartmentLogoGradientShift 9s ease-in-out infinite;
+}
+
+.situation-item:nth-child(3n + 1)::before,
+.intro-points div:nth-child(3n + 1)::before,
+.ren-card:nth-child(3n + 1)::before,
+.scope-item:nth-child(3n + 1)::before,
+.process-step:nth-child(3n + 1) .step-content::before,
+.flow-item:nth-child(3n + 1)::before,
+.value-points div:nth-child(3n + 1)::before,
+.why-card:nth-child(3n + 1)::before {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.situation-item:nth-child(3n + 2)::before,
+.intro-points div:nth-child(3n + 2)::before,
+.ren-card:nth-child(3n + 2)::before,
+.scope-item:nth-child(3n + 2)::before,
+.process-step:nth-child(3n + 2) .step-content::before,
+.flow-item:nth-child(3n + 2)::before,
+.value-points div:nth-child(3n + 2)::before,
+.why-card:nth-child(3n + 2)::before {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.situation-item:nth-child(3n)::before,
+.intro-points div:nth-child(3n)::before,
+.ren-card:nth-child(3n)::before,
+.scope-item:nth-child(3n)::before,
+.process-step:nth-child(3n) .step-content::before,
+.flow-item:nth-child(3n)::before,
+.value-points div:nth-child(3n)::before,
+.why-card:nth-child(3n)::before {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.situation-item>*,
+.intro-points div>*,
+.ren-card>*,
+.scope-item>*,
+.process-step .step-content>*,
+.flow-item>*,
+.value-points div>*,
+.why-card>* {
+    position: relative;
+    z-index: 1;
+    transition: color .35s ease;
+}
+
+.situation-item:hover::before,
+.intro-points div:hover::before,
+.ren-card:hover::before,
+.scope-item:hover::before,
+.process-step:hover .step-content::before,
+.flow-item:hover::before,
+.value-points div:hover::before,
+.why-card:hover::before {
+    opacity: 1;
+}
+
+.situation-item:hover,
+.intro-points div:hover,
+.ren-card:hover,
+.scope-item:hover,
+.process-step:hover .step-content,
+.flow-item:hover,
+.value-points div:hover,
+.why-card:hover {
+    border-color: transparent !important;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .18);
+}
+
+.situation-item:hover *,
+.intro-points div:hover *,
+.ren-card:hover *,
+.scope-item:hover *,
+.process-step:hover .step-content *,
+.flow-item:hover *,
+.value-points div:hover *,
+.why-card:hover * {
+    color: #fff !important;
+}
+
+.why-card {
+    background: var(--logo-gradient-moving);
+    background-size: 260% 260%;
+    border-color: transparent;
+    box-shadow: 0 24px 65px rgba(230, 36, 83, .15);
+    animation: apartmentLogoGradientShift 9s ease-in-out infinite;
+}
+
+.why-card:nth-child(3n + 1) {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.why-card:nth-child(3n + 2) {
+    background-image: linear-gradient(135deg, var(--logo-orange), var(--logo-pink), var(--logo-magenta));
+}
+
+.why-card:nth-child(3n) {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-yellow));
+}
+
+.why-card *,
+.why-card span,
+.why-card h3,
+.why-card p {
+    color: #fff !important;
+}
+
+.ren-process,
+.why-amigos-section,
+.ren-final-cta,
+.main-footer {
+    background:
+        linear-gradient(90deg, rgba(7, 26, 51, .9), rgba(7, 26, 51, .74)),
+        var(--logo-gradient-moving) !important;
+    background-size: auto, 280% 280% !important;
+    animation: apartmentLogoGradientShift 9s ease-in-out infinite;
+}
+
+.ren-intro,
+.ren-situations-section,
+.renovation-scope,
+.before-after-section,
+.partner-flow-section,
+.property-value-section {
+    background:
+        radial-gradient(circle at 86% 12%, rgba(230, 36, 83, .12), transparent 32%),
+        radial-gradient(circle at 16% 78%, rgba(246, 190, 16, .14), transparent 34%),
+        var(--am-cream) !important;
+}
+
+.ren-intro .section-label,
+.ren-situations-section .section-label,
+.renovation-scope .section-label,
+.before-after-section .section-label,
+.partner-flow-section .section-label,
+.property-value-section .section-label,
+.scope-header .section-label,
+.flow-header .section-label {
+    color: var(--am-navy) !important;
+}
+
+.flow-item::before {
+    display: none !important;
+}
+
+.flow-item:hover {
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
+
+.flow-item:hover h3 {
+    color: var(--am-navy) !important;
+}
+
+.flow-item:hover p {
+    color: var(--am-text) !important;
+}
+
+.flow-item:hover .flow-icon {
+    background: var(--logo-gradient-moving) !important;
+    background-size: 260% 260% !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    box-shadow: 0 20px 50px rgba(230, 36, 83, .2);
+    animation: apartmentLogoGradientShift 8s ease-in-out infinite;
+}
+
+.scope-item:after,
+.cta-background:after {
+    background:
+        radial-gradient(circle at 80% 18%, rgba(230, 36, 83, .24), transparent 32%),
+        linear-gradient(0deg, rgba(7, 26, 51, .86), rgba(7, 26, 51, .12)) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gold-btn,
+    .outline-btn:hover,
+    .process-progress,
+    .process-step:hover .step-number,
+    .flow-wrapper:hover .flow-line:after,
+    .flow-item:hover .flow-icon,
+    .ba-label,
+    .ba-divider,
+    .ba-handle,
+    .layer-two,
+    .situation-item::before,
+    .intro-points div::before,
+    .ren-card::before,
+    .scope-item::before,
+    .process-step .step-content::before,
+    .flow-item::before,
+    .value-points div::before,
+    .why-card,
+    .why-card::before,
+    .ren-process,
+    .why-amigos-section,
+    .ren-final-cta,
+    .main-footer {
+        animation: none !important;
     }
 }

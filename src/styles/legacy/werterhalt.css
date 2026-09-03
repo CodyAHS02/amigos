@@ -43,8 +43,14 @@ body {
     --sand: #e8ddcb;
     --sand-dark: #d5c7b1;
 
-    --gold: #b7893d;
-    --gold-light: #d9bb82;
+    --logo-yellow: #f6be10;
+    --logo-orange: #f39125;
+    --logo-magenta: #c73b8e;
+    --logo-pink: #e62453;
+    --logo-gradient: linear-gradient(120deg, #f6be10 0%, #f39125 32%, #c73b8e 66%, #e62453 100%);
+    --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 24%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+    --gold: var(--logo-orange);
+    --gold-light: var(--logo-yellow);
 
     --olive: #7f8e74;
     --mist: #7fa0a3;
@@ -60,6 +66,20 @@ body {
 
     --ease: cubic-bezier(.22, 1, .36, 1);
     --shadow: 0 30px 80px rgba(7, 26, 51, .12);
+}
+
+@keyframes propertyLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 
@@ -118,23 +138,31 @@ section {
 }
 
 .property-button-primary {
-    background: var(--gold);
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
     color: var(--white);
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+    box-shadow: 0 18px 44px rgba(230, 36, 83, .18);
 }
 
 .property-button-primary:hover {
-    background: #9e763b;
+    background-position: 100% 50%;
+    box-shadow: 0 22px 54px rgba(243, 145, 37, .24);
 }
 
 .property-button-outline {
     border: 1px solid rgba(7, 26, 51, .25);
-    color: var(--navy);
+    color: var(--white);
+    background: rgba(255, 255, 255, .08);
+    backdrop-filter: blur(10px);
 }
 
 .property-button-outline:hover {
-    background: var(--navy);
-    border-color: var(--navy);
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
+    border-color: transparent;
     color: var(--white);
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
 }
 
 .property-button-light {
@@ -145,9 +173,11 @@ section {
 }
 
 .property-button-light:hover {
-    background: var(--white);
-    border-color: var(--white);
-    color: var(--navy);
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
+    border-color: transparent;
+    color: var(--white);
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
 }
 
 .section-label {
@@ -155,7 +185,7 @@ section {
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 4px;
-    color: var(--gold);
+    color: var(--logo-yellow);
 }
 
 /* =========================================================
@@ -2798,5 +2828,312 @@ section {
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+
+/* =========================================================
+   LOGO COLOR THEME OVERRIDES
+========================================================= */
+
+.property-hero,
+.digital-value-section,
+.property-final-cta {
+    background:
+        radial-gradient(circle at 16% 18%, rgba(199, 59, 142, .22), transparent 28%),
+        radial-gradient(circle at 84% 34%, rgba(243, 145, 37, .16), transparent 30%),
+        var(--navy);
+}
+
+.hero-architectural-grid,
+.digital-value-background,
+.final-cta-background {
+    background:
+        radial-gradient(circle at 14% 22%, rgba(246, 190, 16, .16), transparent 26%),
+        radial-gradient(circle at 72% 16%, rgba(230, 36, 83, .2), transparent 30%),
+        radial-gradient(circle at 82% 78%, rgba(243, 145, 37, .16), transparent 32%),
+        var(--navy);
+}
+
+.hero-label,
+.section-label,
+.status-card-label,
+.meaning-center>span,
+.meaning-node span,
+.inspection-counter,
+.prevention-panel-number,
+.service-card-content span,
+.lifecycle-point span,
+.digital-note,
+.interface-card>span,
+.trust-item>span,
+.final-cta-content .section-label,
+.property-footer-logo span,
+.property-footer-column>span,
+.property-footer-column a:hover {
+    color: var(--logo-yellow);
+}
+
+.hero-introduction h1 em,
+.meaning-center strong,
+.meaning-intro h2 em,
+.why-card span,
+.property-visual-statement span,
+.final-cta-content h2 em {
+    color: transparent;
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+}
+
+.status-progress span,
+.process-line-progress,
+.timeline-line-fill,
+.interface-progress span {
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+}
+
+.property-hotspot strong,
+.inspection-hotspot span,
+.process-marker.active,
+.timeline-marker.active,
+.lifecycle-arrow,
+.benefit-card-icon,
+.audience-number,
+.lifecycle-center,
+.interface-dots i,
+.interface-visual-lines i {
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
+    border-color: transparent;
+    color: var(--white);
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+}
+
+.hotspot-pulse,
+.meaning-center-ring,
+.property-final-cta::before,
+.property-final-cta::after {
+    border-color: rgba(230, 36, 83, .28);
+}
+
+.meaning-node:hover,
+.meaning-node.active,
+.interface-card:hover,
+.trust-item:hover {
+    background:
+        linear-gradient(rgba(251, 248, 242, .9), rgba(251, 248, 242, .9)) padding-box,
+        var(--logo-gradient-moving) border-box;
+    background-size: 100% 100%, 220% 220%;
+    border-color: transparent;
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+}
+
+.condition-data {
+    border: 1px solid transparent;
+    background:
+        linear-gradient(rgba(251, 248, 242, .92), rgba(251, 248, 242, .92)) padding-box,
+        var(--logo-gradient-moving) border-box;
+    background-size: 100% 100%, 220% 220%;
+}
+
+.service-system-card:hover,
+.color-benefit-card:hover,
+.trust-item:hover {
+    box-shadow: 0 28px 70px rgba(230, 36, 83, .14);
+}
+
+.inspection-hotspot:hover span,
+.inspection-hotspot.active span,
+.trust-item:hover>span {
+    color: var(--white);
+}
+
+.trust-item:hover h3,
+.trust-item:hover p {
+    color: var(--navy);
+}
+
+.property-button-primary,
+.property-button-outline:hover,
+.property-button-light:hover {
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
+    color: var(--white);
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+}
+
+.property-hero {
+    padding-top: 120px;
+}
+
+.property-condition-visual {
+    min-height: 560px;
+}
+
+.property-building {
+    height: clamp(430px, 58vh, 540px);
+}
+
+.property-hero .property-button-outline {
+    border-color: rgba(255, 255, 255, .34);
+    color: var(--white);
+    background: rgba(255, 255, 255, .08);
+}
+
+.meaning-active-panel {
+    color: var(--white);
+    border-top: 0;
+    background: var(--logo-gradient-moving);
+    background-size: 240% 240%;
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+    box-shadow: 0 24px 70px rgba(230, 36, 83, .16);
+}
+
+.meaning-active-panel strong,
+.meaning-active-panel p,
+.active-panel-number {
+    color: var(--white) !important;
+}
+
+.process-line,
+.process-line-progress {
+    width: 2px;
+}
+
+.process-line-progress {
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+}
+
+.process-marker {
+    overflow: visible;
+    border: 0;
+    color: var(--white);
+    background: var(--logo-gradient-moving);
+    background-size: 220% 220%;
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+}
+
+.process-item-content {
+    position: relative;
+    padding-bottom: 18px;
+}
+
+.process-item-content::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--logo-gradient-moving);
+    background-size: 240% 240%;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: opacity .3s ease, transform .45s ease;
+}
+
+.process-item:hover .process-item-content::after {
+    opacity: 1;
+    transform: scaleX(1);
+    animation: propertyLogoGradientShift 5s ease-in-out infinite;
+}
+
+.process-item:nth-child(3n + 1) .process-marker {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.process-item:nth-child(3n + 2) .process-marker {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-orange));
+}
+
+.process-item:nth-child(3n) .process-marker {
+    background-image: linear-gradient(135deg, var(--logo-pink), var(--logo-magenta), var(--logo-yellow));
+}
+
+.meaning-node:hover,
+.meaning-node.active,
+.interface-card:hover,
+.trust-item:hover {
+    background: var(--logo-gradient-moving);
+    background-size: 240% 240%;
+    border-color: transparent;
+    animation: propertyLogoGradientShift 7s ease-in-out infinite;
+}
+
+.meaning-node:nth-of-type(3n + 1):hover,
+.meaning-node:nth-of-type(3n + 1).active,
+.interface-card:nth-child(3n + 1):hover,
+.trust-item:nth-child(3n + 1):hover {
+    background-image: linear-gradient(135deg, var(--logo-yellow), var(--logo-orange), var(--logo-pink));
+}
+
+.meaning-node:nth-of-type(3n + 2):hover,
+.meaning-node:nth-of-type(3n + 2).active,
+.interface-card:nth-child(3n + 2):hover,
+.trust-item:nth-child(3n + 2):hover {
+    background-image: linear-gradient(135deg, var(--logo-magenta), var(--logo-pink), var(--logo-orange));
+}
+
+.meaning-node:nth-of-type(3n):hover,
+.meaning-node:nth-of-type(3n).active,
+.interface-card:nth-child(3n):hover,
+.trust-item:nth-child(3n):hover {
+    background-image: linear-gradient(135deg, var(--logo-pink), var(--logo-magenta), var(--logo-yellow));
+}
+
+.meaning-node:hover span,
+.meaning-node:hover strong,
+.meaning-node:hover small,
+.meaning-node.active span,
+.meaning-node.active strong,
+.meaning-node.active small,
+.interface-card:hover>span,
+.interface-card:hover strong,
+.interface-card:hover small,
+.trust-item:hover>span,
+.trust-item:hover h3,
+.trust-item:hover p {
+    color: var(--white) !important;
+}
+
+.interface-card:hover .interface-dots i,
+.interface-card:hover .interface-visual-lines i {
+    background: var(--white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .property-button-primary,
+    .property-button-outline:hover,
+    .property-button-light:hover,
+    .hero-introduction h1 em,
+    .meaning-center strong,
+    .meaning-intro h2 em,
+    .why-card span,
+    .property-visual-statement span,
+    .final-cta-content h2 em,
+    .status-progress span,
+    .process-line-progress,
+    .timeline-line-fill,
+    .interface-progress span,
+    .property-hotspot strong,
+    .inspection-hotspot span,
+    .process-marker.active,
+    .timeline-marker.active,
+    .lifecycle-arrow,
+    .benefit-card-icon,
+    .audience-number,
+    .lifecycle-center,
+    .interface-dots i,
+    .interface-visual-lines i {
+        animation: none !important;
     }
 }

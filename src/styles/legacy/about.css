@@ -16,7 +16,13 @@
     --am-offwhite: #FCF8F0;
     --am-sand: #E9DDC9;
     --am-greige: #CFC3B1;
-    --am-ochre: #B7893D;
+    --am-logo-yellow: #f6be10;
+    --am-logo-orange: #f39125;
+    --am-logo-magenta: #c73b8e;
+    --am-logo-pink: #e62453;
+    --am-logo-gradient: linear-gradient(120deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+    --am-logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 24%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+    --am-ochre: var(--am-logo-orange);
     --am-olive: #7F8E74;
     --am-mist: #7FA0A3;
     --am-ink: #102238;
@@ -55,7 +61,7 @@ a {
     align-items: center;
     gap: 12px;
     margin-bottom: 16px;
-    color: var(--am-ochre);
+    color: var(--am-logo-yellow);
     font-size: 11.5px;
     font-weight: 700;
     letter-spacing: .16em;
@@ -66,7 +72,7 @@ a {
     content: "";
     width: 36px;
     height: 1px;
-    background: currentColor;
+    background: var(--am-logo-gradient);
 }
 
 .section-heading {
@@ -122,13 +128,16 @@ p {
 }
 
 .btn-light {
-    background: var(--am-offwhite);
-    color: var(--am-navy);
+    background: var(--am-logo-gradient-moving);
+    background-size: 220% 220%;
+    color: var(--am-offwhite);
     border: 1px solid transparent;
+    box-shadow: 0 16px 38px rgba(230, 36, 83, .18);
+    animation: aboutLogoGradientShift 7s ease-in-out infinite;
 }
 
 .btn-light:hover {
-    box-shadow: 0 14px 34px rgba(0, 0, 0, .18);
+    box-shadow: 0 18px 42px rgba(243, 145, 37, .26);
 }
 
 .btn-ghost {
@@ -138,7 +147,10 @@ p {
 }
 
 .btn-ghost:hover {
-    background: rgba(252, 248, 240, .16);
+    background:
+        linear-gradient(rgba(7, 26, 51, .72), rgba(7, 26, 51, .72)) padding-box,
+        var(--am-logo-gradient) border-box;
+    border-color: transparent;
 }
 
 /*==================================================
@@ -205,7 +217,7 @@ p {
     bottom: 0;
     width: 0;
     height: 1px;
-    background: var(--am-ochre);
+    background: var(--am-logo-gradient);
     transition: width .3s ease;
 }
 
@@ -229,9 +241,39 @@ p {
 }
 
 .header-btn:hover {
-    background: var(--am-offwhite);
-    color: var(--am-navy);
+    background: var(--am-logo-gradient-moving);
+    background-size: 220% 220%;
+    color: var(--am-offwhite);
     transform: translateY(-2px);
+    animation: aboutLogoGradientShift 7s ease-in-out infinite;
+}
+
+@keyframes aboutLogoGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes aboutLogoGradientBorderShift {
+    0% {
+        background-position: 0 0, 0% 50%;
+    }
+
+    50% {
+        background-position: 0 0, 100% 50%;
+    }
+
+    100% {
+        background-position: 0 0, 0% 50%;
+    }
 }
 
 .hamburger {
@@ -302,6 +344,8 @@ p {
 .about-hero-overlay {
     z-index: 2;
     background:
+        radial-gradient(circle at 16% 25%, rgba(199, 59, 142, .28), transparent 28%),
+        radial-gradient(circle at 72% 36%, rgba(243, 145, 37, .2), transparent 32%),
         linear-gradient(90deg, rgba(7, 26, 51, .94) 0%, rgba(7, 26, 51, .74) 45%, rgba(7, 26, 51, .32) 100%),
         linear-gradient(180deg, rgba(7, 26, 51, .18), rgba(7, 26, 51, .58));
 }
@@ -327,7 +371,12 @@ p {
 .about-hero h1 span {
     display: block;
     margin-top: 6px;
-    color: var(--am-sand);
+    width: max-content;
+    max-width: 100%;
+    color: transparent;
+    background: var(--am-logo-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
     font-weight: 400;
 }
 
@@ -385,7 +434,7 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--am-ochre);
+    background: var(--am-logo-gradient);
 }
 
 /*==================================================
@@ -443,8 +492,11 @@ p {
     z-index: 2;
     padding: 6px 14px;
     border-radius: 999px;
-    background: rgba(7, 26, 51, .72);
+    background:
+        linear-gradient(rgba(7, 26, 51, .72), rgba(7, 26, 51, .72)) padding-box,
+        var(--am-logo-gradient) border-box;
     backdrop-filter: blur(6px);
+    border: 1px solid transparent;
     color: var(--am-offwhite);
     font-size: 11px;
     font-weight: 700;
@@ -526,7 +578,10 @@ p {
 }
 
 .number-item:hover {
-    background: rgba(252, 248, 240, .04);
+    background:
+        radial-gradient(circle at 22% 20%, rgba(246, 190, 16, .12), transparent 34%),
+        radial-gradient(circle at 82% 82%, rgba(230, 36, 83, .13), transparent 36%),
+        rgba(252, 248, 240, .04);
 }
 
 .number-item:last-child {
@@ -571,6 +626,7 @@ p {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
+    object-position: 52% -20%;
     transform: scale(1.05);
 }
 
@@ -585,7 +641,8 @@ p {
 blockquote {
     margin-top: 28px;
     padding: 20px 0 0 24px;
-    border-left: 2px solid var(--am-ochre);
+    border-left: 2px solid transparent;
+    border-image: var(--am-logo-gradient) 1;
     color: var(--am-navy);
     font-size: clamp(20px, 2.4vw, 30px);
     line-height: 1.3;
@@ -627,13 +684,14 @@ blockquote {
 }
 
 .value-row:hover {
-    border-color: rgba(183, 137, 61, .58);
+    border-color: rgba(230, 36, 83, .58);
     transform: translateX(6px);
-    background: rgba(252, 248, 240, .03);
+    background:
+        linear-gradient(90deg, rgba(199, 59, 142, .12), rgba(243, 145, 37, .06), transparent);
 }
 
 .value-num {
-    color: var(--am-ochre);
+    color: var(--am-logo-yellow);
     font-size: 12px;
     letter-spacing: .16em;
 }
@@ -650,7 +708,7 @@ blockquote {
 .value-icon::after {
     content: "";
     position: absolute;
-    background: var(--am-ochre);
+    background: var(--am-logo-gradient);
     transition: transform .35s ease;
 }
 
@@ -714,19 +772,21 @@ blockquote {
     right: 0;
     height: 1px;
     background: var(--am-line);
+    z-index: 0;
 }
 
 .process-progress span {
     display: block;
     width: 0;
     height: 100%;
-    background: var(--am-ochre);
+    background: var(--am-logo-gradient);
 }
 
 .process-step {
     position: relative;
     padding: 60px 20px 0 0;
     transition: transform .35s ease;
+    z-index: 1;
 }
 
 .process-step:hover {
@@ -752,12 +812,19 @@ blockquote {
     font-size: 12px;
     font-weight: 700;
     transition: background .35s ease, color .35s ease, border-color .35s ease;
+    z-index: 2;
+    box-shadow: 0 0 0 10px var(--am-offwhite);
 }
 
 .process-step.active span {
-    background: var(--am-navy);
-    border-color: var(--am-navy);
+    background: var(--am-logo-gradient-moving);
+    background-size: 220% 220%;
+    border-color: transparent;
     color: var(--am-offwhite);
+    box-shadow:
+        0 0 0 10px var(--am-offwhite),
+        0 14px 28px rgba(230, 36, 83, .18);
+    animation: aboutLogoGradientShift 7s ease-in-out infinite;
 }
 
 .process-step h3 {
@@ -801,6 +868,8 @@ blockquote {
 
 .why-image-overlay {
     background:
+        radial-gradient(circle at 20% 30%, rgba(199, 59, 142, .28), transparent 30%),
+        radial-gradient(circle at 76% 68%, rgba(246, 190, 16, .14), transparent 32%),
         linear-gradient(90deg, rgba(7, 26, 51, .92), rgba(7, 26, 51, .56)),
         linear-gradient(180deg, rgba(7, 26, 51, .18), rgba(7, 26, 51, .72));
 }
@@ -833,7 +902,10 @@ blockquote {
 
 .why-image-content strong span {
     display: block;
-    color: var(--am-ochre);
+    color: transparent;
+    background: var(--am-logo-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 /*==================================================
@@ -861,6 +933,7 @@ blockquote {
 .text-link:hover,
 .review-link:hover {
     gap: 6px;
+    color: var(--am-logo-pink);
 }
 
 .partner-placeholders {
@@ -883,8 +956,8 @@ blockquote {
 }
 
 .partner-placeholders span:hover {
-    background: rgba(183, 137, 61, .06);
-    color: var(--am-ochre);
+    background: var(--am-logo-gradient);
+    color: var(--am-offwhite);
 }
 
 /*==================================================
@@ -918,16 +991,27 @@ blockquote {
     min-width: 0;
     margin-right: 20px;
     padding: 34px;
-    border: 1px solid rgba(233, 221, 201, .22);
-    background: rgba(252, 248, 240, .07);
+    border: 1px solid rgba(246, 190, 16, .16);
+    background:
+        linear-gradient(rgba(7, 26, 51, .82), rgba(7, 26, 51, .82)) padding-box,
+        var(--am-logo-gradient-moving) border-box;
+    background-size: 100% 100%, 240% 240%;
     opacity: .45;
     visibility: visible;
     display: block;
+    border-radius: 28px;
+    overflow: hidden;
 }
 
 .testimonial-card.active {
     opacity: 1;
-    border-color: rgba(183, 137, 61, .42);
+    border-color: transparent;
+    background:
+        linear-gradient(rgba(7, 26, 51, .62), rgba(7, 26, 51, .62)) padding-box,
+        var(--am-logo-gradient-moving) border-box;
+    background-size: 100% 100%, 260% 260%;
+    animation: aboutLogoGradientBorderShift 6s ease-in-out infinite;
+    box-shadow: 0 22px 65px rgba(230, 36, 83, .16);
 }
 
 .testimonial-card p {
@@ -939,12 +1023,12 @@ blockquote {
 .testimonial-card span {
     display: block;
     margin-top: 20px;
-    color: var(--am-ochre);
+    color: var(--am-logo-yellow);
     font-size: 13px;
 }
 
 .testimonial-stars {
-    color: #c9a44a;
+    color: var(--am-logo-yellow);
     font-size: 17px;
     letter-spacing: 2px;
     margin-bottom: 14px;
@@ -964,7 +1048,7 @@ blockquote {
 }
 
 .testimonial-control:hover {
-    background: var(--am-offwhite);
+    background: var(--am-logo-gradient);
     color: var(--am-navy);
     transform: scale(1.08);
 }
@@ -980,7 +1064,7 @@ blockquote {
     display: block;
     width: 33.333%;
     height: 100%;
-    background: var(--am-ochre);
+    background: var(--am-logo-gradient);
     transition: transform .45s ease;
 }
 
@@ -1041,14 +1125,25 @@ blockquote {
     opacity: .45;
     visibility: visible;
     transform: none;
-    background: rgba(252, 248, 240, .07);
-    border: 1px solid rgba(233, 221, 201, .22);
+    background:
+        linear-gradient(rgba(7, 26, 51, .82), rgba(7, 26, 51, .82)) padding-box,
+        var(--am-logo-gradient-moving) border-box;
+    background-size: 100% 100%, 240% 240%;
+    border: 1px solid rgba(246, 190, 16, .16);
+    border-radius: 28px;
+    overflow: hidden;
 }
 
 .about-testimonials .testimonial-card.active {
     opacity: 1;
     visibility: visible;
-    border-color: rgba(183, 137, 61, .42);
+    border-color: transparent;
+    background:
+        linear-gradient(rgba(7, 26, 51, .62), rgba(7, 26, 51, .62)) padding-box,
+        var(--am-logo-gradient-moving) border-box;
+    background-size: 100% 100%, 260% 260%;
+    animation: aboutLogoGradientBorderShift 6s ease-in-out infinite;
+    box-shadow: 0 22px 65px rgba(230, 36, 83, .16);
 }
 
 .about-testimonials .testimonial-card p {
@@ -1061,7 +1156,7 @@ blockquote {
 .about-testimonials .testimonial-card span {
     display: block;
     margin-top: 20px;
-    color: var(--am-ochre) !important;
+    color: var(--am-logo-yellow) !important;
     font-size: 13px !important;
 }
 
@@ -1088,6 +1183,10 @@ blockquote {
 
 .final-cta {
     text-align: center;
+    background:
+        radial-gradient(circle at 18% 18%, rgba(246, 190, 16, .18), transparent 28%),
+        radial-gradient(circle at 78% 60%, rgba(230, 36, 83, .16), transparent 34%),
+        linear-gradient(180deg, var(--am-navy), #071527);
 }
 
 .final-cta-inner {
@@ -1108,7 +1207,7 @@ blockquote {
 .final-cta-inner>span {
     display: block;
     margin-top: 32px;
-    color: rgba(252, 248, 240, .58);
+    color: var(--am-logo-yellow);
     font-size: 12.5px;
 }
 
@@ -1162,7 +1261,7 @@ blockquote {
 
 .footer-nav a:hover,
 .footer-legal a:hover {
-    color: var(--am-ochre);
+    color: var(--am-logo-yellow);
 }
 
 .copyright {

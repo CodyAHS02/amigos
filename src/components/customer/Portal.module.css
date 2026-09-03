@@ -519,3 +519,118 @@
     margin-right: 24px;
   }
 }
+
+/* Shared portal reset and logo-theme polish */
+
+:global(html),
+:global(body) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100%;
+  background: #071A33;
+}
+
+:global(*),
+:global(*::before),
+:global(*::after) {
+  box-sizing: border-box;
+}
+
+.portalPage,
+.loginPage {
+  --logo-yellow: #f6be10;
+  --logo-orange: #f39125;
+  --logo-magenta: #c73b8e;
+  --logo-pink: #e62453;
+  --logo-gradient: linear-gradient(135deg, #f6be10 0%, #f39125 34%, #c73b8e 68%, #e62453 100%);
+  --logo-gradient-moving: linear-gradient(120deg, #f6be10 0%, #f39125 22%, #c73b8e 52%, #e62453 76%, #f6be10 100%);
+}
+
+.portalPage {
+  background:
+    radial-gradient(circle at 86% 12%, rgba(230, 36, 83, .10), transparent 30%),
+    radial-gradient(circle at 18% 88%, rgba(246, 190, 16, .10), transparent 32%),
+    linear-gradient(120deg, rgba(7, 26, 51, .05), transparent 34%),
+    var(--am-cream);
+}
+
+.loginPage {
+  padding: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(7, 26, 51, .88), rgba(7, 26, 51, .64)),
+    radial-gradient(circle at 78% 16%, rgba(230, 36, 83, .26), transparent 34%),
+    url("/assets/about-hero.jpg") center/cover;
+}
+
+.sidebar {
+  background:
+    radial-gradient(circle at 20% 12%, rgba(246, 190, 16, .18), transparent 34%),
+    var(--am-navy);
+}
+
+.brand img {
+  width: 92px;
+  height: auto;
+}
+
+.loginCard {
+  border-color: rgba(255, 255, 255, .24);
+  background: rgba(252, 248, 240, .96);
+}
+
+.loginCard::before {
+  background:
+    linear-gradient(135deg, rgba(7, 26, 51, .92), rgba(7, 26, 51, .56)),
+    radial-gradient(circle at 24% 20%, rgba(246, 190, 16, .22), transparent 34%),
+    url("/assets/services-imags/painting-hero.jpg") center/cover;
+}
+
+.loginCard>img {
+  width: 124px;
+  height: auto;
+}
+
+.eyebrow,
+.accountCard span,
+.card span {
+  color: var(--logo-pink);
+}
+
+.primaryButton,
+.loginForm button {
+  background: var(--logo-gradient-moving);
+  background-size: 260% 260%;
+  color: #fff;
+  animation: portalGradientShift 8s ease-in-out infinite;
+}
+
+.logoutButton {
+  background: var(--am-navy);
+  color: #fff;
+}
+
+.card::after {
+  background: var(--logo-gradient);
+}
+
+.nav a:hover,
+.navActive {
+  background: rgba(255, 255, 255, .12);
+  box-shadow: inset 3px 0 0 var(--logo-pink);
+}
+
+@keyframes portalGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

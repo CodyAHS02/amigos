@@ -14,7 +14,7 @@ export default function CustomerRegisterPage() {
   return (
     <main className={styles.loginPage}>
       <section className={styles.loginCard}>
-        <img src="/assets/logo.png" alt="Amigos Maler" />
+        <img src="/New-Logo.png" alt="Amigos Maler" />
         <h1>Create Account</h1>
         <p>Register to manage your project, invoices, and consultation appointments.</p>
         <RegisterForm />

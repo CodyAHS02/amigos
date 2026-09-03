@@ -38,7 +38,7 @@ function LocalScript({ src }) {
   );
 }
 
-export default function LegacyPage({ css = [], html, scripts = [], shell = true }) {
+export default function LegacyPage({ children, css = [], html, scripts = [], shell = true }) {
   return (
     <>
       {css.map((href) =>
@@ -47,6 +47,7 @@ export default function LegacyPage({ css = [], html, scripts = [], shell = true 
 
       {shell && <Header />}
       <LegacyMarkup html={html} />
+      {children}
       {shell && <Footer />}
 
       <Script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" strategy="beforeInteractive" />

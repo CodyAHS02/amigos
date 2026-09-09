@@ -7614,12 +7614,12 @@ span.section-tag {
 ===================================================== */
 
 .projects-dock {
-    position: fixed;
+    position: relative;
 
-    left: 50%;
-    bottom: 40px;
+    left: auto;
+    bottom: auto;
 
-    transform: translateX(-50%);
+    transform: none;
 
     display: flex;
     align-items: center;
@@ -7646,9 +7646,9 @@ span.section-tag {
 
     z-index: 5000;
 
-    opacity: 0;
+    opacity: 1;
 
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 .dock-tab {
@@ -8711,7 +8711,7 @@ span.section-tag {
     pointer-events: none;
 }
 
-.audience-bar > * {
+.audience-bar>* {
     position: relative;
     z-index: 1;
 }
@@ -10260,6 +10260,10 @@ body {
     color: #fff !important;
 }
 
+.footer-mobile-copyright {
+    display: none;
+}
+
 @media (max-width: 1180px) {
     .site-nav {
         gap: 18px !important;
@@ -10301,4 +10305,2214 @@ body {
         flex-wrap: wrap;
         justify-content: center;
     }
+}
+
+/* ==================================================
+   RESPONSIVE COMPLETION PASS
+================================================== */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
+body[data-page="home"] .hero {
+    background: #071A33;
+}
+
+body[data-page="home"] .intro-title {
+    display: block;
+    width: min(96vw, 1840px);
+    text-align: center;
+    line-height: .9;
+}
+
+body[data-page="home"] .intro-title>span[style] {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: auto !important;
+    min-width: 0;
+    height: 1.35em;
+    transform: rotate(-90deg) translate(0.38em, -.06em) !important;
+    transform-origin: center center !important;
+    margin: 0 0 0 -.1em !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #fff !important;
+    font-size: clamp(18px, .18em, 34px) !important;
+    font-weight: 700;
+    line-height: 1 !important;
+    letter-spacing: .06em !important;
+    vertical-align: middle !important;
+    white-space: nowrap;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body[data-page="home"] .intro-title>span:not([style]) {
+    display: block;
+    width: min(980px, 92vw);
+    margin: 24px auto 0;
+}
+
+body[data-page="home"] .introBtn {
+    background: linear-gradient(135deg, #f6be10 0%, #f39125 42%, #e62453 100%) !important;
+    box-shadow: 0 18px 42px rgba(230, 36, 83, .24), 0 10px 26px rgba(246, 190, 16, .2);
+}
+
+body[data-page="home"] .introBtn:hover {
+    background: linear-gradient(135deg, #ffd447 0%, #f39125 38%, #c73b8e 100%) !important;
+}
+
+.site-header {
+    min-width: 0;
+}
+
+.site-nav {
+    align-items: center;
+    min-width: 0;
+}
+
+.site-nav a,
+.dropdown-trigger {
+    white-space: nowrap;
+}
+
+@media (max-width: 1360px) {
+    .site-header {
+        padding-inline: 44px !important;
+    }
+
+    .site-header.is-scrolled {
+        padding-inline: 44px !important;
+    }
+
+    .site-nav {
+        gap: 18px !important;
+    }
+
+    .site-nav a,
+    .dropdown-trigger {
+        font-size: 13px !important;
+    }
+
+    .header-btn,
+    .customer-header-btn {
+        padding-inline: 16px !important;
+    }
+}
+
+@media (max-width: 1120px) {
+    .site-header {
+        padding: 18px 28px !important;
+    }
+
+    .site-header.is-scrolled {
+        padding: 14px 28px !important;
+    }
+
+    .site-nav {
+        position: fixed !important;
+        inset: 0;
+        z-index: 55;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 0 !important;
+        width: 100%;
+        height: 100vh;
+        padding: 104px 28px 34px !important;
+        background: radial-gradient(circle at 85% 15%, rgba(230, 36, 83, .18), transparent 34%), #071A33 !important;
+        clip-path: circle(0% at calc(100% - 46px) 42px);
+        pointer-events: none;
+        overflow-y: auto;
+    }
+
+    .site-nav.open {
+        pointer-events: auto;
+    }
+
+    .site-nav a,
+    .dropdown-trigger {
+        width: 100%;
+        padding: 13px 0 !important;
+        font-size: 16px !important;
+        white-space: normal;
+    }
+
+    .dropdown-menu {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        grid-template-columns: 1fr !important;
+        margin-top: 8px !important;
+        padding: 8px !important;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .nav-dropdown.open .dropdown-menu {
+        max-height: 820px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .dropdown-item {
+        white-space: normal !important;
+        min-width: 0;
+    }
+
+    .header-actions {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    body[data-page="home"] .hero-media {
+        background: #071A33;
+    }
+
+    body[data-page="home"] #heroVideo,
+    body[data-page="home"] .hero video {
+        object-fit: cover !important;
+        object-position: center center !important;
+    }
+
+    body[data-page="home"] #paintCanvas {
+        object-fit: cover !important;
+        object-position: center center !important;
+    }
+
+    body[data-page="home"] .intro-title {
+        top: 12vh;
+        width: min(92vw, 520px);
+        font-size: clamp(62px, 19vw, 104px);
+        white-space: normal;
+        letter-spacing: 0;
+        line-height: .86;
+    }
+
+    body[data-page="home"] .intro-title>span[style] {
+        height: 1.25em;
+        margin-left: -.06em !important;
+        font-size: clamp(12px, .2em, 19px) !important;
+        transform: rotate(-90deg) translate(0.45em, -.04em) !important;
+    }
+
+    body[data-page="home"] .intro-title>span:not([style]) {
+        width: min(520px, 90vw);
+        margin-top: 16px;
+        font-size: clamp(14px, 3.4vw, 18px);
+        line-height: 1.35;
+        white-space: normal;
+    }
+
+    .site-footer {
+        text-align: left !important;
+    }
+
+    .footer-main {
+        width: min(100% - 40px, 680px);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 32px 22px !important;
+        align-items: start;
+        padding: 44px 0 28px !important;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+        text-align: left !important;
+    }
+
+    .footer-logo {
+        justify-content: flex-start;
+        width: min(250px, 78vw) !important;
+        margin: 0 0 20px !important;
+    }
+
+    .footer-brand p {
+        max-width: 100%;
+        text-align: left !important;
+    }
+
+    .footer-socials {
+        justify-content: flex-start;
+    }
+
+    .footer-mobile-copyright {
+        display: block;
+        margin: 22px 0 0 !important;
+        max-width: 100%;
+        color: rgba(255, 255, 255, .62) !important;
+        font-size: 12px !important;
+        line-height: 1.45 !important;
+        text-align: left !important;
+    }
+
+    .footer-desktop-copyright {
+        display: none;
+    }
+
+    .footer-column {
+        min-width: 0;
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .footer-column[aria-label="Footer navigation"],
+    .footer-column[aria-label="Footer services"],
+    .footer-column[aria-label="Customer portal"] {
+        display: flex !important;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .footer-column h4 {
+        width: 100%;
+        text-align: left !important;
+    }
+
+    .footer-column[aria-label="Footer navigation"] a,
+    .footer-column[aria-label="Footer services"] a,
+    .footer-column[aria-label="Customer portal"] a {
+        width: auto;
+        max-width: 100%;
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        text-align: left !important;
+        overflow-wrap: anywhere;
+    }
+
+    .footer-contact p,
+    .footer-contact a {
+        width: 100%;
+        grid-template-columns: 18px minmax(0, 1fr);
+    }
+
+    .footer-bottom {
+        align-items: flex-start !important;
+        text-align: left !important;
+        padding: 20px 20px 28px !important;
+    }
+
+    .footer-bottom div {
+        justify-content: flex-start !important;
+        gap: 18px 24px !important;
+    }
+}
+
+@media (max-width: 520px) {
+    .footer-main {
+        width: min(100% - 32px, 440px);
+        gap: 30px 18px !important;
+    }
+
+    .footer-column h4 {
+        font-size: 14px !important;
+    }
+
+    .footer-column a,
+    .footer-column p {
+        font-size: 13px !important;
+    }
+}
+
+/* ==================================================
+   THEME TOGGLE + AMIGOS NAVY THEME
+================================================== */
+
+.theme-toggle {
+    position: relative;
+    width: 48px;
+    height: 32px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3px;
+    border: 1px solid rgba(255, 255, 255, .42);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background .28s ease, border-color .28s ease, transform .28s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, .68);
+    background: rgba(255, 255, 255, .20);
+}
+
+.theme-toggle-icon {
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f6be10, #f39125 48%, #e62453);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .22);
+    transition: transform .32s ease, background .32s ease;
+}
+
+.theme-toggle-icon span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .24);
+}
+
+html[data-theme="amigos-dark"] .theme-toggle {
+    border-color: rgba(246, 190, 16, .54);
+    background: rgba(7, 26, 51, .72);
+}
+
+html[data-theme="amigos-dark"] .theme-toggle-icon {
+    transform: translateX(16px);
+    background: linear-gradient(135deg, #071A33, #c73b8e 54%, #e62453);
+}
+
+@media (max-width: 1120px) {
+    .theme-toggle {
+        margin-left: auto;
+    }
+}
+
+html[data-theme="amigos-dark"],
+html[data-theme="amigos-dark"] body {
+    background: #071A33 !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] .site-header.is-scrolled,
+html[data-theme="amigos-dark"] .site-nav.open {
+    background: rgba(7, 26, 51, .96) !important;
+}
+
+html[data-theme="amigos-dark"] .introBtn,
+html[data-theme="amigos-dark"] .btn-primary,
+html[data-theme="amigos-dark"] .quote-start-btn,
+html[data-theme="amigos-dark"] .generate-btn,
+html[data-theme="amigos-dark"] .why-btn,
+html[data-theme="amigos-dark"] .services-view-all-btn,
+html[data-theme="amigos-dark"] .review-btn {
+    background: linear-gradient(135deg, #f6be10 0%, #f39125 42%, #e62453 100%) !important;
+    color: #fff !important;
+    border-color: rgba(246, 190, 16, .44) !important;
+    box-shadow: 0 18px 46px rgba(230, 36, 83, .22), 0 10px 30px rgba(246, 190, 16, .18) !important;
+}
+
+html[data-theme="amigos-dark"] .btn-secondary,
+html[data-theme="amigos-dark"] .header-btn,
+html[data-theme="amigos-dark"] .customer-header-btn {
+    background: rgba(255, 255, 255, .08) !important;
+    border-color: rgba(255, 255, 255, .28) !important;
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] .audience-wrap,
+html[data-theme="amigos-dark"] .services-nav-section,
+html[data-theme="amigos-dark"] .why-amigos,
+html[data-theme="amigos-dark"] .dtools-section,
+html[data-theme="amigos-dark"] .ai-section,
+html[data-theme="amigos-dark"] .quote-section,
+html[data-theme="amigos-dark"] .projects,
+html[data-theme="amigos-dark"] .plans-section,
+html[data-theme="amigos-dark"] .testimonials {
+    background:
+        radial-gradient(circle at 82% 10%, rgba(199, 59, 142, .12), transparent 30%),
+        radial-gradient(circle at 12% 82%, rgba(246, 190, 16, .08), transparent 28%),
+        #071A33 !important;
+}
+
+html[data-theme="amigos-dark"] .services-nav-section,
+html[data-theme="amigos-dark"] .plans-section {
+    background:
+        linear-gradient(180deg, #071A33 0%, #0D2542 100%) !important;
+}
+
+html[data-theme="amigos-dark"] .audience-bar {
+    background: rgba(13, 37, 66, .72) !important;
+    border-color: rgba(246, 190, 16, .28) !important;
+    animation: none !important;
+}
+
+html[data-theme="amigos-dark"] .section-tag,
+html[data-theme="amigos-dark"] .projects .eyebrow,
+html[data-theme="amigos-dark"] .testimonial-kicker,
+html[data-theme="amigos-dark"] .plans-eyebrow,
+html[data-theme="amigos-dark"] .services-nav-heading .section-tag,
+html[data-theme="amigos-dark"] .ai-heading .section-tag,
+html[data-theme="amigos-dark"] .dtools-heading .section-tag {
+    color: #f6be10 !important;
+}
+
+html[data-theme="amigos-dark"] h1,
+html[data-theme="amigos-dark"] h2,
+html[data-theme="amigos-dark"] h3,
+html[data-theme="amigos-dark"] h4,
+html[data-theme="amigos-dark"] .services-nav-heading h2,
+html[data-theme="amigos-dark"] .audience-left h3,
+html[data-theme="amigos-dark"] .audience-right span.item,
+html[data-theme="amigos-dark"] .projects-heading h2,
+html[data-theme="amigos-dark"] .plans-header h2,
+html[data-theme="amigos-dark"] .testimonial-center h2,
+html[data-theme="amigos-dark"] .audience-cards-heading h2,
+html[data-theme="amigos-dark"] .why-content h2,
+html[data-theme="amigos-dark"] .ai-heading h2,
+html[data-theme="amigos-dark"] .scc-content h3 {
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] p,
+html[data-theme="amigos-dark"] li,
+html[data-theme="amigos-dark"] .audience-left p,
+html[data-theme="amigos-dark"] .projects-heading p,
+html[data-theme="amigos-dark"] .plans-header p,
+html[data-theme="amigos-dark"] .testimonial-card p,
+html[data-theme="amigos-dark"] .audience-card p,
+html[data-theme="amigos-dark"] .why-content p,
+html[data-theme="amigos-dark"] .scc-content p,
+html[data-theme="amigos-dark"] .ai-side p,
+html[data-theme="amigos-dark"] .plan-card p {
+    color: rgba(253, 251, 246, .76) !important;
+}
+
+html[data-theme="amigos-dark"] .service-cf-card,
+html[data-theme="amigos-dark"] .testimonial-card,
+html[data-theme="amigos-dark"] .ai-controls-dock,
+html[data-theme="amigos-dark"] .palette-wrapper,
+html[data-theme="amigos-dark"] .wallpaperAI,
+html[data-theme="amigos-dark"] .projects-dock,
+html[data-theme="amigos-dark"] .billing-toggle {
+    background: rgba(13, 37, 66, .78) !important;
+    border-color: rgba(247, 241, 231, .16) !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] .service-cf-card[data-offset="0"] {
+    box-shadow: 0 36px 90px rgba(0, 0, 0, .36), 0 0 0 1px rgba(246, 190, 16, .22) !important;
+}
+
+html[data-theme="amigos-dark"] .audience-card,
+html[data-theme="amigos-dark"] .dtools-card,
+html[data-theme="amigos-dark"] .ai-stage {
+    border-color: rgba(247, 241, 231, .18) !important;
+}
+
+html[data-theme="amigos-dark"] .audience-card *,
+html[data-theme="amigos-dark"] .dtools-card *,
+html[data-theme="amigos-dark"] .ai-stage *,
+html[data-theme="amigos-dark"] .quote-container *,
+html[data-theme="amigos-dark"] .audience-bar * {
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] .plans-grid .plan-card {
+    border: 1px solid rgba(255, 255, 255, .16) !important;
+    box-shadow: 0 30px 78px rgba(0, 0, 0, .28) !important;
+}
+
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) {
+    background: linear-gradient(145deg, #f6be10 0%, #b98600 100%) !important;
+}
+
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) {
+    background: linear-gradient(145deg, #f39125 0%, #b55311 100%) !important;
+}
+
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) {
+    background: linear-gradient(145deg, #e62453 0%, #94144a 100%) !important;
+}
+
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1)::before,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1)::after,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2)::before,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2)::after,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3)::before,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3)::after {
+    opacity: 0 !important;
+}
+
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1),
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) h3,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) p,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) li,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) .plan-name,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) .price,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) .price strong,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) .price span,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(1) .price small,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2),
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) h3,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) p,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) li,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) .plan-name,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) .price,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) .price strong,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) .price span,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(2) .price small,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3),
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) h3,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) p,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) li,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) .plan-name,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) .price,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) .price strong,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) .price span,
+html[data-theme="amigos-dark"] .plans-grid .plan-card:nth-child(3) .price small {
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] .plans-grid .plan-card button {
+    background: rgba(7, 26, 51, .84) !important;
+    border-color: rgba(255, 255, 255, .34) !important;
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] .success-badge,
+html[data-theme="amigos-dark"] .ai-status-dot,
+html[data-theme="amigos-dark"] .chatbot-dot {
+    background: #20C974 !important;
+}
+
+/* Dark theme final layer: navy is the base, brand gradient is reserved for accents and high-emphasis sections. */
+html[data-theme="amigos-dark"] {
+    color-scheme: dark;
+    --am-dark-navy: #071A33;
+    --am-dark-navy-2: #0B223D;
+    --am-dark-surface: rgba(13, 37, 66, .84);
+    --am-dark-line: rgba(255, 255, 255, .16);
+    --am-brand-gradient: linear-gradient(135deg, #F6BE10 0%, #F39125 45%, #E62453 100%);
+}
+
+html[data-theme="amigos-dark"] body,
+html[data-theme="amigos-dark"] main,
+html[data-theme="amigos-dark"] .legacy-page {
+    background: var(--am-dark-navy) !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] body:not([data-page="home"]) section:not(.site-footer):not(.footer):not(.footer-section),
+html[data-theme="amigos-dark"] body:not([data-page="home"]) main>section:not(.site-footer):not(.footer):not(.footer-section),
+html[data-theme="amigos-dark"] body:not([data-page="home"]) [class*="-section"]:not(.footer-section),
+html[data-theme="amigos-dark"] .about-hero,
+html[data-theme="amigos-dark"] .about-intro,
+html[data-theme="amigos-dark"] .about-values,
+html[data-theme="amigos-dark"] .about-process,
+html[data-theme="amigos-dark"] .about-testimonials {
+    background:
+        radial-gradient(circle at 88% 8%, rgba(230, 36, 83, .12), transparent 28%),
+        radial-gradient(circle at 6% 90%, rgba(246, 190, 16, .08), transparent 30%),
+        var(--am-dark-navy) !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] .why-amigos,
+html[data-theme="amigos-dark"] .plans-section,
+html[data-theme="amigos-dark"] .testimonials,
+html[data-theme="amigos-dark"] .quote-section,
+html[data-theme="amigos-dark"] .about-cta,
+html[data-theme="amigos-dark"] .cta-section {
+    background:
+        radial-gradient(circle at 16% 16%, rgba(255, 255, 255, .18), transparent 24%),
+        radial-gradient(circle at 82% 18%, rgba(246, 190, 16, .26), transparent 28%),
+        linear-gradient(135deg, #F6BE10 0%, #F39125 38%, #E62453 100%) !important;
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] h1,
+html[data-theme="amigos-dark"] h2,
+html[data-theme="amigos-dark"] h3,
+html[data-theme="amigos-dark"] h4,
+html[data-theme="amigos-dark"] h5,
+html[data-theme="amigos-dark"] h6,
+html[data-theme="amigos-dark"] .section-title,
+html[data-theme="amigos-dark"] .services-nav-heading h2,
+html[data-theme="amigos-dark"] .projects-heading h2,
+html[data-theme="amigos-dark"] .plans-header h2,
+html[data-theme="amigos-dark"] .testimonial-center h2,
+html[data-theme="amigos-dark"] .why-content h2 {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+html[data-theme="amigos-dark"] p,
+html[data-theme="amigos-dark"] li,
+html[data-theme="amigos-dark"] small,
+html[data-theme="amigos-dark"] .projects-heading p,
+html[data-theme="amigos-dark"] .plans-header p,
+html[data-theme="amigos-dark"] .testimonial-card p,
+html[data-theme="amigos-dark"] .why-content p,
+html[data-theme="amigos-dark"] .plan-card p {
+    color: rgba(253, 251, 246, .78) !important;
+}
+
+html[data-theme="amigos-dark"] .section-tag,
+html[data-theme="amigos-dark"] .projects .eyebrow,
+html[data-theme="amigos-dark"] .testimonial-kicker,
+html[data-theme="amigos-dark"] .plans-eyebrow,
+html[data-theme="amigos-dark"] .plan-name,
+html[data-theme="amigos-dark"] [class*="kicker"],
+html[data-theme="amigos-dark"] [class*="eyebrow"] {
+    background: var(--am-brand-gradient) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="amigos-dark"] .service-cf-card,
+html[data-theme="amigos-dark"] .testimonial-card,
+html[data-theme="amigos-dark"] .audience-card,
+html[data-theme="amigos-dark"] .dtools-card,
+html[data-theme="amigos-dark"] .ai-stage,
+html[data-theme="amigos-dark"] .projects-dock,
+html[data-theme="amigos-dark"] .billing-toggle,
+html[data-theme="amigos-dark"] .about-card,
+html[data-theme="amigos-dark"] .value-card,
+html[data-theme="amigos-dark"] .process-step,
+html[data-theme="amigos-dark"] article {
+    background: var(--am-dark-surface) !important;
+    border-color: var(--am-dark-line) !important;
+    color: #FDFBF6 !important;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .28) !important;
+}
+
+html[data-theme="amigos-dark"] .why-amigos *,
+html[data-theme="amigos-dark"] .plans-section *,
+html[data-theme="amigos-dark"] .testimonials *,
+html[data-theme="amigos-dark"] .quote-section *,
+html[data-theme="amigos-dark"] .about-cta *,
+html[data-theme="amigos-dark"] .cta-section * {
+    color: #fff !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+html[data-theme="amigos-dark"] .introBtn,
+html[data-theme="amigos-dark"] .btn-primary,
+html[data-theme="amigos-dark"] .quote-start-btn,
+html[data-theme="amigos-dark"] .generate-btn,
+html[data-theme="amigos-dark"] .why-btn,
+html[data-theme="amigos-dark"] .services-view-all-btn,
+html[data-theme="amigos-dark"] .review-btn,
+html[data-theme="amigos-dark"] a[class*="btn"],
+html[data-theme="amigos-dark"] button[class*="btn"] {
+    background: var(--am-brand-gradient) !important;
+    border-color: rgba(246, 190, 16, .44) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: 0 18px 46px rgba(230, 36, 83, .2), 0 12px 34px rgba(246, 190, 16, .14) !important;
+}
+
+html[data-theme="amigos-dark"] .btn-secondary,
+html[data-theme="amigos-dark"] .header-btn,
+html[data-theme="amigos-dark"] .customer-header-btn {
+    background: rgba(255, 255, 255, .07) !important;
+    border-color: rgba(255, 255, 255, .32) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] .site-footer,
+html[data-theme="amigos-dark"] .footer {
+    background: #06162C !important;
+}
+
+html[data-theme="amigos-dark"] .site-header .header-btn,
+html[data-theme="amigos-dark"] .site-header .customer-header-btn {
+    background: rgba(255, 255, 255, .07) !important;
+    border-color: rgba(255, 255, 255, .32) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: none !important;
+}
+
+/* Homepage client polish: strict button formula, controlled gradients, and readable dark theme accents. */
+body[data-page="home"] {
+    --am-yellow-grad: linear-gradient(135deg, #F6BE10 0%, #C89400 100%);
+    --am-orange-grad: linear-gradient(135deg, #F39125 0%, #B94E10 100%);
+    --am-pink-grad: linear-gradient(135deg, #E62453 0%, #97134D 100%);
+    --am-mixed-grad: linear-gradient(120deg, #F6BE10 0%, #F39125 42%, #E62453 100%);
+}
+
+body[data-page="home"] .introBtn,
+body[data-page="home"] .hero-buttons .btn-primary,
+body[data-page="home"] .quote-start-btn,
+body[data-page="home"] .review-btn {
+    background: var(--am-mixed-grad) !important;
+    border: 1px solid rgba(246, 190, 16, .44) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: 0 18px 44px rgba(230, 36, 83, .22), 0 12px 28px rgba(246, 190, 16, .16) !important;
+}
+
+body[data-page="home"] .hero-buttons .btn-secondary,
+body[data-page="home"] .quote-side .btn-secondary,
+body[data-page="home"] .btn-secondary {
+    background: rgba(255, 255, 255, .08) !important;
+    border: 1px solid rgba(255, 255, 255, .62) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .10) !important;
+}
+
+body[data-page="home"] .introBtn:hover,
+body[data-page="home"] .hero-buttons .btn-primary:hover,
+body[data-page="home"] .quote-start-btn:hover,
+body[data-page="home"] .review-btn:hover {
+    transform: translateY(-4px) scale(1.015);
+    filter: saturate(1.14) brightness(1.04);
+    box-shadow: 0 24px 58px rgba(230, 36, 83, .30), 0 16px 36px rgba(246, 190, 16, .22) !important;
+}
+
+body[data-page="home"] .hero-buttons .btn-secondary:hover,
+body[data-page="home"] .btn-secondary:hover {
+    background: rgba(255, 255, 255, .16) !important;
+    border-color: rgba(255, 255, 255, .92) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    transform: translateY(-4px);
+}
+
+body[data-page="home"] .audience-card {
+    background: rgba(13, 37, 66, .82) !important;
+    border-color: rgba(255, 255, 255, .16) !important;
+    color: #FDFBF6 !important;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .22) !important;
+}
+
+body[data-page="home"] .audience-card:nth-child(1):hover {
+    background: var(--am-yellow-grad) !important;
+    border-color: rgba(246, 190, 16, .84) !important;
+    box-shadow: 0 28px 80px rgba(246, 190, 16, .22) !important;
+}
+
+body[data-page="home"] .audience-card:nth-child(2):hover {
+    background: var(--am-orange-grad) !important;
+    border-color: rgba(243, 145, 37, .84) !important;
+    box-shadow: 0 28px 80px rgba(243, 145, 37, .24) !important;
+}
+
+body[data-page="home"] .audience-card:nth-child(3):hover {
+    background: var(--am-pink-grad) !important;
+    border-color: rgba(230, 36, 83, .84) !important;
+    box-shadow: 0 28px 80px rgba(230, 36, 83, .26) !important;
+}
+
+body[data-page="home"] .audience-card-icon {
+    background: rgba(255, 255, 255, .14) !important;
+    color: #FDFBF6 !important;
+}
+
+body[data-page="home"] .audience-card:hover .audience-card-icon {
+    background: rgba(255, 255, 255, .24) !important;
+}
+
+body[data-page="home"] .audience-card-num,
+body[data-page="home"] .audience-card h3,
+body[data-page="home"] .audience-card p {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+}
+
+body[data-page="home"] .quote-section,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section {
+    background:
+        radial-gradient(circle at 14% 20%, rgba(255, 255, 255, .18), transparent 24%),
+        radial-gradient(circle at 86% 18%, rgba(230, 36, 83, .26), transparent 28%),
+        linear-gradient(135deg, #F6BE10 0%, #F39125 42%, #E62453 100%) !important;
+}
+
+body[data-page="home"] .home-calculator-cta,
+html[data-theme="amigos-dark"] body[data-page="home"] section.home-calculator-cta {
+    background-color: #071A33 !important;
+    background-image:
+        linear-gradient(180deg, rgba(0, 19, 49, .05), rgba(0, 19, 49, .18)),
+        linear-gradient(90deg, rgba(0, 19, 49, .18), rgba(0, 32, 91, .02) 48%, rgba(0, 19, 49, .18)),
+        url("/assets/calculator-glass-bg.png"),
+        linear-gradient(135deg, #001331 0%, #071A33 50%, #00205b 100%) !important;
+    background-size: auto, auto, cover, auto !important;
+    background-position: center, center, center bottom, center !important;
+    background-repeat: no-repeat !important;
+    animation: none !important;
+}
+
+body[data-page="home"] .home-calculator-cta::before,
+html[data-theme="amigos-dark"] body[data-page="home"] section.home-calculator-cta::before {
+    background: transparent !important;
+    opacity: 0 !important;
+}
+
+body[data-page="home"] .quote-section::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section::before {
+    background: linear-gradient(90deg, rgba(7, 26, 51, .34), rgba(7, 26, 51, .16)) !important;
+    opacity: 1 !important;
+}
+
+body[data-page="home"] .quote-section::after,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section::after {
+    background: radial-gradient(circle at 52% 12%, rgba(255, 255, 255, .22), transparent 58%) !important;
+}
+
+body[data-page="home"] .quote-section *,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section * {
+    color: #fff !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+body[data-page="home"] .projects-dock,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock {
+    background: var(--am-mixed-grad) !important;
+    border-color: rgba(255, 255, 255, .28) !important;
+    box-shadow: 0 22px 56px rgba(7, 26, 51, .26), 0 0 0 1px rgba(255, 255, 255, .10) inset !important;
+}
+
+body[data-page="home"] .projects-dock .dock-tab {
+    color: rgba(255, 255, 255, .76) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, .76) !important;
+}
+
+body[data-page="home"] .projects-dock .dock-tab.active {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="home"] .projects-dock .dock-indicator,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock .dock-indicator {
+    background: var(--am-yellow-grad) !important;
+    box-shadow: 0 14px 34px rgba(246, 190, 16, .26) !important;
+}
+
+body[data-page="home"] .projects-dock:has(.dock-tab:nth-of-type(2).active) .dock-indicator,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock:has(.dock-tab:nth-of-type(2).active) .dock-indicator {
+    background: var(--am-orange-grad) !important;
+    box-shadow: 0 14px 34px rgba(243, 145, 37, .28) !important;
+}
+
+body[data-page="home"] .projects-dock:has(.dock-tab:nth-of-type(3).active) .dock-indicator,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock:has(.dock-tab:nth-of-type(3).active) .dock-indicator {
+    background: var(--am-pink-grad) !important;
+    box-shadow: 0 14px 34px rgba(230, 36, 83, .30) !important;
+}
+
+body[data-page="home"] .plans-grid .plan-card.featured .popular,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card.featured .popular {
+    background: #fff !important;
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+    border: 1px solid rgba(7, 26, 51, .08) !important;
+    box-shadow: 0 10px 24px rgba(7, 26, 51, .14) !important;
+}
+
+body[data-page="home"] .plans-grid .plan-card button,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card button {
+    background: rgba(7, 26, 51, .86) !important;
+    border-color: rgba(255, 255, 255, .36) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16) !important;
+}
+
+body[data-page="home"] .plans-grid .plan-card:nth-child(1) button:hover,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card:nth-child(1) button:hover {
+    background: var(--am-pink-grad) !important;
+    border-color: rgba(230, 36, 83, .78) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    transform: translateY(-3px);
+}
+
+body[data-page="home"] .plans-grid .plan-card:nth-child(2) button:hover,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card:nth-child(2) button:hover {
+    background: var(--am-yellow-grad) !important;
+    border-color: rgba(246, 190, 16, .82) !important;
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+    transform: translateY(-3px);
+}
+
+body[data-page="home"] .plans-grid .plan-card:nth-child(3) button:hover,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card:nth-child(3) button:hover {
+    background: var(--am-orange-grad) !important;
+    border-color: rgba(243, 145, 37, .82) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    transform: translateY(-3px);
+}
+
+body[data-page="home"] .rating,
+body[data-page="home"] .rating span,
+html[data-theme="amigos-dark"] body[data-page="home"] .rating,
+html[data-theme="amigos-dark"] body[data-page="home"] .rating span {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="home"] .testimonial-card .stars {
+    color: #F6BE10 !important;
+    -webkit-text-fill-color: #F6BE10 !important;
+}
+
+body[data-page="home"] .testimonials,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials {
+    background:
+        radial-gradient(circle at 18% 14%, rgba(230, 36, 83, .12), transparent 28%),
+        radial-gradient(circle at 82% 78%, rgba(246, 190, 16, .08), transparent 30%),
+        #071A33 !important;
+    color: #fff !important;
+}
+
+body[data-page="home"] .testimonials h2,
+body[data-page="home"] .testimonials p,
+body[data-page="home"] .testimonials .testimonial-kicker,
+body[data-page="home"] .testimonials .rating,
+body[data-page="home"] .testimonials .rating span,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials h2,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials p,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-kicker,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .rating,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .rating span {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+/* Homepage moving-gradient emphasis requested for Why Amigos and Calculator sections. */
+body[data-page="home"] .why-amigos,
+html[data-theme="amigos-dark"] body[data-page="home"] .why-amigos,
+body[data-page="home"] .quote-section,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section {
+    background:
+        radial-gradient(circle at 12% 18%, rgba(255, 255, 255, .26), transparent 25%),
+        radial-gradient(circle at 86% 14%, rgba(255, 255, 255, .16), transparent 28%),
+        linear-gradient(120deg, #F6BE10 0%, #F39125 28%, #E62453 58%, #C73B8E 78%, #F6BE10 100%) !important;
+    background-size: 240% 240% !important;
+    animation: homeMovingBrandGradient 7s ease-in-out infinite alternate !important;
+    color: #fff !important;
+}
+
+body[data-page="home"] .why-amigos::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .why-amigos::before,
+body[data-page="home"] .quote-section::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section::before {
+    background: linear-gradient(90deg, rgba(7, 26, 51, .18), rgba(7, 26, 51, .04)) !important;
+    opacity: 1 !important;
+}
+
+body[data-page="home"] .why-amigos *,
+html[data-theme="amigos-dark"] body[data-page="home"] .why-amigos *,
+body[data-page="home"] .quote-section *,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section * {
+    color: #fff !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+body[data-page="home"] .quote-section::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section::before {
+    background: linear-gradient(90deg, rgba(7, 26, 51, .18), rgba(7, 26, 51, .04)) !important;
+    opacity: 1 !important;
+}
+
+body[data-page="home"] .quote-section::after,
+html[data-theme="amigos-dark"] body[data-page="home"] .quote-section::after {
+    background: radial-gradient(circle at 52% 12%, rgba(255, 255, 255, .24), transparent 58%) !important;
+}
+
+body[data-page="home"] .carousel-dot,
+html[data-theme="amigos-dark"] body[data-page="home"] .carousel-dot {
+    background: rgba(255, 255, 255, .48) !important;
+}
+
+body[data-page="home"] .carousel-dot.active,
+html[data-theme="amigos-dark"] body[data-page="home"] .carousel-dot.active {
+    background: #fff !important;
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, .12) !important;
+}
+
+@keyframes homeMovingBrandGradient {
+    0% {
+        background-position: 0% 18%;
+    }
+
+    50% {
+        background-position: 100% 62%;
+    }
+
+    100% {
+        background-position: 18% 100%;
+    }
+}
+
+/* Hard override for the homepage emphasis sections against the dark-theme navy base rule. */
+html[data-theme="amigos-dark"] body section.why-amigos,
+body section.why-amigos {
+    background-color: #F39125 !important;
+    background-image:
+        radial-gradient(circle at 12% 18%, rgba(255, 255, 255, .28), transparent 25%),
+        radial-gradient(circle at 86% 14%, rgba(255, 255, 255, .18), transparent 28%),
+        linear-gradient(120deg, #F6BE10 0%, #F39125 28%, #E62453 58%, #C73B8E 78%, #F6BE10 100%) !important;
+    background-size: 240% 240% !important;
+    animation: homeMovingBrandGradient 7s ease-in-out infinite alternate !important;
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body section.why-amigos *,
+body section.why-amigos * {
+    color: #fff !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+/* Homepage light-theme refinements: no legacy gold, lighter surfaces, and clear premium contrast. */
+body[data-page="home"] {
+    --am-yellow-clean: #FFD21F;
+    --am-yellow-deep: #F39125;
+    --am-orange-clean: #FF7A1A;
+    --am-orange-deep: #D94D12;
+    --am-pink-clean: #E62453;
+    --am-pink-deep: #A91452;
+    --am-black: #050505;
+    --am-grey: #626262;
+    --am-soft-white: #FDFBF6;
+    --am-clean-light: #FAF6EE;
+    --am-yellow-grad: linear-gradient(135deg, #FFD21F 0%, #F39125 100%);
+    --am-orange-grad: linear-gradient(135deg, #FF8A1F 0%, #D94D12 100%);
+    --am-pink-grad: linear-gradient(135deg, #FF2F6D 0%, #A91452 100%);
+    --am-mixed-grad: linear-gradient(120deg, #FFD21F 0%, #FF7A1A 44%, #E62453 100%);
+}
+
+body[data-page="home"] .audience-cards-section {
+    background:
+        radial-gradient(circle at 18% 4%, rgba(255, 210, 31, .10), transparent 32%),
+        linear-gradient(180deg, #FDFBF6 0%, #FAF6EE 100%) !important;
+}
+
+body[data-page="home"] .audience-cards-heading .section-tag,
+body[data-page="home"] .plans-eyebrow,
+body[data-page="home"] .services-nav-heading .section-tag,
+body[data-page="home"] .ai-heading .section-tag,
+body[data-page="home"] .dtools-heading .section-tag,
+body[data-page="home"] .sp-collapsed .sp-num,
+body[data-page="home"] .sp-expanded .sp-num,
+body[data-page="home"] .sp-link,
+body[data-page="home"] .price small,
+body[data-page="home"] .plan-name,
+body[data-page="home"] .testimonial-card span.city {
+    color: var(--am-orange-clean) !important;
+    -webkit-text-fill-color: var(--am-orange-clean) !important;
+}
+
+body[data-page="home"] .audience-cards-heading h2,
+body[data-page="home"] .audience-cards-heading h2 span {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+body[data-page="home"] .audience-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 2px solid transparent !important;
+    color: #fff !important;
+}
+
+body[data-page="home"] .audience-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    z-index: -2;
+    border-radius: inherit;
+    opacity: 0;
+    background: conic-gradient(from 0deg, currentColor, transparent 28%, currentColor 58%, transparent 78%, currentColor);
+    animation: audienceBorderMove 2.2s linear infinite;
+}
+
+body[data-page="home"] .audience-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    z-index: -1;
+    border-radius: calc(20px - 2px);
+    opacity: 0;
+    background: var(--am-soft-white);
+}
+
+body[data-page="home"] .audience-card:nth-child(1) {
+    background: var(--am-yellow-grad) !important;
+    box-shadow: 0 24px 70px rgba(255, 210, 31, .18) !important;
+}
+
+body[data-page="home"] .audience-card:nth-child(2) {
+    background: var(--am-pink-grad) !important;
+    box-shadow: 0 24px 70px rgba(230, 36, 83, .18) !important;
+}
+
+body[data-page="home"] .audience-card:nth-child(3) {
+    background: var(--am-orange-grad) !important;
+    box-shadow: 0 24px 70px rgba(255, 122, 26, .18) !important;
+}
+
+body[data-page="home"] .audience-card:nth-child(1):hover {
+    color: var(--am-yellow-clean) !important;
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+body[data-page="home"] .audience-card:nth-child(2):hover {
+    color: var(--am-pink-clean) !important;
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+body[data-page="home"] .audience-card:nth-child(3):hover {
+    color: var(--am-orange-clean) !important;
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+body[data-page="home"] .audience-card:hover::before,
+body[data-page="home"] .audience-card:hover::after {
+    opacity: 1;
+}
+
+body[data-page="home"] .audience-card:hover h3,
+body[data-page="home"] .audience-card:hover .audience-card-num {
+    color: var(--am-black) !important;
+    -webkit-text-fill-color: var(--am-black) !important;
+}
+
+body[data-page="home"] .audience-card:hover p {
+    color: var(--am-grey) !important;
+    -webkit-text-fill-color: var(--am-grey) !important;
+}
+
+body[data-page="home"] .audience-card:hover .audience-card-icon {
+    background: rgba(7, 26, 51, .08) !important;
+    color: var(--am-black) !important;
+}
+
+body[data-page="home"] .services-nav-section {
+    background:
+        radial-gradient(circle at 82% 8%, rgba(230, 36, 83, .08), transparent 28%),
+        linear-gradient(180deg, #FDFBF6 0%, #FAF6EE 100%) !important;
+}
+
+body[data-page="home"] .services-bg-vignette,
+body[data-page="home"] .services-bg-noise {
+    opacity: 0 !important;
+}
+
+body[data-page="home"] .services-bg-grid {
+    background-image:
+        linear-gradient(rgba(7, 26, 51, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 26, 51, .045) 1px, transparent 1px) !important;
+}
+
+body[data-page="home"] .services-glow-1,
+body[data-page="home"] .services-glow-2,
+body[data-page="home"] .services-glow-3 {
+    background: radial-gradient(circle, rgba(230, 36, 83, .14) 0%, transparent 70%) !important;
+    opacity: .32 !important;
+}
+
+body[data-page="home"] .services-nav-heading h2,
+body[data-page="home"] .services-nav-heading h2 span {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+body[data-page="home"] .services-view-all-btn,
+body[data-page="home"] .why-btn,
+body[data-page="home"] .upload-btn,
+body[data-page="home"] .generate-btn {
+    background: #050505 !important;
+    border-color: #050505 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="home"] .why-content h2 {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+body[data-page="home"] .ai-section {
+    background:
+        linear-gradient(rgba(7, 26, 51, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 26, 51, .035) 1px, transparent 1px),
+        #FDFBF6 !important;
+}
+
+body[data-page="home"] .ai-heading h2 span,
+body[data-page="home"] .dtools-heading h2 span,
+body[data-page="home"] .plans-header p,
+body[data-page="home"] .ai-side p {
+    color: #626262 !important;
+    -webkit-text-fill-color: #626262 !important;
+}
+
+body[data-page="home"] .upload-hint,
+body[data-page="home"] .rating,
+body[data-page="home"] .rating span {
+    color: #E62453 !important;
+    -webkit-text-fill-color: #E62453 !important;
+}
+
+body[data-page="home"] .projects-dock .dock-indicator,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock .dock-indicator {
+    background: #fff !important;
+    box-shadow: 0 12px 28px rgba(7, 26, 51, .16) !important;
+}
+
+body[data-page="home"] .projects-dock .dock-tab.active,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock .dock-tab.active {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+body[data-page="home"] .projects-dock:has(.dock-tab:nth-of-type(2).active) .dock-indicator,
+body[data-page="home"] .projects-dock:has(.dock-tab:nth-of-type(3).active) .dock-indicator,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock:has(.dock-tab:nth-of-type(2).active) .dock-indicator,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock:has(.dock-tab:nth-of-type(3).active) .dock-indicator {
+    background: #fff !important;
+    box-shadow: 0 12px 28px rgba(7, 26, 51, .16) !important;
+}
+
+body[data-page="home"] .plans-section {
+    background:
+        radial-gradient(circle at 82% 12%, rgba(230, 36, 83, .08), transparent 30%),
+        linear-gradient(180deg, #FDFBF6 0%, #FAF6EE 100%) !important;
+}
+
+body[data-page="home"] .billing-toggle button.active {
+    background: #050505 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="home"] .plans-header h2 {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+body[data-page="home"] .testimonials {
+    min-height: 100vh !important;
+    height: 100vh !important;
+    padding: clamp(54px, 7vh, 84px) 20px clamp(44px, 6vh, 66px) !important;
+    overflow: hidden !important;
+    background:
+        radial-gradient(circle at 50% 48%, rgba(7, 26, 51, .08), transparent 36%),
+        linear-gradient(180deg, #FDFBF6 0%, #FAF6EE 100%) !important;
+    color: #071A33 !important;
+}
+
+body[data-page="home"] .testimonial-center {
+    margin-bottom: clamp(18px, 3vh, 34px) !important;
+}
+
+body[data-page="home"] .testimonial-center h2 {
+    font-size: clamp(34px, 4.4vw, 58px) !important;
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+body[data-page="home"] .testimonial-kicker {
+    color: #E62453 !important;
+    -webkit-text-fill-color: #E62453 !important;
+}
+
+body[data-page="home"] .carousel-stage {
+    height: clamp(310px, 38vh, 430px) !important;
+}
+
+body[data-page="home"] .testimonial-card {
+    background: rgba(255, 255, 255, .76) !important;
+    border-color: rgba(7, 26, 51, .12) !important;
+}
+
+body[data-page="home"] .carousel-dots {
+    margin-top: clamp(16px, 2.2vh, 28px) !important;
+}
+
+body[data-page="home"] .carousel-dot,
+html[data-theme="amigos-dark"] body[data-page="home"] .carousel-dot {
+    background: rgba(7, 26, 51, .28) !important;
+}
+
+body[data-page="home"] .carousel-dot.active,
+html[data-theme="amigos-dark"] body[data-page="home"] .carousel-dot.active {
+    background: #071A33 !important;
+    box-shadow: 0 0 0 6px rgba(7, 26, 51, .10) !important;
+}
+
+body[data-page="home"] .site-header.is-scrolled {
+    background: rgba(255, 255, 255, .94) !important;
+    border-bottom: 1px solid rgba(7, 26, 51, .12) !important;
+    box-shadow: 0 18px 48px rgba(7, 26, 51, .10) !important;
+}
+
+body[data-page="home"] .site-header.is-scrolled .site-nav a,
+body[data-page="home"] .site-header.is-scrolled .dropdown-trigger,
+body[data-page="home"] .site-header.is-scrolled .nav-link {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+body[data-page="home"] .site-header.is-scrolled .header-btn,
+body[data-page="home"] .site-header.is-scrolled .customer-header-btn {
+    background: transparent !important;
+    border-color: rgba(7, 26, 51, .28) !important;
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+body[data-page="home"] .site-header.is-scrolled .theme-toggle {
+    background: rgba(7, 26, 51, .06) !important;
+    border-color: rgba(7, 26, 51, .24) !important;
+}
+
+body[data-page="home"] .site-footer {
+    background: #fff !important;
+    color: #071A33 !important;
+    border-top: 1px solid #050505 !important;
+}
+
+body[data-page="home"] .site-footer h4,
+body[data-page="home"] .site-footer p,
+body[data-page="home"] .site-footer a,
+body[data-page="home"] .site-footer span,
+body[data-page="home"] .footer-bottom,
+body[data-page="home"] .footer-bottom a {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+@keyframes audienceBorderMove {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+/* Absolute final homepage cleanup: remove legacy gold/ochre from visible homepage accents. */
+body[data-page="home"] {
+    --am-ochre: #FF7A1A;
+}
+
+body[data-page="home"] .dtools-ticker,
+body[data-page="home"] .dtools-eyebrow,
+body[data-page="home"] .color-selected-label b,
+body[data-page="home"] .wizard-side-eyebrow,
+body[data-page="home"] .wizard-step-eyebrow,
+body[data-page="home"] .quote-heading .section-tag,
+body[data-page="home"] .plans-eyebrow,
+body[data-page="home"] .plan-name,
+body[data-page="home"] .price small,
+body[data-page="home"] .testimonial-card span.city {
+    color: #E62453 !important;
+    -webkit-text-fill-color: #E62453 !important;
+}
+
+body[data-page="home"] .dtools-bar,
+body[data-page="home"] .wizard-badge-dot,
+body[data-page="home"] .quote-start-note span::before,
+body[data-page="home"] .success-badge {
+    background: #E62453 !important;
+}
+
+body[data-page="home"] .dtools-btn-gold,
+body[data-page="home"] .quote-btn-primary,
+body[data-page="home"] .wizard-continue-btn {
+    background: var(--am-mixed-grad) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="home"] .color-slider {
+    background: linear-gradient(90deg,
+            #FFD21F, #FF7A1A, #E62453, #C73B8E,
+            #071A33, #E62453, #FF7A1A, #FFD21F) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card:nth-child(1) {
+    background: linear-gradient(145deg, #FFD21F 0%, #FF7A1A 100%) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card:nth-child(2) {
+    background: linear-gradient(145deg, #FF7A1A 0%, #D94D12 100%) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card:nth-child(3) {
+    background: linear-gradient(145deg, #E62453 0%, #A91452 100%) !important;
+}
+
+/* Final homepage polish: testimonials readability + single-line audience hover border. */
+body[data-page="home"] .testimonials .testimonial-kicker,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-kicker {
+    color: #E62453 !important;
+    -webkit-text-fill-color: #E62453 !important;
+}
+
+body[data-page="home"] .testimonials .rating,
+body[data-page="home"] .testimonials .rating span,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .rating,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .rating span {
+    color: #FFD21F !important;
+    -webkit-text-fill-color: #FFD21F !important;
+}
+
+body[data-page="home"] .testimonials .testimonial-card,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card {
+    background: rgba(255, 255, 255, .86) !important;
+    color: #050505 !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+body[data-page="home"] .testimonials .testimonial-card p,
+body[data-page="home"] .testimonials .testimonial-card h4,
+body[data-page="home"] .testimonials .testimonial-card span:not(.stars):not(.city),
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card p,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card h4,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card span:not(.stars):not(.city) {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+body[data-page="home"] .testimonials .testimonial-card span.city,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card span.city {
+    color: #E62453 !important;
+    -webkit-text-fill-color: #E62453 !important;
+}
+
+body[data-page="home"] .testimonials .testimonial-card .stars,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card .stars {
+    color: #FFD21F !important;
+    -webkit-text-fill-color: #FFD21F !important;
+}
+
+body[data-page="home"] .testimonials .carousel-stage {
+    margin-bottom: 24px !important;
+}
+
+body[data-page="home"] .testimonials .carousel-dots {
+    margin-top: 24px !important;
+}
+
+body[data-page="home"] .audience-card {
+    transition:
+        background .42s ease,
+        box-shadow .42s ease,
+        transform .42s cubic-bezier(.22, 1, .36, 1),
+        color .32s ease !important;
+}
+
+body[data-page="home"] .audience-card::before {
+    inset: 0 !important;
+    z-index: -1 !important;
+    border-radius: inherit !important;
+    background: #fff !important;
+    opacity: 0 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: opacity .36s ease !important;
+}
+
+body[data-page="home"] .audience-card::after {
+    inset: -2px !important;
+    z-index: -2 !important;
+    border-radius: inherit !important;
+    opacity: 0 !important;
+    padding: 2px !important;
+    background:
+        conic-gradient(from 0deg,
+            transparent 0deg,
+            transparent 292deg,
+            currentColor 316deg,
+            currentColor 344deg,
+            transparent 360deg) !important;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0) !important;
+    -webkit-mask-composite: xor !important;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0) !important;
+    mask-composite: exclude !important;
+    animation: audienceSingleLine 1.45s linear infinite !important;
+    transition: opacity .3s ease !important;
+}
+
+body[data-page="home"] .audience-card:hover {
+    background: transparent !important;
+    transform: translateY(-8px);
+}
+
+body[data-page="home"] .audience-card:hover::before,
+body[data-page="home"] .audience-card:hover::after {
+    opacity: 1 !important;
+}
+
+@keyframes audienceSingleLine {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+/* Final client polish override: testimonial contrast + cleaner one-stroke audience border. */
+body[data-page="home"] .testimonials .testimonial-kicker,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-kicker {
+    color: #E62453 !important;
+    -webkit-text-fill-color: #E62453 !important;
+}
+
+body[data-page="home"] .testimonials .rating,
+body[data-page="home"] .testimonials .rating span,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .rating,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .rating span {
+    color: #FFD21F !important;
+    -webkit-text-fill-color: #FFD21F !important;
+}
+
+body[data-page="home"] .testimonials .testimonial-card,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card {
+    background: rgba(255, 255, 255, .94) !important;
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+body[data-page="home"] .testimonials .testimonial-card *,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card * {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+body[data-page="home"] .testimonials .testimonial-card .stars,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card .stars {
+    color: #FFD21F !important;
+    -webkit-text-fill-color: #FFD21F !important;
+}
+
+body[data-page="home"] .testimonials .testimonial-card .city,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card .city {
+    color: #E62453 !important;
+    -webkit-text-fill-color: #E62453 !important;
+}
+
+body[data-page="home"] .testimonials .carousel-stage {
+    margin-bottom: 22px !important;
+}
+
+body[data-page="home"] .testimonials .carousel-dots {
+    margin-top: 0 !important;
+}
+
+body[data-page="home"] .audience-card {
+    overflow: hidden !important;
+    border: 1px solid transparent !important;
+    isolation: isolate !important;
+    transition:
+        background .45s ease,
+        border-color .45s ease,
+        box-shadow .45s ease,
+        color .35s ease,
+        transform .45s cubic-bezier(.22, 1, .36, 1) !important;
+}
+
+body[data-page="home"] .audience-card::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 2px !important;
+    z-index: -1 !important;
+    border-radius: inherit !important;
+    background: #fff !important;
+    opacity: 0 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: opacity .38s ease !important;
+}
+
+body[data-page="home"] .audience-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: -2 !important;
+    border-radius: inherit !important;
+    opacity: 0 !important;
+    padding: 2px !important;
+    background:
+        conic-gradient(from var(--audience-line-angle, 0deg),
+            transparent 0deg,
+            transparent 318deg,
+            currentColor 338deg,
+            currentColor 354deg,
+            transparent 360deg) !important;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0) !important;
+    -webkit-mask-composite: xor !important;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0) !important;
+    mask-composite: exclude !important;
+    animation: audienceBorderSingleSweep 1.6s linear infinite !important;
+    transition: opacity .28s ease !important;
+}
+
+body[data-page="home"] .audience-card:hover {
+    background: transparent !important;
+    transform: translateY(-8px) !important;
+}
+
+body[data-page="home"] .audience-card:hover::before,
+body[data-page="home"] .audience-card:hover::after {
+    opacity: 1 !important;
+}
+
+@property --audience-line-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes audienceBorderSingleSweep {
+    to {
+        --audience-line-angle: 360deg;
+    }
+}
+
+/* Global light-theme header/footer polish shared by public pages. */
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled {
+    background: rgba(255, 255, 255, .94) !important;
+    border-bottom-color: rgba(5, 5, 5, .12) !important;
+    box-shadow: 0 18px 48px rgba(7, 26, 51, .10) !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .site-nav a,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .site-nav a,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-trigger,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-trigger,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .nav-link,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .nav-link {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .header-btn,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .header-btn,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .customer-header-btn,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .customer-header-btn {
+    background: rgba(255, 255, 255, .72) !important;
+    border-color: rgba(7, 26, 51, .28) !important;
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .theme-toggle,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .theme-toggle {
+    background: rgba(7, 26, 51, .06) !important;
+    border-color: rgba(7, 26, 51, .24) !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .hamburger span,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .hamburger span {
+    background: #071A33 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-footer {
+    background: #fff !important;
+    color: #071A33 !important;
+    border-top: 1px solid #050505 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-footer h3,
+html:not([data-theme="amigos-dark"]) .site-footer h4,
+html:not([data-theme="amigos-dark"]) .site-footer p,
+html:not([data-theme="amigos-dark"]) .site-footer a,
+html:not([data-theme="amigos-dark"]) .site-footer span,
+html:not([data-theme="amigos-dark"]) .footer-bottom,
+html:not([data-theme="amigos-dark"]) .footer-bottom a {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+/* About dark-theme hard override: keep requested accent sections visibly colored. */
+html[data-theme="amigos-dark"] body[data-page="about"] {
+    --about-hard-mix: linear-gradient(135deg,
+            #FFD21F 0%,
+            #FF9B1A 30%,
+            #FF5A2C 50%,
+            #E62453 72%,
+            #C73B8E 100%);
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .numbers-section {
+    background:
+        radial-gradient(circle at 12% 16%, rgba(255, 210, 31, .55), transparent 30%),
+        radial-gradient(circle at 78% 18%, rgba(230, 36, 83, .48), transparent 34%),
+        radial-gradient(circle at 50% 86%, rgba(255, 122, 26, .46), transparent 34%),
+        var(--about-hard-mix) !important;
+    background-size: 220% 220%, 240% 240%, 260% 260%, 360% 360% !important;
+    animation: aboutMovingGradient 12s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .values-section {
+    background:
+        radial-gradient(circle at 14% 18%, rgba(255, 210, 31, .46), transparent 28%),
+        radial-gradient(circle at 82% 28%, rgba(255, 122, 26, .42), transparent 32%),
+        radial-gradient(circle at 48% 84%, rgba(230, 36, 83, .46), transparent 34%),
+        var(--about-hard-mix) !important;
+    background-size: 220% 220%, 240% 240%, 260% 260%, 360% 360% !important;
+    animation: aboutMovingGradient 13s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials {
+    background:
+        radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .22), transparent 34%),
+        linear-gradient(135deg, #FFD21F 0%, #F6BE10 54%, #FF9B1A 100%) !important;
+    color: #050505 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials h2,
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials p,
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .review-link,
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-control {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .section-kicker,
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-stars,
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-card span {
+    color: #E62453 !important;
+    -webkit-text-fill-color: #E62453 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-card,
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-card.active {
+    background: rgba(255, 255, 255, .86) !important;
+    border-color: rgba(5, 5, 5, .16) !important;
+    color: #050505 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-card *,
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-card.active * {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-card:hover,
+html[data-theme="amigos-dark"] body[data-page="about"] main .about-testimonials .testimonial-card.active:hover {
+    background: #FFD21F !important;
+    border-color: #FFD21F !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .final-cta {
+    background:
+        radial-gradient(circle at 14% 18%, rgba(255, 210, 31, .50), transparent 28%),
+        radial-gradient(circle at 82% 24%, rgba(230, 36, 83, .48), transparent 34%),
+        radial-gradient(circle at 46% 86%, rgba(255, 122, 26, .44), transparent 34%),
+        var(--about-hard-mix) !important;
+    background-size: 220% 220%, 240% 240%, 260% 260%, 360% 360% !important;
+    animation: aboutMovingGradient 13s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .numbers-section *,
+html[data-theme="amigos-dark"] body[data-page="about"] main .values-section *,
+html[data-theme="amigos-dark"] body[data-page="about"] main .final-cta * {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .values-section .value-icon::before,
+html[data-theme="amigos-dark"] body[data-page="about"] main .values-section .value-icon::after {
+    background: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .final-cta .btn,
+html[data-theme="amigos-dark"] body[data-page="about"] main .final-cta .btn-light {
+    background: #fff !important;
+    border-color: #fff !important;
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main .final-cta .btn-ghost {
+    background: rgba(255, 255, 255, .14) !important;
+    border-color: rgba(255, 255, 255, .72) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+/* Homepage change requests: targeted final overrides. */
+body[data-page="home"] .audience-wrap,
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-wrap {
+    padding: 0 8% 10px !important;
+    background: transparent !important;
+}
+
+body[data-page="home"] .audience-bar,
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-bar {
+    margin-top: -80px !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-cards-section,
+html[data-theme="amigos-dark"] body[data-page="home"] .services-nav-section,
+html[data-theme="amigos-dark"] body[data-page="home"] .ai-section {
+    background: #071A33 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .services-bg-grid,
+html[data-theme="amigos-dark"] body[data-page="home"] .services-bg-vignette,
+html[data-theme="amigos-dark"] body[data-page="home"] .services-bg-noise,
+html[data-theme="amigos-dark"] body[data-page="home"] .services-glow {
+    opacity: 0 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .paint-finish-btn {
+    background: #fff !important;
+    border-color: rgba(255, 255, 255, .92) !important;
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .paint-finish-btn:hover,
+html[data-theme="amigos-dark"] body[data-page="home"] .paint-finish-btn.active {
+    background: #fff !important;
+    border-color: #fff !important;
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+.service-panel {
+    color: inherit;
+    text-decoration: none;
+}
+
+body[data-page="home"] .ai-stage,
+html[data-theme="amigos-dark"] body[data-page="home"] .ai-stage {
+    background: #FDFBF6 !important;
+    animation: none !important;
+}
+
+body[data-page="home"] .stage-empty h3,
+body[data-page="home"] .stage-empty p,
+html[data-theme="amigos-dark"] body[data-page="home"] .stage-empty h3,
+html[data-theme="amigos-dark"] body[data-page="home"] .stage-empty p {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+body[data-page="home"] .stage-empty::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .stage-empty::before {
+    border-color: rgba(7, 26, 51, .18) !important;
+    background: rgba(7, 26, 51, .02) !important;
+}
+
+body[data-page="home"] .upload-icon-ring::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .upload-icon-ring::before {
+    background: radial-gradient(circle, rgba(246, 190, 16, .42), rgba(243, 145, 37, .24) 38%, rgba(230, 36, 83, .16) 62%, transparent 72%) !important;
+}
+
+body[data-page="home"] .upload-icon,
+html[data-theme="amigos-dark"] body[data-page="home"] .upload-icon {
+    background: var(--am-mixed-grad) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="home"] .upload-btn,
+body[data-page="home"] .generate-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .upload-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .generate-btn {
+    background: var(--am-mixed-grad) !important;
+    border-color: rgba(246, 190, 16, .44) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="home"] .projects-dock,
+html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: max-content;
+    max-width: calc(100% - 28px);
+    margin: 24px auto 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    filter: none !important;
+    z-index: 20 !important;
+}
+
+body[data-page="home"] .testimonials .carousel-stage {
+    margin-bottom: 54px !important;
+}
+
+body[data-page="home"] .testimonials .carousel-dots {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+body[data-page="home"] .testimonials .rating,
+body[data-page="home"] .testimonials .rating span,
+body[data-page="home"] .testimonials .testimonial-card .stars,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .rating,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .rating span,
+html[data-theme="amigos-dark"] body[data-page="home"] .testimonials .testimonial-card .stars {
+    background: var(--am-mixed-grad) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+@media (max-width: 700px) {
+    body[data-page="home"] .audience-bar,
+    html[data-theme="amigos-dark"] body[data-page="home"] .audience-bar {
+        margin-top: -56px !important;
+    }
+
+    body[data-page="home"] .projects-dock,
+    html[data-theme="amigos-dark"] body[data-page="home"] .projects-dock {
+        width: calc(100% - 28px);
+    }
+}
+
+/* Homepage follow-up corrections. Keep these last in the cascade. */
+body[data-page="home"] .audience-wrap,
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-wrap {
+    margin-top: 0 !important;
+    padding: 10px 8% 10px !important;
+    background: transparent !important;
+}
+
+body[data-page="home"] .audience-bar,
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-bar {
+    margin-top: 0 !important;
+    transform: none !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-cards-section {
+    background: #071A33 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-cards-section::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-cards-section::after,
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-cards-glow {
+    opacity: 0 !important;
+    background: transparent !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-cards-heading h2,
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-cards-heading h2 span,
+html[data-theme="amigos-dark"] body[data-page="home"] .services-nav-heading h2,
+html[data-theme="amigos-dark"] body[data-page="home"] .services-nav-heading h2 span {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-card:hover .audience-card-icon,
+html[data-theme="amigos-dark"] body[data-page="home"] .audience-card:hover .audience-card-icon svg {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+    stroke: #071A33 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-section {
+    background: #071A33 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-header h2,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-header p {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .billing-toggle {
+    background: #FDFBF6 !important;
+    border-color: rgba(253, 251, 246, .92) !important;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, .24) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .billing-toggle button {
+    color: #071A33 !important;
+    -webkit-text-fill-color: #071A33 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .billing-toggle button.active {
+    background: var(--am-mixed-grad) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled {
+    background: #071A33 !important;
+    border-bottom-color: rgba(253, 251, 246, .12) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .site-footer {
+    background: #071A33 !important;
+    color: #FDFBF6 !important;
+    border-top-color: rgba(253, 251, 246, .12) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .site-footer h3,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-footer h4,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-footer p,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-footer a,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-footer span,
+html[data-theme="amigos-dark"] body[data-page="home"] .footer-bottom,
+html[data-theme="amigos-dark"] body[data-page="home"] .footer-bottom a {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="home"] .ai-stage {
+    background: #FDFBF6 !important;
+    box-shadow: 0 24px 70px rgba(7, 26, 51, .12) !important;
+}
+
+@media (max-width: 700px) {
+    body[data-page="home"] .audience-bar,
+    html[data-theme="amigos-dark"] body[data-page="home"] .audience-bar {
+        margin-top: 0 !important;
+    }
+}
+
+/* Dark homepage visibility fixes. */
+html[data-theme="amigos-dark"] body[data-page="home"] .carousel-dot {
+    background: rgba(255, 255, 255, .36) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .carousel-dot.active {
+    background: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled .site-nav a,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled .site-nav a,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled .dropdown-trigger,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled .dropdown-trigger,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled .nav-link,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled .nav-link {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled .header-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled .header-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled .customer-header-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled .customer-header-btn {
+    background: var(--am-mixed-grad) !important;
+    border-color: rgba(255, 255, 255, .30) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled .theme-toggle,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled .theme-toggle {
+    background: rgba(255, 255, 255, .10) !important;
+    border-color: rgba(255, 255, 255, .36) !important;
+}
+
+/* Dark homepage gradient/header and plans readability fixes. */
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header .header-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header .customer-header-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled .header-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled .header-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.is-scrolled .customer-header-btn,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header.scrolled .customer-header-btn {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    background: linear-gradient(135deg, #F6BE10 0%, #F39125 52%, #E62453 100%) padding-box !important;
+    border: 1px solid transparent !important;
+    border-radius: 999px !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: none !important;
+    background-clip: padding-box !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header .header-btn::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header .header-btn::after,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header .customer-header-btn::before,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header .customer-header-btn::after {
+    content: none !important;
+    display: none !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header .header-btn *,
+html[data-theme="amigos-dark"] body[data-page="home"] .site-header .customer-header-btn * {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    stroke: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card h3,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card p,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card li,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card .plan-name,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card .price,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card .price small,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card .price span,
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card .price-period {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card .price strong {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card li::before {
+    border-color: rgba(255, 255, 255, .82) !important;
+}
+
+body[data-page="home"] .home-calculator-cta,
+html[data-theme="amigos-dark"] body[data-page="home"] .home-calculator-cta {
+    background:
+        linear-gradient(180deg, rgba(0, 19, 49, .05), rgba(0, 19, 49, .18)),
+        linear-gradient(90deg, rgba(0, 19, 49, .18), rgba(0, 32, 91, .02) 48%, rgba(0, 19, 49, .18)),
+        url("/assets/calculator-glass-bg.png"),
+        linear-gradient(135deg, #001331 0%, #071A33 50%, #00205b 100%) !important;
+    background-color: #071A33 !important;
+    background-size: auto, auto, cover, auto !important;
+    background-position: center, center, center bottom, center !important;
+    background-repeat: no-repeat !important;
+    animation: none !important;
 }

@@ -1789,6 +1789,10 @@ body[data-page="home"] .site-header {
     color: #fff !important;
 }
 
+.footer-mobile-copyright {
+    display: none;
+}
+
 @media (max-width: 1180px) {
     .site-nav {
         gap: 18px !important;
@@ -1830,4 +1834,661 @@ body[data-page="home"] .site-header {
         flex-wrap: wrap;
         justify-content: center;
     }
+}
+
+/* ==================================================
+   RESPONSIVE COMPLETION PASS
+================================================== */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
+.site-header {
+    min-width: 0;
+}
+
+.site-nav {
+    align-items: center;
+    min-width: 0;
+}
+
+.site-nav a,
+.dropdown-trigger {
+    white-space: nowrap;
+}
+
+@media (max-width: 1360px) {
+    .site-header {
+        padding-inline: 44px !important;
+    }
+
+    .site-header.is-scrolled {
+        padding-inline: 44px !important;
+    }
+
+    .site-nav {
+        gap: 18px !important;
+    }
+
+    .site-nav a,
+    .dropdown-trigger {
+        font-size: 13px !important;
+    }
+
+    .header-btn,
+    .customer-header-btn {
+        padding-inline: 16px !important;
+    }
+}
+
+@media (max-width: 1120px) {
+    .site-header {
+        padding: 18px 28px !important;
+    }
+
+    .site-header.is-scrolled {
+        padding: 14px 28px !important;
+    }
+
+    .site-nav {
+        position: fixed !important;
+        inset: 0;
+        z-index: 55;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 0 !important;
+        width: 100%;
+        height: 100vh;
+        padding: 104px 28px 34px !important;
+        background: radial-gradient(circle at 85% 15%, rgba(230, 36, 83, .18), transparent 34%), #071A33 !important;
+        clip-path: circle(0% at calc(100% - 46px) 42px);
+        pointer-events: none;
+        overflow-y: auto;
+    }
+
+    .site-nav.open {
+        pointer-events: auto;
+    }
+
+    .site-nav a,
+    .dropdown-trigger {
+        width: 100%;
+        padding: 13px 0 !important;
+        font-size: 16px !important;
+        white-space: normal;
+    }
+
+    .dropdown-menu {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        grid-template-columns: 1fr !important;
+        margin-top: 8px !important;
+        padding: 8px !important;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .nav-dropdown.open .dropdown-menu {
+        max-height: 820px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .dropdown-item {
+        white-space: normal !important;
+        min-width: 0;
+    }
+
+    .header-actions {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        text-align: left !important;
+    }
+
+    .footer-main {
+        width: min(100% - 40px, 680px);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 32px 22px !important;
+        align-items: start;
+        padding: 44px 0 28px !important;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+        text-align: left !important;
+    }
+
+    .footer-logo {
+        justify-content: flex-start;
+        width: min(250px, 78vw) !important;
+        margin: 0 0 20px !important;
+    }
+
+    .footer-brand p {
+        max-width: 100%;
+        text-align: left !important;
+    }
+
+    .footer-socials {
+        justify-content: flex-start;
+    }
+
+    .footer-mobile-copyright {
+        display: block;
+        margin: 22px 0 0 !important;
+        max-width: 100%;
+        color: rgba(255, 255, 255, .62) !important;
+        font-size: 12px !important;
+        line-height: 1.45 !important;
+        text-align: left !important;
+    }
+
+    .footer-desktop-copyright {
+        display: none;
+    }
+
+    .footer-column {
+        min-width: 0;
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .footer-column[aria-label="Footer navigation"],
+    .footer-column[aria-label="Footer services"],
+    .footer-column[aria-label="Customer portal"] {
+        display: flex !important;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .footer-column h4 {
+        width: 100%;
+        text-align: left !important;
+    }
+
+    .footer-column[aria-label="Footer navigation"] a,
+    .footer-column[aria-label="Footer services"] a,
+    .footer-column[aria-label="Customer portal"] a {
+        width: auto;
+        max-width: 100%;
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        text-align: left !important;
+        overflow-wrap: anywhere;
+    }
+
+    .footer-contact p,
+    .footer-contact a {
+        width: 100%;
+        grid-template-columns: 18px minmax(0, 1fr);
+    }
+
+    .footer-bottom {
+        align-items: flex-start !important;
+        text-align: left !important;
+        padding: 20px 20px 28px !important;
+    }
+
+    .footer-bottom div {
+        justify-content: flex-start !important;
+        gap: 18px 24px !important;
+    }
+}
+
+@media (max-width: 520px) {
+    .footer-main {
+        width: min(100% - 32px, 440px);
+        gap: 30px 18px !important;
+    }
+
+    .footer-column h4 {
+        font-size: 14px !important;
+    }
+
+    .footer-column a,
+    .footer-column p {
+        font-size: 13px !important;
+    }
+}
+
+/* ==================================================
+   THEME TOGGLE + AMIGOS NAVY THEME
+================================================== */
+
+.theme-toggle {
+    position: relative;
+    width: 48px;
+    height: 32px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3px;
+    border: 1px solid rgba(255, 255, 255, .42);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background .28s ease, border-color .28s ease, transform .28s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, .68);
+    background: rgba(255, 255, 255, .20);
+}
+
+.theme-toggle-icon {
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f6be10, #f39125 48%, #e62453);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .22);
+    transition: transform .32s ease, background .32s ease;
+}
+
+.theme-toggle-icon span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .24);
+}
+
+html[data-theme="amigos-dark"] .theme-toggle {
+    border-color: rgba(246, 190, 16, .54);
+    background: rgba(7, 26, 51, .72);
+}
+
+html[data-theme="amigos-dark"] .theme-toggle-icon {
+    transform: translateX(16px);
+    background: linear-gradient(135deg, #071A33, #c73b8e 54%, #e62453);
+}
+
+@media (max-width: 1120px) {
+    .theme-toggle {
+        margin-left: auto;
+    }
+}
+
+html[data-theme="amigos-dark"],
+html[data-theme="amigos-dark"] body {
+    background: #071A33 !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] .site-header.is-scrolled,
+html[data-theme="amigos-dark"] .site-nav.open {
+    background: rgba(7, 26, 51, .96) !important;
+}
+
+html[data-theme="amigos-dark"] section,
+html[data-theme="amigos-dark"] main,
+html[data-theme="amigos-dark"] .service-section,
+html[data-theme="amigos-dark"] .process-section,
+html[data-theme="amigos-dark"] .why-section,
+html[data-theme="amigos-dark"] .cta-section,
+html[data-theme="amigos-dark"] .testimonial-section,
+html[data-theme="amigos-dark"] .gallery-section,
+html[data-theme="amigos-dark"] .service-list-section,
+html[data-theme="amigos-dark"] .partners-section,
+html[data-theme="amigos-dark"] .contact-section {
+    background:
+        radial-gradient(circle at 86% 8%, rgba(199, 59, 142, .12), transparent 30%),
+        radial-gradient(circle at 10% 88%, rgba(246, 190, 16, .08), transparent 28%),
+        #071A33 !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] h1,
+html[data-theme="amigos-dark"] h2,
+html[data-theme="amigos-dark"] h3,
+html[data-theme="amigos-dark"] h4,
+html[data-theme="amigos-dark"] .section-title,
+html[data-theme="amigos-dark"] .service-title,
+html[data-theme="amigos-dark"] .step-title,
+html[data-theme="amigos-dark"] .card-title {
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] p,
+html[data-theme="amigos-dark"] li,
+html[data-theme="amigos-dark"] .section-copy,
+html[data-theme="amigos-dark"] .service-copy,
+html[data-theme="amigos-dark"] .card-copy,
+html[data-theme="amigos-dark"] .step-copy {
+    color: rgba(253, 251, 246, .76) !important;
+}
+
+html[data-theme="amigos-dark"] .section-tag,
+html[data-theme="amigos-dark"] .kicker,
+html[data-theme="amigos-dark"] .eyebrow,
+html[data-theme="amigos-dark"] .label,
+html[data-theme="amigos-dark"] [class*="kicker"],
+html[data-theme="amigos-dark"] [class*="eyebrow"] {
+    color: #f6be10 !important;
+}
+
+html[data-theme="amigos-dark"] .btn-primary,
+html[data-theme="amigos-dark"] .primary-btn,
+html[data-theme="amigos-dark"] .cta-btn,
+html[data-theme="amigos-dark"] .request-btn,
+html[data-theme="amigos-dark"] .quote-btn,
+html[data-theme="amigos-dark"] .service-btn,
+html[data-theme="amigos-dark"] .header-btn {
+    background: linear-gradient(135deg, #f6be10 0%, #f39125 42%, #e62453 100%) !important;
+    color: #fff !important;
+    border-color: rgba(246, 190, 16, .44) !important;
+    box-shadow: 0 18px 46px rgba(230, 36, 83, .22), 0 10px 30px rgba(246, 190, 16, .18) !important;
+}
+
+html[data-theme="amigos-dark"] .btn-secondary,
+html[data-theme="amigos-dark"] .secondary-btn,
+html[data-theme="amigos-dark"] .outline-btn,
+html[data-theme="amigos-dark"] .customer-header-btn {
+    background: rgba(255, 255, 255, .08) !important;
+    border-color: rgba(255, 255, 255, .28) !important;
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] .card,
+html[data-theme="amigos-dark"] .service-card,
+html[data-theme="amigos-dark"] .step-card,
+html[data-theme="amigos-dark"] .feature-card,
+html[data-theme="amigos-dark"] .work-card,
+html[data-theme="amigos-dark"] .testimonial-card,
+html[data-theme="amigos-dark"] .process-card,
+html[data-theme="amigos-dark"] .info-card,
+html[data-theme="amigos-dark"] article {
+    background: rgba(13, 37, 66, .78) !important;
+    border-color: rgba(247, 241, 231, .16) !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] [style*="linear-gradient"],
+html[data-theme="amigos-dark"] [class*="gradient"] {
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] [style*="linear-gradient"] *,
+html[data-theme="amigos-dark"] [class*="gradient"] * {
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] .success,
+html[data-theme="amigos-dark"] .success-dot,
+html[data-theme="amigos-dark"] .status-success {
+    color: #20C974 !important;
+}
+
+/* Dark theme final layer: keep legacy pages navy-first, with brand gradients only where they add emphasis. */
+html[data-theme="amigos-dark"] {
+    color-scheme: dark;
+    --am-dark-navy: #071A33;
+    --am-dark-navy-2: #0B223D;
+    --am-dark-surface: rgba(13, 37, 66, .84);
+    --am-dark-line: rgba(255, 255, 255, .16);
+    --am-brand-gradient: linear-gradient(135deg, #F6BE10 0%, #F39125 45%, #E62453 100%);
+}
+
+html[data-theme="amigos-dark"] body,
+html[data-theme="amigos-dark"] main,
+html[data-theme="amigos-dark"] .legacy-page,
+html[data-theme="amigos-dark"] .services-page,
+html[data-theme="amigos-dark"] .partners-page,
+html[data-theme="amigos-dark"] .projects-page,
+html[data-theme="amigos-dark"] .contact-page {
+    background: var(--am-dark-navy) !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] body section:not(.site-footer):not(.footer):not(.footer-section),
+html[data-theme="amigos-dark"] main>section:not(.site-footer):not(.footer):not(.footer-section),
+html[data-theme="amigos-dark"] [class*="-section"]:not(.footer-section),
+html[data-theme="amigos-dark"] [class*="_section"]:not(.footer-section),
+html[data-theme="amigos-dark"] [class*="Section"]:not(.footer-section),
+html[data-theme="amigos-dark"] .services-hero,
+html[data-theme="amigos-dark"] .partners-hero,
+html[data-theme="amigos-dark"] .project-hero {
+    background:
+        radial-gradient(circle at 88% 8%, rgba(230, 36, 83, .12), transparent 28%),
+        radial-gradient(circle at 6% 90%, rgba(246, 190, 16, .08), transparent 30%),
+        var(--am-dark-navy) !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] .why-section,
+html[data-theme="amigos-dark"] .reviews-section,
+html[data-theme="amigos-dark"] .testimonial-section,
+html[data-theme="amigos-dark"] .testimonials-section,
+html[data-theme="amigos-dark"] .process-section,
+html[data-theme="amigos-dark"] .partner-flow,
+html[data-theme="amigos-dark"] .partner-cta,
+html[data-theme="amigos-dark"] .final-cta,
+html[data-theme="amigos-dark"] .cta-section {
+    background:
+        radial-gradient(circle at 16% 16%, rgba(255, 255, 255, .18), transparent 24%),
+        radial-gradient(circle at 82% 18%, rgba(246, 190, 16, .26), transparent 28%),
+        linear-gradient(135deg, #F6BE10 0%, #F39125 38%, #E62453 100%) !important;
+    color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] h1,
+html[data-theme="amigos-dark"] h2,
+html[data-theme="amigos-dark"] h3,
+html[data-theme="amigos-dark"] h4,
+html[data-theme="amigos-dark"] h5,
+html[data-theme="amigos-dark"] h6,
+html[data-theme="amigos-dark"] .section-title,
+html[data-theme="amigos-dark"] .section-heading h2,
+html[data-theme="amigos-dark"] .service-content h3,
+html[data-theme="amigos-dark"] .service-content h4,
+html[data-theme="amigos-dark"] .partners-section-heading h2 {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+html[data-theme="amigos-dark"] p,
+html[data-theme="amigos-dark"] li,
+html[data-theme="amigos-dark"] small,
+html[data-theme="amigos-dark"] figcaption,
+html[data-theme="amigos-dark"] .section-heading p,
+html[data-theme="amigos-dark"] .service-content p,
+html[data-theme="amigos-dark"] .partners-lead p,
+html[data-theme="amigos-dark"] .standard-row p {
+    color: rgba(253, 251, 246, .78) !important;
+}
+
+html[data-theme="amigos-dark"] .section-heading>span,
+html[data-theme="amigos-dark"] .eyebrow,
+html[data-theme="amigos-dark"] .section-tag,
+html[data-theme="amigos-dark"] .partners-kicker,
+html[data-theme="amigos-dark"] .number,
+html[data-theme="amigos-dark"] .process-card>span,
+html[data-theme="amigos-dark"] .why-card .icon,
+html[data-theme="amigos-dark"] [class*="kicker"],
+html[data-theme="amigos-dark"] [class*="eyebrow"] {
+    background: var(--am-brand-gradient) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="amigos-dark"] .service-card,
+html[data-theme="amigos-dark"] .partner-card,
+html[data-theme="amigos-dark"] .flow-step,
+html[data-theme="amigos-dark"] .standard-row,
+html[data-theme="amigos-dark"] .review-card,
+html[data-theme="amigos-dark"] .why-card,
+html[data-theme="amigos-dark"] .process-card,
+html[data-theme="amigos-dark"] .colour-sample,
+html[data-theme="amigos-dark"] .property-content,
+html[data-theme="amigos-dark"] article {
+    background: var(--am-dark-surface) !important;
+    border-color: var(--am-dark-line) !important;
+    color: #FDFBF6 !important;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .28) !important;
+}
+
+html[data-theme="amigos-dark"] .why-section *,
+html[data-theme="amigos-dark"] .reviews-section *,
+html[data-theme="amigos-dark"] .testimonial-section *,
+html[data-theme="amigos-dark"] .testimonials-section *,
+html[data-theme="amigos-dark"] .process-section *,
+html[data-theme="amigos-dark"] .partner-flow *,
+html[data-theme="amigos-dark"] .partner-cta *,
+html[data-theme="amigos-dark"] .final-cta *,
+html[data-theme="amigos-dark"] .cta-section * {
+    color: #fff !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+html[data-theme="amigos-dark"] a[class*="btn"],
+html[data-theme="amigos-dark"] button[class*="btn"],
+html[data-theme="amigos-dark"] .primary-btn,
+html[data-theme="amigos-dark"] .partners-btn-primary,
+html[data-theme="amigos-dark"] .text-link,
+html[data-theme="amigos-dark"] .hero-buttons a:first-child,
+html[data-theme="amigos-dark"] .cta-buttons a:first-child {
+    background: var(--am-brand-gradient) !important;
+    border-color: rgba(246, 190, 16, .44) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: 0 18px 46px rgba(230, 36, 83, .2), 0 12px 34px rgba(246, 190, 16, .14) !important;
+}
+
+html[data-theme="amigos-dark"] .secondary-btn,
+html[data-theme="amigos-dark"] .partners-btn-outline,
+html[data-theme="amigos-dark"] .hero-buttons a:nth-child(2),
+html[data-theme="amigos-dark"] .cta-buttons a:nth-child(2) {
+    background: rgba(255, 255, 255, .07) !important;
+    border-color: rgba(255, 255, 255, .32) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] .site-footer,
+html[data-theme="amigos-dark"] .footer {
+    background: #06162C !important;
+}
+
+html[data-theme="amigos-dark"] .site-header .header-btn,
+html[data-theme="amigos-dark"] .site-header .customer-header-btn {
+    background: rgba(255, 255, 255, .07) !important;
+    border-color: rgba(255, 255, 255, .32) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: none !important;
+}
+
+/* Global light-theme header/footer polish shared by shell pages. */
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header {
+    background: rgba(255, 255, 255, .94) !important;
+    border-bottom-color: rgba(5, 5, 5, .12) !important;
+    box-shadow: 0 18px 48px rgba(7, 26, 51, .10) !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .site-nav a,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .site-nav a,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header .site-nav a,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-trigger,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-trigger,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header .dropdown-trigger,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .nav-link,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .nav-link,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header .nav-link {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .site-nav a:hover,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .site-nav a:hover,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header .site-nav a:hover {
+    color: #FFD21F !important;
+    -webkit-text-fill-color: #FFD21F !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .customer-header-btn,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .customer-header-btn,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header .customer-header-btn {
+    background: #FFD21F !important;
+    border-color: #FFD21F !important;
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .header-btn,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .header-btn,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header .header-btn {
+    background: #E62453 !important;
+    border-color: #E62453 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .theme-toggle,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .theme-toggle,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header .theme-toggle {
+    background: rgba(7, 26, 51, .06) !important;
+    border-color: rgba(7, 26, 51, .24) !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .hamburger span,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .hamburger span,
+html:not([data-theme="amigos-dark"]) body:has(.partners-page) .site-header .hamburger span {
+    background: #050505 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-footer {
+    background: #fff !important;
+    color: #050505 !important;
+    border-top: 1px solid rgba(5, 5, 5, .16) !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-footer h3,
+html:not([data-theme="amigos-dark"]) .site-footer h4,
+html:not([data-theme="amigos-dark"]) .site-footer p,
+html:not([data-theme="amigos-dark"]) .site-footer a,
+html:not([data-theme="amigos-dark"]) .site-footer span,
+html:not([data-theme="amigos-dark"]) .footer-bottom,
+html:not([data-theme="amigos-dark"]) .footer-bottom a {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
 }

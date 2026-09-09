@@ -513,13 +513,14 @@ function animateCounter(counter) {
 ==================================================*/
 
 const SERVICES_DATA = [
-    { num: "01", title: "Painting", desc: "Interior & exterior painting with premium, long-lasting finishes.", img: "assets/services/pexels-kseniachernaya-5691592.jpg" },
-    { num: "02", title: "Plastering", desc: "Professional drywall & plaster installation and repair.", img: "assets/services/pexels-ai25studioai-5493673.jpg" },
-    { num: "03", title: "Facades", desc: "Restore beauty while preserving architectural value.", img: "assets/services/pexels-dmitry93-32114413.jpg" },
-    { num: "04", title: "Apartment Renovation", desc: "Get properties ready for sale or new tenants.", img: "assets/services/pexels-tr-n-chinh-587690133-20666871.jpg" },
-    { num: "05", title: "Property Value Preservation", desc: "Protect and increase long-term property value.", img: "assets/services/pexels-amine-kubranur-cakiroglu-689611212-37919681.jpg" },
-    { num: "06", title: "Spray Painting", desc: "Smooth spray finishes for doors, frames, shutters and suitable components.", img: "assets/spray/Hero.png" },
-    { num: "07", title: "Digital Project Planning", desc: "Plan and visualize your project before work begins.", img: "assets/services/engineers-brainstorming-ways-use-ai.jpg", tags: ["Price Calculator", "Photo Upload", "Color Visualization"] }
+    { num: "01", title: "Painting", desc: "Interior & exterior painting with premium, long-lasting finishes.", img: "assets/services/pexels-kseniachernaya-5691592.jpg", href: "/interior-painting" },
+    { num: "02", title: "Plastering", desc: "Professional drywall & plaster installation and repair.", img: "assets/services/pexels-ai25studioai-5493673.jpg", href: "/Plastering" },
+    { num: "03", title: "Facades", desc: "Restore beauty while preserving architectural value.", img: "assets/services/pexels-dmitry93-32114413.jpg", href: "/Facade-Renovation" },
+    { num: "04", title: "Apartment Renovation", desc: "Get properties ready for sale or new tenants.", img: "assets/services/pexels-tr-n-chinh-587690133-20666871.jpg", href: "/appartment-renovation" },
+    { num: "05", title: "Property Value Preservation", desc: "Protect and increase long-term property value.", img: "assets/services/pexels-amine-kubranur-cakiroglu-689611212-37919681.jpg", href: "/property-value-preservation" },
+    { num: "06", title: "Spray Painting", desc: "Smooth spray finishes for doors, frames, shutters and suitable components.", img: "assets/spray/Hero.png", href: "/spray-painting" },
+    { num: "07", title: "Water Damage", desc: "Fast repair, drying coordination and clean surface restoration after moisture damage.", img: "assets/services/pexels-mikhail-nilov-8296991.jpg", href: "/water-damage" },
+    { num: "08", title: "Digital Project Planning", desc: "Plan and visualize your project before work begins.", img: "assets/services/engineers-brainstorming-ways-use-ai.jpg", href: "/offer-calculator", tags: ["Price Calculator", "Photo Upload", "Color Visualization"] }
 ];
 
 (() => {
@@ -533,11 +534,12 @@ const SERVICES_DATA = [
 
     SERVICES_DATA.forEach((service, i) => {
 
-        const panel = document.createElement("div");
+        const panel = document.createElement("a");
         panel.className = "service-panel" + (i === 0 && !isTouch ? " active" : "");
         panel.dataset.index = i;
+        panel.href = service.href;
         panel.setAttribute("tabindex", "0");
-        panel.setAttribute("role", "button");
+        panel.setAttribute("aria-label", `Explore ${service.title}`);
         panel.setAttribute("aria-expanded", i === 0 ? "true" : "false");
 
         panel.innerHTML = `
@@ -2324,6 +2326,10 @@ runWhenDomReady(() => {
         return;
     }
 
+    if (dock && dock.parentElement !== section) {
+        section.appendChild(dock);
+    }
+
 
     /* =================================================
        STATE
@@ -3427,122 +3433,14 @@ runWhenDomReady(() => {
     );
 
 
-    /* =================================================
-       PROJECT FILTER DOCK VISIBILITY
-    ================================================= */
-
-    if (
-        dock &&
-        typeof ScrollTrigger !==
-        "undefined"
-    ) {
-
-        gsap.set(
-            dock,
-            {
-
-                opacity: 0,
-
-                y: 25,
-
-                scale: 0.92,
-
-                filter:
-                    "blur(12px)"
-
-            }
-        );
-
-
-        function showDock() {
-
-            dock.style.pointerEvents =
-                "auto";
-
-
-            gsap.to(
-                dock,
-                {
-
-                    opacity: 1,
-
-                    y: 0,
-
-                    scale: 1,
-
-                    filter:
-                        "blur(0px)",
-
-                    duration: 0.55,
-
-                    ease:
-                        "power3.out",
-
-                    overwrite: true
-
-                }
-            );
-
-        }
-
-
-        function hideDock() {
-
-            dock.style.pointerEvents =
-                "none";
-
-
-            gsap.to(
-                dock,
-                {
-
-                    opacity: 0,
-
-                    y: 20,
-
-                    scale: 0.94,
-
-                    filter:
-                        "blur(10px)",
-
-                    duration: 0.38,
-
-                    ease:
-                        "power2.in",
-
-                    overwrite: true
-
-                }
-            );
-
-        }
-
-
-        ScrollTrigger.create({
-
-            trigger:
-                section,
-
-            start:
-                "top 75%",
-
-            end:
-                "bottom 18%",
-
-            onEnter:
-                showDock,
-
-            onEnterBack:
-                showDock,
-
-            onLeave:
-                hideDock,
-
-            onLeaveBack:
-                hideDock
-
+    if (dock) {
+        dock.style.pointerEvents = "auto";
+        gsap.set(dock, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "none"
         });
-
     }
 
 

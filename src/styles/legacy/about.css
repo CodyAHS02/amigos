@@ -1553,3 +1553,772 @@ blockquote {
         filter: none;
     }
 }
+
+/* About page participates in the global Amigos dark theme. */
+html[data-theme="amigos-dark"] body[data-page="about"],
+html[data-theme="amigos-dark"] body[data-page="about"] main,
+html[data-theme="amigos-dark"] body[data-page="about"] section {
+    background:
+        radial-gradient(circle at 88% 8%, rgba(230, 36, 83, .12), transparent 28%),
+        radial-gradient(circle at 6% 90%, rgba(246, 190, 16, .08), transparent 30%),
+        #071A33 !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-cta,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section,
+html[data-theme="amigos-dark"] body[data-page="about"] .process-section {
+    background:
+        radial-gradient(circle at 16% 16%, rgba(255, 255, 255, .18), transparent 24%),
+        radial-gradient(circle at 82% 18%, rgba(246, 190, 16, .26), transparent 28%),
+        linear-gradient(135deg, #F6BE10 0%, #F39125 38%, #E62453 100%) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] h1,
+html[data-theme="amigos-dark"] body[data-page="about"] h2,
+html[data-theme="amigos-dark"] body[data-page="about"] h3,
+html[data-theme="amigos-dark"] body[data-page="about"] h4 {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] p,
+html[data-theme="amigos-dark"] body[data-page="about"] li,
+html[data-theme="amigos-dark"] body[data-page="about"] small {
+    color: rgba(253, 251, 246, .78) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .kicker,
+html[data-theme="amigos-dark"] body[data-page="about"] .eyebrow,
+html[data-theme="amigos-dark"] body[data-page="about"] [class*="kicker"],
+html[data-theme="amigos-dark"] body[data-page="about"] [class*="eyebrow"] {
+    background: linear-gradient(135deg, #F6BE10 0%, #F39125 45%, #E62453 100%) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .card,
+html[data-theme="amigos-dark"] body[data-page="about"] .value-card,
+html[data-theme="amigos-dark"] body[data-page="about"] .process-step,
+html[data-theme="amigos-dark"] body[data-page="about"] .testimonial-card,
+html[data-theme="amigos-dark"] body[data-page="about"] article {
+    background: rgba(13, 37, 66, .84) !important;
+    border-color: rgba(255, 255, 255, .16) !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-cta *,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section *,
+html[data-theme="amigos-dark"] body[data-page="about"] .process-section * {
+    color: #fff !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+/* ==================================================
+   FINAL ABOUT THEME POLISH
+================================================== */
+
+body[data-page="about"] {
+    --about-pink: #E62453;
+    --about-yellow: #FFD21F;
+    --about-orange: #FF7A1A;
+    --about-navy: #071A33;
+    --about-ink: #050505;
+    --about-muted: #626262;
+    --about-white: #FDFBF6;
+    --about-moving-gradient: linear-gradient(120deg,
+            #FFD21F 0%,
+            #FF7A1A 28%,
+            #E62453 56%,
+            #C73B8E 76%,
+            #FFD21F 100%);
+}
+
+@keyframes aboutMovingGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-hero-overlay,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .why-image-overlay {
+    background:
+        radial-gradient(circle at 18% 28%, rgba(230, 36, 83, .18), transparent 32%),
+        radial-gradient(circle at 78% 30%, rgba(255, 122, 26, .14), transparent 34%),
+        linear-gradient(90deg, rgba(255, 255, 255, .82) 0%, rgba(255, 255, 255, .58) 48%, rgba(255, 255, 255, .34) 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, .20), rgba(255, 255, 255, .72)) !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-hero h1,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .why-image-content h2,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .why-image-content strong {
+    color: var(--about-ink) !important;
+    -webkit-text-fill-color: var(--about-ink) !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-hero .hero-copy,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .why-image-content p {
+    color: #333 !important;
+    -webkit-text-fill-color: #333 !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .scroll-indicator,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .scroll-indicator span {
+    color: rgba(5, 5, 5, .68) !important;
+}
+
+body[data-page="about"] .section-kicker,
+body[data-page="about"] .story-copy .section-kicker,
+body[data-page="about"] .partner-copy .section-kicker,
+body[data-page="about"] .about-testimonials .section-kicker,
+html[data-theme="amigos-dark"] body[data-page="about"] .section-kicker,
+html[data-theme="amigos-dark"] body[data-page="about"] [class*="kicker"] {
+    background: none !important;
+    color: var(--about-pink) !important;
+    -webkit-text-fill-color: var(--about-pink) !important;
+}
+
+body[data-page="about"] .numbers-section,
+body[data-page="about"] .values-section,
+body[data-page="about"] .final-cta,
+html[data-theme="amigos-dark"] body[data-page="about"] .numbers-section,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta {
+    background: var(--about-moving-gradient) !important;
+    background-size: 340% 340% !important;
+    animation: aboutMovingGradient 12s ease-in-out infinite !important;
+    color: #fff !important;
+}
+
+body[data-page="about"] .numbers-section *,
+body[data-page="about"] .values-section *,
+body[data-page="about"] .final-cta *,
+html[data-theme="amigos-dark"] body[data-page="about"] .numbers-section *,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section *,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta * {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="about"] .numbers-grid,
+body[data-page="about"] .number-item,
+body[data-page="about"] .values-list,
+body[data-page="about"] .value-row,
+html[data-theme="amigos-dark"] body[data-page="about"] .numbers-grid,
+html[data-theme="amigos-dark"] body[data-page="about"] .number-item,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-list,
+html[data-theme="amigos-dark"] body[data-page="about"] .value-row {
+    border-color: rgba(255, 255, 255, .34) !important;
+}
+
+body[data-page="about"] .value-row:hover,
+html[data-theme="amigos-dark"] body[data-page="about"] .value-row:hover {
+    background: rgba(255, 255, 255, .14) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-hero .btn-ghost {
+    position: relative;
+    background:
+        linear-gradient(var(--about-navy), var(--about-navy)) padding-box,
+        var(--about-moving-gradient) border-box !important;
+    background-size: 100% 100%, 260% 260% !important;
+    border: 1px solid transparent !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    animation: aboutMovingGradient 8s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] blockquote {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .process-section {
+    background:
+        radial-gradient(circle at 84% 6%, rgba(230, 36, 83, .12), transparent 30%),
+        #071A33 !important;
+    animation: none !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .process-step,
+html[data-theme="amigos-dark"] body[data-page="about"] .process-step:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .process-step span,
+html[data-theme="amigos-dark"] body[data-page="about"] .process-step.active span {
+    background:
+        linear-gradient(#071A33, #071A33) padding-box,
+        var(--about-moving-gradient) border-box !important;
+    background-size: 100% 100%, 240% 240% !important;
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    animation: aboutMovingGradient 8s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .partner-placeholders span {
+    background: rgba(7, 26, 51, .28) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .partner-placeholders span:hover,
+html[data-theme="amigos-dark"] body[data-page="about"] .partner-placeholders span:nth-child(2) {
+    background: var(--about-moving-gradient) !important;
+    background-size: 240% 240% !important;
+    animation: aboutMovingGradient 9s ease-in-out infinite !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials {
+    background:
+        radial-gradient(circle at 50% 38%, rgba(7, 26, 51, .08), transparent 34%),
+        linear-gradient(180deg, #FDFBF6 0%, #FAF6EE 100%) !important;
+    color: var(--about-navy) !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials h2,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .review-link,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-control {
+    color: var(--about-navy) !important;
+    -webkit-text-fill-color: var(--about-navy) !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-card,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-card.active {
+    background:
+        linear-gradient(rgba(255, 255, 255, .92), rgba(255, 255, 255, .92)) padding-box,
+        var(--about-moving-gradient) border-box !important;
+    background-size: 100% 100%, 260% 260% !important;
+    color: var(--about-ink) !important;
+    animation: aboutMovingGradient 8s ease-in-out infinite !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-card p {
+    color: var(--about-ink) !important;
+    -webkit-text-fill-color: var(--about-ink) !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-stars,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-card span {
+    color: var(--about-pink) !important;
+    -webkit-text-fill-color: var(--about-pink) !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-control {
+    background: rgba(255, 255, 255, .76) !important;
+    border-color: rgba(7, 26, 51, .16) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta {
+    background: var(--about-moving-gradient) !important;
+    background-size: 340% 340% !important;
+    animation: aboutMovingGradient 12s ease-in-out infinite !important;
+}
+
+body[data-page="about"] .final-cta .btn,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta .btn {
+    background: #071A33 !important;
+    border-color: rgba(255, 255, 255, .42) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="about"] .final-cta .btn-ghost,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta .btn-ghost {
+    background: rgba(255, 255, 255, .14) !important;
+    border-color: rgba(255, 255, 255, .62) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-footer {
+    background: #fff !important;
+    color: var(--about-navy) !important;
+    border-top: 1px solid #050505 !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-footer * {
+    color: var(--about-navy) !important;
+    -webkit-text-fill-color: var(--about-navy) !important;
+}
+
+/* Final About gradient balance: avoid repeating the same yellow-heavy wash. */
+body[data-page="about"] .numbers-section,
+html[data-theme="amigos-dark"] body[data-page="about"] .numbers-section {
+    background:
+        radial-gradient(circle at 16% 18%, rgba(255, 210, 31, .38), transparent 28%),
+        linear-gradient(120deg,
+            #E62453 0%,
+            #C73B8E 28%,
+            #FF7A1A 62%,
+            #FFD21F 100%) !important;
+    background-size: 260% 260%, 340% 340% !important;
+    animation: aboutMovingGradient 13s ease-in-out infinite !important;
+}
+
+body[data-page="about"] .values-section,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section {
+    background:
+        radial-gradient(circle at 12% 12%, rgba(255, 255, 255, .16), transparent 26%),
+        radial-gradient(circle at 86% 18%, rgba(255, 122, 26, .36), transparent 30%),
+        linear-gradient(125deg,
+            #C73B8E 0%,
+            #E62453 36%,
+            #FF7A1A 74%,
+            #B01355 100%) !important;
+    background-size: 220% 220%, 240% 240%, 360% 360% !important;
+    animation: aboutMovingGradient 14s ease-in-out infinite !important;
+}
+
+body[data-page="about"] .final-cta,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta {
+    background:
+        radial-gradient(circle at 18% 22%, rgba(255, 210, 31, .30), transparent 24%),
+        radial-gradient(circle at 78% 64%, rgba(230, 36, 83, .42), transparent 34%),
+        linear-gradient(130deg,
+            #071A33 0%,
+            #C73B8E 34%,
+            #E62453 64%,
+            #FF7A1A 100%) !important;
+    background-size: 240% 240%, 260% 260%, 360% 360% !important;
+    animation: aboutMovingGradient 15s ease-in-out infinite !important;
+}
+
+body[data-page="about"] .numbers-section .section-kicker,
+body[data-page="about"] .values-section .section-kicker,
+body[data-page="about"] .final-cta .section-kicker,
+html[data-theme="amigos-dark"] body[data-page="about"] .numbers-section .section-kicker,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section .section-kicker,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta .section-kicker {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+/* Client final pass: About-specific color intent and button/header clarity. */
+body[data-page="about"] {
+    --about-home-mix: linear-gradient(135deg,
+            #FFD21F 0%,
+            #FF9B1A 30%,
+            #FF5A2C 50%,
+            #E62453 72%,
+            #C73B8E 100%);
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .site-nav a,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .dropdown-trigger,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .nav-link {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .site-nav a:hover,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .dropdown-trigger:hover,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .nav-link:hover {
+    color: #FFD21F !important;
+    -webkit-text-fill-color: #FFD21F !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .customer-header-btn {
+    background: #FFD21F !important;
+    border-color: #FFD21F !important;
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .header-btn {
+    background: #E62453 !important;
+    border-color: #E62453 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .customer-header-btn:hover,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .header-btn:hover {
+    opacity: .72;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .site-header:not(.is-scrolled):not(.scrolled) .theme-toggle {
+    background: rgba(7, 26, 51, .10) !important;
+    border-color: rgba(7, 26, 51, .22) !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-hero .btn-ghost {
+    background:
+        linear-gradient(rgba(255, 255, 255, .42), rgba(255, 255, 255, .42)) padding-box,
+        var(--about-home-mix) border-box !important;
+    background-size: 100% 100%, 260% 260% !important;
+    border: 1px solid transparent !important;
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+    animation: aboutMovingGradient 8s ease-in-out infinite !important;
+}
+
+body[data-page="about"] .numbers-section,
+html[data-theme="amigos-dark"] body[data-page="about"] .numbers-section {
+    background:
+        radial-gradient(circle at 12% 15%, rgba(255, 210, 31, .55), transparent 30%),
+        radial-gradient(circle at 78% 20%, rgba(230, 36, 83, .42), transparent 34%),
+        radial-gradient(circle at 48% 88%, rgba(255, 122, 26, .40), transparent 34%),
+        var(--about-home-mix) !important;
+    background-size: 220% 220%, 240% 240%, 260% 260%, 360% 360% !important;
+    animation: aboutMovingGradient 12s ease-in-out infinite !important;
+}
+
+body[data-page="about"] .values-section,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section {
+    background:
+        radial-gradient(circle at 10% 22%, rgba(255, 122, 26, .38), transparent 30%),
+        linear-gradient(125deg,
+            #E62453 0%,
+            #C73B8E 34%,
+            #FF5A2C 68%,
+            #FF7A1A 100%) !important;
+    background-size: 250% 250%, 340% 340% !important;
+    animation: aboutMovingGradient 14s ease-in-out infinite !important;
+}
+
+body[data-page="about"] .values-section .value-icon::before,
+body[data-page="about"] .values-section .value-icon::after,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section .value-icon::before,
+html[data-theme="amigos-dark"] body[data-page="about"] .values-section .value-icon::after {
+    background: #fff !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-card:hover,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-card.active:hover,
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card:hover,
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card.active:hover {
+    background: #FFD21F !important;
+    border-color: #FFD21F !important;
+    color: #050505 !important;
+}
+
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-card:hover *,
+html:not([data-theme="amigos-dark"]) body[data-page="about"] .about-testimonials .testimonial-card.active:hover *,
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card:hover *,
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card.active:hover * {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+/* Absolute final override: match the homepage bar exactly. */
+html[data-theme="amigos-dark"] body[data-page="about"] main,
+html[data-theme="amigos-dark"] body main {
+    --about-logo-gradient: linear-gradient(120deg, #FFD21F 0%, #FF7A1A 44%, #E62453 100%);
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.numbers-section,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta,
+html[data-theme="amigos-dark"] body main>.numbers-section,
+html[data-theme="amigos-dark"] body main>.values-section,
+html[data-theme="amigos-dark"] body main>.final-cta {
+    background: var(--about-logo-gradient) !important;
+    background-size: 320% 320% !important;
+    animation: aboutMovingGradient 12s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row:hover,
+html[data-theme="amigos-dark"] body main>.values-section .value-row,
+html[data-theme="amigos-dark"] body main>.values-section .value-row:hover {
+    background: var(--about-logo-gradient) !important;
+    background-size: 320% 320% !important;
+    animation: aboutMovingGradient 10s ease-in-out infinite !important;
+    padding-left: clamp(52px, 4vw, 82px) !important;
+    padding-right: clamp(34px, 3vw, 64px) !important;
+    border-color: rgba(255, 255, 255, .42) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row *,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row:hover *,
+html[data-theme="amigos-dark"] body main>.values-section .value-row *,
+html[data-theme="amigos-dark"] body main>.values-section .value-row:hover * {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-icon::before,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-icon::after,
+html[data-theme="amigos-dark"] body main>.values-section .value-icon::before,
+html[data-theme="amigos-dark"] body main>.values-section .value-icon::after {
+    background: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.about-testimonials .testimonial-card,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.about-testimonials .testimonial-card.active,
+html[data-theme="amigos-dark"] body main>.about-testimonials .testimonial-card,
+html[data-theme="amigos-dark"] body main>.about-testimonials .testimonial-card.active {
+    background: var(--about-logo-gradient) !important;
+    background-size: 320% 320% !important;
+    animation: aboutMovingGradient 10s ease-in-out infinite !important;
+}
+
+/* Final About dark value rows: exact homepage logo-bar gradient on the rows. */
+html[data-theme="amigos-dark"] body[data-page="about"] main {
+    --about-logo-gradient: linear-gradient(120deg, #FFD21F 0%, #FF7A1A 44%, #E62453 100%);
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.numbers-section,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta {
+    background: var(--about-logo-gradient) !important;
+    background-size: 320% 320% !important;
+    animation: aboutMovingGradient 12s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .values-list,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row {
+    border-color: rgba(255, 255, 255, .42) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row:hover {
+    background: var(--about-logo-gradient) !important;
+    background-size: 320% 320% !important;
+    animation: aboutMovingGradient 10s ease-in-out infinite !important;
+    padding-left: clamp(52px, 4vw, 82px) !important;
+    padding-right: clamp(34px, 3vw, 64px) !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row *,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-row:hover * {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-icon::before,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section .value-icon::after {
+    background: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.about-testimonials .testimonial-card,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.about-testimonials .testimonial-card.active {
+    background: var(--about-logo-gradient) !important;
+    background-size: 320% 320% !important;
+    animation: aboutMovingGradient 10s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta .btn,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta .btn-light {
+    background: #fff !important;
+    border-color: #fff !important;
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta .btn *,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta .btn-light * {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta .btn-ghost {
+    background: rgba(255, 255, 255, .14) !important;
+    border-color: rgba(255, 255, 255, .72) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body[data-page="about"] .number-item {
+    position: relative;
+    overflow: hidden;
+}
+
+body[data-page="about"] .number-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, .08),
+            rgba(255, 255, 255, .24),
+            rgba(255, 255, 255, .06));
+    opacity: 0;
+    transition: width 1.8s cubic-bezier(.22, 1, .36, 1), opacity .35s ease;
+    pointer-events: none;
+}
+
+body[data-page="about"] .number-item.is-filling::before,
+body[data-page="about"] .number-item.is-filled::before {
+    width: 100%;
+    opacity: 1;
+}
+
+body[data-page="about"] .number-item>* {
+    position: relative;
+    z-index: 1;
+}
+
+body[data-page="about"] .final-cta,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta {
+    background:
+        radial-gradient(circle at 14% 18%, rgba(255, 210, 31, .50), transparent 28%),
+        radial-gradient(circle at 82% 24%, rgba(230, 36, 83, .48), transparent 34%),
+        radial-gradient(circle at 46% 86%, rgba(255, 122, 26, .44), transparent 34%),
+        var(--about-home-mix) !important;
+    background-size: 220% 220%, 240% 240%, 260% 260%, 360% 360% !important;
+    animation: aboutMovingGradient 13s ease-in-out infinite !important;
+}
+
+body[data-page="about"] .final-cta .btn,
+body[data-page="about"] .final-cta .btn-light,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta .btn,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta .btn-light {
+    background: #fff !important;
+    border-color: #fff !important;
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}
+
+body[data-page="about"] .final-cta .btn-ghost,
+html[data-theme="amigos-dark"] body[data-page="about"] .final-cta .btn-ghost {
+    background: rgba(255, 255, 255, .12) !important;
+    border-color: rgba(255, 255, 255, .72) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+/* Dark about final pass: keep the requested sections vividly mixed, not navy. */
+html[data-theme="amigos-dark"] body[data-page="about"] main {
+    --about-mixed-dark: linear-gradient(135deg,
+            #FFD21F 0%,
+            #FF9B1A 26%,
+            #FF5A2C 48%,
+            #E62453 70%,
+            #C73B8E 100%);
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.numbers-section,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 14% 18%, rgba(255, 210, 31, .58), transparent 30%),
+        radial-gradient(circle at 78% 20%, rgba(230, 36, 83, .50), transparent 34%),
+        radial-gradient(circle at 46% 88%, rgba(255, 122, 26, .46), transparent 34%),
+        var(--about-mixed-dark) !important;
+    background-size: 220% 220%, 240% 240%, 260% 260%, 380% 380% !important;
+    animation: aboutMovingGradient 12s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section {
+    background:
+        radial-gradient(circle at 12% 22%, rgba(255, 155, 26, .46), transparent 31%),
+        radial-gradient(circle at 82% 18%, rgba(255, 210, 31, .42), transparent 30%),
+        linear-gradient(130deg,
+            #C73B8E 0%,
+            #E62453 32%,
+            #FF5A2C 64%,
+            #FF9B1A 100%) !important;
+    background-size: 240% 240%, 220% 220%, 380% 380% !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta {
+    background:
+        radial-gradient(circle at 16% 20%, rgba(255, 210, 31, .52), transparent 29%),
+        radial-gradient(circle at 82% 24%, rgba(199, 59, 142, .50), transparent 34%),
+        radial-gradient(circle at 46% 86%, rgba(255, 90, 44, .48), transparent 34%),
+        var(--about-mixed-dark) !important;
+    background-size: 220% 220%, 240% 240%, 260% 260%, 380% 380% !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] main>.numbers-section *,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.values-section *,
+html[data-theme="amigos-dark"] body[data-page="about"] main>.final-cta * {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .number-item {
+    position: relative;
+    overflow: hidden;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .number-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, .10),
+            rgba(255, 255, 255, .24),
+            rgba(255, 255, 255, .06));
+    opacity: 0;
+    transition: width 1.8s cubic-bezier(.22, 1, .36, 1), opacity .35s ease;
+    pointer-events: none;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .number-item.is-filling::before,
+html[data-theme="amigos-dark"] body[data-page="about"] .number-item.is-filled::before {
+    width: 100%;
+    opacity: 1;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .number-item>* {
+    position: relative;
+    z-index: 1;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials h2 {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card,
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card.active {
+    background:
+        radial-gradient(circle at 12% 16%, rgba(255, 210, 31, .34), transparent 30%),
+        radial-gradient(circle at 82% 20%, rgba(199, 59, 142, .34), transparent 32%),
+        linear-gradient(135deg,
+            #FFD21F 0%,
+            #FF9B1A 26%,
+            #FF5A2C 50%,
+            #E62453 74%,
+            #C73B8E 100%) !important;
+    background-size: 220% 220%, 240% 240%, 340% 340% !important;
+    border-color: rgba(255, 255, 255, .42) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    animation: aboutMovingGradient 10s ease-in-out infinite !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card *,
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card.active * {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-stars {
+    color: #FFD21F !important;
+    -webkit-text-fill-color: #FFD21F !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card:hover,
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card.active:hover {
+    background: #FFD21F !important;
+    border-color: #FFD21F !important;
+}
+
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card:hover *,
+html[data-theme="amigos-dark"] body[data-page="about"] .about-testimonials .testimonial-card.active:hover * {
+    color: #050505 !important;
+    -webkit-text-fill-color: #050505 !important;
+}

@@ -4,12 +4,12 @@ import { useMemo, useRef, useState } from "react";
 import styles from "./OfferCalculator.module.css";
 
 const propertyTypes = [
-  { id: "apartment", title: "Apartment / Flat", icon: "⌂" },
-  { id: "house", title: "Single-Family House", icon: "⌂" },
-  { id: "commercial", title: "Commercial / Business", icon: "▦" },
-  { id: "facade", title: "Facade / Exterior", icon: "▥" },
-  { id: "room", title: "Single Room", icon: "□" },
-  { id: "other", title: "Other", icon: "…" }
+  { id: "apartment", title: "Apartment / Flat", iconKey: "apartment" },
+  { id: "house", title: "Single-Family House", iconKey: "house" },
+  { id: "commercial", title: "Commercial / Business", iconKey: "commercial" },
+  { id: "facade", title: "Facade / Exterior", iconKey: "facade" },
+  { id: "room", title: "Single Room", iconKey: "room" },
+  { id: "other", title: "Other", iconKey: "other" }
 ];
 
 const roomTypes = ["Living Room", "Bedroom", "Kitchen", "Bathroom", "Hallway", "Other"];
@@ -95,6 +95,38 @@ function ComponentIcon({ iconKey }) {
   };
 
   switch (iconKey) {
+    case "apartment":
+      return (
+        <svg {...commonProps}>
+          <path d="M15 25 24 16l9 9" />
+          <path d="M18 23v11h12V23" />
+          <path d="M22 34v-7h4v7" />
+        </svg>
+      );
+    case "house":
+      return (
+        <svg {...commonProps}>
+          <path d="M11 24 24 12l13 12" />
+          <path d="M15 22v15h18V22" />
+          <path d="M21 37v-9h6v9" />
+        </svg>
+      );
+    case "commercial":
+      return (
+        <svg {...commonProps}>
+          <path d="M14 18h20v18H14V18Z" />
+          <path d="M18 18v-5h12v5" />
+          <path d="M19 24h2M27 24h2M19 30h2M27 30h2" />
+        </svg>
+      );
+    case "room":
+      return (
+        <svg {...commonProps}>
+          <path d="M14 15h20v22H14V15Z" />
+          <path d="M20 21h8v8h-8V21Z" />
+          <path d="M18 37v-5h12v5" />
+        </svg>
+      );
     case "ceilings":
       return (
         <svg {...commonProps}>
@@ -177,7 +209,7 @@ function titlesFromIds(options, ids) {
     .filter(Boolean);
 }
 
-export default function OfferCalculator() {
+export default function OfferCalculator({ embedded = false }) {
   const [step, setStep] = useState(0);
   const [state, setState] = useState(initialState);
   const [sessionId, setSessionId] = useState("");
@@ -393,8 +425,340 @@ export default function OfferCalculator() {
       <button type="button" className={cx(styles.selectionCard, selected && styles.selectedCard)} onClick={onClick}>
         <span className={styles.cardIcon}>{option.iconKey ? <ComponentIcon iconKey={option.iconKey} /> : option.icon || "✦"}</span>
         <span>{option.title}</span>
-        <i>✓</i>
+        <i>{selected ? "✓" : "›"}</i>
       </button>
+    );
+  }
+
+  if (embedded) {
+    return (
+      <main className={cx(styles.page, styles.embedded, "offerCalculatorEmbedded")}>
+        <aside className={styles.embeddedRail}>
+          <div className={styles.heroCopy}>
+            <span className={styles.brand}>AMIGOS MALER GMBH</span>
+            <strong>Kompetenz verbindet</strong>
+            <h1>OFFER CALCULATOR & REQUEST</h1>
+            <p>Calculate, see your price – and request your offer.</p>
+            <ul>
+              <li>Calculate your estimated price in a few steps</li>
+              <li>See your result after verifying your e-mail</li>
+              <li>Request your personal offer or book a consultation</li>
+            </ul>
+          </div>
+          <div className={styles.securityCard}>
+            <span>🔒</span>
+            <h2>PRICES ARE PROTECTED</h2>
+            <p>The exact price is only visible after e-mail verification.</p>
+          </div>
+        </aside>
+
+        <div className={styles.embeddedWorkspace}>
+          <nav className={styles.progressNav} aria-label="Calculator progress">
+            <span className={styles.progressFill} style={{ width: `${progress}%` }} />
+            {stepMeta.map((item, index) => (
+              <button
+                key={item.key}
+                className={cx(styles.progressStep, index === step && styles.currentStep, index < step && styles.doneStep)}
+                type="button"
+                onClick={() => index < step && setStep(index)}
+              >
+                <span>{item.number}</span>
+                <i>{item.icon}</i>
+                <b>{item.title}</b>
+              </button>
+            ))}
+          </nav>
+
+          <section className={styles.embeddedLayout}>
+            <div className={cx(styles.consultationShell, styles.embeddedLeft)}>
+              <div className={styles.entrySwitch}>
+                <button type="button" className={state.mode === "CALCULATE" ? styles.activeEntry : ""} onClick={() => setState((current) => ({ ...current, mode: "CALCULATE" }))}>
+                  <b>Calculate Price & Request Offer</b>
+                  <span>For customers who want an approximate project price.</span>
+                </button>
+                <button type="button" className={state.mode === "REQUEST" ? styles.activeEntry : ""} onClick={() => setState((current) => ({ ...current, mode: "REQUEST" }))}>
+                  <b>Request a Personal Offer</b>
+                  <span>For customers who already know what they need.</span>
+                </button>
+              </div>
+
+            {errors.general && <p className={styles.error}>{errors.general}</p>}
+            {notice && <p className={styles.notice}>{notice}</p>}
+
+            {step === 0 && (
+              <div className={styles.stepPanel}>
+                <span className={styles.stepKicker}>01 Project Type</span>
+                <h2>What type of property is it?</h2>
+                <p>Please select the type of property.</p>
+                <div className={styles.cardGrid}>
+                  {propertyTypes.map((option) => renderSelectionCard(option, state.propertyType === option.id, () => {
+                    setState((current) => ({
+                      ...current,
+                      propertyType: option.id,
+                      components: option.id === "facade" ? ["facade"] : current.components.filter((item) => item !== "facade"),
+                      services: option.id === "facade" ? current.services.filter((service) => serviceOptions.find((item) => item.id === service)?.components.includes("facade")) : current.services,
+                      quantities: option.id === "facade" ? current.quantities : { ...current.quantities, facadeArea: "" }
+                    }));
+                  }))}
+                </div>
+                {state.propertyType === "room" && (
+                  <div className={styles.roomChips}>
+                    {roomTypes.map((room) => (
+                      <button key={room} type="button" className={state.roomType === room ? styles.activeChip : ""} onClick={() => setState((current) => ({ ...current, roomType: room }))}>{room}</button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {step === 1 && (
+              <div className={styles.stepPanel}>
+                <span className={styles.stepKicker}>02 Components</span>
+                <h2>Which components should be worked on?</h2>
+                <p>Select all that apply.</p>
+                <div className={styles.cardGrid}>
+                  {components.map((option) => renderSelectionCard(option, state.components.includes(option.id), () => {
+                    setState((current) => ({ ...current, components: toggle(current.components, option.id) }));
+                  }))}
+                </div>
+              </div>
+            )}
+
+            {step === 2 && (
+              <div className={styles.stepPanel}>
+                <span className={styles.stepKicker}>03 Work & Services</span>
+                <h2>What work should we do?</h2>
+                <p>Select multiple services. The catalogue is structured so it can grow with AMIGOS.</p>
+                <div className={styles.serviceGrid}>
+                  {visibleServices.map((option) => renderSelectionCard(option, state.services.includes(option.id), () => {
+                    setState((current) => ({ ...current, services: toggle(current.services, option.id) }));
+                  }))}
+                </div>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div className={styles.stepPanel}>
+                <span className={styles.stepKicker}>04 Quantities</span>
+                <h2>Enter the quantities</h2>
+                <p>Please enter the areas, lengths and quantities.</p>
+                <div className={styles.quantityGrid}>
+                  {visibleQuantities.map((item) => (
+                    <label key={item.id} className={styles.quantityField}>
+                      <span>{item.label}</span>
+                      <div>
+                        <input
+                          type="number"
+                          min="0"
+                          inputMode="decimal"
+                          value={state.quantities[item.quantityKey] || ""}
+                          placeholder={item.unit === "m²" ? "120" : "5"}
+                          onChange={(event) => setState((current) => ({
+                            ...current,
+                            quantities: { ...current.quantities, [item.quantityKey]: event.target.value }
+                          }))}
+                        />
+                        <b>{item.unit}</b>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+                <label className={styles.notesField}>
+                  <span>Project information</span>
+                  <textarea value={state.projectNotes} placeholder="Tell us anything important about access, condition, damage or timing." onChange={(event) => setState((current) => ({ ...current, projectNotes: event.target.value }))} />
+                </label>
+              </div>
+            )}
+
+            {step >= 4 && (
+              <div className={cx(styles.stepPanel, styles.embeddedComplete)}>
+                <span className={styles.stepKicker}>Selections Complete</span>
+                <h2>Your project details are ready.</h2>
+                <p>Use the price panel to verify your e-mail and unlock the estimated project price.</p>
+                <div className={styles.summaryPanel}>
+                  <h3>Your selected project</h3>
+                  <dl>
+                    <div>
+                      <dt>Property</dt>
+                      <dd>{propertyTypes.find((option) => option.id === state.propertyType)?.title || "Not selected"}{state.roomType ? ` · ${state.roomType}` : ""}</dd>
+                    </div>
+                    <div>
+                      <dt>Components</dt>
+                      <dd>{selectedComponentTitles.length ? selectedComponentTitles.join(", ") : "Not selected"}</dd>
+                    </div>
+                    <div>
+                      <dt>Services</dt>
+                      <dd>{selectedServiceTitles.length ? selectedServiceTitles.join(", ") : "Not selected"}</dd>
+                    </div>
+                    <div>
+                      <dt>Quantities</dt>
+                      <dd>{visibleQuantities.map((item) => `${item.label}: ${state.quantities[item.quantityKey] || 0} ${item.unit}`).join(" · ")}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            )}
+
+            {step < 4 && (
+              <div className={styles.navActions}>
+                {step > 0 && <button type="button" className={styles.secondaryAction} onClick={() => setStep((current) => current - 1)}>← BACK</button>}
+                <button type="button" className={styles.primaryAction} disabled={!canContinue() || busy} onClick={next}>{step === 3 ? "CALCULATE" : "CONTINUE →"}</button>
+              </div>
+            )}
+            {step >= 4 && step < 6 && (
+              <div className={styles.navActions}>
+                <button type="button" className={styles.secondaryAction} onClick={() => setStep(3)}>← EDIT SELECTIONS</button>
+              </div>
+            )}
+            </div>
+
+            <aside className={cx(styles.consultationShell, styles.embeddedRight)}>
+            {step < 4 && (
+              <div className={styles.resultLocked}>
+                <span className={styles.stepKicker}>Price</span>
+                <h2>Estimated price locked</h2>
+                <p>Complete the required selections on the left to calculate and unlock your price.</p>
+                <div className={styles.lockedPrice}>
+                  <span>Price:</span>
+                  <strong>CHF ****.–</strong>
+                </div>
+                <button className={styles.primaryAction} type="button" disabled>COMPLETE SELECTIONS FIRST</button>
+              </div>
+            )}
+
+            {step === 4 && (
+              <div className={styles.resultLocked}>
+                <span className={styles.stepKicker}>05 Result</span>
+                <h2>Your calculation is ready!</h2>
+                <p>To view your estimated project price, please verify your e-mail address.</p>
+                <div className={styles.lockedPrice}>
+                  <span>Price:</span>
+                  <strong>CHF ••••.–</strong>
+                </div>
+                <button className={styles.primaryAction} type="button" onClick={() => setStep(5)} disabled={busy}>SHOW PRICE</button>
+              </div>
+            )}
+
+            {step === 5 && (
+              <div className={styles.verifyPanel}>
+                <span className={styles.stepKicker}>06 Verify E-Mail</span>
+                <h2>Verify your e-mail</h2>
+                {!codeSent ? (
+                  <>
+                    <p>Enter your e-mail address and we will send you a 4-digit verification code.</p>
+                    <label className={styles.emailField}>
+                      <span>E-Mail</span>
+                      <input type="email" value={state.email} placeholder="you@example.com" onChange={(event) => setState((current) => ({ ...current, email: event.target.value }))} />
+                    </label>
+                    <button className={styles.primaryAction} type="button" onClick={sendCode} disabled={busy}>SEND CODE TO MY E-MAIL</button>
+                  </>
+                ) : (
+                  <>
+                    <p>Enter the 4-digit code we sent to {state.email}.</p>
+                    <div className={styles.codeInputs}>
+                      {state.code.map((digit, index) => (
+                        <input
+                          key={index}
+                          ref={(node) => { codeRefs.current[index] = node; }}
+                          type="text"
+                          inputMode="numeric"
+                          maxLength={1}
+                          value={digit}
+                          onChange={(event) => {
+                            const value = event.target.value.replace(/\D/g, "").slice(0, 1);
+                            setState((current) => {
+                              const code = [...current.code];
+                              code[index] = value;
+                              return { ...current, code };
+                            });
+                            if (value && codeRefs.current[index + 1]) codeRefs.current[index + 1].focus();
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <button className={styles.primaryAction} type="button" onClick={verifyCode} disabled={busy}>Unlock Estimated Price</button>
+                    <button className={styles.textButton} type="button" onClick={sendCode}>Didn't receive a code? Resend code</button>
+                  </>
+                )}
+              </div>
+            )}
+
+            {step === 6 && (
+              <div className={styles.pricePanel}>
+                <div className={styles.successMark}>✓</div>
+                <span className={styles.stepKicker}>07 Estimated Project Price</span>
+                <h2>Your estimated project price</h2>
+                <strong className={styles.priceRange}>{priceRange}</strong>
+                <p>This is an approximate price range based on the information provided. The final price may vary after review and/or an on-site inspection.</p>
+
+                <div className={styles.customerGrid}>
+                  {[
+                    ["firstName", "First Name"],
+                    ["lastName", "Last Name"],
+                    ["phone", "Phone"],
+                    ["address", "Street / Property Address"],
+                    ["postalCode", "Postal Code"],
+                    ["city", "City"],
+                    ["company", "Company"]
+                  ].map(([key, label]) => (
+                    <label key={key}>
+                      <span>{label}</span>
+                      <input value={state.customerInfo[key]} onChange={(event) => updateCustomerInfo(key, event.target.value)} aria-invalid={Boolean(errors[key])} />
+                      {errors[key] && <small>{errors[key]}</small>}
+                    </label>
+                  ))}
+                  <label className={styles.checkboxLine}>
+                    <input type="checkbox" checked={state.customerInfo.propertyManagement} onChange={(event) => updateCustomerInfo("propertyManagement", event.target.checked)} />
+                    <span>Property Management</span>
+                  </label>
+                </div>
+
+                <div className={styles.summaryPanel}>
+                  <h3>Your selected project</h3>
+                  <dl>
+                    <div>
+                      <dt>Property</dt>
+                      <dd>{propertyTypes.find((option) => option.id === state.propertyType)?.title || "Not selected"}{state.roomType ? ` · ${state.roomType}` : ""}</dd>
+                    </div>
+                    <div>
+                      <dt>Components</dt>
+                      <dd>{selectedComponentTitles.length ? selectedComponentTitles.join(", ") : "Not selected"}</dd>
+                    </div>
+                    <div>
+                      <dt>Services</dt>
+                      <dd>{selectedServiceTitles.length ? selectedServiceTitles.join(", ") : "Not selected"}</dd>
+                    </div>
+                    <div>
+                      <dt>Quantities</dt>
+                      <dd>{visibleQuantities.map((item) => `${item.label}: ${state.quantities[item.quantityKey] || 0} ${item.unit}`).join(" · ")}</dd>
+                    </div>
+                  </dl>
+                </div>
+
+                <div className={styles.uploadPanel}>
+                  <h3>Upload photos of your project</h3>
+                  <div className={styles.photoGrid}>
+                    {photoCategories.map((category) => (
+                      <label key={category} className={styles.photoDrop}>
+                        <span>{category}</span>
+                        <small>Take Photo or Choose From Library</small>
+                        <input type="file" accept="image/*" capture="environment" onChange={(event) => uploadPhoto(event.target.files?.[0], category)} />
+                      </label>
+                    ))}
+                  </div>
+                  {photos.length > 0 && <p className={styles.notice}>{photos.length} photo{photos.length === 1 ? "" : "s"} attached to this project.</p>}
+                </div>
+
+                <div className={styles.finalActions}>
+                  <button className={styles.primaryAction} type="button" onClick={() => submitRequest("OFFER")} disabled={busy}>REQUEST A FREE OFFER</button>
+                  <button className={styles.secondaryAction} type="button" onClick={() => submitRequest("CONSULTATION")} disabled={busy}>SCHEDULE A CONSULTATION</button>
+                </div>
+              </div>
+            )}
+            </aside>
+          </section>
+        </div>
+      </main>
     );
   }
 

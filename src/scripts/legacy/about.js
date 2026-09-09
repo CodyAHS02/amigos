@@ -10,6 +10,81 @@ function runWhenDomReady(init) {
 
 gsap.registerPlugin(ScrollTrigger);
 
+function applyAboutDarkThemeSurfaces() {
+    const isDark = document.documentElement.dataset.theme === "amigos-dark";
+    const mixedGradient = "linear-gradient(120deg, #FFD21F 0%, #FF7A1A 44%, #E62453 100%)";
+
+    const clearInlineTheme = (el) => {
+        ["background", "background-size", "animation", "color", "border-color", "padding-left", "padding-right"].forEach(prop => el.style.removeProperty(prop));
+    };
+
+    document
+        .querySelectorAll(".numbers-section, .values-section, .final-cta")
+        .forEach(section => {
+            if (!isDark) {
+                clearInlineTheme(section);
+                return;
+            }
+
+            section.style.setProperty("background", mixedGradient, "important");
+            section.style.setProperty("background-size", "320% 320%", "important");
+            section.style.setProperty("animation", "aboutMovingGradient 12s ease-in-out infinite", "important");
+            section.style.setProperty("color", "#fff", "important");
+        });
+
+    document
+        .querySelectorAll(".values-section .value-row")
+        .forEach(row => {
+            if (!isDark) {
+                clearInlineTheme(row);
+                return;
+            }
+
+            row.style.setProperty("background", mixedGradient, "important");
+            row.style.setProperty("background-size", "320% 320%", "important");
+            row.style.setProperty("animation", "aboutMovingGradient 10s ease-in-out infinite", "important");
+            row.style.setProperty("border-color", "rgba(255, 255, 255, .42)", "important");
+            row.style.setProperty("padding-left", "clamp(52px, 4vw, 82px)", "important");
+            row.style.setProperty("padding-right", "clamp(34px, 3vw, 64px)", "important");
+        });
+
+    document
+        .querySelectorAll(".about-testimonials h2")
+        .forEach(heading => {
+            if (!isDark) {
+                heading.style.removeProperty("color");
+                return;
+            }
+
+            heading.style.setProperty("color", "#fff", "important");
+        });
+
+    document
+        .querySelectorAll(".about-testimonials .testimonial-card")
+        .forEach(card => {
+            if (!isDark) {
+                clearInlineTheme(card);
+                card.style.removeProperty("border-color");
+                return;
+            }
+
+            card.style.setProperty("background", mixedGradient, "important");
+            card.style.setProperty("background-size", "320% 320%", "important");
+            card.style.setProperty("animation", "aboutMovingGradient 10s ease-in-out infinite", "important");
+            card.style.setProperty("border-color", "rgba(255, 255, 255, .42)", "important");
+            card.style.setProperty("color", "#fff", "important");
+        });
+}
+
+runWhenDomReady(() => {
+    applyAboutDarkThemeSurfaces();
+
+    new MutationObserver(applyAboutDarkThemeSurfaces).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme", "class"]
+    });
+});
+
 /*==================================================
     HEADER — scroll state + mobile nav
 ==================================================*/
@@ -178,6 +253,7 @@ runWhenDomReady(() => {
         const target = +el.dataset.count;
         const suffix = el.dataset.suffix || "";
         const prefix = el.dataset.prefix || "";
+        const item = el.closest(".number-item");
 
         ScrollTrigger.create({
             trigger: el,
@@ -186,6 +262,7 @@ runWhenDomReady(() => {
             onEnter: () => {
 
                 const obj = { val: 0 };
+                item?.classList.add("is-filling");
 
                 gsap.to(obj, {
                     val: target,
@@ -193,6 +270,9 @@ runWhenDomReady(() => {
                     ease: "power2.out",
                     onUpdate: () => {
                         el.textContent = prefix + Math.floor(obj.val).toLocaleString("de-CH") + suffix;
+                    },
+                    onComplete: () => {
+                        item?.classList.add("is-filled");
                     }
                 });
 
@@ -374,6 +454,8 @@ runWhenDomReady(() => {
                 </article>
             `;
         }).join("");
+
+        applyAboutDarkThemeSurfaces();
 
         const cards = Array.from(track.querySelectorAll(".testimonial-card"));
         let current = 0;

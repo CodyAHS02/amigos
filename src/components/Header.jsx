@@ -26,6 +26,7 @@ export default function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [isCustomerLoggedIn, setIsCustomerLoggedIn] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const lastHoverVariants = useRef(new WeakMap());
 
   useEffect(() => {
@@ -59,6 +60,26 @@ export default function Header() {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("amigos-theme");
+    const shouldUseDarkTheme = savedTheme === "amigos-dark";
+
+    document.documentElement.dataset.theme = shouldUseDarkTheme ? "amigos-dark" : "amigos-light";
+    setIsDarkTheme(shouldUseDarkTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDarkTheme((currentTheme) => {
+      const nextTheme = !currentTheme;
+      const themeName = nextTheme ? "amigos-dark" : "amigos-light";
+
+      document.documentElement.dataset.theme = themeName;
+      window.localStorage.setItem("amigos-theme", themeName);
+
+      return nextTheme;
+    });
+  };
 
   const setRandomServiceHover = (event) => {
     const item = event.currentTarget;
@@ -205,6 +226,18 @@ export default function Header() {
           Request A Quote
         </a>
       </div>
+
+      <button
+        className="theme-toggle"
+        type="button"
+        aria-label={`Switch to ${isDarkTheme ? "light" : "navy"} theme`}
+        aria-pressed={isDarkTheme}
+        onClick={toggleTheme}
+      >
+        <span className="theme-toggle-icon" aria-hidden="true">
+          <span></span>
+        </span>
+      </button>
 
       <button className="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>

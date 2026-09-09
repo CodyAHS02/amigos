@@ -32,6 +32,7 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
+            <p className="footer-mobile-copyright">© 2025 Amigos Maler GmbH. All rights reserved.</p>
           </div>
 
           <nav className="footer-column" aria-label="Footer navigation">
@@ -86,7 +87,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2025 Amigos Maler GmbH. All rights reserved.</p>
+          <p className="footer-desktop-copyright">© 2025 Amigos Maler GmbH. All rights reserved.</p>
           <div>
             <a href="#">Impressum</a>
             <a href="#">Datenschutz</a>

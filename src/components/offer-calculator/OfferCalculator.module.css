@@ -559,7 +559,7 @@
   grid-template-columns: clamp(300px, 21.2vw, 365px) minmax(0, 1fr);
   border: 0;
   border-radius: 0;
-  background: transparent;
+  background: rgba(255, 255, 255, .006);
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -567,8 +567,9 @@
 
 .embedded::before {
   background:
-    linear-gradient(90deg, rgba(0, 19, 49, .05), rgba(0, 19, 49, .015) 52%, rgba(0, 19, 49, .04)),
-    radial-gradient(circle at 76% 12%, rgba(0, 32, 91, .08), transparent 28%);
+    linear-gradient(90deg, rgba(255, 255, 255, .006), rgba(255, 255, 255, .002) 52%, rgba(255, 255, 255, .004)),
+    radial-gradient(circle at 76% 12%, rgba(255, 255, 255, .008), transparent 28%);
+  opacity: .22;
 }
 
 .embedded::after {
@@ -581,7 +582,7 @@
   gap: clamp(50px, 16.5vh, 146px);
   padding: clamp(22px, 3.4vh, 42px) clamp(24px, 3vw, 52px);
   border-right: 1px solid rgba(253, 251, 246, .20);
-  background: linear-gradient(90deg, rgba(0, 19, 49, .08), rgba(0, 19, 49, .025));
+  background: linear-gradient(90deg, rgba(255, 255, 255, .006), rgba(255, 255, 255, .002));
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -597,6 +598,28 @@
   align-items: start;
   height: auto;
   overflow: visible;
+}
+
+.embeddedLayoutExpanded {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.embeddedLayoutExpanded .embeddedLeft {
+  width: 100%;
+}
+
+.embeddedLayoutExpanded .cardGrid,
+.embeddedLayoutExpanded .serviceGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.embeddedLayoutExpanded .stepPanel h2 {
+  max-width: 980px;
+}
+
+.unlockPanel {
+  transform-origin: 50% 46%;
+  animation: priceUnlock .72s cubic-bezier(.16, 1, .3, 1) both;
 }
 
 .embedded .heroCopy h1 {
@@ -1762,6 +1785,26 @@
   }
 }
 
+@keyframes priceUnlock {
+  0% {
+    opacity: 0;
+    transform: translateX(26px) scale(.94);
+    filter: blur(12px);
+  }
+
+  58% {
+    opacity: 1;
+    transform: translateX(0) scale(1.018);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 @media (max-height: 760px) {
   .page {
     gap: 8px;
@@ -1891,6 +1934,11 @@
     min-height: 0;
   }
 
+  .embeddedLayoutExpanded .cardGrid,
+  .embeddedLayoutExpanded .serviceGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .embeddedLeft,
   .embeddedRight {
     overflow: visible;
@@ -1964,6 +2012,11 @@
   .embedded .entrySwitch,
   .embedded .cardGrid,
   .embedded .serviceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .embeddedLayoutExpanded .cardGrid,
+  .embeddedLayoutExpanded .serviceGrid {
     grid-template-columns: 1fr;
   }
 

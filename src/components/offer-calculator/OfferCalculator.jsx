@@ -34,7 +34,7 @@ const serviceOptions = [
   { id: "filling_spackling", title: "Filling / Spackling", components: ["walls", "ceilings", "facade"] },
   { id: "mold_treatment", title: "Mold treatment", components: ["walls", "ceilings", "facade"] },
   { id: "nicotine_treatment", title: "Nicotine treatment", components: ["walls", "ceilings"] },
-  { id: "water_damage_repair", title: "Water damage repair", components: ["walls", "ceilings"] },
+  { id: "water_damage_repair", title: "Damage remediation", components: ["walls", "ceilings"] },
   { id: "priming_sealing", title: "Priming / Sealing", components: ["walls", "ceilings", "facade"] },
   { id: "covering_protection", title: "Covering / Protection", components: ["ceilings", "walls", "doors", "windows", "radiators", "baseboards", "facade"] }
 ];
@@ -469,7 +469,7 @@ export default function OfferCalculator({ embedded = false }) {
             ))}
           </nav>
 
-          <section className={styles.embeddedLayout}>
+          <section className={cx(styles.embeddedLayout, step < 4 && styles.embeddedLayoutExpanded)}>
             <div className={cx(styles.consultationShell, styles.embeddedLeft)}>
               <div className={styles.entrySwitch}>
                 <button type="button" className={state.mode === "CALCULATE" ? styles.activeEntry : ""} onClick={() => setState((current) => ({ ...current, mode: "CALCULATE" }))}>
@@ -612,150 +612,139 @@ export default function OfferCalculator({ embedded = false }) {
             )}
             </div>
 
-            <aside className={cx(styles.consultationShell, styles.embeddedRight)}>
-            {step < 4 && (
-              <div className={styles.resultLocked}>
-                <span className={styles.stepKicker}>Price</span>
-                <h2>Estimated price locked</h2>
-                <p>Complete the required selections on the left to calculate and unlock your price.</p>
-                <div className={styles.lockedPrice}>
-                  <span>Price:</span>
-                  <strong>CHF ****.–</strong>
-                </div>
-                <button className={styles.primaryAction} type="button" disabled>COMPLETE SELECTIONS FIRST</button>
-              </div>
-            )}
-
-            {step === 4 && (
-              <div className={styles.resultLocked}>
-                <span className={styles.stepKicker}>05 Result</span>
-                <h2>Your calculation is ready!</h2>
-                <p>To view your estimated project price, please verify your e-mail address.</p>
-                <div className={styles.lockedPrice}>
-                  <span>Price:</span>
-                  <strong>CHF ••••.–</strong>
-                </div>
-                <button className={styles.primaryAction} type="button" onClick={() => setStep(5)} disabled={busy}>SHOW PRICE</button>
-              </div>
-            )}
-
-            {step === 5 && (
-              <div className={styles.verifyPanel}>
-                <span className={styles.stepKicker}>06 Verify E-Mail</span>
-                <h2>Verify your e-mail</h2>
-                {!codeSent ? (
-                  <>
-                    <p>Enter your e-mail address and we will send you a 4-digit verification code.</p>
-                    <label className={styles.emailField}>
-                      <span>E-Mail</span>
-                      <input type="email" value={state.email} placeholder="you@example.com" onChange={(event) => setState((current) => ({ ...current, email: event.target.value }))} />
-                    </label>
-                    <button className={styles.primaryAction} type="button" onClick={sendCode} disabled={busy}>SEND CODE TO MY E-MAIL</button>
-                  </>
-                ) : (
-                  <>
-                    <p>Enter the 4-digit code we sent to {state.email}.</p>
-                    <div className={styles.codeInputs}>
-                      {state.code.map((digit, index) => (
-                        <input
-                          key={index}
-                          ref={(node) => { codeRefs.current[index] = node; }}
-                          type="text"
-                          inputMode="numeric"
-                          maxLength={1}
-                          value={digit}
-                          onChange={(event) => {
-                            const value = event.target.value.replace(/\D/g, "").slice(0, 1);
-                            setState((current) => {
-                              const code = [...current.code];
-                              code[index] = value;
-                              return { ...current, code };
-                            });
-                            if (value && codeRefs.current[index + 1]) codeRefs.current[index + 1].focus();
-                          }}
-                        />
-                      ))}
+            {step >= 4 && (
+              <aside className={cx(styles.consultationShell, styles.embeddedRight, styles.unlockPanel)}>
+                {step === 4 && (
+                  <div className={styles.resultLocked}>
+                    <span className={styles.stepKicker}>05 Result</span>
+                    <h2>Your calculation is ready!</h2>
+                    <p>To view your estimated project price, please verify your e-mail address.</p>
+                    <div className={styles.lockedPrice}>
+                      <span>Price:</span>
+                      <strong>CHF ••••.–</strong>
                     </div>
-                    <button className={styles.primaryAction} type="button" onClick={verifyCode} disabled={busy}>Unlock Estimated Price</button>
-                    <button className={styles.textButton} type="button" onClick={sendCode}>Didn't receive a code? Resend code</button>
-                  </>
-                )}
-              </div>
-            )}
-
-            {step === 6 && (
-              <div className={styles.pricePanel}>
-                <div className={styles.successMark}>✓</div>
-                <span className={styles.stepKicker}>07 Estimated Project Price</span>
-                <h2>Your estimated project price</h2>
-                <strong className={styles.priceRange}>{priceRange}</strong>
-                <p>This is an approximate price range based on the information provided. The final price may vary after review and/or an on-site inspection.</p>
-
-                <div className={styles.customerGrid}>
-                  {[
-                    ["firstName", "First Name"],
-                    ["lastName", "Last Name"],
-                    ["phone", "Phone"],
-                    ["address", "Street / Property Address"],
-                    ["postalCode", "Postal Code"],
-                    ["city", "City"],
-                    ["company", "Company"]
-                  ].map(([key, label]) => (
-                    <label key={key}>
-                      <span>{label}</span>
-                      <input value={state.customerInfo[key]} onChange={(event) => updateCustomerInfo(key, event.target.value)} aria-invalid={Boolean(errors[key])} />
-                      {errors[key] && <small>{errors[key]}</small>}
-                    </label>
-                  ))}
-                  <label className={styles.checkboxLine}>
-                    <input type="checkbox" checked={state.customerInfo.propertyManagement} onChange={(event) => updateCustomerInfo("propertyManagement", event.target.checked)} />
-                    <span>Property Management</span>
-                  </label>
-                </div>
-
-                <div className={styles.summaryPanel}>
-                  <h3>Your selected project</h3>
-                  <dl>
-                    <div>
-                      <dt>Property</dt>
-                      <dd>{propertyTypes.find((option) => option.id === state.propertyType)?.title || "Not selected"}{state.roomType ? ` · ${state.roomType}` : ""}</dd>
-                    </div>
-                    <div>
-                      <dt>Components</dt>
-                      <dd>{selectedComponentTitles.length ? selectedComponentTitles.join(", ") : "Not selected"}</dd>
-                    </div>
-                    <div>
-                      <dt>Services</dt>
-                      <dd>{selectedServiceTitles.length ? selectedServiceTitles.join(", ") : "Not selected"}</dd>
-                    </div>
-                    <div>
-                      <dt>Quantities</dt>
-                      <dd>{visibleQuantities.map((item) => `${item.label}: ${state.quantities[item.quantityKey] || 0} ${item.unit}`).join(" · ")}</dd>
-                    </div>
-                  </dl>
-                </div>
-
-                <div className={styles.uploadPanel}>
-                  <h3>Upload photos of your project</h3>
-                  <div className={styles.photoGrid}>
-                    {photoCategories.map((category) => (
-                      <label key={category} className={styles.photoDrop}>
-                        <span>{category}</span>
-                        <small>Take Photo or Choose From Library</small>
-                        <input type="file" accept="image/*" capture="environment" onChange={(event) => uploadPhoto(event.target.files?.[0], category)} />
-                      </label>
-                    ))}
+                    <button className={styles.primaryAction} type="button" onClick={() => setStep(5)} disabled={busy}>SHOW PRICE</button>
                   </div>
-                  {photos.length > 0 && <p className={styles.notice}>{photos.length} photo{photos.length === 1 ? "" : "s"} attached to this project.</p>}
-                </div>
+                )}
 
-                <div className={styles.finalActions}>
-                  <button className={styles.primaryAction} type="button" onClick={() => submitRequest("OFFER")} disabled={busy}>REQUEST A FREE OFFER</button>
-                  <button className={styles.secondaryAction} type="button" onClick={() => submitRequest("CONSULTATION")} disabled={busy}>SCHEDULE A CONSULTATION</button>
-                </div>
-              </div>
+                {step === 5 && (
+                  <div className={styles.verifyPanel}>
+                    <span className={styles.stepKicker}>06 Verify E-Mail</span>
+                    <h2>Verify your e-mail</h2>
+                    {!codeSent ? (
+                      <>
+                        <p>Enter your e-mail address and we will send you a 4-digit verification code.</p>
+                        <label className={styles.emailField}>
+                          <span>E-Mail</span>
+                          <input type="email" value={state.email} placeholder="you@example.com" onChange={(event) => setState((current) => ({ ...current, email: event.target.value }))} />
+                        </label>
+                        <button className={styles.primaryAction} type="button" onClick={sendCode} disabled={busy}>SEND CODE TO MY E-MAIL</button>
+                      </>
+                    ) : (
+                      <>
+                        <p>Enter the 4-digit code we sent to {state.email}.</p>
+                        <div className={styles.codeInputs}>
+                          {state.code.map((digit, index) => (
+                            <input
+                              key={index}
+                              ref={(node) => { codeRefs.current[index] = node; }}
+                              type="text"
+                              inputMode="numeric"
+                              maxLength={1}
+                              value={digit}
+                              onChange={(event) => {
+                                const value = event.target.value.replace(/\D/g, "").slice(0, 1);
+                                setState((current) => {
+                                  const code = [...current.code];
+                                  code[index] = value;
+                                  return { ...current, code };
+                                });
+                                if (value && codeRefs.current[index + 1]) codeRefs.current[index + 1].focus();
+                              }}
+                            />
+                          ))}
+                        </div>
+                        <button className={styles.primaryAction} type="button" onClick={verifyCode} disabled={busy}>Unlock Estimated Price</button>
+                        <button className={styles.textButton} type="button" onClick={sendCode}>Didn't receive a code? Resend code</button>
+                      </>
+                    )}
+                  </div>
+                )}
+
+                {step === 6 && (
+                  <div className={styles.pricePanel}>
+                    <div className={styles.successMark}>✓</div>
+                    <span className={styles.stepKicker}>07 Estimated Project Price</span>
+                    <h2>Your estimated project price</h2>
+                    <strong className={styles.priceRange}>{priceRange}</strong>
+                    <p>This is an approximate price range based on the information provided. The final price may vary after review and/or an on-site inspection.</p>
+
+                    <div className={styles.customerGrid}>
+                      {[
+                        ["firstName", "First Name"],
+                        ["lastName", "Last Name"],
+                        ["phone", "Phone"],
+                        ["address", "Street / Property Address"],
+                        ["postalCode", "Postal Code"],
+                        ["city", "City"],
+                        ["company", "Company"]
+                      ].map(([key, label]) => (
+                        <label key={key}>
+                          <span>{label}</span>
+                          <input value={state.customerInfo[key]} onChange={(event) => updateCustomerInfo(key, event.target.value)} aria-invalid={Boolean(errors[key])} />
+                          {errors[key] && <small>{errors[key]}</small>}
+                        </label>
+                      ))}
+                      <label className={styles.checkboxLine}>
+                        <input type="checkbox" checked={state.customerInfo.propertyManagement} onChange={(event) => updateCustomerInfo("propertyManagement", event.target.checked)} />
+                        <span>Property Management</span>
+                      </label>
+                    </div>
+
+                    <div className={styles.summaryPanel}>
+                      <h3>Your selected project</h3>
+                      <dl>
+                        <div>
+                          <dt>Property</dt>
+                          <dd>{propertyTypes.find((option) => option.id === state.propertyType)?.title || "Not selected"}{state.roomType ? ` · ${state.roomType}` : ""}</dd>
+                        </div>
+                        <div>
+                          <dt>Components</dt>
+                          <dd>{selectedComponentTitles.length ? selectedComponentTitles.join(", ") : "Not selected"}</dd>
+                        </div>
+                        <div>
+                          <dt>Services</dt>
+                          <dd>{selectedServiceTitles.length ? selectedServiceTitles.join(", ") : "Not selected"}</dd>
+                        </div>
+                        <div>
+                          <dt>Quantities</dt>
+                          <dd>{visibleQuantities.map((item) => `${item.label}: ${state.quantities[item.quantityKey] || 0} ${item.unit}`).join(" · ")}</dd>
+                        </div>
+                      </dl>
+                    </div>
+
+                    <div className={styles.uploadPanel}>
+                      <h3>Upload photos of your project</h3>
+                      <div className={styles.photoGrid}>
+                        {photoCategories.map((category) => (
+                          <label key={category} className={styles.photoDrop}>
+                            <span>{category}</span>
+                            <small>Take Photo or Choose From Library</small>
+                            <input type="file" accept="image/*" capture="environment" onChange={(event) => uploadPhoto(event.target.files?.[0], category)} />
+                          </label>
+                        ))}
+                      </div>
+                      {photos.length > 0 && <p className={styles.notice}>{photos.length} photo{photos.length === 1 ? "" : "s"} attached to this project.</p>}
+                    </div>
+
+                    <div className={styles.finalActions}>
+                      <button className={styles.primaryAction} type="button" onClick={() => submitRequest("OFFER")} disabled={busy}>REQUEST A FREE OFFER</button>
+                      <button className={styles.secondaryAction} type="button" onClick={() => submitRequest("CONSULTATION")} disabled={busy}>SCHEDULE A CONSULTATION</button>
+                    </div>
+                  </div>
+                )}
+              </aside>
             )}
-            </aside>
           </section>
         </div>
       </main>

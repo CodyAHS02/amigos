@@ -381,17 +381,18 @@ body[data-page="home"] .site-header {
     top: calc(100% + 14px);
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    width: 620px;
-    max-width: 90vw;
+    width: min(820px, calc(100vw - 56px));
+    max-width: calc(100vw - 56px);
     background: rgba(14, 14, 14, 0.96);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 18px;
     padding: 14px;
+    overflow: hidden;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 2px rgba(255, 255, 255, 0.15);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
     opacity: 0;
     visibility: hidden;
@@ -415,6 +416,8 @@ body[data-page="home"] .site-header {
 
     display: flex !important;
     align-items: center !important;
+    box-sizing: border-box !important;
+    justify-self: stretch !important;
     gap: 12px !important;
     padding: 10px 12px !important;
     border-radius: 12px !important;
@@ -422,6 +425,12 @@ body[data-page="home"] .site-header {
     transition: all 0.25s ease !important;
     border: 1px solid transparent !important;
     width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+    white-space: normal !important;
     opacity: 1 !important;
     transform: none !important;
     border-bottom: none !important;
@@ -448,7 +457,7 @@ body[data-page="home"] .site-header {
 .dropdown-item:hover {
     background: var(--dropdown-hover-bg) !important;
     border-color: var(--dropdown-hover-border) !important;
-    transform: translateY(-1px) !important;
+    transform: none !important;
     box-shadow:
         0 14px 28px rgba(0, 0, 0, .22),
         inset 0 1px 0 rgba(255, 255, 255, .24) !important;
@@ -474,6 +483,8 @@ body[data-page="home"] .site-header {
 .dropdown-item .item-info {
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .dropdown-item .item-title {
@@ -481,6 +492,7 @@ body[data-page="home"] .site-header {
     font-weight: 600;
     color: #FDFBF6 !important;
     line-height: 1.2;
+    overflow-wrap: anywhere;
 }
 
 .dropdown-item .item-desc {
@@ -488,10 +500,32 @@ body[data-page="home"] .site-header {
     color: rgba(255, 255, 255, 0.5) !important;
     line-height: 1.3;
     margin-top: 2px;
+    overflow-wrap: anywhere;
 }
 
 .dropdown-item:hover .item-desc {
     color: rgba(255, 255, 255, 0.9) !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header .dropdown-menu .dropdown-item,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-menu .dropdown-item,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-menu .dropdown-item {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header .dropdown-menu .item-title,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-menu .item-title,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-menu .item-title {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header .dropdown-menu .item-desc,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-menu .item-desc,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-menu .item-desc {
+    color: rgba(255, 255, 255, .72) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, .72) !important;
 }
 
 /* ---------- BUTTON ---------- */
@@ -10677,17 +10711,16 @@ body[data-page="home"] .introBtn:hover {
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: linear-gradient(135deg, #f6be10, #f39125 48%, #e62453);
+    background: linear-gradient(135deg, #f6be10, #f39125 58%, #fff3bf);
+    color: #fff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, .22);
-    transition: transform .32s ease, background .32s ease;
+    transition: transform .32s ease, background .32s ease, color .32s ease;
 }
 
-.theme-toggle-icon span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, .24);
+.theme-icon {
+    width: 15px;
+    height: 15px;
+    display: block;
 }
 
 html[data-theme="amigos-dark"] .theme-toggle {
@@ -10697,7 +10730,8 @@ html[data-theme="amigos-dark"] .theme-toggle {
 
 html[data-theme="amigos-dark"] .theme-toggle-icon {
     transform: translateX(16px);
-    background: linear-gradient(135deg, #071A33, #c73b8e 54%, #e62453);
+    background: linear-gradient(135deg, #071A33, #12345f 58%, #c73b8e);
+    color: #fdfbf6;
 }
 
 @media (max-width: 1120px) {
@@ -10919,6 +10953,10 @@ html[data-theme="amigos-dark"] main,
 html[data-theme="amigos-dark"] .legacy-page {
     background: var(--am-dark-navy) !important;
     color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] main.offerCalculatorEmbedded {
+    background: transparent !important;
 }
 
 html[data-theme="amigos-dark"] body:not([data-page="home"]) section:not(.site-footer):not(.footer):not(.footer-section),
@@ -11152,14 +11190,26 @@ html[data-theme="amigos-dark"] body[data-page="home"] .quote-section {
         linear-gradient(135deg, #F6BE10 0%, #F39125 42%, #E62453 100%) !important;
 }
 
-body[data-page="home"] .home-calculator-cta,
+body[data-page="home"] .home-calculator-cta {
+    background-color: #071A33 !important;
+    background-image:
+        linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .03)),
+        linear-gradient(90deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .01) 48%, rgba(255, 255, 255, .04)),
+        url("/assets/calculator-glass-bg.png"),
+        #071A33 !important;
+    background-size: auto, auto, cover, auto !important;
+    background-position: center, center, center bottom, center !important;
+    background-repeat: no-repeat !important;
+    animation: none !important;
+}
+
 html[data-theme="amigos-dark"] body[data-page="home"] section.home-calculator-cta {
     background-color: #071A33 !important;
     background-image:
-        linear-gradient(180deg, rgba(0, 19, 49, .05), rgba(0, 19, 49, .18)),
-        linear-gradient(90deg, rgba(0, 19, 49, .18), rgba(0, 32, 91, .02) 48%, rgba(0, 19, 49, .18)),
+        linear-gradient(180deg, rgba(0, 19, 49, .20), rgba(0, 19, 49, .32)),
+        linear-gradient(90deg, rgba(0, 19, 49, .24), rgba(0, 19, 49, .08) 48%, rgba(0, 19, 49, .22)),
         url("/assets/calculator-glass-bg.png"),
-        linear-gradient(135deg, #001331 0%, #071A33 50%, #00205b 100%) !important;
+        #071A33 !important;
     background-size: auto, auto, cover, auto !important;
     background-position: center, center, center bottom, center !important;
     background-repeat: no-repeat !important;
@@ -11168,8 +11218,10 @@ html[data-theme="amigos-dark"] body[data-page="home"] section.home-calculator-ct
 
 body[data-page="home"] .home-calculator-cta::before,
 html[data-theme="amigos-dark"] body[data-page="home"] section.home-calculator-cta::before {
-    background: transparent !important;
-    opacity: 0 !important;
+    background:
+        radial-gradient(circle at 16% 10%, rgba(255, 255, 255, .08), transparent 30%),
+        radial-gradient(circle at 84% 76%, rgba(255, 255, 255, .045), transparent 34%) !important;
+    opacity: 1 !important;
 }
 
 body[data-page="home"] .quote-section::before,
@@ -12025,6 +12077,34 @@ html:not([data-theme="amigos-dark"]) .site-header.scrolled .nav-link {
     -webkit-text-fill-color: #071A33 !important;
 }
 
+html:not([data-theme="amigos-dark"]) .site-header .dropdown-menu .dropdown-item,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-menu .dropdown-item,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-menu .dropdown-item {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header .dropdown-menu .dropdown-item:hover,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-menu .dropdown-item:hover,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-menu .dropdown-item:hover {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header .dropdown-menu .item-title,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-menu .item-title,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-menu .item-title {
+    color: #FDFBF6 !important;
+    -webkit-text-fill-color: #FDFBF6 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header .dropdown-menu .item-desc,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-menu .item-desc,
+html:not([data-theme="amigos-dark"]) .site-header.scrolled .dropdown-menu .item-desc {
+    color: rgba(255, 255, 255, .72) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, .72) !important;
+}
+
 html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .header-btn,
 html:not([data-theme="amigos-dark"]) .site-header.scrolled .header-btn,
 html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .customer-header-btn,
@@ -12503,13 +12583,25 @@ html[data-theme="amigos-dark"] body[data-page="home"] .plans-grid .plan-card li:
     border-color: rgba(255, 255, 255, .82) !important;
 }
 
-body[data-page="home"] .home-calculator-cta,
+body[data-page="home"] .home-calculator-cta {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .03)),
+        linear-gradient(90deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .01) 48%, rgba(255, 255, 255, .04)),
+        url("/assets/calculator-glass-bg.png"),
+        #071A33 !important;
+    background-color: #071A33 !important;
+    background-size: auto, auto, cover, auto !important;
+    background-position: center, center, center bottom, center !important;
+    background-repeat: no-repeat !important;
+    animation: none !important;
+}
+
 html[data-theme="amigos-dark"] body[data-page="home"] .home-calculator-cta {
     background:
-        linear-gradient(180deg, rgba(0, 19, 49, .05), rgba(0, 19, 49, .18)),
-        linear-gradient(90deg, rgba(0, 19, 49, .18), rgba(0, 32, 91, .02) 48%, rgba(0, 19, 49, .18)),
+        linear-gradient(180deg, rgba(0, 19, 49, .20), rgba(0, 19, 49, .32)),
+        linear-gradient(90deg, rgba(0, 19, 49, .24), rgba(0, 19, 49, .08) 48%, rgba(0, 19, 49, .22)),
         url("/assets/calculator-glass-bg.png"),
-        linear-gradient(135deg, #001331 0%, #071A33 50%, #00205b 100%) !important;
+        #071A33 !important;
     background-color: #071A33 !important;
     background-size: auto, auto, cover, auto !important;
     background-position: center, center, center bottom, center !important;

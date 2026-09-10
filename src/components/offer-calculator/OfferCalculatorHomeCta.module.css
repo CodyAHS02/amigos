@@ -10,8 +10,8 @@
   align-items: flex-start;
   padding: clamp(10px, 1.6vh, 22px) clamp(22px, 3vw, 44px);
   background:
-    linear-gradient(180deg, rgba(0, 19, 49, .05), rgba(0, 19, 49, .18)),
-    linear-gradient(90deg, rgba(0, 19, 49, .18), rgba(0, 32, 91, .02) 48%, rgba(0, 19, 49, .18)),
+    linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .03)),
+    linear-gradient(90deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .01) 48%, rgba(255, 255, 255, .04)),
     url("/assets/calculator-glass-bg.png") center bottom / cover no-repeat,
     #071A33;
   color: #FDFBF6;
@@ -29,8 +29,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 14% 12%, rgba(246, 190, 16, .10), transparent 28%),
-    radial-gradient(circle at 88% 82%, rgba(230, 36, 83, .12), transparent 28%);
+    radial-gradient(circle at 16% 10%, rgba(255, 255, 255, .08), transparent 30%),
+    radial-gradient(circle at 84% 76%, rgba(255, 255, 255, .045), transparent 34%);
   pointer-events: none;
 }
 
@@ -48,28 +48,52 @@
   }
 }
 
-:global(html[data-theme="amigos-dark"] body[data-page="home"]) .section,
 :global(body[data-page="home"]) .section {
   background-color: #071A33 !important;
   background-image:
-    linear-gradient(180deg, rgba(0, 19, 49, .05), rgba(0, 19, 49, .18)),
-    linear-gradient(90deg, rgba(0, 19, 49, .18), rgba(0, 32, 91, .02) 48%, rgba(0, 19, 49, .18)),
+    linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .03)),
+    linear-gradient(90deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .01) 48%, rgba(255, 255, 255, .04)),
     url("/assets/calculator-glass-bg.png"),
-    linear-gradient(135deg, #001331 0%, #071A33 52%, #00205b 100%) !important;
+    #071A33 !important;
   background-size: auto, auto, cover, auto !important;
   background-position: center, center, center bottom, center !important;
   background-repeat: no-repeat !important;
   animation: none !important;
 }
 
-:global(body[data-page="home"] .home-calculator-cta),
+:global(html[data-theme="amigos-dark"] body[data-page="home"]) .section {
+  background-color: #071A33 !important;
+  background-image:
+    linear-gradient(180deg, rgba(0, 19, 49, .20), rgba(0, 19, 49, .32)),
+    linear-gradient(90deg, rgba(0, 19, 49, .24), rgba(0, 19, 49, .08) 48%, rgba(0, 19, 49, .22)),
+    url("/assets/calculator-glass-bg.png"),
+    #071A33 !important;
+  background-size: auto, auto, cover, auto !important;
+  background-position: center, center, center bottom, center !important;
+  background-repeat: no-repeat !important;
+  animation: none !important;
+}
+
+:global(body[data-page="home"] .home-calculator-cta) {
+  background-color: #071A33 !important;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .03)),
+    linear-gradient(90deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .01) 48%, rgba(255, 255, 255, .04)),
+    url("/assets/calculator-glass-bg.png"),
+    #071A33 !important;
+  background-size: auto, auto, cover, auto !important;
+  background-position: center, center, center bottom, center !important;
+  background-repeat: no-repeat !important;
+  animation: none !important;
+}
+
 :global(html[data-theme="amigos-dark"] body[data-page="home"] .home-calculator-cta) {
   background-color: #071A33 !important;
   background-image:
-    linear-gradient(180deg, rgba(0, 19, 49, .05), rgba(0, 19, 49, .18)),
-    linear-gradient(90deg, rgba(0, 19, 49, .18), rgba(0, 32, 91, .02) 48%, rgba(0, 19, 49, .18)),
+    linear-gradient(180deg, rgba(0, 19, 49, .20), rgba(0, 19, 49, .32)),
+    linear-gradient(90deg, rgba(0, 19, 49, .24), rgba(0, 19, 49, .08) 48%, rgba(0, 19, 49, .22)),
     url("/assets/calculator-glass-bg.png"),
-    linear-gradient(135deg, #001331 0%, #071A33 50%, #00205b 100%) !important;
+    #071A33 !important;
   background-size: auto, auto, cover, auto !important;
   background-position: center, center, center bottom, center !important;
   background-repeat: no-repeat !important;

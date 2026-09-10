@@ -181,8 +181,15 @@ export default function Header() {
                 <span className="item-desc">Color concepts and suitable coating systems</span>
               </div>
             </a>
-            <a href="/services" className="dropdown-item" onMouseEnter={setRandomServiceHover}>
+            <a href="/water-damage" className="dropdown-item" onMouseEnter={setRandomServiceHover}>
               <span className="item-num">09</span>
+              <div className="item-info">
+                <span className="item-title">Damage Remediation</span>
+                <span className="item-desc">Surface repair after moisture, staining and damage</span>
+              </div>
+            </a>
+            <a href="/services" className="dropdown-item" onMouseEnter={setRandomServiceHover}>
+              <span className="item-num">10</span>
               <div className="item-info">
                 <span className="item-title">Discover All Services</span>
                 <span className="item-desc">Explore More Services</span>
@@ -235,7 +242,24 @@ export default function Header() {
         onClick={toggleTheme}
       >
         <span className="theme-toggle-icon" aria-hidden="true">
-          <span></span>
+          {isDarkTheme ? (
+            <svg className="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M20.2 14.2A7.6 7.6 0 0 1 9.8 3.8 8.5 8.5 0 1 0 20.2 14.2Z"
+                fill="currentColor"
+              />
+            </svg>
+          ) : (
+            <svg className="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="4.2" fill="currentColor" />
+              <path
+                d="M12 2.8v2.4M12 18.8v2.4M21.2 12h-2.4M5.2 12H2.8M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7M18.5 18.5l-1.7-1.7M7.2 7.2 5.5 5.5"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          )}
         </span>
       </button>
 

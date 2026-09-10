@@ -52,6 +52,7 @@ export default function Footer() {
             <a href="/exterior-painting">Exterior Painting</a>
             <a href="/Facade-Renovation">Facade Renovation</a>
             <a href="/spray-painting">Spray Painting</a>
+            <a href="/water-damage">Damage Remediation</a>
             <a href="/property-value-preservation">Werterhalt</a>
           </nav>
 

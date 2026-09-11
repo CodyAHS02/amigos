@@ -619,4 +619,44 @@ function drawHighlight(maskName) {
     ctx.restore();
 }
 
+function initMobileColorDock() {
+    const mobileSwatches = document.querySelectorAll(".mobile-swatch");
+    mobileSwatches.forEach((swatch) => {
+        swatch.addEventListener("click", (e) => {
+            e.stopPropagation();
+            mobileSwatches.forEach((s) => s.classList.remove("active"));
+            swatch.classList.add("active");
+            // Show only the back wall behind the sofa as specifically requested
+            wallState["front-wall"] = swatch.dataset.color;
+            wallState["left-wall"] = null;
+            wallState["right-wall"] = null;
+            wallState["ceiling"] = null;
+            renderScene();
+        });
+    });
+
+    const mobileCustom = document.querySelector(".mobile-palette-custom");
+    if (mobileCustom) {
+        mobileCustom.addEventListener("input", (e) => {
+            e.stopPropagation();
+            mobileSwatches.forEach((s) => s.classList.remove("active"));
+            wallState["front-wall"] = mobileCustom.value;
+            wallState["left-wall"] = null;
+            wallState["right-wall"] = null;
+            wallState["ceiling"] = null;
+            renderScene();
+        });
+        mobileCustom.addEventListener("change", (e) => {
+            e.stopPropagation();
+            mobileSwatches.forEach((s) => s.classList.remove("active"));
+            wallState["front-wall"] = mobileCustom.value;
+            wallState["left-wall"] = null;
+            wallState["right-wall"] = null;
+            wallState["ceiling"] = null;
+            renderScene();
+        });
+    }
+}
+
 init();
+initMobileColorDock();

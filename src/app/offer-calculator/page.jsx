@@ -1,10 +1,5 @@
-import OfferCalculator from "@/components/offer-calculator/OfferCalculator";
-
-export const metadata = {
-  title: "Offer Calculator & Request | Amigos Maler",
-  description: "Calculate your estimated AMIGOS MALER project price and request a personal offer."
-};
+import { redirect } from "next/navigation";
 
 export default function OfferCalculatorPage() {
-  return <OfferCalculator />;
+  redirect("/#offer-calculator");
 }

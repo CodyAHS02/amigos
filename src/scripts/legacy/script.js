@@ -520,7 +520,7 @@ const SERVICES_DATA = [
     { num: "05", title: "Property Value Preservation", desc: "Protect and increase long-term property value.", img: "assets/services/pexels-amine-kubranur-cakiroglu-689611212-37919681.jpg", href: "/property-value-preservation" },
     { num: "06", title: "Spray Painting", desc: "Smooth spray finishes for doors, frames, shutters and suitable components.", img: "assets/spray/Hero.png", href: "/spray-painting" },
     { num: "07", title: "Damage Remediation", desc: "Fast repair, drying coordination and clean surface restoration after moisture damage.", img: "assets/services/pexels-mikhail-nilov-8296991.jpg", href: "/water-damage" },
-    { num: "08", title: "Digital Project Planning", desc: "Plan and visualize your project before work begins.", img: "assets/services/engineers-brainstorming-ways-use-ai.jpg", href: "/offer-calculator", tags: ["Price Calculator", "Photo Upload", "Color Visualization"] }
+    { num: "08", title: "Digital Project Planning", desc: "Plan and visualize your project before work begins.", img: "assets/services/engineers-brainstorming-ways-use-ai.jpg", href: "/#offer-calculator", tags: ["Price Calculator", "Photo Upload", "Color Visualization"] }
 ];
 
 (() => {

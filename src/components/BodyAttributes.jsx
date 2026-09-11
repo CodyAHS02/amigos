@@ -7,6 +7,7 @@ const routeBodyState = {
   "/": { dataPage: "home" },
   "/about": { dataPage: "about" },
   "/contact": { className: "contact-page", dataPage: "contact" },
+  "/mold": { dataPage: "mold" },
   "/offer-calculator": { dataPage: "offer-calculator" },
   "/partners": { dataPage: "partners" },
   "/projects": { className: "projects-page", dataPage: "projects" },

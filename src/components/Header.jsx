@@ -188,8 +188,15 @@ export default function Header() {
                 <span className="item-desc">Surface repair after moisture, staining and damage</span>
               </div>
             </a>
-            <a href="/services" className="dropdown-item" onMouseEnter={setRandomServiceHover}>
+            <a href="/mold" className="dropdown-item" onMouseEnter={setRandomServiceHover}>
               <span className="item-num">10</span>
+              <div className="item-info">
+                <span className="item-title">Mold Remediation</span>
+                <span className="item-desc">Scientific moisture diagnosis and mineral anti-mold treatment</span>
+              </div>
+            </a>
+            <a href="/services" className="dropdown-item" onMouseEnter={setRandomServiceHover}>
+              <span className="item-num">11</span>
               <div className="item-info">
                 <span className="item-title">Discover All Services</span>
                 <span className="item-desc">Explore More Services</span>

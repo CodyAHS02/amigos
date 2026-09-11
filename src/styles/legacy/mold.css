@@ -1,0 +1,1278 @@
+/* ==================================================
+   MOLD & MOISTURE REMEDIATION SERVICE PAGE STYLES
+   Amigos Maler GmbH — Olten
+   Supports both amigos-dark and amigos-light themes
+================================================== */
+
+@font-face {
+    font-family: "themeFont";
+    src: url("/fonts/n.woff2");
+}
+
+:root {
+    --am-navy: #071A33;
+    --am-navy-soft: #0D2542;
+    --am-cream: #F7F1E7;
+    --am-offwhite: #FCF8F0;
+    --am-sand: #E9DDC9;
+    --am-greige: #CFC3B1;
+    --am-ochre: #B7893D;
+    --am-olive: #7F8E74;
+    --am-mist: #7FA0A3;
+    --am-ink: #102238;
+    --am-text: #5F5A50;
+    --am-line: #DED2C0;
+    --am-brand-gradient: linear-gradient(135deg, #F6BE10 0%, #F39125 42%, #E62453 100%);
+    --am-brand-gradient-soft: linear-gradient(135deg, rgba(246, 190, 16, 0.12) 0%, rgba(243, 145, 37, 0.14) 42%, rgba(230, 36, 83, 0.12) 100%);
+    --am-shadow-card: 0 16px 40px rgba(7, 26, 51, 0.08);
+    --am-radius-lg: 24px;
+    --am-radius-md: 16px;
+    --am-radius-sm: 10px;
+}
+
+/* ==================================================
+   LIGHT THEME HEADER OVERRIDES (MOLD PAGE ONLY)
+   Makes header links, buttons, and hamburger 100% visible
+   on the light theme mold page without affecting other pages
+================================================== */
+html:not([data-theme="amigos-dark"]) .site-header {
+    background: transparent;
+}
+
+html:not([data-theme="amigos-dark"]) .site-nav a {
+    color: #102238 !important;
+    font-weight: 600;
+}
+
+html:not([data-theme="amigos-dark"]) .site-nav a:hover,
+html:not([data-theme="amigos-dark"]) .site-nav a.active {
+    color: #E62453 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .dropdown-trigger {
+    color: #102238 !important;
+    font-weight: 600;
+}
+
+html:not([data-theme="amigos-dark"]) .dropdown-arrow {
+    stroke: #102238 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .customer-header-btn {
+    color: #102238 !important;
+    border: 1px solid rgba(16, 34, 56, 0.28) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 14px rgba(7, 26, 51, 0.06) !important;
+    font-weight: 600;
+}
+
+html:not([data-theme="amigos-dark"]) .customer-header-btn svg {
+    stroke: #102238 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .customer-header-btn:hover {
+    border-color: #F39125 !important;
+    color: #E62453 !important;
+    background: #ffffff !important;
+}
+
+html:not([data-theme="amigos-dark"]) .customer-header-btn:hover svg {
+    stroke: #E62453 !important;
+}
+
+html:not([data-theme="amigos-dark"]) .header-btn {
+    background: var(--am-brand-gradient) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(230, 36, 83, 0.3) !important;
+}
+
+html:not([data-theme="amigos-dark"]) .theme-toggle {
+    border-color: rgba(16, 34, 56, 0.28) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(10px);
+}
+
+html:not([data-theme="amigos-dark"]) .theme-toggle:hover {
+    border-color: #F39125 !important;
+    background: #ffffff !important;
+}
+
+html:not([data-theme="amigos-dark"]) .hamburger span {
+    background: #102238 !important;
+}
+
+/* Light Theme Scrolled Header (MOLD PAGE ONLY - Clean Frosted Light Glass, No Navy Blue!) */
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled {
+    background: rgba(252, 248, 240, 0.94) !important;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(243, 145, 37, 0.25) !important;
+    box-shadow: 0 12px 36px rgba(243, 145, 37, 0.1), 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+}
+
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .site-nav a,
+html:not([data-theme="amigos-dark"]) .site-header.is-scrolled .dropdown-trigger {
+    color: #102238 !important;
+}
+
+/* ==================================================
+   BASE MOLD PAGE SETUP
+================================================== */
+.mold-page {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--am-ink);
+    background: var(--am-cream);
+    padding-top: 90px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.mold-container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ==================================================
+   HERO SECTION
+================================================== */
+.mold-hero {
+    position: relative;
+    padding: 60px 0 80px;
+    overflow: hidden;
+}
+
+.mold-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.mold-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.mold-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--am-ochre);
+    margin-bottom: 16px;
+}
+
+.mold-eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    background: var(--am-brand-gradient);
+    border-radius: 2px;
+}
+
+.mold-hero h1 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: clamp(34px, 4.4vw, 56px);
+    line-height: 1.12;
+    font-weight: 700;
+    color: var(--am-ink);
+    margin-bottom: 22px;
+    letter-spacing: -0.02em;
+}
+
+.mold-hero h1 span.gradient-text {
+    background: var(--am-brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.mold-hero-p {
+    font-size: clamp(16px, 1.25vw, 18px);
+    line-height: 1.65;
+    color: var(--am-text);
+    margin-bottom: 36px;
+    max-width: 580px;
+}
+
+.mold-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.mold-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff !important;
+    background: var(--am-brand-gradient);
+    text-decoration: none;
+    box-shadow: 0 12px 28px rgba(230, 36, 83, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.mold-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px rgba(230, 36, 83, 0.4);
+}
+
+.mold-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 28px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--am-ink);
+    background: #ffffff;
+    border: 1px solid var(--am-line);
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(7, 26, 51, 0.05);
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.mold-btn-secondary:hover {
+    transform: translateY(-2px);
+    border-color: var(--am-ochre);
+    background: #faf8f5;
+}
+
+/* Quick Metrics Row */
+.mold-hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    padding-top: 24px;
+    border-top: 1px solid var(--am-line);
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.metric-val {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--am-ink);
+}
+
+.metric-lbl {
+    font-size: 12px;
+    color: var(--am-text);
+    line-height: 1.35;
+}
+
+/* Hero Visual Box */
+.mold-hero-visual {
+    position: relative;
+    border-radius: var(--am-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(7, 26, 51, 0.16);
+    aspect-ratio: 4 / 3;
+}
+
+.mold-hero-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+/* Visual Badge: Gradient Box in Light Theme */
+.mold-visual-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--am-brand-gradient);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 14px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    box-shadow: 0 10px 26px rgba(230, 36, 83, 0.35);
+}
+
+.badge-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.badge-icon svg {
+    width: 18px;
+    height: 18px;
+    color: #ffffff;
+}
+
+.badge-text strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.badge-text span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ==================================================
+   SECTION HEADERS
+================================================== */
+.mold-section-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 54px;
+}
+
+.mold-section-kicker {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--am-ochre);
+    margin-bottom: 12px;
+}
+
+.mold-section-header h2 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.2;
+    color: var(--am-ink);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+}
+
+.mold-section-header p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--am-text);
+}
+
+/* ==================================================
+   SECTION: WHY OVERPAINTING FAILS (SCIENCE SECTION)
+================================================== */
+.mold-science {
+    padding: 90px 0;
+    background: var(--am-offwhite);
+    position: relative;
+}
+
+.mold-science-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.science-card {
+    background: #ffffff;
+    border-radius: var(--am-radius-lg);
+    padding: 40px;
+    border: 1px solid var(--am-line);
+    box-shadow: var(--am-shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.science-card:hover {
+    transform: translateY(-4px);
+}
+
+.science-card.bad {
+    border-top: 4px solid #E62453;
+}
+
+/* Recommended Science Card: Gradient Accent Box */
+.science-card.good {
+    border: 2px solid transparent;
+    background: linear-gradient(#ffffff, #ffffff) padding-box, var(--am-brand-gradient) border-box;
+    box-shadow: 0 16px 45px rgba(243, 145, 37, 0.12);
+}
+
+.science-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    width: fit-content;
+}
+
+.science-card.bad .science-tag {
+    background: rgba(230, 36, 83, 0.1);
+    color: #E62453;
+}
+
+.science-card.good .science-tag {
+    background: var(--am-brand-gradient);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(230, 36, 83, 0.25);
+}
+
+.science-card h3 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: 24px;
+    line-height: 1.3;
+    color: var(--am-ink);
+}
+
+.science-card p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--am-text);
+}
+
+.science-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.science-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--am-text);
+}
+
+.science-list li svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.science-card.bad .science-list li svg {
+    color: #E62453;
+}
+
+.science-card.good .science-list li svg {
+    color: #E62453;
+}
+
+/* ==================================================
+   SECTION: CORE SERVICES (WHAT WE TREAT)
+================================================== */
+.mold-services {
+    padding: 100px 0;
+}
+
+.mold-services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.mold-service-card {
+    background: #ffffff;
+    border-radius: var(--am-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--am-line);
+    box-shadow: var(--am-shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.mold-service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px rgba(243, 145, 37, 0.16);
+    border-color: #F39125;
+}
+
+.mold-service-media {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.mold-service-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.mold-service-card:hover .mold-service-media img {
+    transform: scale(1.05);
+}
+
+/* Number Badges: Brand Gradient Box */
+.mold-service-num {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--am-brand-gradient);
+    color: #ffffff;
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(230, 36, 83, 0.3);
+}
+
+.mold-service-body {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.mold-service-body h3 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: 21px;
+    line-height: 1.3;
+    color: var(--am-ink);
+    margin-bottom: 8px;
+}
+
+.mold-service-body h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--am-ochre);
+    margin-bottom: 14px;
+}
+
+.mold-service-body p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--am-text);
+    margin-bottom: 24px;
+    flex-grow: 1;
+}
+
+.mold-service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--am-ink);
+    text-decoration: none;
+    transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.mold-service-link:hover {
+    color: #E62453;
+    gap: 12px;
+}
+
+/* FEATURED GRADIENT SERVICE BOX */
+.mold-service-card.featured-gradient {
+    background: var(--am-brand-gradient);
+    border: none;
+    box-shadow: 0 20px 50px rgba(230, 36, 83, 0.32);
+    color: #ffffff;
+}
+
+.mold-service-card.featured-gradient .mold-service-num {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    box-shadow: none;
+}
+
+.mold-service-card.featured-gradient .mold-service-body h3,
+.mold-service-card.featured-gradient .mold-service-body h4,
+.mold-service-card.featured-gradient .mold-service-body p {
+    color: #ffffff !important;
+}
+
+.mold-service-card.featured-gradient .mold-service-body h4 {
+    opacity: 0.92;
+}
+
+.mold-service-card.featured-gradient .mold-service-link {
+    background: #ffffff;
+    color: #E62453 !important;
+    padding: 10px 20px;
+    border-radius: 999px;
+    width: fit-content;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.mold-service-card.featured-gradient .mold-service-link:hover {
+    background: #faf8f5;
+    transform: translateY(-2px);
+}
+
+/* ==================================================
+   SECTION: INTERACTIVE BEFORE / AFTER SLIDER
+================================================== */
+.mold-comparison {
+    padding: 90px 0;
+    background: var(--am-offwhite);
+}
+
+.ba-slider-container {
+    position: relative;
+    max-width: 1040px;
+    margin: 0 auto;
+    height: 520px;
+    border-radius: var(--am-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(7, 26, 51, 0.12);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    border: 1px solid var(--am-line);
+}
+
+.ba-pane {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+.ba-pane img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.ba-before-pane {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.ba-after-pane {
+    right: 0;
+    width: 50%;
+    z-index: 1;
+}
+
+.ba-after-pane img {
+    right: 0;
+    left: auto;
+}
+
+.ba-label {
+    position: absolute;
+    top: 20px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+    transition: opacity 0.2s ease;
+}
+
+.ba-label.before-label {
+    left: 20px;
+    background: rgba(230, 36, 83, 0.88);
+    color: #ffffff;
+}
+
+.ba-label.after-label {
+    right: 20px;
+    background: var(--am-brand-gradient);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(230, 36, 83, 0.3);
+}
+
+.ba-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #ffffff;
+    z-index: 4;
+    cursor: ew-resize;
+    transform: translateX(-50%);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.35);
+}
+
+.ba-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #E62453;
+}
+
+.ba-caption {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--am-text);
+}
+
+/* ==================================================
+   SECTION: PROCESS (4 STEPS)
+================================================== */
+.mold-process {
+    padding: 100px 0;
+}
+
+.mold-process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.mold-process-card {
+    background: #ffffff;
+    border-radius: var(--am-radius-lg);
+    padding: 36px 24px;
+    border: 1px solid var(--am-line);
+    box-shadow: var(--am-shadow-card);
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.mold-process-card:hover {
+    transform: translateY(-6px);
+    border-color: #F39125;
+}
+
+.mold-step-number {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    background: var(--am-brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    line-height: 1;
+    display: inline-block;
+}
+
+.mold-process-card h3 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--am-ink);
+    margin-bottom: 12px;
+}
+
+.mold-process-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--am-text);
+}
+
+/* ==================================================
+   SECTION: REAL ESTATE VALUE & COMPLIANCE
+   (Full Gradient Box in Light Theme - NO NAVY BLUE!)
+================================================== */
+.mold-real-estate {
+    padding: 90px 0;
+    background: var(--am-offwhite);
+}
+
+.mold-re-banner {
+    background: var(--am-brand-gradient);
+    border-radius: var(--am-radius-lg);
+    padding: 56px;
+    color: #ffffff;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(230, 36, 83, 0.28);
+}
+
+.mold-re-banner::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.22), transparent 70%);
+    pointer-events: none;
+}
+
+.re-eyebrow {
+    color: #ffffff !important;
+}
+.re-eyebrow::before {
+    background: #ffffff !important;
+}
+
+.mold-re-content h2 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.25;
+    margin-bottom: 18px;
+    color: #ffffff;
+}
+
+.mold-re-content p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 24px;
+}
+
+.mold-re-features {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.re-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.re-feature svg {
+    color: #ffffff;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 3px;
+    border-radius: 6px;
+}
+
+/* Glassmorphic Box inside Gradient Banner */
+.mold-re-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: var(--am-radius-md);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.mold-re-card h3 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.mold-re-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+}
+
+.mold-re-card .mold-btn-primary {
+    align-self: flex-start;
+    margin-top: 8px;
+    background: #ffffff !important;
+    color: #E62453 !important;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mold-re-card .mold-btn-primary:hover {
+    background: #faf8f5 !important;
+    transform: translateY(-2px);
+}
+
+/* ==================================================
+   SECTION: FAQ ACCORDION
+================================================== */
+.mold-faq {
+    padding: 100px 0;
+}
+
+.faq-accordion {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.faq-item {
+    background: #ffffff;
+    border-radius: var(--am-radius-md);
+    border: 1px solid var(--am-line);
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.faq-item.active {
+    border-color: #F39125;
+    box-shadow: 0 10px 30px rgba(243, 145, 37, 0.12);
+}
+
+.faq-header {
+    width: 100%;
+    padding: 22px 28px;
+    background: none;
+    border: none;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    gap: 16px;
+}
+
+.faq-header h3 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: 17px;
+    line-height: 1.35;
+    color: var(--am-ink);
+    margin: 0;
+    font-weight: 600;
+}
+
+.faq-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--am-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--am-ink);
+    flex-shrink: 0;
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    background: var(--am-brand-gradient);
+    color: #ffffff;
+}
+
+.faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 28px;
+}
+
+.faq-item.active .faq-body {
+    max-height: 300px;
+    padding: 0 28px 24px;
+}
+
+.faq-body p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--am-text);
+    margin: 0;
+}
+
+/* ==================================================
+   FINAL CTA BANNER
+   (Full Gradient Box in Light Theme - NO NAVY BLUE!)
+================================================== */
+.mold-final-cta {
+    padding: 90px 0;
+    background: var(--am-offwhite);
+}
+
+.mold-cta-box {
+    background: var(--am-brand-gradient);
+    border-radius: var(--am-radius-lg);
+    padding: 64px 40px;
+    text-align: center;
+    color: #ffffff;
+    box-shadow: 0 24px 60px rgba(230, 36, 83, 0.32);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mold-cta-box h2 {
+    font-family: "themeFont", Inter, sans-serif;
+    font-size: clamp(28px, 3.8vw, 44px);
+    line-height: 1.2;
+    margin-bottom: 18px;
+    color: #ffffff;
+}
+
+.mold-cta-box p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.94);
+    max-width: 640px;
+    margin: 0 auto 36px;
+}
+
+.mold-cta-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.mold-cta-box .mold-btn-primary {
+    background: #ffffff !important;
+    color: #E62453 !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.mold-cta-box .mold-btn-primary:hover {
+    background: #faf8f5 !important;
+    transform: translateY(-3px);
+}
+
+.mold-cta-box .mold-btn-secondary {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    color: #ffffff !important;
+}
+
+.mold-cta-box .mold-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* ==================================================
+   DARK THEME SPECIFIC OVERRIDES (html[data-theme="amigos-dark"])
+================================================== */
+html[data-theme="amigos-dark"] .mold-page {
+    background: #071A33 !important;
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] .site-nav a {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+html[data-theme="amigos-dark"] .dropdown-trigger {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+html[data-theme="amigos-dark"] .dropdown-arrow {
+    stroke: rgba(255, 255, 255, 0.78) !important;
+}
+
+html[data-theme="amigos-dark"] .customer-header-btn {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="amigos-dark"] .hamburger span {
+    background: #ffffff !important;
+}
+
+html[data-theme="amigos-dark"] .mold-hero {
+    background: transparent !important;
+}
+
+html[data-theme="amigos-dark"] .mold-hero h1,
+html[data-theme="amigos-dark"] .mold-section-header h2,
+html[data-theme="amigos-dark"] .science-card h3,
+html[data-theme="amigos-dark"] .mold-service-body h3,
+html[data-theme="amigos-dark"] .mold-process-card h3,
+html[data-theme="amigos-dark"] .faq-header h3,
+html[data-theme="amigos-dark"] .metric-val {
+    color: #FDFBF6 !important;
+}
+
+html[data-theme="amigos-dark"] .mold-eyebrow,
+html[data-theme="amigos-dark"] .mold-section-kicker,
+html[data-theme="amigos-dark"] .mold-service-body h4 {
+    color: #F6BE10 !important;
+}
+
+html[data-theme="amigos-dark"] .mold-hero-p,
+html[data-theme="amigos-dark"] .mold-section-header p,
+html[data-theme="amigos-dark"] .science-card p,
+html[data-theme="amigos-dark"] .science-list li,
+html[data-theme="amigos-dark"] .mold-service-body p,
+html[data-theme="amigos-dark"] .mold-process-card p,
+html[data-theme="amigos-dark"] .faq-body p,
+html[data-theme="amigos-dark"] .metric-lbl,
+html[data-theme="amigos-dark"] .ba-caption {
+    color: rgba(253, 251, 246, 0.78) !important;
+}
+
+html[data-theme="amigos-dark"] .mold-hero-metrics {
+    border-top-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme="amigos-dark"] .mold-btn-secondary {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="amigos-dark"] .mold-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+    border-color: #F6BE10 !important;
+}
+
+html[data-theme="amigos-dark"] .mold-science,
+html[data-theme="amigos-dark"] .mold-comparison,
+html[data-theme="amigos-dark"] .mold-real-estate,
+html[data-theme="amigos-dark"] .mold-final-cta {
+    background: #091E3A !important;
+}
+
+html[data-theme="amigos-dark"] .science-card,
+html[data-theme="amigos-dark"] .mold-service-card,
+html[data-theme="amigos-dark"] .mold-process-card,
+html[data-theme="amigos-dark"] .faq-item {
+    background: rgba(13, 37, 66, 0.88) !important;
+    border-color: rgba(247, 241, 231, 0.14) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24) !important;
+}
+
+html[data-theme="amigos-dark"] .mold-service-link {
+    color: #F6BE10 !important;
+}
+
+html[data-theme="amigos-dark"] .faq-icon {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="amigos-dark"] .faq-item.active .faq-icon {
+    background: #F6BE10 !important;
+    color: #071A33 !important;
+}
+
+html[data-theme="amigos-dark"] .ba-slider-container {
+    border-color: rgba(255, 255, 255, 0.16) !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ==================================================
+   RESPONSIVE BREAKPOINTS MATRIX
+================================================== */
+@media (max-width: 1080px) {
+    .mold-services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mold-process-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mold-hero-metrics {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 16px;
+    }
+
+    .mold-re-banner {
+        grid-template-columns: 1fr;
+        padding: 40px;
+    }
+}
+
+@media (max-width: 860px) {
+    .mold-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .mold-science-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ba-slider-container {
+        height: 380px;
+    }
+}
+
+@media (max-width: 640px) {
+    .mold-page {
+        padding-top: 80px;
+    }
+
+    .mold-hero {
+        padding: 40px 0 60px;
+    }
+
+    .mold-services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mold-process-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ba-slider-container {
+        height: 280px;
+    }
+
+    .mold-hero-actions {
+        flex-direction: column;
+    }
+
+    .mold-btn-primary,
+    .mold-btn-secondary {
+        width: 100%;
+    }
+
+    .mold-re-banner {
+        padding: 28px 20px;
+    }
+
+    .mold-cta-box {
+        padding: 44px 20px;
+    }
+
+    .science-card {
+        padding: 24px;
+    }
+}
